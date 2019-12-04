@@ -4,10 +4,60 @@ import game.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
 public class ForestFight extends JFrame {
+
+    //simon variabler
+    int warriorstartx = 170, warriorstarty = 210, warriorx = warriorstartx, warriory = warriorstarty;
+    int rangerstartx = 70, rangerstarty = 290, rangerx = rangerstartx, rangery = rangerstarty;
+    int magestartx = -110, magestarty = 290, magex = magestartx, magey = magestarty;
+    int healerstartx = -30, healerstarty = 210, healerx = healerstartx, healery = healerstarty;
+    
+    int arrowx = 120;
+    int arrowy = 360;
+    int arrowstartx = arrowx;
+    int arrowstarty = arrowy;
+    int phase = 0; //för animationer
+    int timepast = 0;
+    int flamestrikey = -400;
+
+    JLabel arrow = new JLabel(new ImageIcon("arrow.png"));
+    JLabel volley1 = new JLabel(new ImageIcon("arrow.png"));
+    JLabel volley2 = new JLabel(new ImageIcon("arrow.png"));
+    JLabel volley3 = new JLabel(new ImageIcon("arrow.png"));
+    JLabel flame = new JLabel(new ImageIcon("flame.gif"));
+    JLabel firestorm = new JLabel(new ImageIcon("bigfire.gif"));
+
+
+    int wolf1x = 850;
+    int wolf1y = 320;
+    int wolf1startx = wolf1x;
+    int wolf1starty = wolf1y;
+    int wolf2x = 1030;
+    int wolf2y = 320;
+    int wolf2startx = wolf2x;
+    int wolf2starty = wolf2y;
+    int wolf3x = 900;
+    int wolf3y = 400;
+    int wolf3startx = wolf3x;
+    int wolf3starty = wolf3y;
+    int wolf4x = 1080;
+    int wolf4y = 400;
+    int wolf4startx = wolf4x;
+    int wolf4starty = wolf4y;
+
+
+
+
+
+
+
+
+
 
     //Objects
     private Inventory inv = new Inventory();
@@ -22,6 +72,7 @@ public class ForestFight extends JFrame {
     //Create buttons
     private JButton attackButton, blockButton, itemButton, skillButton, endTurnButton;
     private JButton exitInventory, potion1, potion2, potion3, potion4, potion5, potion6, potion7, potion8, potion9, potion10, potion11, potion12;
+    private JButton skill1Button, skill2Button, skill3Button, skill4Button, returnButton; //spells
 
     //Create Labels
     private JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr ,potion1Label,potion2Label,potion3Label,potion4Label,potion5Label,potion6Label,potion7Label,potion8Label,potion9Label,potion10Label,potion11Label,potion12Label;
@@ -68,6 +119,7 @@ public class ForestFight extends JFrame {
         importPartyGif();
         importButtons();
         importLabels();
+        spellMenuStartup();
 
         //Add all Labels, buttons etc...
         add(energy);
@@ -95,6 +147,11 @@ public class ForestFight extends JFrame {
         add(player2Hp);
         add(player3Hp);
         add(player4Hp);
+        add(skill1Button);
+        add(skill2Button);
+        add(skill3Button);
+        add(skill4Button);
+        add(returnButton);
 
         hoverEffect();
         MusicPick.musicStart("forest1","music");
@@ -105,11 +162,260 @@ public class ForestFight extends JFrame {
         attackButton.addActionListener(e -> attackPressed());
         blockButton.addActionListener(e -> blockPressed());
         itemButton.addActionListener(e -> itemPressed());
-        skillButton.addActionListener(e -> System.exit(0)); //for now
+        skillButton.addActionListener(e -> spellMenuActive()); //for now
         endTurnButton.addActionListener(e-> startNewTurn());
+        skill1Button.addActionListener(e -> {skill1();});
+        skill2Button.addActionListener(e -> {skill2();});
+        skill3Button.addActionListener(e -> {skill3();});
+        skill4Button.addActionListener(e -> {skill4();});
+
+
+        //ActionListeners spellsmenu
+        returnButton.addActionListener(e-> spellMenuInactive());
+
+
+
+
+
+
+        //simon saker \/
+        Dimension arrowSize = arrow.getPreferredSize();
+        arrow.setSize(arrowSize.width, arrowSize.height);
+        arrow.setLocation(-100, arrowx);
+        add(arrow);
+
+        volley1.setSize(arrowSize.width, arrowSize.height);
+        volley1.setLocation(-100, arrowx);
+        volley1.setVisible(false);
+        add(volley1);
+        volley2.setSize(arrowSize.width, arrowSize.height);
+        volley2.setLocation(-100, arrowx);
+        volley2.setVisible(false);
+        add(volley2);
+        volley3.setSize(arrowSize.width, arrowSize.height);
+        volley3.setLocation(-100, arrowx);
+        volley3.setVisible(false);
+        add(volley3);
+
+        Dimension fireSize = firestorm.getPreferredSize();
+        firestorm.setSize(fireSize.width, fireSize.height);
+        firestorm.setLocation(800, 300);
+        add(firestorm);
+        firestorm.setVisible(false);
+
+        Dimension flameSize = flame.getPreferredSize();
+        flame.setSize(flameSize.width, flameSize.height);
+        flame.setLocation(900, flamestrikey);
+        add(flame);
+        flame.setVisible(true);
+
+
+
+
+
+
+
+
 
         setVisible(true);
     }
+
+
+
+
+
+
+
+
+
+    //simons del
+    public void spellMenuStartup(){
+
+        //button 1
+        skill1Button = new JButton("error skill 1           ");
+        skill1Button.setSize(200, 70);
+        skill1Button.setLocation(840, 555);
+        skill1Button.setFont(pixelMplus.deriveFont(30f));
+        skill1Button.setBackground(Color.white);
+        skill1Button.setBorder(null); //Remove border around button
+        skill1Button.setFocusPainted(false);//Remove border around text in button
+
+        //button 2
+        skill2Button = new JButton("error skill 2           ");
+        skill2Button.setSize(200, 70);
+        skill2Button.setLocation(1050, 555);
+        skill2Button.setFont(pixelMplus.deriveFont(30f));
+        skill2Button.setBackground(Color.white);
+        skill2Button.setBorder(null); //Remove border around button
+        skill2Button.setFocusPainted(false);//Remove border around text in button
+
+        //button 3
+        skill3Button = new JButton("error skill 3            ");
+        skill3Button.setSize(200, 70);
+        skill3Button.setLocation(1050, 630);
+        skill3Button.setFont(pixelMplus.deriveFont(30f));
+        skill3Button.setBackground(Color.white);
+        skill3Button.setBorder(null); //Remove border around button
+        skill3Button.setFocusPainted(false);//Remove border around text in button
+
+        //Skill Button
+        skill4Button = new JButton("error skill 4            ");
+        skill4Button.setSize(200, 70);
+        skill4Button.setLocation(840, 630);
+        skill4Button.setFont(pixelMplus.deriveFont(30f));
+        skill4Button.setBackground(Color.white);
+        skill4Button.setBorder(null); //Remove border around button
+        skill4Button.setFocusPainted(false);//Remove border around text in button
+
+        returnButton = new JButton("Return");
+        returnButton.setSize(200, 70);
+        returnButton.setLocation(540, 468);
+        returnButton.setFont(pixelMplus.deriveFont(30f));
+        returnButton.setBackground(Color.white);
+        returnButton.setBorder(null); //Remove border around button
+        returnButton.setFocusPainted(false);//Remove border around text in button
+        returnButton.setVisible(false);
+
+    }
+    
+    private void spellMenuActive(){
+        attackButton.setVisible(false);
+        blockButton.setVisible(false);
+        itemButton.setVisible(false);
+        skillButton.setVisible(false);
+        endTurnButton.setVisible(false);
+
+        skill1Button.setVisible(true);
+        skill2Button.setVisible(true);
+        skill3Button.setVisible(true);
+        skill4Button.setVisible(true);
+        returnButton.setVisible(true);
+
+        //warrior
+        if (turns == 1){
+            skill1Button.setText("Charge");
+            skill2Button.setText("Skull cracker");
+            skill3Button.setText("Battlecry");
+            skill4Button.setText("Demoralize");
+        }
+        //ranger
+        if (turns == 2){
+            skill1Button.setText("Volley");
+            skill2Button.setText("");
+            skill3Button.setText("");
+            skill4Button.setText("");
+        }
+        //mage
+        if (turns == 3) {
+            skill1Button.setText("Fireball");
+            skill2Button.setText("Magic missile");
+            skill3Button.setText("Flamestrike");
+            skill4Button.setText("Pyroblast");
+        }
+        //healer
+        if (turns == 4){
+            skill1Button.setText("Heal");
+            skill2Button.setText("Deal");
+            skill3Button.setText("Feel");
+            skill4Button.setText("Real");
+        }
+    }
+    private void spellMenuInactive(){
+        attackButton.setVisible(true);
+        blockButton.setVisible(true);
+        itemButton.setVisible(true);
+        skillButton.setVisible(true);
+        endTurnButton.setVisible(true);
+
+        skill1Button.setVisible(false);
+        skill2Button.setVisible(false);
+        skill3Button.setVisible(false);
+        skill4Button.setVisible(false);
+        returnButton.setVisible(false);
+    }
+
+    private void skill1(){
+        if (turns == 1){
+            charge.start();
+        }
+        if(turns == 2){
+            volley.start();
+        }
+        if (turns == 3){
+
+        }
+        if (turns == 4){
+
+        }
+    }
+
+    private void skill2(){
+        if (turns == 1){
+            
+        }
+        if(turns == 2){
+            
+        }
+        if (turns == 3){
+
+        }
+        if (turns == 4){
+
+        }
+    }
+
+    private void skill3(){
+        if (turns == 1){
+            
+        }
+        if(turns == 2){
+            
+        }
+        if (turns == 3){
+            flameStrike.start();
+        }
+        if (turns == 4){
+
+        }
+    }
+
+    private void skill4(){
+        if (turns == 1){
+            
+        }
+        if(turns == 2){
+            
+        }
+        if (turns == 3){
+
+        }
+        if (turns == 4){
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //When you press "end turn" button.
     private void startNewTurn(){
@@ -191,7 +497,9 @@ public class ForestFight extends JFrame {
             turns=5;
         }
         //  ***ENEMIES TURN***
+        if (turns==5){enemyTurnTimer.start();}
         //Wolf 1
+        /*
         if (turns==5 && wolf1Int>0){
             whosTurn.setText("Wolf 1 turn");
             playersHp.setText("Hp: "+wolf1Int);
@@ -241,6 +549,7 @@ public class ForestFight extends JFrame {
             turns=0;
             startNewTurn();
         }
+         */
     }
 
     //When player press block
@@ -1330,22 +1639,22 @@ public class ForestFight extends JFrame {
         warrior = new JLabel();
         warrior.setIcon(new ImageIcon("warrior.gif"));
         Dimension warriorSize = warrior.getPreferredSize();
-        warrior.setBounds(170, 210, warriorSize.width, warriorSize.height);
+        warrior.setBounds(warriorstartx, warriorstarty, warriorSize.width, warriorSize.height);
 
         healer = new JLabel();
         healer.setIcon(new ImageIcon("healer.gif"));
         Dimension healerSize = healer.getPreferredSize();
-        healer.setBounds(-30, 210, healerSize.width, healerSize.height);
+        healer.setBounds(healerstartx, healerstarty, healerSize.width, healerSize.height);
 
         ranger = new JLabel();
         ranger.setIcon(new ImageIcon("ranger.gif"));
         Dimension rangerSize = ranger.getPreferredSize();
-        ranger.setBounds(70, 290, rangerSize.width, rangerSize.height);
+        ranger.setBounds(rangerstartx, rangerstarty, rangerSize.width, rangerSize.height);
 
         mage = new JLabel();
         mage.setIcon(new ImageIcon("mage.gif"));
         Dimension mageSize = mage.getPreferredSize();
-        mage.setBounds(-110, 290, mageSize.width, mageSize.height);
+        mage.setBounds(magestartx, magestarty, mageSize.width, mageSize.height);
     }
 
     //Get wolf gif.
@@ -1440,4 +1749,281 @@ public class ForestFight extends JFrame {
             }
         });
     }
+
+
+
+
+
+
+
+
+
+    //simons animationer
+
+
+
+
+    Timer charge = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0) {
+                MusicPick.musicStart("charge", "");
+                phase = 1;
+            }
+            else if (phase == 1) {
+                warriorx += 20;
+                warrior.setLocation(warriorx, warriory);
+                if (warriorx > 2000) {
+                    phase = 2;
+                }
+            }
+            else if (phase == 2) {
+                warriorx = warriorstartx;
+                warriory = warriorstarty;
+                warrior.setLocation(warriorx,warriory);
+                phase = 0;
+                charge.stop();
+            }
+        }
+    });
+
+    Timer volley = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            arrowx += 30;
+            volley1.setLocation(arrowx, arrowy);
+            volley2.setLocation(arrowx - 200, arrowy);
+            volley3.setLocation(arrowx - 400, arrowy);
+            if (phase == 0) {
+                volley1.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 1;
+            }
+            else if (phase == 1 && arrowx > arrowstartx + 300) {
+                volley2.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 2;
+            }
+            else if (phase == 2 && arrowx > arrowstartx + 600) {
+                volley3.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 3;
+            }
+            else if (phase == 3 && arrowx > 1000) {
+                volley1.setVisible(false);
+                phase = 4;
+            }
+            else if (phase == 4 && arrowx > 1200) {
+                volley2.setVisible(false);
+                phase = 5;
+            }
+            else if (phase == 5 && arrowx > 1400) {
+                volley3.setVisible(false);
+                phase = 6;
+            }
+            if (phase == 6) {
+                arrowx = 300;
+                volley1.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 7;
+            }
+            else if (phase == 7 && arrowx > arrowstartx + 300) {
+                volley2.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 8;
+            }
+            else if (phase == 8 && arrowx > arrowstartx + 600) {
+                volley3.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 9;
+            }
+            else if (phase == 9 && arrowx > 1000) {
+                volley1.setVisible(false);
+                phase = 10;
+            }
+            else if (phase == 10 && arrowx > 1200) {
+                volley2.setVisible(false);
+                phase = 11;
+            }
+            else if (phase == 11 && arrowx > 1400) {
+                volley3.setVisible(false);
+                phase = 12;
+                arrowx = 300;
+            }
+            if (phase == 12) {
+                volley1.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 13;
+            }
+            else if (phase == 13 && arrowx > arrowstartx + 300) {
+                volley2.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 14;
+            }
+            else if (phase == 14 && arrowx > arrowstartx + 600) {
+                volley3.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 15;
+            }
+            else if (phase == 15 && arrowx > 1000) {
+                volley1.setVisible(false);
+                phase = 16;
+            }
+            else if (phase == 16 && arrowx > 1200) {
+                volley2.setVisible(false);
+                phase = 17;
+            }
+            else if (phase == 17 && arrowx > 1400) {
+                volley3.setVisible(false);
+                phase = 18;
+            }
+            else if (phase == 18){
+                arrowx = 270;
+                phase = 0;
+                volley.stop();
+            }
+        }
+    });
+
+    Timer flameStrike = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+
+            if (phase == 0) {
+                MusicPick.musicStart("magespell", "");
+                phase = 1;
+            }
+            else if (phase == 1){
+                magey -= 3;
+                mage.setLocation(magex, magey);
+                if (magey < 50) {
+                    phase = 2;
+                }}
+            else if (phase == 2) {
+                if (magey < 50) {
+                    magey = 50;
+                    mage.setLocation(magex, magey);
+                }
+                timepast++;
+                if (timepast < 100) {
+                    if (timepast % 2 == 1) {
+                        magex += 6;
+                        mage.setLocation(magex, magey);
+                        flamestrikey += 13;
+                        flame.setLocation(900, flamestrikey);
+                    } else {
+                        magex -= 6;
+                        mage.setLocation(magex, magey);
+                    }
+                }
+                if (timepast == 102) {
+                    mage.setLocation(magex, magey);
+                    firestorm.setVisible(true);
+                    flamestrikey = -400;
+                    flame.setLocation(700, flamestrikey);
+                }
+                if (timepast > 130) {
+                    timepast = 0;
+                    phase = 3;
+                }
+            } else if (phase == 3) {
+                magey += 3;
+                mage.setLocation(magex, magey);
+                if (magey > magestarty) {
+                    magex = magestartx;
+                    magey = magestarty;
+                    mage.setLocation(magex, magey);
+                    phase = 4;
+                }
+            } else if (phase == 4) {
+                timepast++;
+                if (timepast > 30) {
+                    timepast = 0;
+                    firestorm.setVisible(false);
+                    flameStrike.stop();
+                    phase = 0;
+                }
+            }
+        }
+    });
+
+
+
+    Timer enemyTurnTimer = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timepast++;
+            endTurnButton.setVisible(false);
+            if (timepast < 100) {
+                whosTurn.setText("Wolf 1 turn");
+                playersHp.setText("Hp: " + wolf1Int);
+                energy.setText("  ");
+            }
+            else if (timepast == 100 && wolf1Int > 0) {
+                wolfAttack();
+                partyDeath();
+            } else if (timepast < 110) {
+                wolf1x -= 15;
+                wolf1.setLocation(wolf1x, wolf1y);
+            } else if (timepast < 120) {
+                wolf1x += 15;
+                wolf1.setLocation(wolf1x, wolf1y);
+            }
+
+            else if (timepast < 200) {
+                wolf1.setLocation(wolf1startx, wolf1starty);
+                whosTurn.setText("Wolf 2 turn");
+                playersHp.setText("Hp: " + wolf2Int);
+                energy.setText("  ");
+            } else if (timepast == 200 && wolf2Int > 0) {
+                wolfAttack();
+                partyDeath();
+            } else if (timepast < 210) {
+                wolf2x -= 15;
+                wolf2.setLocation(wolf2x, wolf2y);
+            } else if (timepast < 220) {
+                wolf2x += 15;
+                wolf2.setLocation(wolf2x, wolf2y);
+            }
+
+            else if (timepast < 300) {
+                wolf2.setLocation(wolf2startx, wolf2starty);
+                whosTurn.setText("Wolf 3 turn");
+                playersHp.setText("Hp: " + wolf3Int);
+                energy.setText("  ");
+            } else if (timepast == 300 && wolf3Int > 0) {
+                wolfAttack();
+                partyDeath();
+            } else if (timepast < 310) {
+                wolf3x -= 15;
+                wolf3.setLocation(wolf3x, wolf3y);
+            } else if (timepast < 320) {
+                wolf3x += 15;
+                wolf3.setLocation(wolf3x, wolf3y);
+            }
+
+            else if (timepast < 400) {
+                wolf3.setLocation(wolf3startx, wolf3starty);
+                whosTurn.setText("Wolf 4 turn");
+                playersHp.setText("Hp: " + wolf4Int);
+                energy.setText("  ");
+            } else if (timepast == 400 && wolf4Int > 0) {
+                wolfAttack();
+                partyDeath();
+            } else if (timepast < 410) {
+                wolf4x -= 15;
+                wolf4.setLocation(wolf4x, wolf4y);
+            } else if (timepast < 420) {
+                wolf4x += 15;
+                wolf4.setLocation(wolf4x, wolf4y);
+            } else if (timepast < 500) {
+                wolf4.setLocation(wolf4startx, wolf4starty);
+                enemyTurnTimer.stop();
+                turns = 0;
+                timepast = 0;
+                startNewTurn();
+                endTurnButton.setVisible(true);
+            }
+        }
+    });
 }
