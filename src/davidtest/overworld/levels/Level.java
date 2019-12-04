@@ -3,6 +3,7 @@ package davidtest.overworld.levels;
 import davidtest.overworld.entities.Entity;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.levels.tiles.Tile;
+import game.NewGame;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -30,7 +31,6 @@ public class Level {
             this.width = 64;
             this.height = 64;
             tiles = new byte[width * height];
-            this.generateLevel();
         }
     }
 
@@ -75,18 +75,6 @@ public class Level {
         this.tiles[x+y*width] = newTile.getId();
         image.setRGB(x,y,newTile.getLevelColour());
     }
-    //Generate the tiles into the level
-    public void generateLevel() {
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                if (x * y % 10 < 7) {
-                    tiles[x + y * width] = Tile.START.getId();
-                } else {
-                    tiles[x + y * width] = Tile.STONE.getId();
-                }
-            }
-        }
-    }
 
     public void tick() {
         for (Entity e : entities) {
@@ -126,7 +114,7 @@ public class Level {
     public Tile getTile (int x, int y) {
         if (0 > x || x >= width || 0 > y || y >= height)
             return  Tile.VOID;
-        return Tile.tiles[tiles[x + y * width]];
+        return Tile.tiles[tiles[x + y * height]];
     }
     public void addEntity(Entity entity) {
         this.entities.add(entity); //call the Entity-class into the Level-class by adding the Player-object into Level-object

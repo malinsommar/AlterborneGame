@@ -22,7 +22,7 @@ public abstract class Mob extends Entity {
 
     //method to indicate where the mob is moving.
     public void move(int xa, int ya) {
-        //Makes it so you can´t move two directions at once
+        //if either xa or ya:s value is above 0 movement is set to 0 zero
         if (xa != 0 && ya != 0) {
             move(0, 0);
             numSteps--; //when moving it will automatically count as two moves, and therefor we add a subtraction.
@@ -33,7 +33,7 @@ public abstract class Mob extends Entity {
 
         //Collision detection
         if (!hasCollided(xa, ya)) {
-            //add directional indicators
+            //indicate which way character will be facing 
             if (ya < 0)
                 movingDir = 0;
             if (ya > 0)
@@ -42,44 +42,23 @@ public abstract class Mob extends Entity {
                 movingDir = 2;
             if (xa > 0)
                 movingDir = 3;
-            //create movement
             x += xa * speed;
             y += ya * speed;
-        }
-
-        if (!hasEntered(xa, ya)) {
-            //add directional indicators
-            if (ya < 0)
-                movingDir = 0;
-            if (ya > 0)
-                movingDir = 1;
-            if (xa < 0)
-                movingDir = 2;
-            if (xa > 0)
-                movingDir = 3;
         }
     }
 
     public abstract boolean hasCollided(int xa, int ya);
+    private Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
 
     //compare tiles whether they are Basic or BasicSolid-tile (seen in Tile-class).
     protected boolean isSolidTile(int xa, int ya, int x, int y) {
-        //the tile you stand on before you start moving
-        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
-        //the tile you stand on once you've started moving
-        Tile newTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(newTile) //If the tile player spawns on is an IsSolid tile it won´t be solid immediately
-                && newTile.isSolid();  //newTile is Solid
-        //if no difference is identified return false
-    }
-    public abstract boolean hasEntered(int xa, int ya);
+        //the tile you walk on if you're not walking on the solid tile 
+        //the solid tiles
 
-    protected boolean isPathTile(int xa, int ya, int x, int y) {
-        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
-        //the tile you stand on once you've started moving
-        Tile newTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(newTile) //If the tile player spawns on is an IsSolid tile it won´t be solid immediately
-                && newTile.isPath();  //newTile is Solid
+        Tile solidTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(solidTile) //If the tile player spawns on is an IsSolid tile it won´t be solid immediately
+                && solidTile.isSolid();  //solidTile is Solid
+        //if no difference is identified return false
     }
 
 

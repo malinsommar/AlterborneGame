@@ -7,7 +7,7 @@ import java.util.List;
 
 public class InputHandler implements KeyListener {
 
-    public InputHandler(Game game) {
+    public InputHandler(OverWorld game) {
         game.addKeyListener(this); //calls the InputHandler whenever a key is pressed
     }
 

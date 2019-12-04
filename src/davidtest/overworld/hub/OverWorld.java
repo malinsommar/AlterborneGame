@@ -7,12 +7,14 @@ import davidtest.overworld.gfx.SpriteSheet;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import fight.ForestFight;
 
 
-public class Game extends Canvas implements Runnable{
+public class OverWorld extends Canvas implements Runnable{
     private static final long serialVersionUID = 1L;
     public static final int WIDTH = 160;
     public static final int HEIGHT = WIDTH/12 * 9;
@@ -31,7 +33,7 @@ public class Game extends Canvas implements Runnable{
     public InputHandler input;
     public Level level1;
     public Player player;
-    public Game() {
+    public OverWorld() {
         setMinimumSize(new Dimension(WIDTH* SCALE, HEIGHT * SCALE));
         setMaximumSize(new Dimension(WIDTH* SCALE, HEIGHT * SCALE));
         setPreferredSize(new Dimension(WIDTH* SCALE, HEIGHT * SCALE));
@@ -63,9 +65,10 @@ public class Game extends Canvas implements Runnable{
                 }
             }
         }
-        screen = new Screen(WIDTH,HEIGHT, new SpriteSheet("/Gametest/Davidtest/hubworld/resources/Sprite_sheet.png"));
+
+        screen = new Screen(WIDTH,HEIGHT, new SpriteSheet("/davidtest/overworld/resources/Sprite_sheet.png"));
         input = new InputHandler(this); //call input-object
-        level1 = new Level("/Gametest/Davidtest/hubworld/resources/levels/lake_level.png");
+        level1 = new Level("/davidtest/overworld/resources/maps/lake_level.png");
         player = new Player(level1,0,0,input); //call Player-object
         level1.addEntity(player);
 
@@ -121,8 +124,9 @@ public class Game extends Canvas implements Runnable{
                 ticks = 0; //reset value of updates
                 //the variables will now be reset once every second instead of it all being presented rapidly
             }
+            startBattle();
         }
-    }
+     }
     public void tick() //Updates the logic of the game within all the active classes
      {
          tickCount++; //adds to the tick-count by one. continuing the loop of updating every class
@@ -159,9 +163,13 @@ public class Game extends Canvas implements Runnable{
         g.dispose(); //free up space
         bs.show();//show in JFrame
     }
-
+    public void startBattle(){
+        if (player.hasEntered()) {
+            stop();
+        }
+    }
 
     public static void main(String[]args) {
-        new Game().start();
+        new OverWorld().start();
     }
 }

@@ -1,10 +1,13 @@
 package davidtest.overworld.entities;
 
 
+import davidtest.overworld.hub.OverWorld;
 import davidtest.overworld.levels.Level;
 import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.hub.InputHandler;
+
+import javax.swing.*;
 
 public class Player extends Mob {
 
@@ -12,6 +15,7 @@ public class Player extends Mob {
     private int colour = Colours.get(-1, 111, 111, 543); //Assign colour for character which will be calculated within the Colours-class
     private int scale = 1; //assign size to character
     protected boolean isSwimming = false; //assign the isSwimming value as natively false
+    protected boolean isOnPath = false; //assign if the player is on a battle tile
     private int tickCount = 0; //counts the ticks since the last update
 
 
@@ -60,7 +64,13 @@ public class Player extends Mob {
             if (isSwimming && level1.getTile(this.x >> 3, this.y >> 3).getId() != 3) {
                 isSwimming = false;
             }
-            tickCount++; //adds to tick whenever a move is made
+            if (isOnPath && level1.getTile(this.x, this.y >> 7).getId() ==4) {
+                isOnPath = true;
+            }
+            if (isOnPath && level1.getTile(this.x, this.y >> 7).getId() !=4) {
+                isOnPath = false;
+            }
+                tickCount++; //adds to tick whenever a move is made
         }
     }
 
@@ -119,7 +129,7 @@ public class Player extends Mob {
     }
 
     @Override
-    //create a collisionBox for where a function will activate if character interacts with a thing within that box
+    //create a collisionBox for where a function will activate if player interacts with a thing within that box
     public boolean hasCollided(int xa, int ya) {
         //top left corner
         int xMin = 0;
@@ -155,41 +165,7 @@ public class Player extends Mob {
         }
         return false;
     }
-
-    @Override
-    public boolean hasEntered(int xa, int ya) {
-        //top left corner
-        int xMin = 0;
-        //top right corner
-        int xMax = 5;
-        //bottom left corner
-        int yMin = 3;
-        //bottom right corner
-        int yMax = 5;
-        //create a loop between the top left and top right corner
-        for (int x = xMin; x < xMax; x++) {
-            if (isPathTile(xa, ya, x, yMin)) {
-                return true;
-            }
-        }
-        //creates a loop between bottom left and top right corner
-        for (int x = xMin; x < xMax; x++) {
-            if (isPathTile(xa, ya, x, yMax)) {
-                return true;
-            }
-        }
-        //create a loop between top left and bottom left corner
-        for (int y = yMin; y < yMax; y++) {
-            if (isPathTile(xa, ya, xMin, y)) {
-                return true;
-            }
-        }
-        //create a loop between top right and bottom right corner
-        for (int y = yMin; y < yMax; y++) {
-            if (isPathTile(xa, ya, xMax, y)) {
-                return true;
-            }
-        }
-        return false;
+    public boolean hasEntered() {
+        return true;
     }
 }
