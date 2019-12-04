@@ -1,4 +1,4 @@
-package Gametest.Simontest;
+package simontest;
 import game.Warrior;
 import game.Warrior;
 import game.Warrior;
@@ -8,7 +8,6 @@ public class testspells {
     int[] enemies = new int[4];
     int level = 5;
     Warrior warrpizza = new Warrior();
-
     public void pizza(){
         sethp();
     }

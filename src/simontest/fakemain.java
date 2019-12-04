@@ -1,4 +1,4 @@
-package Gametest.Simontest;
+package simontest;
 
 public class fakemain {
 

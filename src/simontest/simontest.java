@@ -1,4 +1,4 @@
-package Gametest.Simontest;
+package simontest;
 
 import game.*;
 
@@ -202,14 +202,13 @@ public class simontest extends JFrame {
             }
             else if (phase == 1){
                 cloudy -= 3;
-                player1.setLocation(100, cloudy);
+                player1.setLocation(cloudx, cloudy);
                 if (cloudy < 50) {
                     phase = 2;
                 }}
             else if (phase == 2) {
                 if (cloudy < 50) {
                     cloudy = 50;
-                    cloudx -= 3;
                 }
                 timepast++;
                 if (timepast < 100) {
@@ -224,7 +223,7 @@ public class simontest extends JFrame {
                     }
                 }
                 if (timepast == 102) {
-                    player1.setLocation(cloudx - 10, cloudy);
+                    player1.setLocation(cloudx, cloudy);
                     firestorm.setVisible(true);
                     flamey = -400;
                     flame.setLocation(700, flamey);
