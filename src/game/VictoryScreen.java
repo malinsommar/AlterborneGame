@@ -61,9 +61,7 @@ public class VictoryScreen extends JFrame {
         timer.setInitialDelay(500);
         timer.start();
 
-        //countinue
         countinueButton.addActionListener(e -> dispose());
-        //countinueButton.addActionListener(e -> new ForestFight());
 
         MusicPick.musicStart("Victory","music");
 

@@ -1,4 +1,4 @@
-package fights;
+package fight;
 
 import game.*;
 

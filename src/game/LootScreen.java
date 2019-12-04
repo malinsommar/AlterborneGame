@@ -2,12 +2,16 @@ package game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class LootScreen extends JFrame {
 
     Hub hub = new Hub();
 
     JButton countinueButton;
+    JLabel vicTitle;
+    int textDelay = 0;
 
     public LootScreen(int fight){
 
@@ -18,11 +22,11 @@ public class LootScreen extends JFrame {
         setTitle("Forest Fight");
 
         //Label
-        JLabel gameName = new JLabel("Victory Achieved");
-        gameName.setForeground(Color.black);
-        gameName.setFont((hub.pixelMplus.deriveFont(30f)));
-        Dimension size = gameName.getPreferredSize();
-        gameName.setBounds(200, 30, size.width, size.height);
+        vicTitle = new JLabel("Victory Achieved");
+        vicTitle.setForeground(Color.black);
+        vicTitle.setFont((hub.pixelMplus.deriveFont(30f)));
+        Dimension size = vicTitle.getPreferredSize();
+        vicTitle.setBounds(200, 30, size.width, size.height);
 
         //Button
         countinueButton = new JButton("Onwards!");
@@ -35,12 +39,12 @@ public class LootScreen extends JFrame {
         countinueButton.setFocusPainted(false);
 
         add(countinueButton);
-        add(gameName);
+        add(vicTitle);
 
-      /*  timer.setRepeats(true);
+        timer.setRepeats(true);
         timer.setCoalesce(true);
         timer.setInitialDelay(500);
-        timer.start();*/
+        timer.start();
 
         //ActionListeners
         countinueButton.addActionListener(e -> dispose());
@@ -51,25 +55,27 @@ public class LootScreen extends JFrame {
         setVisible(true);
     }
 
-  /*  Timer timer = new Timer(1000, new ActionListener() {
+    Timer timer = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             textDelay++;
             if (textDelay == 1){
                 MusicPick.musicStart("ding","");
-                add(youWon);
+                add(vicTitle);
             }
-            else if (textDelay == 3){
-                MusicPick.musicStart("ding","");
-                add(wonBread);
+          /*
+                xp
+                gold
+                item
+
             }
             else if (textDelay == 6){
                 MusicPick.musicStart("ding","");
                 add(countinueButton);
-            }
+            }*/
             repaint();
         }
-    });*/
+    });
 
     public void hover(){
         countinueButton.addMouseListener(new java.awt.event.MouseAdapter() {
