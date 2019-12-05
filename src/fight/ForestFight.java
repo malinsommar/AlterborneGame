@@ -23,7 +23,9 @@ public class ForestFight extends JFrame {
     int arrowstarty = arrowy;
     int phase = 0; //för animationer
     int timepast = 0;
+    int timepasttakedamage = 0; //en annan timepast för att undvika konflikt när de spelas samtidigt
     int flamestrikey = -400;
+    int target;
 
     JLabel arrow = new JLabel(new ImageIcon("arrow.png"));
     JLabel volley1 = new JLabel(new ImageIcon("arrow.png"));
@@ -498,58 +500,6 @@ public class ForestFight extends JFrame {
         }
         //  ***ENEMIES TURN***
         if (turns==5){enemyTurnTimer.start();}
-        //Wolf 1
-        /*
-        if (turns==5 && wolf1Int>0){
-            whosTurn.setText("Wolf 1 turn");
-            playersHp.setText("Hp: "+wolf1Int);
-            energy.setText("  ");
-            wolfAttack();
-            partyDeath();
-        }
-        //If wolf 1 is dead, skip.
-        if (turns==5 && wolf1Int<1){
-            turns=6;
-        }
-        //Wolf 2
-        if (turns==6 && wolf2Int>0){
-            whosTurn.setText("Wolf 2 turn");
-            playersHp.setText("Hp: "+wolf2Int);
-            energy.setText("  ");
-            wolfAttack();
-            partyDeath();
-        }
-        //If wolf 2 is dead, skip.
-        if (turns==6 && wolf2Int<1){
-            turns=7;
-        }
-        //Wolf 3
-        if (turns==7 && wolf3Int>0){
-            whosTurn.setText("Wolf 3 turn");
-            playersHp.setText("Hp: "+wolf3Int);
-            energy.setText("  ");
-            wolfAttack();
-            partyDeath();
-        }
-        //If wolf 3 is dead, skip.
-        if (turns==7 && wolf4Int<1){
-            turns=8;
-        }
-        //Wolf 4
-        if (turns==8 && wolf4Int>0){
-            whosTurn.setText("Wolf 4 turn");
-            playersHp.setText("Hp: "+wolf4Int);
-            energy.setText("  ");
-            wolfAttack();
-            partyDeath();
-            turns=0;
-        }
-        //If wolf 4 is dead, skip.
-        if (turns == 8){
-            turns=0;
-            startNewTurn();
-        }
-         */
     }
 
     //When player press block
@@ -631,6 +581,7 @@ public class ForestFight extends JFrame {
         while (true) {
             //Randomize a number between 1-4.
             int target = (int) (Math.random() * 4)+1;
+            tackle.start();
 
             //If target is 1 and wolf 1 is alive.
             if (target == 1 && wolf1Int > 0) {
@@ -699,6 +650,7 @@ public class ForestFight extends JFrame {
         while (true) {
             //Randomize a number between 1-4.
             int target = (int) (Math.random() * 4)+1;
+            shoot.start();
 
             //If target is 1 and wolf 1 is alive.
             if (target == 1 && wolf1Int > 0) {
@@ -777,8 +729,9 @@ public class ForestFight extends JFrame {
 
     //When the wolf attacks.
     private void wolfAttack() {
-        int target = (int) (Math.random() * 4); //Random target, 0-3.
+        target = (int) (Math.random() * 4); //Random target, 0-3.
         int wolfDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
+        takedamage.start();
 
         //Loops until it reaches an alive party-member.
         while (true) {
@@ -1921,6 +1874,14 @@ public class ForestFight extends JFrame {
                     firestorm.setVisible(true);
                     flamestrikey = -400;
                     flame.setLocation(700, flamestrikey);
+                    wolf1Int = wolf1Int - mageDamage/2;
+                    wolf1Hp.setText("Wolf 1: " + wolf1Int);
+                    wolf2Int = wolf2Int - mageDamage/2;
+                    wolf2Hp.setText("Wolf 2: " + wolf2Int);
+                    wolf3Int = wolf3Int - mageDamage/2;
+                    wolf3Hp.setText("Wolf 3: " + wolf3Int);
+                    wolf4Int = wolf4Int - mageDamage/2;
+                    wolf4Hp.setText("Wolf 4: " + wolf4Int);
                 }
                 if (timepast > 130) {
                     timepast = 0;
@@ -1942,6 +1903,7 @@ public class ForestFight extends JFrame {
                     firestorm.setVisible(false);
                     flameStrike.stop();
                     phase = 0;
+                    mobDeath();
                 }
             }
         }
@@ -2023,6 +1985,82 @@ public class ForestFight extends JFrame {
                 timepast = 0;
                 startNewTurn();
                 endTurnButton.setVisible(true);
+            }
+        }
+    });
+
+    Timer shoot = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0) {
+                arrow.setVisible(true);
+                if (arrowx == 121) {
+                    MusicPick.musicStart("ding", "");
+                }
+                arrowx += 30;
+                arrow.setLocation(arrowx, arrowy);
+                if (arrowx > 1000) {
+                    phase = 1;
+                }
+            } else if (phase == 1) {
+                arrow.setVisible(false);
+                arrowx = arrowstartx;
+                arrow.setLocation(arrowx, arrowy);
+                phase = 0;
+                shoot.stop();
+            }
+        }
+    });
+
+    Timer tackle = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0) {
+                if (warriorx == 100) MusicPick.musicStart("warriorattack", "");
+                warriorx += 30;
+                warrior.setLocation(warriorx, warriory);
+                if (warriorx > 200) {
+                    phase = 1;
+                }
+            } else if (phase == 1) {
+                warriorx -= 30;
+                warrior.setLocation(warriorx, warriory);
+                if (warriorx < 100) {
+                    phase = 0;
+                    tackle.stop();
+                }
+            }
+        }
+    });
+
+    Timer takedamage = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timepasttakedamage++;
+            if (timepasttakedamage == 1) {
+                MusicPick.musicStart("warriorattacked", "");
+            } else if (timepasttakedamage == 10) {
+                if (target == 0) warrior.setVisible(false);
+                if (target == 1) ranger.setVisible(false);
+                if (target == 2) mage.setVisible(false);
+                if (target == 3) healer.setVisible(false);
+            } else if (timepasttakedamage == 20) {
+                if (target == 0) warrior.setVisible(true);
+                if (target == 1) ranger.setVisible(true);
+                if (target == 2) mage.setVisible(true);
+                if (target == 3) healer.setVisible(true);
+            } else if (timepasttakedamage == 30) {
+                if (target == 0) warrior.setVisible(false);
+                if (target == 1) ranger.setVisible(false);
+                if (target == 2) mage.setVisible(false);
+                if (target == 3) healer.setVisible(false);
+            } else if (timepasttakedamage == 40) {
+                if (target == 0) warrior.setVisible(true);
+                if (target == 1) ranger.setVisible(true);
+                if (target == 2) mage.setVisible(true);
+                if (target == 3) healer.setVisible(true);
+                takedamage.stop();
+                timepasttakedamage = 0;
             }
         }
     });
