@@ -33,7 +33,7 @@ public class Mage{
     public void mageRareArmor(){
         currentArmorName = "Mooncloth robe";
         currentArmorBlock = 2;
-        currentArmorDamage = 5;
+        currentArmorDamage = 4;
 
     }
     public void mageEpicArmor(){
