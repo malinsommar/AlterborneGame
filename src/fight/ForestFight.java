@@ -798,19 +798,23 @@ public class ForestFight extends JFrame {
     private void mobDeath(){
 
         if(wolf1Int<=0){
-            wolf1Hp.setText("Wolf 1: 0");
+            wolf1Int = 0;
+            wolf1Hp.setText("Wolf 1: " + wolf1Int);
             wolf1.setVisible(false);
         }
         if(wolf2Int<=0){
-            wolf2Hp.setText("Wolf 2: 0");
+            wolf2Int = 0;
+            wolf2Hp.setText("Wolf 2: " + wolf2Int);
             wolf2.setVisible(false);
         }
         if(wolf3Int<=0){
-            wolf3Hp.setText("Wolf 3: 0");
+            wolf3Int = 0;
+            wolf3Hp.setText("Wolf 3: " + wolf3Int);
             wolf3.setVisible(false);
         }
         if(wolf4Int<=0){
-            wolf4Hp.setText("Wolf 4: 0");
+            wolf4Int = 0;
+            wolf4Hp.setText("Wolf 4: " + wolf4Int);
             wolf4.setVisible(false);
         }
     }
@@ -1874,13 +1878,13 @@ public class ForestFight extends JFrame {
                     firestorm.setVisible(true);
                     flamestrikey = -400;
                     flame.setLocation(700, flamestrikey);
-                    wolf1Int = wolf1Int - mageDamage/2;
+                    if(wolf1Int > 0) wolf1Int = wolf1Int - mageDamage/2;
                     wolf1Hp.setText("Wolf 1: " + wolf1Int);
-                    wolf2Int = wolf2Int - mageDamage/2;
+                    if(wolf2Int > 0)wolf2Int = wolf2Int - mageDamage/2;
                     wolf2Hp.setText("Wolf 2: " + wolf2Int);
-                    wolf3Int = wolf3Int - mageDamage/2;
+                    if(wolf3Int > 0)wolf3Int = wolf3Int - mageDamage/2;
                     wolf3Hp.setText("Wolf 3: " + wolf3Int);
-                    wolf4Int = wolf4Int - mageDamage/2;
+                    if(wolf4Int > 0)wolf4Int = wolf4Int - mageDamage/2;
                     wolf4Hp.setText("Wolf 4: " + wolf4Int);
                 }
                 if (timepast > 130) {
@@ -1904,6 +1908,7 @@ public class ForestFight extends JFrame {
                     flameStrike.stop();
                     phase = 0;
                     mobDeath();
+                    isFightOver();
                 }
             }
         }
@@ -2016,16 +2021,18 @@ public class ForestFight extends JFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             if (phase == 0) {
-                if (warriorx == 100) MusicPick.musicStart("warriorattack", "");
-                warriorx += 30;
+                if (warriorx == warriorstartx) MusicPick.musicStart("warriorattack", "");
+                warriorx += 20;
                 warrior.setLocation(warriorx, warriory);
-                if (warriorx > 200) {
+                if (warriorx > warriorstartx + 50) {
                     phase = 1;
                 }
             } else if (phase == 1) {
-                warriorx -= 30;
+                warriorx -= 20;
                 warrior.setLocation(warriorx, warriory);
-                if (warriorx < 100) {
+                if (warriorx < warriorstartx) {
+                    warriorx = warriorstartx;
+                    warrior.setLocation(warriorx, warriory);
                     phase = 0;
                     tackle.stop();
                 }
