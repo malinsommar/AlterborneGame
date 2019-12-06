@@ -2,7 +2,7 @@ package game;
 
 public class Warrior {
 
-    String currentWeaponName = "Wodden Sword";
+    public String currentWeaponName = "Wooden Sword";
     public int currentWeaponDamage = 5;
 
     String currentArmorName = "Rusty Armor";

@@ -7,6 +7,7 @@ public class Healer {
 
     String currentArmorName = "Cloth scraps";
     public int currentArmorBlock = 5;
+    public int currentArmorDamage = 0;
 
     public int hp = 100;
     public int block = 0;
@@ -32,13 +33,16 @@ public class Healer {
     public void healerRareArmor(){
         currentArmorName = "Priests robe";
         currentArmorBlock = 2;
+        currentArmorDamage = 3;
     }
     public void healerEpicArmor(){
         currentArmorName = "Clerics armor";
         currentArmorBlock = 8;
+        currentArmorDamage = 7;
     }
     public void healerLegendaryArmor(){
         currentArmorName = "Plate armor of Parl'ont the crusader";
         currentArmorBlock = 13;
+        currentArmorDamage = 15;
     }
 }
