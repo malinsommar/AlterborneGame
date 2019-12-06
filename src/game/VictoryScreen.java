@@ -1,5 +1,7 @@
 package game;
 
+import davidtest.overworld.hub.OverWorld;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +14,7 @@ public class VictoryScreen extends JFrame {
     JLabel youWon, wonBread;
     JButton countinueButton;
     Font pixelMplus;
+    OverWorld overWorld;
     private int textDelay = 0;
 
     public VictoryScreen() {
@@ -62,6 +65,7 @@ public class VictoryScreen extends JFrame {
         timer.start();
 
         countinueButton.addActionListener(e -> dispose());
+
 
         MusicPick.musicStart("Victory","music");
 

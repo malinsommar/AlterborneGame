@@ -10,7 +10,7 @@ public class MusicPick {
 
     public static void musicStart(String pick, String soundType) {
         try {
-            if (i > 0 && soundType == "music" ) {
+            if (i > 0 && soundType.equals("music")) {
                 clip.stop();
             }
             File yourFile = new File(pick + ".wav");
@@ -21,7 +21,7 @@ public class MusicPick {
             gainControl.setValue(-30.0f); //ändrar volym
             clip.start();
             //ljudeffecter fuckar upp denna
-            //clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
             i = 5;
 
         } catch (Exception e) {

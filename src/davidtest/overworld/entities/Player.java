@@ -1,13 +1,18 @@
 package davidtest.overworld.entities;
 
 
+import davidtest.overworld.gfx.Fonts;
 import davidtest.overworld.hub.OverWorld;
 import davidtest.overworld.levels.Level;
 import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.hub.InputHandler;
+import davidtest.overworld.levels.tiles.PathTile;
+import fight.ForestFight;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.FileOutputStream;
 
 public class Player extends Mob {
 
@@ -15,13 +20,14 @@ public class Player extends Mob {
     private int colour = Colours.get(-1, 111, 111, 543); //Assign colour for character which will be calculated within the Colours-class
     private int scale = 1; //assign size to character
     protected boolean isSwimming = false; //assign the isSwimming value as natively false
-    protected boolean isOnPath = false; //assign if the player is on a battle tile
+    protected boolean isOnForestPath = false;
     private int tickCount = 0; //counts the ticks since the last update
+    private String username;
 
-
-    public Player(Level level1, int x, int y, InputHandler input) {
+    public Player(Level level1, int x, int y, InputHandler input, String username) {
         super(level1, "Player", x, y, 1);
         this.input = input;
+        this.username = username;
     }
 
 
@@ -58,17 +64,16 @@ public class Player extends Mob {
             //identify if player is swimming
             if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 3) {
                 isSwimming = true;
-
             }
             //identify if player is not swimming
-            if (isSwimming && level1.getTile(this.x >> 3, this.y >> 3).getId() != 3) {
+            else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() != 3) {
                 isSwimming = false;
             }
-            if (isOnPath && level1.getTile(this.x, this.y >> 7).getId() ==4) {
-                isOnPath = true;
+            if (level1.getTile( this.x + x >> 4,this.y >> 3).getId() ==5) {
+                isOnForestPath = true;
             }
-            if (isOnPath && level1.getTile(this.x, this.y >> 7).getId() !=4) {
-                isOnPath = false;
+            else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() !=5) {
+
             }
                 tickCount++; //adds to tick whenever a move is made
         }
@@ -126,9 +131,17 @@ public class Player extends Mob {
             screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour, flipBottom, scale);
 
         }
+        //add text above player
+        if (username != null) {
+            Fonts.render(username,screen, xOffset - ((username.length() - 1) / 2 * 8),yOffset - 10, Colours.get(-1,-1,-1,555), 1);
+        }
     }
 
+    public boolean hasEntered() {
+        return isOnForestPath;
+    }
     @Override
+
     //create a collisionBox for where a function will activate if player interacts with a thing within that box
     public boolean hasCollided(int xa, int ya) {
         //top left corner
@@ -164,8 +177,5 @@ public class Player extends Mob {
             }
         }
         return false;
-    }
-    public boolean hasEntered() {
-        return true;
     }
 }

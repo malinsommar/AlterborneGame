@@ -4,15 +4,14 @@ import davidtest.overworld.levels.Level;
 import davidtest.overworld.entities.Player;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.gfx.SpriteSheet;
+import fight.ForestFight;
+import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import fight.ForestFight;
-
 
 public class OverWorld extends Canvas implements Runnable{
     private static final long serialVersionUID = 1L;
@@ -21,7 +20,7 @@ public class OverWorld extends Canvas implements Runnable{
     public static final int SCALE = 3;
     public static final String NAME = "game";
 
-    private JFrame frame;
+    public JFrame frame;
 
     private boolean running = false;
     private int tickCount = 0;
@@ -39,17 +38,21 @@ public class OverWorld extends Canvas implements Runnable{
         setPreferredSize(new Dimension(WIDTH* SCALE, HEIGHT * SCALE));
 
         frame = new JFrame(NAME);
+        //frame.setUndecorated(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
         frame.add(this, BorderLayout.CENTER);//Center Canvas within the JFrame
         frame.pack(); //Sets frames above or at preferred size
+        //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         frame.setResizable(false);//Not resizable
         frame.setLocationRelativeTo(null);//center the frame
         frame.setVisible(true);
     }
     public void init() {
+        System.out.println("init start");
         int index = 0;
+
         //red
         for (int r = 0; r<6; r++) {
             //green
@@ -66,26 +69,26 @@ public class OverWorld extends Canvas implements Runnable{
             }
         }
 
-        screen = new Screen(WIDTH,HEIGHT, new SpriteSheet("/davidtest/overworld/resources/Sprite_sheet.png"));
-        input = new InputHandler(this); //call input-object
-        level1 = new Level("/davidtest/overworld/resources/maps/lake_level.png");
-        player = new Player(level1,0,0,input); //call Player-object
-        level1.addEntity(player);
-
     }
     private synchronized void start() {
+        screen = new Screen(WIDTH,HEIGHT, new SpriteSheet("/resources/Sprite_sheet.png"));
+        input = new InputHandler(this); //call input-object
+        level1 = new Level("/resources/maps/lake_level.png");
+        player = new Player(level1,0,0,input, JOptionPane.showInputDialog(this, "Please enter username")); //call Player-object
+
+        level1.addEntity(player);
         running = true;
         new Thread(this).start();
-    }
+        }
     private synchronized void stop() {
         running = false;
     }
 
     public void run()//Method that will run as long as the program is on
      {
-        long lastTime = System.nanoTime(); //returns the current value of nanoseconds
+         //MusicPick.musicStart("intofreeshort","music");
+         long lastTime = System.nanoTime(); //returns the current value of nanoseconds
         double nsPerTick = 1000000000D/60D; //how many nanoseconds are within one tick
-
         int ticks = 0; //a variable for how many updates
         int frames = 0; //a variable for the current fps
 
@@ -99,10 +102,13 @@ public class OverWorld extends Canvas implements Runnable{
             delta += (now - lastTime) / nsPerTick; //subtract the current time with the last time and then divide the result with how many nanoseconds there are within a tick
             lastTime = now; //repeats the method by giving 'lastTime' the same value as 'now'
             boolean shouldRender = true;
-
             while (delta >= 1) {
                 ticks++; //adds 1 to the ticks-value
-                tick(); //calls the tick function
+                try {
+                    tick(); //calls the tick function
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 delta -= 1; // subtract the value of delta by 1 and repeats the update-loop endlessly
             }
 
@@ -115,7 +121,6 @@ public class OverWorld extends Canvas implements Runnable{
 
             frames++; //Adds to the frames by one
             render(); //calls render method
-
             if (System.currentTimeMillis() - lastTimer > 1000) //If current time in milliseconds minus the time for the last update is greater than a thousand (one second): update.
             {
                 lastTimer += 1000; //gives lastTimer the value of one second
@@ -124,15 +129,18 @@ public class OverWorld extends Canvas implements Runnable{
                 ticks = 0; //reset value of updates
                 //the variables will now be reset once every second instead of it all being presented rapidly
             }
-            startBattle();
         }
      }
-    public void tick() //Updates the logic of the game within all the active classes
-     {
-         tickCount++; //adds to the tick-count by one. continuing the loop of updating every class
+    //Updates the logic of the game within all the active classes
+    public void tick() throws InterruptedException {
+        tickCount++; //adds to the tick-count by one. continuing the loop of updating every class
 
-             level1.tick();
-     }
+        level1.tick();
+        EnterForest();
+            //FIXME thread delay/pause
+            // - start Malin work
+            // - thread resume
+        }
 
     public void render() //prints out what the logic in the tick-function has stated should be printed out
     {
@@ -163,12 +171,14 @@ public class OverWorld extends Canvas implements Runnable{
         g.dispose(); //free up space
         bs.show();//show in JFrame
     }
-    public void startBattle(){
-        if (player.hasEntered()) {
-            stop();
-        }
-    }
 
+    public boolean EnterForest() throws InterruptedException {
+        if (player.hasEntered()) {
+            new ForestFight();
+            frame.wait();
+        }
+        return true;
+    }
     public static void main(String[]args) {
         new OverWorld().start();
     }
