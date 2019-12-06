@@ -1,5 +1,7 @@
 package game;
 
+import fight.ForestFight;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +16,8 @@ public class LootScreen extends JFrame {
     private Mage m = new Mage();
     private Ranger r = new Ranger();
     private Inventory i = new Inventory();
+    private ForestFight ff = new ForestFight();
+
 
     private Font pixelMplus;
 
@@ -49,7 +53,10 @@ public class LootScreen extends JFrame {
         textDelayTimer.start();
 
         //ActionListeners
+        continueButton.addActionListener(e -> ff.dispose());
         continueButton.addActionListener(e -> dispose());
+        continueButton.addActionListener(e -> new Hub());  // !!DAVID!! Länka till din här
+
         equipButton.addActionListener(e->equipLoot());
 
         MusicPick.musicStart("Victory","music");

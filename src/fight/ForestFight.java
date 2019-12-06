@@ -10,57 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ForestFight extends JFrame {
-
-    //simon variabler
-    int warriorstartx = 170, warriorstarty = 210, warriorx = warriorstartx, warriory = warriorstarty;
-    int rangerstartx = 70, rangerstarty = 290, rangerx = rangerstartx, rangery = rangerstarty;
-    int magestartx = -110, magestarty = 290, magex = magestartx, magey = magestarty;
-    int healerstartx = -30, healerstarty = 210, healerx = healerstartx, healery = healerstarty;
     
-    int arrowx = 120;
-    int arrowy = 360;
-    int arrowstartx = arrowx;
-    int arrowstarty = arrowy;
-    int phase = 0; //för animationer
-    int timepast = 0;
-    int timepasttakedamage = 0; //en annan timepast för att undvika konflikt när de spelas samtidigt
-    int flamestrikey = -400;
-    int target;
-
-    JLabel arrow = new JLabel(new ImageIcon("arrow.png"));
-    JLabel volley1 = new JLabel(new ImageIcon("arrow.png"));
-    JLabel volley2 = new JLabel(new ImageIcon("arrow.png"));
-    JLabel volley3 = new JLabel(new ImageIcon("arrow.png"));
-    JLabel flame = new JLabel(new ImageIcon("flame.gif"));
-    JLabel firestorm = new JLabel(new ImageIcon("bigfire.gif"));
-
-
-    int wolf1x = 850;
-    int wolf1y = 320;
-    int wolf1startx = wolf1x;
-    int wolf1starty = wolf1y;
-    int wolf2x = 1030;
-    int wolf2y = 320;
-    int wolf2startx = wolf2x;
-    int wolf2starty = wolf2y;
-    int wolf3x = 900;
-    int wolf3y = 400;
-    int wolf3startx = wolf3x;
-    int wolf3starty = wolf3y;
-    int wolf4x = 1080;
-    int wolf4y = 400;
-    int wolf4startx = wolf4x;
-    int wolf4starty = wolf4y;
-
-
-
-
-
-
-
-
-
-
     //Objects
     private Inventory inv = new Inventory();
     private Warrior w = new Warrior();
@@ -94,6 +44,34 @@ public class ForestFight extends JFrame {
     private int warriorCurrentHp = w.hp, mageCurrentHp = m.hp, healerCurrentHp = h.hp, rangerCurrentHp = r.hp;
     private int warriorDamage = w.combinedDamage, mageDamage = m.combinedDamage, healerDamage = h.combinedDamage, rangerDamage = r.combinedDamage;
     private int warriorBlock = w.combinedBlock, mageBlock = m.combinedBlock, healerBlock = h.combinedBlock, rangerBlock = r.combinedBlock;
+
+    //Animation variables 
+    private int warriorStartX = 170, warriorStartY = 210, warriorX = warriorStartX, warriorY = warriorStartY;
+    private int rangerStartX = 70, rangerStartY = 290, rangerX = rangerStartX, rangerY = rangerStartY;
+    private int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
+    private int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
+
+    private int wolf1X = 850, wolf1y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1y;
+    private int wolf2X = 1030, wolf2y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2y;
+    private int wolf3X = 900, wolf3y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3y;
+    private int wolf4X = 1080, wolf4y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4y;
+
+    private int arrowX = 120, arrowY = 360, arrowStartX = arrowX, arrowStartY = arrowY;
+    private int flameStrikeY = -400;
+
+    //Another timePast to avoid conflict when they run simultaneously.
+    private int timePastTakeDamage = 0;
+    
+    private int target;
+    private int phase = 0, timePast = 0;
+
+    private JLabel arrow = new JLabel(new ImageIcon("arrow.png"));
+    private JLabel volley1 = new JLabel(new ImageIcon("arrow.png"));
+    private JLabel volley2 = new JLabel(new ImageIcon("arrow.png"));
+    private JLabel volley3 = new JLabel(new ImageIcon("arrow.png"));
+    private JLabel flame = new JLabel(new ImageIcon("flame.gif"));
+    private JLabel fireStorm = new JLabel(new ImageIcon("bigfire.gif"));
+
 
     //Constructor for forestFight.
     public ForestFight(){
@@ -183,31 +161,31 @@ public class ForestFight extends JFrame {
         //simon saker \/
         Dimension arrowSize = arrow.getPreferredSize();
         arrow.setSize(arrowSize.width, arrowSize.height);
-        arrow.setLocation(-100, arrowx);
+        arrow.setLocation(-100, arrowX);
         add(arrow);
 
         volley1.setSize(arrowSize.width, arrowSize.height);
-        volley1.setLocation(-100, arrowx);
+        volley1.setLocation(-100, arrowX);
         volley1.setVisible(false);
         add(volley1);
         volley2.setSize(arrowSize.width, arrowSize.height);
-        volley2.setLocation(-100, arrowx);
+        volley2.setLocation(-100, arrowX);
         volley2.setVisible(false);
         add(volley2);
         volley3.setSize(arrowSize.width, arrowSize.height);
-        volley3.setLocation(-100, arrowx);
+        volley3.setLocation(-100, arrowX);
         volley3.setVisible(false);
         add(volley3);
 
-        Dimension fireSize = firestorm.getPreferredSize();
-        firestorm.setSize(fireSize.width, fireSize.height);
-        firestorm.setLocation(800, 300);
-        add(firestorm);
-        firestorm.setVisible(false);
+        Dimension fireSize = fireStorm.getPreferredSize();
+        fireStorm.setSize(fireSize.width, fireSize.height);
+        fireStorm.setLocation(800, 300);
+        add(fireStorm);
+        fireStorm.setVisible(false);
 
         Dimension flameSize = flame.getPreferredSize();
         flame.setSize(flameSize.width, flameSize.height);
-        flame.setLocation(900, flamestrikey);
+        flame.setLocation(900, flameStrikeY);
         add(flame);
         flame.setVisible(true);
 
@@ -395,17 +373,6 @@ public class ForestFight extends JFrame {
 
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -716,12 +683,12 @@ public class ForestFight extends JFrame {
     private void isFightOver() {
         //All of the wolves are dead. Victory!
         if (wolf1Int < 1 && wolf2Int < 1 && wolf3Int < 1 && wolf4Int < 1) {
-            new VictoryScreen();
-            dispose();
+            new LootScreen(1);
+
         }
         //The whole party is dead. Game over!
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
-            new Hub();
+            new LoseScreen();
             dispose();
         }
         //If none of these are true, nothing happens and the fight goes on.
@@ -794,6 +761,7 @@ public class ForestFight extends JFrame {
             }
         }
     }
+
     //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void mobDeath(){
 
@@ -819,19 +787,23 @@ public class ForestFight extends JFrame {
     private void partyDeath(){
 
         if(warriorCurrentHp<=0){
-            player1Hp.setText("Warrior: 0");
+            warriorCurrentHp = 0;
+            player1Hp.setText("Warrior: "+warriorCurrentHp);
             warrior.setVisible(false);
         }
         if(mageCurrentHp<=0){
-            player2Hp.setText("Mage:    0");
+            mageCurrentHp = 0;
+            player2Hp.setText("Mage:    "+mageCurrentHp);
             mage.setVisible(false);
         }
         if(rangerCurrentHp<=0){
-            player3Hp.setText("Ranger:  0");
+            rangerCurrentHp = 0;
+            player3Hp.setText("Ranger:  "+rangerCurrentHp);
             ranger.setVisible(false);
         }
         if(healerCurrentHp<=0){
-            player4Hp.setText("Healer:  0");
+            healerCurrentHp = 0;
+            player4Hp.setText("Healer:  "+healerCurrentHp);
             healer.setVisible(false);
         }
     }
@@ -1592,22 +1564,22 @@ public class ForestFight extends JFrame {
         warrior = new JLabel();
         warrior.setIcon(new ImageIcon("warrior.gif"));
         Dimension warriorSize = warrior.getPreferredSize();
-        warrior.setBounds(warriorstartx, warriorstarty, warriorSize.width, warriorSize.height);
+        warrior.setBounds(warriorStartX, warriorStartY, warriorSize.width, warriorSize.height);
 
         healer = new JLabel();
         healer.setIcon(new ImageIcon("healer.gif"));
         Dimension healerSize = healer.getPreferredSize();
-        healer.setBounds(healerstartx, healerstarty, healerSize.width, healerSize.height);
+        healer.setBounds(healerStartX, healerStartY, healerSize.width, healerSize.height);
 
         ranger = new JLabel();
         ranger.setIcon(new ImageIcon("ranger.gif"));
         Dimension rangerSize = ranger.getPreferredSize();
-        ranger.setBounds(rangerstartx, rangerstarty, rangerSize.width, rangerSize.height);
+        ranger.setBounds(rangerStartX, rangerStartY, rangerSize.width, rangerSize.height);
 
         mage = new JLabel();
         mage.setIcon(new ImageIcon("mage.gif"));
         Dimension mageSize = mage.getPreferredSize();
-        mage.setBounds(magestartx, magestarty, mageSize.width, mageSize.height);
+        mage.setBounds(mageStartX, mageStartY, mageSize.width, mageSize.height);
     }
 
     //Get wolf gif.
@@ -1724,16 +1696,16 @@ public class ForestFight extends JFrame {
                 phase = 1;
             }
             else if (phase == 1) {
-                warriorx += 20;
-                warrior.setLocation(warriorx, warriory);
-                if (warriorx > 2000) {
+                warriorX += 20;
+                warrior.setLocation(warriorX, warriorY);
+                if (warriorX > 2000) {
                     phase = 2;
                 }
             }
             else if (phase == 2) {
-                warriorx = warriorstartx;
-                warriory = warriorstarty;
-                warrior.setLocation(warriorx,warriory);
+                warriorX = warriorStartX;
+                warriorY = warriorStartY;
+                warrior.setLocation(warriorX,warriorY);
                 phase = 0;
                 charge.stop();
             }
@@ -1743,95 +1715,95 @@ public class ForestFight extends JFrame {
     Timer volley = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            arrowx += 30;
-            volley1.setLocation(arrowx, arrowy);
-            volley2.setLocation(arrowx - 200, arrowy);
-            volley3.setLocation(arrowx - 400, arrowy);
+            arrowX += 30;
+            volley1.setLocation(arrowX, arrowY);
+            volley2.setLocation(arrowX - 200, arrowY);
+            volley3.setLocation(arrowX - 400, arrowY);
             if (phase == 0) {
                 volley1.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 1;
             }
-            else if (phase == 1 && arrowx > arrowstartx + 300) {
+            else if (phase == 1 && arrowX > arrowStartX + 300) {
                 volley2.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 2;
             }
-            else if (phase == 2 && arrowx > arrowstartx + 600) {
+            else if (phase == 2 && arrowX > arrowStartX + 600) {
                 volley3.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 3;
             }
-            else if (phase == 3 && arrowx > 1000) {
+            else if (phase == 3 && arrowX > 1000) {
                 volley1.setVisible(false);
                 phase = 4;
             }
-            else if (phase == 4 && arrowx > 1200) {
+            else if (phase == 4 && arrowX > 1200) {
                 volley2.setVisible(false);
                 phase = 5;
             }
-            else if (phase == 5 && arrowx > 1400) {
+            else if (phase == 5 && arrowX > 1400) {
                 volley3.setVisible(false);
                 phase = 6;
             }
             if (phase == 6) {
-                arrowx = 300;
+                arrowX = 300;
                 volley1.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 7;
             }
-            else if (phase == 7 && arrowx > arrowstartx + 300) {
+            else if (phase == 7 && arrowX > arrowStartX + 300) {
                 volley2.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 8;
             }
-            else if (phase == 8 && arrowx > arrowstartx + 600) {
+            else if (phase == 8 && arrowX > arrowStartX + 600) {
                 volley3.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 9;
             }
-            else if (phase == 9 && arrowx > 1000) {
+            else if (phase == 9 && arrowX > 1000) {
                 volley1.setVisible(false);
                 phase = 10;
             }
-            else if (phase == 10 && arrowx > 1200) {
+            else if (phase == 10 && arrowX > 1200) {
                 volley2.setVisible(false);
                 phase = 11;
             }
-            else if (phase == 11 && arrowx > 1400) {
+            else if (phase == 11 && arrowX > 1400) {
                 volley3.setVisible(false);
                 phase = 12;
-                arrowx = 300;
+                arrowX = 300;
             }
             if (phase == 12) {
                 volley1.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 13;
             }
-            else if (phase == 13 && arrowx > arrowstartx + 300) {
+            else if (phase == 13 && arrowX > arrowStartX + 300) {
                 volley2.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 14;
             }
-            else if (phase == 14 && arrowx > arrowstartx + 600) {
+            else if (phase == 14 && arrowX > arrowStartX + 600) {
                 volley3.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 15;
             }
-            else if (phase == 15 && arrowx > 1000) {
+            else if (phase == 15 && arrowX > 1000) {
                 volley1.setVisible(false);
                 phase = 16;
             }
-            else if (phase == 16 && arrowx > 1200) {
+            else if (phase == 16 && arrowX > 1200) {
                 volley2.setVisible(false);
                 phase = 17;
             }
-            else if (phase == 17 && arrowx > 1400) {
+            else if (phase == 17 && arrowX > 1400) {
                 volley3.setVisible(false);
                 phase = 18;
             }
             else if (phase == 18){
-                arrowx = 270;
+                arrowX = 270;
                 phase = 0;
                 volley.stop();
             }
@@ -1847,33 +1819,33 @@ public class ForestFight extends JFrame {
                 phase = 1;
             }
             else if (phase == 1){
-                magey -= 3;
-                mage.setLocation(magex, magey);
-                if (magey < 50) {
+                mageY -= 3;
+                mage.setLocation(mageX, mageY);
+                if (mageY < 50) {
                     phase = 2;
                 }}
             else if (phase == 2) {
-                if (magey < 50) {
-                    magey = 50;
-                    mage.setLocation(magex, magey);
+                if (mageY < 50) {
+                    mageY = 50;
+                    mage.setLocation(mageX, mageY);
                 }
-                timepast++;
-                if (timepast < 100) {
-                    if (timepast % 2 == 1) {
-                        magex += 6;
-                        mage.setLocation(magex, magey);
-                        flamestrikey += 13;
-                        flame.setLocation(900, flamestrikey);
+                timePast++;
+                if (timePast < 100) {
+                    if (timePast % 2 == 1) {
+                        mageX += 6;
+                        mage.setLocation(mageX, mageY);
+                        flameStrikeY += 13;
+                        flame.setLocation(900, flameStrikeY);
                     } else {
-                        magex -= 6;
-                        mage.setLocation(magex, magey);
+                        mageX -= 6;
+                        mage.setLocation(mageX, mageY);
                     }
                 }
-                if (timepast == 102) {
-                    mage.setLocation(magex, magey);
-                    firestorm.setVisible(true);
-                    flamestrikey = -400;
-                    flame.setLocation(700, flamestrikey);
+                if (timePast == 102) {
+                    mage.setLocation(mageX, mageY);
+                    fireStorm.setVisible(true);
+                    flameStrikeY = -400;
+                    flame.setLocation(700, flameStrikeY);
                     wolf1Int = wolf1Int - mageDamage/2;
                     wolf1Hp.setText("Wolf 1: " + wolf1Int);
                     wolf2Int = wolf2Int - mageDamage/2;
@@ -1883,24 +1855,24 @@ public class ForestFight extends JFrame {
                     wolf4Int = wolf4Int - mageDamage/2;
                     wolf4Hp.setText("Wolf 4: " + wolf4Int);
                 }
-                if (timepast > 130) {
-                    timepast = 0;
+                if (timePast > 130) {
+                    timePast = 0;
                     phase = 3;
                 }
             } else if (phase == 3) {
-                magey += 3;
-                mage.setLocation(magex, magey);
-                if (magey > magestarty) {
-                    magex = magestartx;
-                    magey = magestarty;
-                    mage.setLocation(magex, magey);
+                mageY += 3;
+                mage.setLocation(mageX, mageY);
+                if (mageY > mageStartY) {
+                    mageX = mageStartX;
+                    mageY = mageStartY;
+                    mage.setLocation(mageX, mageY);
                     phase = 4;
                 }
             } else if (phase == 4) {
-                timepast++;
-                if (timepast > 30) {
-                    timepast = 0;
-                    firestorm.setVisible(false);
+                timePast++;
+                if (timePast > 30) {
+                    timePast = 0;
+                    fireStorm.setVisible(false);
                     flameStrike.stop();
                     phase = 0;
                     mobDeath();
@@ -1914,75 +1886,80 @@ public class ForestFight extends JFrame {
     Timer enemyTurnTimer = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            timepast++;
+            timePast++;
             endTurnButton.setVisible(false);
-            if (timepast < 100) {
+             if (timePast < 50) {
+                 if (wolf1Int<1)timePast = 140;
                 whosTurn.setText("Wolf 1 turn");
                 playersHp.setText("Hp: " + wolf1Int);
                 energy.setText("  ");
             }
-            else if (timepast == 100 && wolf1Int > 0) {
+
+            else if (timePast == 50 && wolf1Int > 0) {
                 wolfAttack();
                 partyDeath();
-            } else if (timepast < 110) {
-                wolf1x -= 15;
-                wolf1.setLocation(wolf1x, wolf1y);
-            } else if (timepast < 120) {
-                wolf1x += 15;
-                wolf1.setLocation(wolf1x, wolf1y);
+            } else if (timePast < 60) {
+                wolf1X -= 15;
+                wolf1.setLocation(wolf1X, wolf1y);
+            } else if (timePast < 70) {
+                wolf1X += 15;
+                wolf1.setLocation(wolf1X, wolf1y);
             }
 
-            else if (timepast < 200) {
-                wolf1.setLocation(wolf1startx, wolf1starty);
+            else if (timePast < 150) {
+                 if (wolf2Int<1)timePast = 240;
+                 wolf1.setLocation(wolf1StartX, wolf1StartY);
                 whosTurn.setText("Wolf 2 turn");
                 playersHp.setText("Hp: " + wolf2Int);
                 energy.setText("  ");
-            } else if (timepast == 200 && wolf2Int > 0) {
+            } else if (timePast == 150 && wolf2Int > 0) {
                 wolfAttack();
                 partyDeath();
-            } else if (timepast < 210) {
-                wolf2x -= 15;
-                wolf2.setLocation(wolf2x, wolf2y);
-            } else if (timepast < 220) {
-                wolf2x += 15;
-                wolf2.setLocation(wolf2x, wolf2y);
+            } else if (timePast < 160) {
+                wolf2X -= 15;
+                wolf2.setLocation(wolf2X, wolf2y);
+            } else if (timePast < 170) {
+                wolf2X += 15;
+                wolf2.setLocation(wolf2X, wolf2y);
             }
 
-            else if (timepast < 300) {
-                wolf2.setLocation(wolf2startx, wolf2starty);
+            else if (timePast < 250) {
+                 if (wolf3Int<1)timePast = 340;
+                 wolf2.setLocation(wolf2StartX, wolf2StartY);
                 whosTurn.setText("Wolf 3 turn");
                 playersHp.setText("Hp: " + wolf3Int);
                 energy.setText("  ");
-            } else if (timepast == 300 && wolf3Int > 0) {
+            } else if (timePast == 250 && wolf3Int > 0) {
                 wolfAttack();
                 partyDeath();
-            } else if (timepast < 310) {
-                wolf3x -= 15;
-                wolf3.setLocation(wolf3x, wolf3y);
-            } else if (timepast < 320) {
-                wolf3x += 15;
-                wolf3.setLocation(wolf3x, wolf3y);
+            } else if (timePast < 260) {
+                wolf3X -= 15;
+                wolf3.setLocation(wolf3X, wolf3y);
+            } else if (timePast < 270) {
+                wolf3X += 15;
+                wolf3.setLocation(wolf3X, wolf3y);
             }
 
-            else if (timepast < 400) {
-                wolf3.setLocation(wolf3startx, wolf3starty);
+            else if (timePast < 350) {
+                 if (wolf4Int<1)timePast = 440;
+                 wolf3.setLocation(wolf3StartX, wolf3StartY);
                 whosTurn.setText("Wolf 4 turn");
                 playersHp.setText("Hp: " + wolf4Int);
                 energy.setText("  ");
-            } else if (timepast == 400 && wolf4Int > 0) {
+            } else if (timePast == 350 && wolf4Int > 0) {
                 wolfAttack();
                 partyDeath();
-            } else if (timepast < 410) {
-                wolf4x -= 15;
-                wolf4.setLocation(wolf4x, wolf4y);
-            } else if (timepast < 420) {
-                wolf4x += 15;
-                wolf4.setLocation(wolf4x, wolf4y);
-            } else if (timepast < 500) {
-                wolf4.setLocation(wolf4startx, wolf4starty);
+            } else if (timePast < 360) {
+                wolf4X -= 15;
+                wolf4.setLocation(wolf4X, wolf4y);
+            } else if (timePast < 370) {
+                wolf4X += 15;
+                wolf4.setLocation(wolf4X, wolf4y);
+            } else if (timePast < 450) {
+                wolf4.setLocation(wolf4StartX, wolf4StartY);
                 enemyTurnTimer.stop();
                 turns = 0;
-                timepast = 0;
+                timePast = 0;
                 startNewTurn();
                 endTurnButton.setVisible(true);
             }
@@ -1994,18 +1971,18 @@ public class ForestFight extends JFrame {
         public void actionPerformed(ActionEvent ae) {
             if (phase == 0) {
                 arrow.setVisible(true);
-                if (arrowx == 121) {
+                if (arrowX == 121) {
                     MusicPick.musicStart("ding", "");
                 }
-                arrowx += 30;
-                arrow.setLocation(arrowx, arrowy);
-                if (arrowx > 1000) {
+                arrowX += 30;
+                arrow.setLocation(arrowX, arrowY);
+                if (arrowX > 1000) {
                     phase = 1;
                 }
             } else if (phase == 1) {
                 arrow.setVisible(false);
-                arrowx = arrowstartx;
-                arrow.setLocation(arrowx, arrowy);
+                arrowX = arrowStartX;
+                arrow.setLocation(arrowX, arrowY);
                 phase = 0;
                 shoot.stop();
             }
@@ -2016,16 +1993,16 @@ public class ForestFight extends JFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             if (phase == 0) {
-                if (warriorx == 100) MusicPick.musicStart("warriorattack", "");
-                warriorx += 30;
-                warrior.setLocation(warriorx, warriory);
-                if (warriorx > 200) {
+                if (warriorX == 100) MusicPick.musicStart("warriorattack", "");
+                warriorX += 30;
+                warrior.setLocation(warriorX, warriorY);
+                if (warriorX > 200) {
                     phase = 1;
                 }
             } else if (phase == 1) {
-                warriorx -= 30;
-                warrior.setLocation(warriorx, warriory);
-                if (warriorx < 100) {
+                warriorX -= 30;
+                warrior.setLocation(warriorX, warriorY);
+                if (warriorX < 100) {
                     phase = 0;
                     tackle.stop();
                 }
@@ -2036,31 +2013,31 @@ public class ForestFight extends JFrame {
     Timer takedamage = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
-            timepasttakedamage++;
-            if (timepasttakedamage == 1) {
+            timePastTakeDamage++;
+            if (timePastTakeDamage == 1) {
                 MusicPick.musicStart("warriorattacked", "");
-            } else if (timepasttakedamage == 10) {
+            } else if (timePastTakeDamage == 10) {
                 if (target == 0) warrior.setVisible(false);
                 if (target == 1) ranger.setVisible(false);
                 if (target == 2) mage.setVisible(false);
                 if (target == 3) healer.setVisible(false);
-            } else if (timepasttakedamage == 20) {
+            } else if (timePastTakeDamage == 20) {
                 if (target == 0) warrior.setVisible(true);
                 if (target == 1) ranger.setVisible(true);
                 if (target == 2) mage.setVisible(true);
                 if (target == 3) healer.setVisible(true);
-            } else if (timepasttakedamage == 30) {
+            } else if (timePastTakeDamage == 30) {
                 if (target == 0) warrior.setVisible(false);
                 if (target == 1) ranger.setVisible(false);
                 if (target == 2) mage.setVisible(false);
                 if (target == 3) healer.setVisible(false);
-            } else if (timepasttakedamage == 40) {
+            } else if (timePastTakeDamage == 40) {
                 if (target == 0) warrior.setVisible(true);
                 if (target == 1) ranger.setVisible(true);
                 if (target == 2) mage.setVisible(true);
                 if (target == 3) healer.setVisible(true);
                 takedamage.stop();
-                timepasttakedamage = 0;
+                timePastTakeDamage = 0;
             }
         }
     });
