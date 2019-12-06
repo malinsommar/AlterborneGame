@@ -23,7 +23,7 @@ public class LootScreen extends JFrame {
 
     private int textDelay = 0, whatLoot;
 
-    private boolean showEquipButton = false, showCurrentArmor = false, showCurrentWeapon = false;
+    private boolean showEquipButton = false;
     
     public LootScreen(int fight){
 
@@ -409,10 +409,10 @@ public class LootScreen extends JFrame {
             }
         });
     }
-    public void importFont() {
+    private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));
-        } catch (IOException | FontFormatException e) {
+        } catch (IOException | FontFormatException ignored) {
         }
     }
 }
