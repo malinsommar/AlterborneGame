@@ -1,5 +1,6 @@
 package fight;
 
+import davidtest.overworld.hub.OverWorld;
 import game.*;
 
 import javax.swing.*;
@@ -781,7 +782,7 @@ public class ForestFight extends JFrame {
             wolf4Hp.setText("Wolf 4: 0");
             wolf4.setVisible(false);
         }
-    }
+        }
 
     //Checks if any party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void partyDeath(){
