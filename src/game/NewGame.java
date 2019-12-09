@@ -1,5 +1,6 @@
 package game;
 
+import davidtest.overworld.hub.OverWorld;
 import fight.ForestFight;
 
 import javax.swing.ImageIcon;
@@ -17,6 +18,7 @@ public class NewGame extends JFrame {
     Font pixelMplus;
 
     private JLabel warrior, mage, healer,ranger;
+    OverWorld overWorld = new OverWorld();
 
     public NewGame() {
 
@@ -46,7 +48,8 @@ public class NewGame extends JFrame {
 
         //ActionListeners
         startButton.addActionListener(e -> dispose());
-        startButton.addActionListener(e -> new ForestFight());
+        startButton.addActionListener(e -> overWorld.start());
+
 
         setVisible(true);
     }

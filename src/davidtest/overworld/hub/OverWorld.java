@@ -22,7 +22,9 @@ public class OverWorld extends Canvas implements Runnable {
     public static final int HEIGHT = WIDTH / 12 * 9;
     public static final int SCALE = 3;
     public static final String NAME = "game";
+
     public JFrame frame;
+
     private boolean running = false;
     private int tickCount = 0;
 
@@ -186,26 +188,10 @@ public class OverWorld extends Canvas implements Runnable {
     public int getRandom(int max, int min) {
         return (int) ((Math.random() * ((max - min) + 1)) + min);
     }
-
-public void GetTimer() {
-    final int[] delay = {4};
-    Timer timer = new Timer();
-    TimerTask task = new TimerTask() {
-        @Override
-        public void run() {
-            delay[0]--;
-        }
-    };
-    timer.schedule(task,1000);
-}
     public synchronized void EnterForest() throws InterruptedException {
         if (player.hasEnteredForest()) {
-            new ForestFight();
-            this.wait();
+            new ForestFight(this);
+                    this.wait();
+                }
             }
-        }
-
-    public static void main(String[]args) {
-        new OverWorld().start();
-    }
 }

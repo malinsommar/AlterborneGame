@@ -1,6 +1,7 @@
 package game;
 
 import davidtest.overworld.hub.OverWorld;
+import fight.ForestFight;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +17,6 @@ public class LootScreen extends JFrame {
     private Mage m = new Mage();
     private Ranger r = new Ranger();
     private Inventory i = new Inventory();
-    private OverWorld overWorld = new OverWorld();
 
     private Font pixelMplus;
 
@@ -29,7 +29,7 @@ public class LootScreen extends JFrame {
     private boolean showEquipButton = false;
 
     
-    public LootScreen(int fight){
+    public LootScreen(int fight, ForestFight overWorldThreads){
 
         super("Loot Screen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

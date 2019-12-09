@@ -75,26 +75,22 @@ public class ForestFight extends JFrame {
 
 
     //Constructor for forestFight.
-    public ForestFight(){
-
+    public ForestFight(OverWorld overWorldThread){
         super();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setSize(192, 108);
         setTitle("Forest Fight");
         importFont();
-
         //Background picture
         ImageIcon background = new ImageIcon("forest.jpg");
         setContentPane(new JLabel(background));
-
         //Set wolf hp & energy label
         wolf1Int = 20;
         wolf2Int = 20;
         wolf3Int = 20;
         wolf4Int = 20;
         currentEnergy=warriorEnergyInt;
-
         //Import methods
         importWolfGif();
         importPartyGif();
@@ -684,8 +680,7 @@ public class ForestFight extends JFrame {
     private void isFightOver() {
         //All of the wolves are dead. Victory!
         if (wolf1Int < 1 && wolf2Int < 1 && wolf3Int < 1 && wolf4Int < 1) {
-            new LootScreen(1);
-
+            new LootScreen(1, this);
         }
         //The whole party is dead. Game over!
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
