@@ -17,6 +17,7 @@ public class LootScreen extends JFrame {
     private Mage m = new Mage();
     private Ranger r = new Ranger();
     private Inventory i = new Inventory();
+    private LevelUp lu = new LevelUp();
 
     private Font pixelMplus;
 
@@ -67,11 +68,14 @@ public class LootScreen extends JFrame {
     //Generate what weapon/armor/potion player get from fight. The odds differ depending what fight player came from which the parameter int keeps track of.
     private void generateLoot(int fight){
         int ranLoot = (int) (Math.random() * 110) + 1;
-        ranLoot =54;
 
         if(fight==1){
-            int intXp = 10;
-            xp = new JLabel("Xp: "+intXp);
+            int xpUp = (int)(Math.random()*7)+10;
+            int xpBefore = lu.xp;
+            lu.xp += xpUp;
+            xp = new JLabel("Xp: "+xpBefore+" --> "+lu.xp);
+
+
             int intGold = (int) (Math.random() * 20) + 15;
             gold = new JLabel("Gold: "+intGold);
             i.gold += intGold;
@@ -304,7 +308,7 @@ public class LootScreen extends JFrame {
         xp.setForeground(Color.black);
         xp.setFont((pixelMplus.deriveFont(30f)));
         Dimension xpSize = xp.getPreferredSize();
-        xp.setBounds(190, 70, xpSize.width, xpSize.height);
+        xp.setBounds(160, 70, xpSize.width, xpSize.height);
 
         gold.setForeground(Color.black);
         gold.setFont((pixelMplus.deriveFont(30f)));
