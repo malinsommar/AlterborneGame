@@ -13,6 +13,8 @@ import fight.ForestFight;
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileOutputStream;
+import java.sql.Time;
+import java.util.Random;
 
 public class Player extends Mob {
 
@@ -20,11 +22,12 @@ public class Player extends Mob {
     private int colour = Colours.get(-1, 111, 111, 543); //Assign colour for character which will be calculated within the Colours-class
     private int scale = 1; //assign size to character
     protected boolean isSwimming = false; //assign the isSwimming value as natively false
+    protected boolean isSwampSwimming = false;
     protected boolean isOnForestPath = false;
     private int tickCount = 0; //counts the ticks since the last update
     private String username;
 
-    public Player(Level level1, int x, int y, InputHandler input, String username) {
+    public Player(Level level1, int x, int y, InputHandler input) {
         super(level1, "Player", x, y, 1);
         this.input = input;
         this.username = username;
@@ -69,11 +72,20 @@ public class Player extends Mob {
             else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() != 3) {
                 isSwimming = false;
             }
+
+            if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 8) {
+                isSwampSwimming = true;
+            }
+            //identify if player is not swimming
+            else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() != 8) {
+                isSwampSwimming = false;
+            }
+
             if (level1.getTile( this.x + x >> 4,this.y >> 3).getId() ==5) {
                 isOnForestPath = true;
             }
             else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() !=5) {
-
+                isOnForestPath = false;
             }
                 tickCount++; //adds to tick whenever a move is made
         }
@@ -102,7 +114,7 @@ public class Player extends Mob {
         int modifier = 8 * scale;
         int xOffset = x - modifier / 2;
         int yOffset = y - modifier / 2 - 4;
-        if (isSwimming) {
+        if (isSwimming || isSwampSwimming) {
             int waterColour = 0; //call the wave-effect while swimming
             yOffset += 2;//lowers the position while in the water
 
@@ -125,8 +137,8 @@ public class Player extends Mob {
         screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile * 32, colour, flipTop, scale);
         screen.render(xOffset + modifier - (modifier * flipTop), yOffset, (xTile + 1) + yTile * 32, colour, flipTop, scale);
 
-        //call this whenever player=isSwimming is assigned false
-        if (!isSwimming) {
+        //call this whenever player=!isSwimming is assigned false to see the bottom part of the character
+        if (!isSwimming && !isSwampSwimming) {
             screen.render(xOffset + (modifier * flipBottom), yOffset + modifier, xTile + (yTile + 1) * 32, colour, flipBottom, scale);
             screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour, flipBottom, scale);
 
@@ -136,10 +148,12 @@ public class Player extends Mob {
             Fonts.render(username,screen, xOffset - ((username.length() - 1) / 2 * 8),yOffset - 10, Colours.get(-1,-1,-1,555), 1);
         }
     }
-
-    public boolean hasEntered() {
-        return isOnForestPath;
+    public boolean hasEnteredForest() {
+        {
+            return isOnForestPath;
+        }
     }
+
     @Override
 
     //create a collisionBox for where a function will activate if player interacts with a thing within that box

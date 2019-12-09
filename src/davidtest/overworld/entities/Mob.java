@@ -50,11 +50,14 @@ public abstract class Mob extends Entity {
     public abstract boolean hasCollided(int xa, int ya);
 
     //the tile you walk on if you're not walking on the solid tile
-    private Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
-    //compare tiles whether they are Basic or BasicSolid-tile (seen in Tile-class).
 
+    //compare tiles whether they are Basic or BasicSolid-tile (seen in Tile-class).
     protected boolean isSolidTile(int xa, int ya, int x, int y) {
+        if (level1 == null) {
+            return false;
+        }
         //the solid tiles
+        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
         Tile solidTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
         return !lastTile.equals(solidTile) //If the tile player spawns on is an IsSolid tile it won´t be solid immediately
                 && solidTile.isSolid();  //solidTile is Solid

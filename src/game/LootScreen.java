@@ -1,6 +1,6 @@
 package game;
 
-import fight.ForestFight;
+import davidtest.overworld.hub.OverWorld;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +16,7 @@ public class LootScreen extends JFrame {
     private Mage m = new Mage();
     private Ranger r = new Ranger();
     private Inventory i = new Inventory();
+    private OverWorld overWorld = new OverWorld();
 
     private Font pixelMplus;
 
@@ -26,6 +27,7 @@ public class LootScreen extends JFrame {
     private int textDelay = 0, whatLoot;
 
     private boolean showEquipButton = false;
+
     
     public LootScreen(int fight){
 
@@ -53,8 +55,8 @@ public class LootScreen extends JFrame {
         textDelayTimer.start();
 
         //ActionListeners
+        continueButton.addActionListener(e -> this.notify());  // !!DAVID!! Länka till din här
         continueButton.addActionListener(e -> dispose());
-        continueButton.addActionListener(e -> new Hub());  // !!DAVID!! Länka till din här
 
         equipButton.addActionListener(e->equipLoot());
 

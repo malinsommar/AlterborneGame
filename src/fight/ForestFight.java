@@ -80,7 +80,7 @@ public class ForestFight extends JFrame {
         super();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
-        setSize(1920, 1080);
+        setSize(192, 108);
         setTitle("Forest Fight");
         importFont();
 
@@ -137,7 +137,7 @@ public class ForestFight extends JFrame {
         hoverEffect();
         MusicPick.musicStart("forest1","music");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
+        setUndecorated(false);
 
         //ActionListeners
         attackButton.addActionListener(e -> attackPressed());

@@ -14,8 +14,8 @@ public class Screen {
     //public int[] colours = new int[MAP_WIDTH*MAP_WIDTH * 4]; //Holds information about the bits of data about which color is where
 
     //variables to give a "cameraPoint"
-    public int xOffset = 50;
-    public int yOffset = 50;
+    public int xOffset = 0;
+    public int yOffset = 0;
 
     public int width;
     public int height;
