@@ -1,5 +1,6 @@
 package fight;
 
+import davidtest.overworld.hub.OverWorld;
 import game.*;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -82,26 +83,22 @@ public class ForestFight extends JFrame {
 
 
     //Constructor for forestFight.
-    public ForestFight(){
-
+    public ForestFight(OverWorld overWorldThread){
         super();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
-        setSize(1920, 1080);
+        setSize(192, 108);
         setTitle("Forest Fight");
         importFont();
-
         //Background picture
         ImageIcon background = new ImageIcon("forest.jpg");
         setContentPane(new JLabel(background));
-
         //Set wolf hp & energy label
         wolf1Int = 20;
         wolf2Int = 20;
         wolf3Int = 20;
         wolf4Int = 20;
         currentEnergy=warriorEnergyInt;
-
         //Import methods
         importWolfGif();
         importPartyGif();
@@ -210,7 +207,7 @@ public class ForestFight extends JFrame {
         hoverEffect();
         MusicPick.musicStart("forest1","music");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
+        setUndecorated(false);
 
         //ActionListeners
         attackButton.addActionListener(e -> attackPressed());
@@ -943,7 +940,7 @@ public class ForestFight extends JFrame {
             wolf4Hp.setText("Wolf 4: 0");
             wolf4.setVisible(false);
         }
-    }
+        }
 
     //Checks if any party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void partyDeath(){

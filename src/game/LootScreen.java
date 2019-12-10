@@ -1,5 +1,6 @@
 package game;
 
+import davidtest.overworld.hub.OverWorld;
 import fight.ForestFight;
 
 import javax.swing.*;
@@ -16,8 +17,7 @@ public class LootScreen extends JFrame {
     private Mage m = new Mage();
     private Ranger r = new Ranger();
     private Inventory i = new Inventory();
-    private ForestFight ff = new ForestFight();
-
+    private LevelUp lu = new LevelUp();
 
     private Font pixelMplus;
 
@@ -28,14 +28,15 @@ public class LootScreen extends JFrame {
     private int textDelay = 0, whatLoot;
 
     private boolean showEquipButton = false;
+
     
-    public LootScreen(int fight){
+    public LootScreen(int fight, ForestFight overWorldThreads){
 
         super("Loot Screen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setSize(500, 400);
-        setLocation(400,170);
+        setLocation(400,138);
 
         importFont();
         generateLoot(fight);
@@ -45,6 +46,8 @@ public class LootScreen extends JFrame {
         add(continueButton);
         add(vicTitle);
 
+        MusicPick.musicStart("victory","music");
+
         equipButton.setVisible(true);
 
         textDelayTimer.setRepeats(true);
@@ -53,59 +56,13 @@ public class LootScreen extends JFrame {
         textDelayTimer.start();
 
         //ActionListeners
-        continueButton.addActionListener(e -> ff.dispose());
+        continueButton.addActionListener(e -> this.notify());  // !!DAVID!! Länka till din här
         continueButton.addActionListener(e -> dispose());
-        continueButton.addActionListener(e -> new Hub());  // !!DAVID!! Länka till din här
 
         equipButton.addActionListener(e->equipLoot());
 
-        MusicPick.musicStart("Victory","music");
         setUndecorated(true);
         setVisible(true);
-    }
-
-    //Method is called when equipButton is pressed. Changes the party-members armor/weapon and updates currentWeapon labels.
-    public void equipLoot(){
-        if (whatLoot==1) {
-            w.warriorRareArmor();
-            currentEquipmentName.setText(w.currentArmorName);
-            currentEquipmentStats.setText("Block: "+w.currentArmorBlock);
-        }
-        else if(whatLoot==2){
-            w.warriorRareWeapon();
-            currentEquipmentName.setText(w.currentWeaponName);
-            currentEquipmentStats.setText("Damage: "+w.currentWeaponDamage);
-        }
-        else if(whatLoot==3){
-            r.rangerRareArmor();
-            currentEquipmentName.setText(r.currentArmorName);
-            currentEquipmentStats.setText("Block: "+r.currentArmorBlock);
-        }
-        else if(whatLoot==4){
-            r.rangerRareWeapon();
-            currentEquipmentName.setText(r.currentWeaponName);
-            currentEquipmentStats.setText("Damage: "+r.currentWeaponDamage);
-        }
-        else if(whatLoot==5){
-            m.mageRareArmor();
-            currentEquipmentName = new JLabel(m.currentArmorName);
-            currentEquipmentStats = new JLabel("Block: "+m.currentArmorBlock+"Str: "+m.currentArmorDamage);
-        }
-        else if(whatLoot==6){
-            m.mageRareWeapon();
-            currentEquipmentName = new JLabel(m.currentWeaponName);
-            currentEquipmentStats = new JLabel("Damage: "+m.currentWeaponDamage);
-        }
-        else if(whatLoot==7){
-            h.healerRareArmor();
-            currentEquipmentName = new JLabel(m.currentWeaponName);
-            currentEquipmentStats = new JLabel("Damage: "+m.currentWeaponDamage);
-        }
-        else if(whatLoot==8){
-            h.healerRareWeapon();
-            currentEquipmentName = new JLabel(h.currentArmorName);
-            currentEquipmentStats = new JLabel("Block: "+h.currentArmorBlock+"Str: "+h.currentArmorDamage);
-        }
     }
 
     //Generate what weapon/armor/potion player get from fight. The odds differ depending what fight player came from which the parameter int keeps track of.
@@ -113,8 +70,12 @@ public class LootScreen extends JFrame {
         int ranLoot = (int) (Math.random() * 110) + 1;
 
         if(fight==1){
-            int intXp = 10;
-            xp = new JLabel("Xp: "+intXp);
+            int xpUp = (int)(Math.random()*7)+10;
+            int xpBefore = lu.xp;
+            lu.xp += xpUp;
+            xp = new JLabel("Xp: "+xpBefore+" --> "+lu.xp);
+
+
             int intGold = (int) (Math.random() * 20) + 15;
             gold = new JLabel("Gold: "+intGold);
             i.gold += intGold;
@@ -280,8 +241,52 @@ public class LootScreen extends JFrame {
         }
     }
 
+    //Method is called when equipButton is pressed. Changes the party-members armor/weapon and updates currentWeapon labels.
+    private void equipLoot(){
+        if (whatLoot==1) {
+            w.warriorRareArmor();
+            currentEquipmentName.setText(w.currentArmorName);
+            currentEquipmentStats.setText("Block: "+w.currentArmorBlock);
+        }
+        else if(whatLoot==2){
+            w.warriorRareWeapon();
+            currentEquipmentName.setText(w.currentWeaponName);
+            currentEquipmentStats.setText("Damage: "+w.currentWeaponDamage);
+        }
+        else if(whatLoot==3){
+            r.rangerRareArmor();
+            currentEquipmentName.setText(r.currentArmorName);
+            currentEquipmentStats.setText("Block: "+r.currentArmorBlock);
+        }
+        else if(whatLoot==4){
+            r.rangerRareWeapon();
+            currentEquipmentName.setText(r.currentWeaponName);
+            currentEquipmentStats.setText("Damage: "+r.currentWeaponDamage);
+        }
+        else if(whatLoot==5){
+            m.mageRareArmor();
+            currentEquipmentName.setText(m.currentArmorName);
+            currentEquipmentStats.setText("Block: "+m.currentArmorBlock+"Str: "+m.currentArmorDamage);
+        }
+        else if(whatLoot==6){
+            m.mageRareWeapon();
+            currentEquipmentName.setText(m.currentWeaponName);
+            currentEquipmentStats.setText("Damage: "+m.currentWeaponDamage);
+        }
+        else if(whatLoot==7){
+            h.healerRareArmor();
+            currentEquipmentName.setText(m.currentWeaponName);
+            currentEquipmentStats.setText("Block: "+h.currentArmorBlock+"Str: "+h.currentArmorDamage);
+        }
+        else if(whatLoot==8){
+            h.healerRareWeapon();
+            currentEquipmentName.setText(h.currentArmorName);
+            currentEquipmentStats.setText("Damage: "+m.currentWeaponDamage);
+        }
+    }
+
     //Set text in labels to " " when they are not supposed to show.
-    public void hideLabels(){
+    private void hideLabels(){
         currentEquipment = new JLabel(" ");
         currentEquipmentName = new JLabel(" ");
         currentEquipmentStats = new JLabel(" ");
@@ -303,7 +308,7 @@ public class LootScreen extends JFrame {
         xp.setForeground(Color.black);
         xp.setFont((pixelMplus.deriveFont(30f)));
         Dimension xpSize = xp.getPreferredSize();
-        xp.setBounds(190, 70, xpSize.width, xpSize.height);
+        xp.setBounds(160, 70, xpSize.width, xpSize.height);
 
         gold.setForeground(Color.black);
         gold.setFont((pixelMplus.deriveFont(30f)));
@@ -316,32 +321,32 @@ public class LootScreen extends JFrame {
 
         //Current Equipment
         Dimension currentEquipmentSize = currentEquipment.getPreferredSize();
-        currentEquipment.setBounds(30,140,1000,currentEquipmentSize.height+100);
+        currentEquipment.setBounds(10,140,1000,currentEquipmentSize.height+100);
         currentEquipment.setFont(pixelMplus.deriveFont(20f));
 
         //Current Equipment Name
         Dimension currentEquipmentNameSize = currentEquipmentName.getPreferredSize();
-        currentEquipmentName.setBounds(30,160,1000,currentEquipmentNameSize.height+100);
+        currentEquipmentName.setBounds(10,160,1000,currentEquipmentNameSize.height+100);
         currentEquipmentName.setFont(pixelMplus.deriveFont(20f));
 
         //Current Equipment stats
         Dimension currentEquipmentStatsSize = currentEquipmentStats.getPreferredSize();
-        currentEquipmentStats.setBounds(30,180,1000,currentEquipmentStatsSize.height+100);
+        currentEquipmentStats.setBounds(10,180,1000,currentEquipmentStatsSize.height+100);
         currentEquipmentStats.setFont(pixelMplus.deriveFont(20f));
 
         //New Equipment
         Dimension newEquipmentSize = newEquipment.getPreferredSize();
-        newEquipment.setBounds(350,140,1000,newEquipmentSize.height+100);
+        newEquipment.setBounds(320,140,1000,newEquipmentSize.height+100);
         newEquipment.setFont(pixelMplus.deriveFont(20f));
 
         //new equipment name
         Dimension newEquipmentNameSize = newEquipmentName.getPreferredSize();
-        newEquipmentName.setBounds(350,160,1000,newEquipmentNameSize.height+100);
+        newEquipmentName.setBounds(320,160,1000,newEquipmentNameSize.height+100);
         newEquipmentName.setFont(pixelMplus.deriveFont(20f));
 
         //new equipment stats
         Dimension newEquipmentStatsSize = newEquipmentStats.getPreferredSize();
-        newEquipmentStats.setBounds(350,180,1000,newEquipmentStatsSize.height+100);
+        newEquipmentStats.setBounds(320,180,1000,newEquipmentStatsSize.height+100);
         newEquipmentStats.setFont(pixelMplus.deriveFont(20f));
 
         //Button
