@@ -31,7 +31,7 @@ public class RouteScreen extends JFrame {
         add(shopChoice);
 
         forrestChoice.addActionListener(e-> dispose());
-        forrestChoice.addActionListener(e-> new ForestFight());
+       // forrestChoice.addActionListener(e-> new ForestFight());
         shopChoice.addActionListener(e-> dispose());
         shopChoice.addActionListener(e-> new Shop());
 
