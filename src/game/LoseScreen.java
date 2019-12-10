@@ -37,7 +37,7 @@ public class LoseScreen extends JFrame {
         Dimension size4 = wonBread.getPreferredSize();
         wonBread.setBounds(200, 300, size4.width, size4.height);
 
-        countinueButton = new JButton("Thanks Obama...");
+        countinueButton = new JButton("Enter your name:");
         countinueButton.setSize(300, 100);
         countinueButton.setLocation(500, 600);
         countinueButton.setForeground(Color.white);
@@ -61,9 +61,9 @@ public class LoseScreen extends JFrame {
         timer.setInitialDelay(2500);
         timer.start();
 
-        //countinue
         countinueButton.addActionListener(e -> dispose());
-        //countinueButton.addActionListener(e -> new ForestFight());
+        countinueButton.addActionListener(e -> new Hub());
+
 
         MusicPick.musicStart("gwyn","music");
 
@@ -83,6 +83,9 @@ public class LoseScreen extends JFrame {
                 add(wonBread);
             }
             else if (textDelay == 5){
+
+            }
+            else if (textDelay == 7){
                 add(countinueButton);
             }
             repaint();

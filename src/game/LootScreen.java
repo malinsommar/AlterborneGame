@@ -1,7 +1,5 @@
 package game;
 
-import fight.ForestFight;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -54,8 +52,9 @@ public class LootScreen extends JFrame {
         textDelayTimer.start();
 
         //ActionListeners
-        continueButton.addActionListener(e -> dispose());
         continueButton.addActionListener(e -> new Hub());  // !!DAVID!! Länka till din här
+        continueButton.addActionListener(e -> dispose());
+
 
         equipButton.addActionListener(e->equipLoot());
 
@@ -273,7 +272,7 @@ public class LootScreen extends JFrame {
         }
         else if(whatLoot==7){
             h.healerRareArmor();
-            currentEquipmentName.setText(m.currentWeaponName);
+            currentEquipmentName.setText(h.currentArmorName);
             currentEquipmentStats.setText("Block: "+h.currentArmorBlock+"Str: "+h.currentArmorDamage);
         }
         else if(whatLoot==8){
