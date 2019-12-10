@@ -80,6 +80,8 @@ public class ForestFight extends JFrame {
     private JLabel smallPyroBlast = new JLabel(new ImageIcon("miniflame.gif"));
     private JLabel bigPyroBlast = new JLabel(new ImageIcon("flame.gif"));
 
+    OverWorld owThread;
+
 
 
     //Constructor for forestFight.
@@ -90,36 +92,25 @@ public class ForestFight extends JFrame {
         setSize(192, 108);
         setTitle("Forest Fight");
         importFont();
+
         //Background picture
         ImageIcon background = new ImageIcon("forest.jpg");
         setContentPane(new JLabel(background));
+
         //Set wolf hp & energy label
         wolf1Int = 20;
         wolf2Int = 20;
         wolf3Int = 20;
         wolf4Int = 20;
         currentEnergy=warriorEnergyInt;
+
         //Import methods
         importWolfGif();
         importPartyGif();
         importButtons();
         importLabels();
         spellMenuStartup();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        getThread(overWorldThread);
 
 
 
@@ -148,15 +139,6 @@ public class ForestFight extends JFrame {
         add(bigPyroBlast);
         bigPyroBlast.setVisible(false);
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
 
 
 
@@ -261,109 +243,10 @@ public class ForestFight extends JFrame {
         flame.setVisible(true);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setVisible(true);
     }
-
-
-
-
-
-
-
-
 
     //simons del
     public void spellMenuStartup(){
@@ -540,6 +423,10 @@ public class ForestFight extends JFrame {
 
 
 
+    public void getThread(OverWorld overWorldThread){
+
+        owThread = overWorldThread;
+    }
 
 
 
@@ -841,7 +728,7 @@ public class ForestFight extends JFrame {
         //All of the wolves are dead. Victory!
         if (wolf1Int < 1 && wolf2Int < 1 && wolf3Int < 1 && wolf4Int < 1) {
                 MusicPick.musicStop();
-            new LootScreen(1);
+            new LootScreen(1,owThread);
             //MusicPick.musicStop();
 
         }
