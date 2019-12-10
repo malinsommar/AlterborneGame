@@ -1,5 +1,8 @@
 package game;
 
+import davidtest.overworld.hub.OverWorld;
+import fight.ForestFight;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,8 +28,9 @@ public class LootScreen extends JFrame {
     private int textDelay = 0, whatLoot;
 
     private boolean showEquipButton = false;
+
     
-    public LootScreen(int fight){
+    public LootScreen(int fight, ForestFight overWorldThreads){
 
         super("Loot Screen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,9 +56,8 @@ public class LootScreen extends JFrame {
         textDelayTimer.start();
 
         //ActionListeners
-        continueButton.addActionListener(e -> new Hub());  // !!DAVID!! Länka till din här
+        continueButton.addActionListener(e -> this.notify());  // !!DAVID!! Länka till din här
         continueButton.addActionListener(e -> dispose());
-
 
         equipButton.addActionListener(e->equipLoot());
 
@@ -272,7 +275,7 @@ public class LootScreen extends JFrame {
         }
         else if(whatLoot==7){
             h.healerRareArmor();
-            currentEquipmentName.setText(h.currentArmorName);
+            currentEquipmentName.setText(m.currentWeaponName);
             currentEquipmentStats.setText("Block: "+h.currentArmorBlock+"Str: "+h.currentArmorDamage);
         }
         else if(whatLoot==8){

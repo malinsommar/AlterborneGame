@@ -12,7 +12,7 @@ import java.io.IOException;
 public class VictoryScreen extends JFrame {
 
     JLabel youWon, wonBread;
-    JButton countinueButton;
+    JButton continueButton;
     Font pixelMplus;
     OverWorld overWorld;
     private int textDelay = 0;
@@ -40,22 +40,22 @@ public class VictoryScreen extends JFrame {
         Dimension size4 = wonBread.getPreferredSize();
         wonBread.setBounds(200, 300, size4.width, size4.height);
 
-        countinueButton = new JButton("Onwards!");
-        countinueButton.setSize(300, 100);
-        countinueButton.setLocation(500, 600);
-        countinueButton.setForeground(Color.white);
-        countinueButton.setFont(pixelMplus.deriveFont(50f));
-        countinueButton.setBackground(Color.darkGray);
-        countinueButton.setBorder(null);
-        countinueButton.setFocusPainted(false);
+        continueButton = new JButton("Onwards!");
+        continueButton.setSize(300, 100);
+        continueButton.setLocation(500, 600);
+        continueButton.setForeground(Color.white);
+        continueButton.setFont(pixelMplus.deriveFont(50f));
+        continueButton.setBackground(Color.darkGray);
+        continueButton.setBorder(null);
+        continueButton.setFocusPainted(false);
 
-        countinueButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        continueButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                countinueButton.setBackground(Color.gray);
+                continueButton.setBackground(Color.gray);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                countinueButton.setBackground(Color.darkGray);
+                continueButton.setBackground(Color.darkGray);
             }
         });
 
@@ -64,7 +64,8 @@ public class VictoryScreen extends JFrame {
         timer.setInitialDelay(500);
         timer.start();
 
-        countinueButton.addActionListener(e -> dispose());
+        continueButton.addActionListener(e -> System.out.println("Wowi"));
+        continueButton.addActionListener(e -> dispose());
 
 
         MusicPick.musicStart("Victory","music");
@@ -88,7 +89,7 @@ public class VictoryScreen extends JFrame {
             }
             else if (textDelay == 6){
                 MusicPick.musicStart("ding","");
-                add(countinueButton);
+                add(continueButton);
             }
             repaint();
         }
