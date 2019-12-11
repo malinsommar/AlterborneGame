@@ -136,8 +136,6 @@ public class NewGame extends JFrame {
     public void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));
-            //textenduvillläggain.setFont(pixelMplus.deriveFont(30f));
-
         } catch (IOException | FontFormatException e) {
         }
     }
