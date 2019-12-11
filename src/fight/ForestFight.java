@@ -61,6 +61,8 @@ public class ForestFight extends JFrame {
     private int arrowX = 120, arrowY = 360, arrowStartX = arrowX, arrowStartY = arrowY;
     private int flameStrikeY = -400;
     private int superMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
+    private int counterMegaMath = -30;
+
     private int pyroBlastX = 45;
     private int pyroblastY = 150;
 
@@ -328,7 +330,7 @@ public class ForestFight extends JFrame {
         //mage
         if (turns == 3) {
             skill1Button.setText("Fireball");
-            skill2Button.setText("Magic missile");
+            skill2Button.setText("Pyrospin");
             skill3Button.setText("Flamestrike");
             skill4Button.setText("Pyroblast");
         }
@@ -377,7 +379,7 @@ public class ForestFight extends JFrame {
             
         }
         if (turns == 3){
-
+            pyroSpin.start();
         }
         if (turns == 4){
 
@@ -2216,5 +2218,119 @@ public class ForestFight extends JFrame {
                 }
             }
         }
+    });
+    private Timer pyroSpin = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            if (phase == 0){
+                MusicPick.musicStart("demoshout", "");
+                bigPyroBlast.setVisible(true);
+                phase = 1;
+                pyroBlastX = 45;
+                pyroblastY = 150;
+            }
+            if (phase == 1 || phase == 2) {
+                superMegaMath -=2;
+                pyroblastY -= superMegaMath;
+                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                if (phase == 1 && superMegaMath == 0) {
+                    phase = 2;
+                }
+            }
+            if (phase == 2 || phase == 3) {
+                counterMegaMath +=2;
+                pyroBlastX -= counterMegaMath;
+                //bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                if (phase == 2 && counterMegaMath == 0) {
+                    phase = 3;
+                }
+            }
+            if (phase == 3 || phase == 4) {
+                superMegaMath +=2;
+                pyroblastY -= superMegaMath;
+                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                if (phase == 3 && superMegaMath == 0) {
+                    phase = 4;
+                }
+            }
+            if (phase == 4 || phase == 5) {
+                counterMegaMath -=2;
+                pyroBlastX -= counterMegaMath;
+                //bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                if (phase == 4 && counterMegaMath == 0) {
+                    phase = 5;
+                }
+            }
+            if (phase == 5 || phase == 6) {
+                superMegaMath -=2;
+                pyroblastY -= superMegaMath;
+                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                if (phase == 5 && superMegaMath == 0) {
+                    phase = 1;
+                }
+            }
+            if (phase == 6){
+                phase = 7;
+            }
+            if(timePast == 200) {
+                pyroblastY = 150;
+                pyroBlastX = 45;
+                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                bigPyroBlast.setVisible(false);
+                timePast = 0;
+                superMegaMath = 30;
+                counterMegaMath = -30;
+                phase = 0;
+                pyroSpin.stop();
+            }
+        }
+
+
+
+            /*
+            timePast++;
+            if (timePast < 100) {
+                smallPyroBlast.setVisible(true);
+            }
+            else if (timePast < 200) {
+                smallPyroBlast.setVisible(false);
+                mediumPyroBlast.setVisible(true);
+            }
+            else if (timePast < 350) {
+                mediumPyroBlast.setVisible(false);
+                bigPyroBlast.setVisible(true);
+            }
+            else if (timePast < 400 ){
+                pyroBlastX += 3;
+                pyroblastY -= 1;
+                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            }
+            else if (timePast < 460){
+                pyroBlastX += 3;
+                pyroblastY += 1;
+                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            }
+            else if (timePast < 530){
+                pyroBlastX += 3;
+                pyroblastY -= 1;
+                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            }
+            else if (timePast < 590){
+                pyroBlastX += 4;
+                pyroblastY += 1;
+                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            }
+            else {
+                bigPyroBlast.setVisible(false);
+                timePast = 0;
+                pyroBlastX = 45;
+                pyroblastY = 150;
+                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                pyroBlast.stop();
+            }
+
+             */
+
     });
 }

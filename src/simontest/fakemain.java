@@ -5,6 +5,6 @@ import fight.ForestFight;
 public class fakemain {
 
         public static void main(String[] args) {
-            new ForestFight();
+            //new ForestFight(1, over); //TODO : fix
         }
 }
