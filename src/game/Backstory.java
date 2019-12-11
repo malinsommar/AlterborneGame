@@ -11,7 +11,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class NewGame extends JFrame {
+public class Backstory extends JFrame {
 
     private JLabel backStory, backStory2, backStory3, yourParty;
     private JButton startButton;
@@ -20,7 +20,7 @@ public class NewGame extends JFrame {
     private JLabel warrior, mage, healer,ranger;
     OverWorld overWorld = new OverWorld();
 
-    public NewGame() {
+    public Backstory() {
 
         super("New Game");
         setLayout(null);

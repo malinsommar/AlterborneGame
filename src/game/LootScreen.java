@@ -1,7 +1,10 @@
 package game;
 
 import davidtest.overworld.hub.OverWorld;
-import fight.ForestFight;
+import party.Healer;
+import party.Mage;
+import party.Ranger;
+import party.Warrior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -280,7 +283,7 @@ public class LootScreen extends JFrame {
         }
         else if(whatLoot==8){
             h.healerRareWeapon();
-            currentEquipmentName.setText(h.currentArmorName);
+            currentEquipmentName.setText(h.currentWeaponName);
             currentEquipmentStats.setText("Damage: "+m.currentWeaponDamage);
         }
     }

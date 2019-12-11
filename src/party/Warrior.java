@@ -1,11 +1,11 @@
-package game;
+package party;
 
 public class Warrior {
 
     public String currentWeaponName = "Wooden Sword";
     public int currentWeaponDamage = 5;
 
-    String currentArmorName = "Rusty Armor";
+    public String currentArmorName = "Rusty Armor";
     public int currentArmorBlock = 3;
 
     public int hp = 150;

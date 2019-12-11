@@ -1,7 +1,6 @@
 package simontest;
-import game.Warrior;
-import game.Warrior;
-import game.Warrior;
+import party.Warrior;
+
 public class testspells {
 
     int[] partypizza = new int[4];

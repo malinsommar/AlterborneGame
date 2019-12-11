@@ -1,5 +1,12 @@
 package game;
 
+import imports.ArmorWeapon;
+import imports.Potions;
+import party.Healer;
+import party.Mage;
+import party.Ranger;
+import party.Warrior;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -12,6 +19,8 @@ public class Shop extends JFrame {
     private Healer h = new Healer();
     private Ranger r = new Ranger();
     private Mage m = new Mage();
+    private Potions potions = new Potions();
+    private ArmorWeapon aw = new ArmorWeapon();
 
     private Font pixelMplus;
     private JButton back, potion1, potion2, potion3, potion4, potion5, potion6, potion7, potion8, potion9, potion10, potion11, potion12;
@@ -491,229 +500,229 @@ public class Shop extends JFrame {
         back.setFocusPainted(false);
 
         //Minor Health Potion
-        potion1 = new JButton(inv.minorHealthGif);
+        potion1 = new JButton(potions.minorHealthGif);
         potion1.setBounds(900,100,41,62);
         potion1.setBackground(Color.white);
         potion1.setBorder(null);
         potion1.setFocusPainted(false);
 
         //Lesser Health Potion
-        potion2 = new JButton(inv.lesserHealthGif);
+        potion2 = new JButton(potions.lesserHealthGif);
         potion2.setBounds(970,100,46,62);
         potion2.setBackground(Color.white);
         potion2.setBorder(null);
         potion2.setFocusPainted(false);
 
         //Major Health Potion
-        potion3 = new JButton(inv.majorHealthGif);
+        potion3 = new JButton(potions.majorHealthGif);
         potion3.setBounds(1050,100,55,64);
         potion3.setBackground(Color.white);
         potion3.setBorder(null);
         potion3.setFocusPainted(false);
 
         //Minor Block Potion
-        potion4 = new JButton(inv.minorBlockGif);
+        potion4 = new JButton(potions.minorBlockGif);
         potion4.setBounds(900,250,42,63);
         potion4.setBackground(Color.white);
         potion4.setBorder(null);
         potion4.setFocusPainted(false);
 
         //Lesser Block Potion
-        potion5 = new JButton(inv.lesserBlockGif);
+        potion5 = new JButton(potions.lesserBlockGif);
         potion5.setBounds(970,250,47,63);
         potion5.setBackground(Color.white);
         potion5.setBorder(null);
         potion5.setFocusPainted(false);
 
         //Major Block Potion
-        potion6 = new JButton(inv.majorBlockGif);
+        potion6 = new JButton(potions.majorBlockGif);
         potion6.setBounds(1050,250,59,64);
         potion6.setBackground(Color.white);
         potion6.setBorder(null);
         potion6.setFocusPainted(false);
 
         //Minor Energy Potion
-        potion7 = new JButton(inv.minorEnergyGif);
+        potion7 = new JButton(potions.minorEnergyGif);
         potion7.setBounds(900,400,41,63);
         potion7.setBackground(Color.white);
         potion7.setBorder(null);
         potion7.setFocusPainted(false);
 
         //Lesser Energy Potion
-        potion8 = new JButton(inv.lesserEnergyGif);
+        potion8 = new JButton(potions.lesserEnergyGif);
         potion8.setBounds(970,400,46,63);
         potion8.setBackground(Color.white);
         potion8.setBorder(null);
         potion8.setFocusPainted(false);
 
         //Major Energy Potion
-        potion9 = new JButton(inv.majorEnergyGif);
+        potion9 = new JButton(potions.majorEnergyGif);
         potion9.setBounds(1050,400,59,64);
         potion9.setBackground(Color.white);
         potion9.setBorder(null);
         potion9.setFocusPainted(false);
 
         //Minor Strength Potion
-        potion10 = new JButton(inv.minorStrGif);
+        potion10 = new JButton(potions.minorStrGif);
         potion10.setBounds(900,550,38,63);
         potion10.setBackground(Color.white);
         potion10.setBorder(null);
         potion10.setFocusPainted(false);
 
         //Lesser Energy Potion
-        potion11 = new JButton(inv.lesserStrGif);
+        potion11 = new JButton(potions.lesserStrGif);
         potion11.setBounds(970,550,42,63);
         potion11.setBackground(Color.white);
         potion11.setBorder(null);
         potion11.setFocusPainted(false);
 
         //Major Energy Potion
-        potion12 = new JButton(inv.majorStrGif);
+        potion12 = new JButton(potions.majorStrGif);
         potion12.setBounds(1050,550,53,64);
         potion12.setBackground(Color.white);
         potion12.setBorder(null);
         potion12.setFocusPainted(false);
 
         //Warrior stuff
-        warriorArmor1 = new JButton(inv.warriorRareArmorPic);
+        warriorArmor1 = new JButton(aw.warriorRareArmorPic);
         warriorArmor1.setBounds(175,155,53,64);
         warriorArmor1.setBackground(Color.white);
         warriorArmor1.setBorder(null);
         warriorArmor1.setFocusPainted(false);
 
-        warriorArmor2 = new JButton(inv.warriorEpicArmorPic);
+        warriorArmor2 = new JButton(aw.warriorEpicArmorPic);
         warriorArmor2.setBounds(235,155,53,64);
         warriorArmor2.setBackground(Color.white);
         warriorArmor2.setBorder(null);
         warriorArmor2.setFocusPainted(false);
 
-        warriorArmor3 = new JButton(inv.warriorLegendaryArmorPic);
+        warriorArmor3 = new JButton(aw.warriorLegendaryArmorPic);
         warriorArmor3.setBounds(295,155,53,64);
         warriorArmor3.setBackground(Color.white);
         warriorArmor3.setBorder(null);
         warriorArmor3.setFocusPainted(false);
 
-        warriorWeapon1 = new JButton(inv.warriorRareWeaponPic);
+        warriorWeapon1 = new JButton(aw.warriorRareWeaponPic);
         warriorWeapon1.setBounds(175,225,53,64);
         warriorWeapon1.setBackground(Color.white);
         warriorWeapon1.setBorder(null);
         warriorWeapon1.setFocusPainted(false);
 
-        warriorWeapon2 = new JButton(inv.warriorEpicWeaponPic);
+        warriorWeapon2 = new JButton(aw.warriorEpicWeaponPic);
         warriorWeapon2.setBounds(235,225,53,64);
         warriorWeapon2.setBackground(Color.white);
         warriorWeapon2.setBorder(null);
         warriorWeapon2.setFocusPainted(false);
 
-        warriorWeapon3 = new JButton(inv.warriorLegendaryWeaponPic);
+        warriorWeapon3 = new JButton(aw.warriorLegendaryWeaponPic);
         warriorWeapon3.setBounds(295, 225,53,64);
         warriorWeapon3.setBackground(Color.white);
         warriorWeapon3.setBorder(null);
         warriorWeapon3.setFocusPainted(false);
 
-        rangerArmor1 = new JButton(inv.rangerRareArmorPic);
+        rangerArmor1 = new JButton(aw.rangerRareArmorPic);
         rangerArmor1.setBounds(175, 375,53,64);
         rangerArmor1.setBackground(Color.white);
         rangerArmor1.setBorder(null);
         rangerArmor1.setFocusPainted(false);
 
-        rangerArmor2 = new JButton(inv.rangerEpicArmorPic);
+        rangerArmor2 = new JButton(aw.rangerEpicArmorPic);
         rangerArmor2.setBounds(235, 375,53,64);
         rangerArmor2.setBackground(Color.white);
         rangerArmor2.setBorder(null);
         rangerArmor2.setFocusPainted(false);
 
-        rangerArmor3 = new JButton(inv.rangerLegendaryArmorPic);
+        rangerArmor3 = new JButton(aw.rangerLegendaryArmorPic);
         rangerArmor3.setBounds(295, 375,53,64);
         rangerArmor3.setBackground(Color.white);
         rangerArmor3.setBorder(null);
         rangerArmor3.setFocusPainted(false);
 
-        rangerWeapon1 = new JButton(inv.rangerRareWeaponPic);
+        rangerWeapon1 = new JButton(aw.rangerRareWeaponPic);
         rangerWeapon1.setBounds(175, 445,53,64);
         rangerWeapon1.setBackground(Color.white);
         rangerWeapon1.setBorder(null);
         rangerWeapon1.setFocusPainted(false);
 
-        rangerWeapon2 = new JButton(inv.rangerEpicWeaponPic);
+        rangerWeapon2 = new JButton(aw.rangerEpicWeaponPic);
         rangerWeapon2.setBounds(235, 445,53,64);
         rangerWeapon2.setBackground(Color.white);
         rangerWeapon2.setBorder(null);
         rangerWeapon2.setFocusPainted(false);
 
-        rangerWeapon3 = new JButton(inv.rangerLegendaryWeaponPic);
+        rangerWeapon3 = new JButton(aw.rangerLegendaryWeaponPic);
         rangerWeapon3.setBounds(295, 445,53,64);
         rangerWeapon3.setBackground(Color.white);
         rangerWeapon3.setBorder(null);
         rangerWeapon3.setFocusPainted(false);
 
-        mageArmor1 = new JButton(inv.mageRareArmorPic);
+        mageArmor1 = new JButton(aw.mageRareArmorPic);
         mageArmor1.setBounds(555, 155,53,64);
         mageArmor1.setBackground(Color.white);
         mageArmor1.setBorder(null);
         mageArmor1.setFocusPainted(false);
 
-        mageArmor2 = new JButton(inv.mageEpicArmorPic);
+        mageArmor2 = new JButton(aw.mageEpicArmorPic);
         mageArmor2.setBounds(615, 155,53,64);
         mageArmor2.setBackground(Color.white);
         mageArmor2.setBorder(null);
         mageArmor2.setFocusPainted(false);
 
-        mageArmor3 = new JButton(inv.mageLegendaryArmorPic);
+        mageArmor3 = new JButton(aw.mageLegendaryArmorPic);
         mageArmor3.setBounds(675, 155,53,64);
         mageArmor3.setBackground(Color.white);
         mageArmor3.setBorder(null);
         mageArmor3.setFocusPainted(false);
 
-        mageWeapon1 = new JButton(inv.mageRareWeaponPic);
+        mageWeapon1 = new JButton(aw.mageRareWeaponPic);
         mageWeapon1.setBounds(555, 225,53,64);
         mageWeapon1.setBackground(Color.white);
         mageWeapon1.setBorder(null);
         mageWeapon1.setFocusPainted(false);
 
-        mageWeapon2 = new JButton(inv.mageEpicWeaponPic);
+        mageWeapon2 = new JButton(aw.mageEpicWeaponPic);
         mageWeapon2.setBounds(615, 225,53,64);
         mageWeapon2.setBackground(Color.white);
         mageWeapon2.setBorder(null);
         mageWeapon2.setFocusPainted(false);
 
-        mageWeapon3 = new JButton(inv.mageLegendaryWeaponPic);
+        mageWeapon3 = new JButton(aw.mageLegendaryWeaponPic);
         mageWeapon3.setBounds(675, 225,53,64);
         mageWeapon3.setBackground(Color.white);
         mageWeapon3.setBorder(null);
         mageWeapon3.setFocusPainted(false);
 
-        healerArmor1 = new JButton(inv.healerRareArmorPic);
+        healerArmor1 = new JButton(aw.healerRareArmorPic);
         healerArmor1.setBounds(555, 375,53,64);
         healerArmor1.setBackground(Color.white);
         healerArmor1.setBorder(null);
         healerArmor1.setFocusPainted(false);
 
-        healerArmor2 = new JButton(inv.healerEpicArmorPic);
+        healerArmor2 = new JButton(aw.healerEpicArmorPic);
         healerArmor2.setBounds(615, 375,53,64);
         healerArmor2.setBackground(Color.white);
         healerArmor2.setBorder(null);
         healerArmor2.setFocusPainted(false);
 
-        healerArmor3 = new JButton(inv.healerLegendaryArmorPic);
+        healerArmor3 = new JButton(aw.healerLegendaryArmorPic);
         healerArmor3.setBounds(675, 375,53,64);
         healerArmor3.setBackground(Color.white);
         healerArmor3.setBorder(null);
         healerArmor3.setFocusPainted(false);
 
-        healerWeapon1 = new JButton(inv.healerRareWeaponPic);
+        healerWeapon1 = new JButton(aw.healerRareWeaponPic);
         healerWeapon1.setBounds(555, 445,53,64);
         healerWeapon1.setBackground(Color.white);
         healerWeapon1.setBorder(null);
         healerWeapon1.setFocusPainted(false);
 
-        healerWeapon2 = new JButton(inv.healerEpicWeaponPic);
+        healerWeapon2 = new JButton(aw.healerEpicWeaponPic);
         healerWeapon2.setBounds(615, 445,53,64);
         healerWeapon2.setBackground(Color.white);
         healerWeapon2.setBorder(null);
         healerWeapon2.setFocusPainted(false);
 
-        healerWeapon3 = new JButton(inv.healerLegendaryWeaponPic);
+        healerWeapon3 = new JButton(aw.healerLegendaryWeaponPic);
         healerWeapon3.setBounds(675, 445,53,64);
         healerWeapon3.setBackground(Color.white);
         healerWeapon3.setBorder(null);

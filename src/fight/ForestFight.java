@@ -2,8 +2,12 @@ package fight;
 
 import davidtest.overworld.hub.OverWorld;
 import game.*;
+import imports.Potions;
+import party.Healer;
+import party.Mage;
+import party.Ranger;
+import party.Warrior;
 
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,6 +23,7 @@ public class ForestFight extends JFrame {
     private Mage m = new Mage();
     private Healer h = new Healer();
     private Ranger r = new Ranger();
+    private Potions potions = new Potions();
 
     //Create fonts
     private Font pixelMplus;
@@ -1298,84 +1303,84 @@ public class ForestFight extends JFrame {
         exitInventory.setFocusPainted(false);//Remove border around text in button
 
         //Minor Health Potion
-        potion1 = new JButton(inv.minorHealthGif);
+        potion1 = new JButton(potions.minorHealthGif);
         potion1.setBounds(50, 60, 41, 62);
         potion1.setBackground(Color.white);
         potion1.setBorder(null);
         potion1.setFocusPainted(false);
 
         //Lesser Health Potion
-        potion2 = new JButton(inv.lesserHealthGif);
+        potion2 = new JButton(potions.lesserHealthGif);
         potion2.setBounds(100, 60, 46, 62);
         potion2.setBackground(Color.white);
         potion2.setBorder(null);
         potion2.setFocusPainted(false);
 
         //Major Health Potion
-        potion3 = new JButton(inv.majorHealthGif);
+        potion3 = new JButton(potions.majorHealthGif);
         potion3.setBounds(160, 60, 55, 64);
         potion3.setBackground(Color.white);
         potion3.setBorder(null);
         potion3.setFocusPainted(false);
 
         //Minor Block Potion
-        potion4 = new JButton(inv.minorBlockGif);
+        potion4 = new JButton(potions.minorBlockGif);
         potion4.setBounds(300, 60, 42, 63);
         potion4.setBackground(Color.white);
         potion4.setBorder(null);
         potion4.setFocusPainted(false);
 
         //Lesser Block Potion
-        potion5 = new JButton(inv.lesserBlockGif);
+        potion5 = new JButton(potions.lesserBlockGif);
         potion5.setBounds(350, 60, 47, 63);
         potion5.setBackground(Color.white);
         potion5.setBorder(null);
         potion5.setFocusPainted(false);
 
         //Major Block Potion
-        potion6 = new JButton(inv.majorBlockGif);
+        potion6 = new JButton(potions.majorBlockGif);
         potion6.setBounds(410, 60, 59, 64);
         potion6.setBackground(Color.white);
         potion6.setBorder(null);
         potion6.setFocusPainted(false);
 
         //Minor Energy Potion
-        potion7 = new JButton(inv.minorEnergyGif);
+        potion7 = new JButton(potions.minorEnergyGif);
         potion7.setBounds(550, 60, 40, 63);
         potion7.setBackground(Color.white);
         potion7.setBorder(null);
         potion7.setFocusPainted(false);
 
         //Lesser Energy Potion
-        potion8 = new JButton(inv.lesserEnergyGif);
+        potion8 = new JButton(potions.lesserEnergyGif);
         potion8.setBounds(600, 60, 46, 63);
         potion8.setBackground(Color.white);
         potion8.setBorder(null);
         potion8.setFocusPainted(false);
 
         //Major Energy Potion
-        potion9 = new JButton(inv.majorEnergyGif);
+        potion9 = new JButton(potions.majorEnergyGif);
         potion9.setBounds(660, 60, 59, 64);
         potion9.setBackground(Color.white);
         potion9.setBorder(null);
         potion9.setFocusPainted(false);
 
         //Minor Strength Potion
-        potion10 = new JButton(inv.minorStrGif);
+        potion10 = new JButton(potions.minorStrGif);
         potion10.setBounds(800, 60, 38, 63);
         potion10.setBackground(Color.white);
         potion10.setBorder(null);
         potion10.setFocusPainted(false);
 
         //Lesser Energy Potion
-        potion11 = new JButton(inv.lesserStrGif);
+        potion11 = new JButton(potions.lesserStrGif);
         potion11.setBounds(850, 60, 42, 63);
         potion11.setBackground(Color.white);
         potion11.setBorder(null);
         potion11.setFocusPainted(false);
 
         //Major Energy Potion
-        potion12 = new JButton(inv.majorStrGif);
+        potion12 = new JButton(potions.majorStrGif);
         potion12.setBounds(900, 60, 53, 64);
         potion12.setBackground(Color.white);
         potion12.setBorder(null);

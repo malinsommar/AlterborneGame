@@ -1,11 +1,11 @@
-package game;
+package party;
 
 public class Ranger {
 
-    String currentWeaponName = "Simple bow";
+    public String currentWeaponName = "Simple bow";
     public int currentWeaponDamage = 5;
 
-    String currentArmorName = "Broken leather armor";
+    public String currentArmorName = "Broken leather armor";
     public int currentArmorBlock = 0;
 
     public int hp = 70;

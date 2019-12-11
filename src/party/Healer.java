@@ -1,8 +1,8 @@
-package game;
+package party;
 
 public class Healer {
 
-    String currentWeaponName = "Wodden staff";
+    public String currentWeaponName = "Wodden staff";
     public int currentWeaponDamage = 5;
 
     String currentArmorName = "Cloth scraps";

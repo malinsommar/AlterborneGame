@@ -3,7 +3,6 @@ package davidtest.overworld.levels;
 import davidtest.overworld.entities.Entity;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.levels.tiles.Tile;
-import game.NewGame;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

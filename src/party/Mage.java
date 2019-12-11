@@ -1,11 +1,11 @@
-package game;
+package party;
 
 public class Mage{
 
-    String currentWeaponName = "Wooden wand";
+    public String currentWeaponName = "Wooden wand";
     public int currentWeaponDamage = 5;
 
-    String currentArmorName = "Cloth robe";
+    public String currentArmorName = "Cloth robe";
     public int currentArmorBlock = 0;
     public int currentArmorDamage = 0;
 
