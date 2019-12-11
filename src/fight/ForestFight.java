@@ -61,7 +61,6 @@ public class ForestFight extends JFrame {
     private int arrowX = 120, arrowY = 360, arrowStartX = arrowX, arrowStartY = arrowY;
     private int flameStrikeY = -400;
     private int superMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
-    private int counterMegaMath = -30;
     private int pyroBlastX = 45;
     private int pyroblastY = 150;
 
@@ -81,6 +80,8 @@ public class ForestFight extends JFrame {
     private JLabel smallPyroBlast = new JLabel(new ImageIcon("miniflame.gif"));
     private JLabel bigPyroBlast = new JLabel(new ImageIcon("flame.gif"));
 
+    OverWorld owThread;
+
 
 
     //Constructor for forestFight.
@@ -91,36 +92,25 @@ public class ForestFight extends JFrame {
         setSize(192, 108);
         setTitle("Forest Fight");
         importFont();
+
         //Background picture
         ImageIcon background = new ImageIcon("forest.jpg");
         setContentPane(new JLabel(background));
+
         //Set wolf hp & energy label
         wolf1Int = 20;
         wolf2Int = 20;
         wolf3Int = 20;
         wolf4Int = 20;
         currentEnergy=warriorEnergyInt;
+
         //Import methods
         importWolfGif();
         importPartyGif();
         importButtons();
         importLabels();
         spellMenuStartup();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        getThread(overWorldThread);
 
 
 
@@ -149,15 +139,6 @@ public class ForestFight extends JFrame {
         add(bigPyroBlast);
         bigPyroBlast.setVisible(false);
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
 
 
 
@@ -208,7 +189,7 @@ public class ForestFight extends JFrame {
         hoverEffect();
         MusicPick.musicStart("forest1","music");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
+        setUndecorated(false);
 
         //ActionListeners
         attackButton.addActionListener(e -> attackPressed());
@@ -262,109 +243,10 @@ public class ForestFight extends JFrame {
         flame.setVisible(true);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setVisible(true);
     }
-
-
-
-
-
-
-
-
 
     //simons del
     public void spellMenuStartup(){
@@ -446,7 +328,7 @@ public class ForestFight extends JFrame {
         //mage
         if (turns == 3) {
             skill1Button.setText("Fireball");
-            skill2Button.setText("pyroblastspintest");
+            skill2Button.setText("Magic missile");
             skill3Button.setText("Flamestrike");
             skill4Button.setText("Pyroblast");
         }
@@ -495,7 +377,7 @@ public class ForestFight extends JFrame {
             
         }
         if (turns == 3){
-            pyroSpin.start();
+
         }
         if (turns == 4){
 
@@ -541,6 +423,10 @@ public class ForestFight extends JFrame {
 
 
 
+    public void getThread(OverWorld overWorldThread){
+
+        owThread = overWorldThread;
+    }
 
 
 
@@ -842,7 +728,7 @@ public class ForestFight extends JFrame {
         //All of the wolves are dead. Victory!
         if (wolf1Int < 1 && wolf2Int < 1 && wolf3Int < 1 && wolf4Int < 1) {
                 MusicPick.musicStop();
-            new LootScreen(1, owThread);
+            new LootScreen(1,owThread);
             //MusicPick.musicStop();
 
         }
@@ -2330,119 +2216,5 @@ public class ForestFight extends JFrame {
                 }
             }
         }
-    });
-    private Timer pyroSpin = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePast++;
-            if (phase == 0){
-                MusicPick.musicStart("demoshout", "");
-                bigPyroBlast.setVisible(true);
-                phase = 1;
-                pyroBlastX = 45;
-                pyroblastY = 150;
-            }
-            if (phase == 1 || phase == 2) {
-                superMegaMath -=2;
-                pyroblastY -= superMegaMath;
-                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                if (phase == 1 && superMegaMath == 0) {
-                    phase = 2;
-                }
-            }
-            if (phase == 2 || phase == 3) {
-                counterMegaMath +=2;
-                pyroBlastX -= counterMegaMath;
-                //bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                if (phase == 2 && counterMegaMath == 0) {
-                    phase = 3;
-                }
-            }
-            if (phase == 3 || phase == 4) {
-                superMegaMath +=2;
-                pyroblastY -= superMegaMath;
-                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                if (phase == 3 && superMegaMath == 0) {
-                    phase = 4;
-                }
-            }
-            if (phase == 4 || phase == 5) {
-                counterMegaMath -=2;
-                pyroBlastX -= counterMegaMath;
-                //bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                if (phase == 4 && counterMegaMath == 0) {
-                    phase = 5;
-                }
-            }
-            if (phase == 5 || phase == 6) {
-                superMegaMath -=2;
-                pyroblastY -= superMegaMath;
-                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                if (phase == 5 && superMegaMath == 0) {
-                    phase = 6;
-                }
-            }
-            if (phase == 6){
-                phase = 7;
-            }
-            if(timePast == 200) {
-                    pyroblastY = 150;
-                    pyroBlastX = 45;
-                    bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                    bigPyroBlast.setVisible(false);
-                    timePast = 0;
-                    superMegaMath = 30;
-                    counterMegaMath = -30;
-                    phase = 0;
-                    pyroSpin.stop();
-                }
-            }
-
-
-
-            /*
-            timePast++;
-            if (timePast < 100) {
-                smallPyroBlast.setVisible(true);
-            }
-            else if (timePast < 200) {
-                smallPyroBlast.setVisible(false);
-                mediumPyroBlast.setVisible(true);
-            }
-            else if (timePast < 350) {
-                mediumPyroBlast.setVisible(false);
-                bigPyroBlast.setVisible(true);
-            }
-            else if (timePast < 400 ){
-                pyroBlastX += 3;
-                pyroblastY -= 1;
-                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else if (timePast < 460){
-                pyroBlastX += 3;
-                pyroblastY += 1;
-                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else if (timePast < 530){
-                pyroBlastX += 3;
-                pyroblastY -= 1;
-                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else if (timePast < 590){
-                pyroBlastX += 4;
-                pyroblastY += 1;
-                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else {
-                bigPyroBlast.setVisible(false);
-                timePast = 0;
-                pyroBlastX = 45;
-                pyroblastY = 150;
-                bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                pyroBlast.stop();
-            }
-
-             */
-
     });
 }
