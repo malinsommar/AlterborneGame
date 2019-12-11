@@ -1,10 +1,18 @@
 package simontest;
 
+import davidtest.overworld.hub.OverWorld;
 import fight.ForestFight;
 
 public class fakemain {
 
+    OverWorld ow = new OverWorld();
+
         public static void main(String[] args) {
-            //new ForestFight(1, over); //TODO : fix
+            new fakemain();
+        }
+
+        public fakemain(){
+            new ForestFight(ow);
+
         }
 }
