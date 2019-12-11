@@ -2,19 +2,10 @@ package davidtest.overworld.entities;
 
 
 import davidtest.overworld.gfx.Fonts;
-import davidtest.overworld.hub.OverWorld;
 import davidtest.overworld.levels.Level;
 import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.hub.InputHandler;
-import davidtest.overworld.levels.tiles.PathTile;
-import fight.ForestFight;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.FileOutputStream;
-import java.sql.Time;
-import java.util.Random;
 
 public class Player extends Mob {
 

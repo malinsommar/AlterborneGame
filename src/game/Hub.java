@@ -1,7 +1,5 @@
 package game;
 
-import davidtest.overworld.hub.OverWorld;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -40,8 +38,8 @@ public class Hub extends JFrame {
         add(tutorialButton);
         add(exitButton);
 
-        newRunButton.addActionListener(e -> dispose());
         newRunButton.addActionListener(e -> new NewGame());
+        newRunButton.addActionListener(e -> dispose());
         //tutorialButton.addActionListener(e-> new LootScreen());
         exitButton.addActionListener(e -> System.exit(0));
 

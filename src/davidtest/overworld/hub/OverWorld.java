@@ -188,8 +188,22 @@ public class OverWorld extends Canvas implements Runnable {
     public int getRandom(int max, int min) {
         return (int) ((Math.random() * ((max - min) + 1)) + min);
     }
+    public void getTimer() {
+        secondsPassed = 5;
+        Timer delay = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                secondsPassed++;
+                if (secondsPassed <= 0) {
+                    getRandom(10, 0);
+                }
+            }
+        }; delay.schedule(task,2000);
+    }
     public synchronized void EnterForest() throws InterruptedException {
         if (player.hasEnteredForest()) {
+            getTimer();
             new ForestFight(this);
                     this.wait();
                 }
