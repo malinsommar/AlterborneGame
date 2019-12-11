@@ -29,7 +29,7 @@ public class LootScreen extends JFrame {
     private boolean showEquipButton = false;
 
     
-    public LootScreen(int fight, ForestFight overWorldThreads){
+    public LootScreen(int fight, OverWorld owThread){
 
         super("Loot Screen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +55,7 @@ public class LootScreen extends JFrame {
         textDelayTimer.start();
 
         //ActionListeners
-        continueButton.addActionListener(e -> this.notify());  // !!DAVID!! Länka till din här
+        continueButton.addActionListener(e -> owThread.notify());
         continueButton.addActionListener(e -> dispose());
 
         equipButton.addActionListener(e->equipLoot());

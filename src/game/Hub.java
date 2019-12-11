@@ -41,6 +41,7 @@ public class Hub extends JFrame {
         newRunButton.addActionListener(e -> new NewGame());
         newRunButton.addActionListener(e -> dispose());
         //tutorialButton.addActionListener(e-> new LootScreen());
+
         exitButton.addActionListener(e -> System.exit(0));
 
         MusicPick.musicStart("mainmenu","music");
