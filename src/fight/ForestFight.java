@@ -60,7 +60,14 @@ public class ForestFight extends JFrame {
 
     private int arrowX = 120, arrowY = 360, arrowStartX = arrowX, arrowStartY = arrowY;
     private int flameStrikeY = -400;
+
     private int superMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
+    private int counterMegaMath = -30;
+    private int upMegaMath = 1;
+    private int rightMegaMath = 1;
+    private int downMegaMath = 1;
+    private int leftMegaMath = 1;
+
     private int pyroBlastX = 45;
     private int pyroblastY = 150;
 
@@ -79,6 +86,7 @@ public class ForestFight extends JFrame {
     private JLabel mediumPyroBlast = new JLabel(new ImageIcon("mediumflame.gif"));
     private JLabel smallPyroBlast = new JLabel(new ImageIcon("miniflame.gif"));
     private JLabel bigPyroBlast = new JLabel(new ImageIcon("flame.gif"));
+    private JLabel swordIcon = new JLabel(new ImageIcon("warriorRareWeapon.png"));
 
     OverWorld owThread;
 
@@ -111,48 +119,6 @@ public class ForestFight extends JFrame {
         importLabels();
         spellMenuStartup();
         getThread(overWorldThread);
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Dimension smallPyroBlastSize = smallPyroBlast.getPreferredSize();
-        smallPyroBlast.setSize(smallPyroBlastSize.width, smallPyroBlastSize.height);
-        smallPyroBlast.setLocation(125, 300);
-        add(smallPyroBlast);
-        smallPyroBlast.setVisible(false);
-
-        Dimension mediumPyroBlastSize = mediumPyroBlast.getPreferredSize();
-        mediumPyroBlast.setSize(mediumPyroBlastSize.width, mediumPyroBlastSize.height);
-        mediumPyroBlast.setLocation(85, 200);
-        add(mediumPyroBlast);
-        mediumPyroBlast.setVisible(false);
-
-        Dimension bigPyroBlastSize = bigPyroBlast.getPreferredSize();
-        bigPyroBlast.setSize(bigPyroBlastSize.width, bigPyroBlastSize.height);
-        bigPyroBlast.setLocation(45, 150);
-        add(bigPyroBlast);
-        bigPyroBlast.setVisible(false);
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //Add all Labels, buttons etc...
         add(energy);
@@ -242,6 +208,30 @@ public class ForestFight extends JFrame {
         add(flame);
         flame.setVisible(true);
 
+        Dimension smallPyroBlastSize = smallPyroBlast.getPreferredSize();
+        smallPyroBlast.setSize(smallPyroBlastSize.width, smallPyroBlastSize.height);
+        smallPyroBlast.setLocation(125, 300);
+        add(smallPyroBlast);
+        smallPyroBlast.setVisible(false);
+
+        Dimension mediumPyroBlastSize = mediumPyroBlast.getPreferredSize();
+        mediumPyroBlast.setSize(mediumPyroBlastSize.width, mediumPyroBlastSize.height);
+        mediumPyroBlast.setLocation(85, 200);
+        add(mediumPyroBlast);
+        mediumPyroBlast.setVisible(false);
+
+        Dimension bigPyroBlastSize = bigPyroBlast.getPreferredSize();
+        bigPyroBlast.setSize(bigPyroBlastSize.width, bigPyroBlastSize.height);
+        bigPyroBlast.setLocation(45, 150);
+        add(bigPyroBlast);
+        bigPyroBlast.setVisible(false);
+
+        Dimension swordIconSize = swordIcon.getPreferredSize();
+        swordIcon.setSize(swordIconSize.width, swordIconSize.height);
+        swordIcon.setLocation(125, 300);
+        add(swordIcon);
+        swordIcon.setVisible(false);
+
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
@@ -328,7 +318,7 @@ public class ForestFight extends JFrame {
         //mage
         if (turns == 3) {
             skill1Button.setText("Fireball");
-            skill2Button.setText("Magic missile");
+            skill2Button.setText("TBA");
             skill3Button.setText("Flamestrike");
             skill4Button.setText("Pyroblast");
         }
@@ -362,7 +352,9 @@ public class ForestFight extends JFrame {
             volley.start();
         }
         if (turns == 3){
-
+            pyroBlastX = 90;
+            pyroblastY = 300;
+            fireBall.start();
         }
         if (turns == 4){
 
@@ -386,7 +378,7 @@ public class ForestFight extends JFrame {
 
     private void skill3(){
         if (turns == 1){
-
+            battlecry.start();
         }
         if(turns == 2){
             
@@ -2217,4 +2209,108 @@ public class ForestFight extends JFrame {
             }
         }
     });
+    private Timer fireBall = new Timer(15, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            pyroBlastX += 16;
+            smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            if (phase == 0){
+                MusicPick.musicStart("demoshout", "");
+                smallPyroBlast.setVisible(true);
+                upMegaMath *=2;
+                pyroblastY -= upMegaMath;
+            }
+            if (timePast % 3 == 0){phase++;}
+            if (phase == 5) {
+                phase = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+            }
+            if (phase == 2) upMegaMath = 1;
+
+            if (phase == 1 || phase == 2) { //höger
+                rightMegaMath *=2;
+                pyroBlastX += rightMegaMath;
+            }
+            if (phase == 2 || phase == 3) { //ner
+                downMegaMath *=2;
+                pyroblastY += downMegaMath;
+            }
+            if (phase == 3 || phase == 4) { //vänster
+                leftMegaMath *=2;
+                pyroBlastX -= leftMegaMath;
+            }
+            if (phase == 4 || phase == 1) { //flyger uppåt
+                upMegaMath *=2;
+                pyroblastY -= upMegaMath;
+            }
+            if(timePast == 50) {
+                pyroblastY = 150;
+                pyroBlastX = 45;
+                smallPyroBlast.setVisible(false);
+                timePast = 0;
+                upMegaMath = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+                phase = 0;
+                fireBall.stop();
+                smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            }
+        }
+    });
+
+    private Timer battlecry = new Timer(30, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            swordIcon.setLocation(pyroBlastX, pyroblastY);
+            if (phase == 0){
+                MusicPick.musicStart("shout", "");
+                swordIcon.setVisible(true);
+                upMegaMath *=2;
+                pyroblastY -= upMegaMath;
+            }
+            if (timePast % 3 == 0){phase++;}
+            if (phase == 5) {
+                phase = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+            }
+            if (phase == 2) upMegaMath = 1;
+
+            if (phase == 1 || phase == 2) { //höger
+                rightMegaMath +=5;
+                pyroBlastX += rightMegaMath;
+            }
+            if (phase == 2 || phase == 3) { //ner
+                downMegaMath +=5;
+                pyroblastY += downMegaMath;
+            }
+            if (phase == 3 || phase == 4) { //vänster
+                leftMegaMath +=5;
+                pyroBlastX -= leftMegaMath;
+            }
+            if (phase == 4 || phase == 1) { //flyger uppåt
+                upMegaMath +=5;
+                pyroblastY -= upMegaMath;
+            }
+            if(timePast == 50) {
+                pyroblastY = 150;
+                pyroBlastX = 45;
+                swordIcon.setVisible(false);
+                timePast = 0;
+                upMegaMath = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+                phase = 0;
+                battlecry.stop();
+            }
+        }
+    });
+
 }
