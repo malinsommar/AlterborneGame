@@ -2,6 +2,7 @@ package simontest;
 
 import davidtest.overworld.hub.OverWorld;
 import fight.ForestFight;
+import game.Backstory;
 
 public class fakemain {
 
@@ -13,7 +14,7 @@ public class fakemain {
 
         public fakemain(){
             //new ForestFight(ow);
-            new simontest();
+            new Backstory();
 
         }
 }
