@@ -45,8 +45,8 @@ public class Hub extends JFrame {
         exitButton.addActionListener(e -> System.exit(0));
 
         MusicPick.musicStart("mainmenu","music");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setUndecorated(true);
         setVisible(true);
     }
 

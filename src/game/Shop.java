@@ -239,7 +239,7 @@ public class Shop extends JFrame {
             r.rangerRareArmor();
             inv.gold-=50;
             currentGold-=50;
-            goldLabel.setText("Gold: "+currentGold);
+            goldLabel.setText("Gold: " + currentGold);
             currentAction.setText("Ranger equipped the *Fine leather armor*.");
         }
         else if (whatEquipment==14 && currentGold>99){

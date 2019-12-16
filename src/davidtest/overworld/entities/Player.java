@@ -14,7 +14,7 @@ public class Player extends Mob {
     private int scale = 1; //assign size to character
     protected boolean isSwimming = false; //assign the isSwimming value as natively false
     protected boolean isSwampSwimming = false;
-    protected boolean isOnForestPath = false;
+    protected boolean isOnForestPath = false; // if player is on tile to enter forest-combat
     private int tickCount = 0; //counts the ticks since the last update
     private String username;
 
@@ -139,10 +139,9 @@ public class Player extends Mob {
             Fonts.render(username,screen, xOffset - ((username.length() - 1) / 2 * 8),yOffset - 10, Colours.get(-1,-1,-1,555), 1);
         }
     }
+
     public boolean hasEnteredForest() {
-        {
             return isOnForestPath;
-        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import davidtest.overworld.entities.Player;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.gfx.SpriteSheet;
 import fight.ForestFight;
+import game.LootScreen;
 import game.MusicPick;
 
 import javax.swing.*;
@@ -36,6 +37,7 @@ public class OverWorld extends Canvas implements Runnable {
     public Level level1;
     public Player player;
     public int secondsPassed;
+    public ForestFight forestFight;
 
     public OverWorld() {
         setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -201,11 +203,19 @@ public class OverWorld extends Canvas implements Runnable {
             }
         }; delay.schedule(task,2000);
     }
+
+
     public synchronized void EnterForest() throws InterruptedException {
         if (player.hasEnteredForest()) {
-            getTimer();
-            new ForestFight(this);
+           forestFight = new ForestFight();
                     this.wait();
+                    if (forestFight.attackPressed()) {
+                        System.out.println("fight is over has been returned ");
+                        LootScreen lootScreen = new LootScreen(1);
+                        if (lootScreen.notifyOverWorld()) {
+                            this.notify();
+                        }
+                    }
                 }
             }
 }

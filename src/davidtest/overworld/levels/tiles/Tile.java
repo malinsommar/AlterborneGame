@@ -21,8 +21,13 @@ public abstract class Tile {
             Colours.get(-1, 15, 17, -1), 0xFF005c81, 800);
     public static final Tile SWAMP = new PathTile(9, 7, 0, Colours.get(-1, 18, 41, -1), 0xFF00a956);
     public static final Tile WOOD = new SolidTile(10, 8, 0, Colours.get(-1,220,221,-1), 0xFF8d6525);
-    public static final Tile LEAF = new AnimatedTile(11, new int[][] {{ 1, 4}, { 2, 4}},
+    public static final Tile LEAF = new AnimatedTile(11, new int[][] {{ 0, 3}, { 1, 3}},
             Colours.get(-1, 16, 141, -1), 0xFF008d00, 800);
+    public static final Tile LEFTBOTTOMHOUSE = new SolidTile(12, 0, 4, Colours.get(-1,210,211, 1), 0xFF8d3026);
+    public static final Tile RIGHTBOTTOMHOUSE = new SolidTile(13, 1, 4, Colours.get(-1,210,211, 1), 0xFF8d3027);
+    public static final Tile LEFTOPHOUSE = new SolidTile(14, 2, 4, Colours.get(-1,22,21,-1), 0xFF8d3028);
+    public static final Tile RIGHTTOPHOUSE = new SolidTile(15, 3, 4, Colours.get(-1,22,21,-1), 0xFF8d3029);
+
 
 
 
