@@ -1,5 +1,10 @@
 package game;
 
+import party.Healer;
+import party.Mage;
+import party.Ranger;
+import party.Warrior;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;

@@ -1,6 +1,11 @@
 package fight;
 
 import game.*;
+import imports.Potions;
+import party.Healer;
+import party.Mage;
+import party.Ranger;
+import party.Warrior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +22,7 @@ public class ForestFight extends JFrame {
     private Mage m = new Mage();
     private Healer h = new Healer();
     private Ranger r = new Ranger();
+    private Potions potions = new Potions();
 
     //Create fonts
     private Font pixelMplus;
@@ -45,22 +51,25 @@ public class ForestFight extends JFrame {
     private int warriorDamage = w.combinedDamage, mageDamage = m.combinedDamage, healerDamage = h.combinedDamage, rangerDamage = r.combinedDamage;
     private int warriorBlock = w.combinedBlock, mageBlock = m.combinedBlock, healerBlock = h.combinedBlock, rangerBlock = r.combinedBlock;
 
-    //Animation variables 
+    //Animation variables
+    //player
     private int warriorStartX = 170, warriorStartY = 210, warriorX = warriorStartX, warriorY = warriorStartY;
     private int rangerStartX = 70, rangerStartY = 290, rangerX = rangerStartX, rangerY = rangerStartY;
     private int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
     private int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
-
+    //enemy
     private int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
     private int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
     private int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
     private int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
-
+    //spells/attack
+    private int swordIconX = 300, swordIconY = 300;
     private int arrowX = 120, arrowY = 360, arrowStartX = arrowX, arrowStartY = arrowY;
     private int flameStrikeY = -400;
 
-    private int superMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
-    private int counterMegaMath = -30;
+
+    private int warriorMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
+    private int bombMegaMath = 36;
     private int upMegaMath = 1;
     private int rightMegaMath = 1;
     private int downMegaMath = 1;
@@ -68,12 +77,26 @@ public class ForestFight extends JFrame {
 
     private int pyroBlastX = 45;
     private int pyroblastY = 150;
+    private int bombX = 250;
+    private int bombY = 300;
+    private int bombStartX = 250;
+    private int bombStartY = 300;
+
+    private int objXTest = 300;
+    private int objYTest = 300;
+    private int objXTestStart = 300;
+    private int objYTestStart = 300;
+    private int xmmXTest = 0;
+    private int xmmYTest = 20;
+
 
     //Another timePast to avoid conflict when they run simultaneously.
     private int timePastTakeDamage = 0;
 
     private int target;
     private int phase = 0, timePast = 0;
+    private boolean followup = false;
+    private boolean stealthed = false;
 
     private JLabel arrow = new JLabel(new ImageIcon("arrow.png"));
     private JLabel volley1 = new JLabel(new ImageIcon("arrow.png"));
@@ -85,6 +108,15 @@ public class ForestFight extends JFrame {
     private JLabel smallPyroBlast = new JLabel(new ImageIcon("miniflame.gif"));
     private JLabel bigPyroBlast = new JLabel(new ImageIcon("flame.gif"));
     private JLabel swordIcon = new JLabel(new ImageIcon("warriorRareWeapon.png"));
+    private JLabel upArrow = new JLabel(new ImageIcon("uparrow.png"));
+    private JLabel demoSword1 = new JLabel(new ImageIcon("warriorRareWeapon.png"));
+    private JLabel demoSword2 = new JLabel(new ImageIcon("warriorRareWeapon.png"));
+    private JLabel demoSword3 = new JLabel(new ImageIcon("warriorRareWeapon.png"));
+    private JLabel demoSword4 = new JLabel(new ImageIcon("warriorRareWeapon.png"));
+    private JLabel bomb = new JLabel(new ImageIcon("bomb.png"));
+    private JLabel explode = new JLabel(new ImageIcon("explode.gif"));
+    private JLabel stealthranger = new JLabel(new ImageIcon("stealth ranger.gif"));
+    private JLabel trap = new JLabel(new ImageIcon("trap.png"));
 
     public boolean startLootScreen = false;
     //Constructor for forestFight.
@@ -113,38 +145,6 @@ public class ForestFight extends JFrame {
         importButtons();
         importLabels();
         spellMenuStartup();
-
-        //Add all Labels, buttons etc...
-        add(energy);
-        add(block);
-        add(whosTurn);
-        add(attackButton);
-        add(blockButton);
-        add(itemButton);
-        add(skillButton);
-        add(endTurnButton);
-        add(wolf3);
-        add(wolf4);
-        add(wolf1);
-        add(wolf2);
-        add(ranger);
-        add(warrior);
-        add(mage);
-        add(healer);
-        add(playersHp);
-        add(wolf1Hp);
-        add(wolf2Hp);
-        add(wolf3Hp);
-        add(wolf4Hp);
-        add(player1Hp);
-        add(player2Hp);
-        add(player3Hp);
-        add(player4Hp);
-        add(skill1Button);
-        add(skill2Button);
-        add(skill3Button);
-        add(skill4Button);
-        add(returnButton);
 
         hoverEffect();
         MusicPick.musicStart("forest1", "music");
@@ -229,6 +229,94 @@ public class ForestFight extends JFrame {
         swordIcon.setLocation(125, 300);
         add(swordIcon);
         swordIcon.setVisible(false);
+        Dimension demoSword1Size = demoSword1.getPreferredSize();
+        demoSword1.setSize(demoSword1Size.width, demoSword1Size.height);
+        demoSword1.setLocation(125, 300);
+        add(demoSword1);
+        demoSword1.setVisible(false);
+        
+        Dimension demoSword2Size = demoSword2.getPreferredSize();
+        demoSword2.setSize(demoSword2Size.width, demoSword2Size.height);
+        demoSword2.setLocation(125, 300);
+        add(demoSword2);
+        demoSword2.setVisible(false);
+
+        Dimension demoSword3Size = demoSword3.getPreferredSize();
+        demoSword3.setSize(demoSword3Size.width, demoSword3Size.height);
+        demoSword3.setLocation(125, 300);
+        add(demoSword3);
+        demoSword3.setVisible(false);
+
+        Dimension demoSword4Size = demoSword4.getPreferredSize();
+        demoSword4.setSize(demoSword4Size.width, demoSword4Size.height);
+        demoSword4.setLocation(125, 300);
+        add(demoSword4);
+        demoSword4.setVisible(false);
+
+        Dimension bombSize = bomb.getPreferredSize();
+        bomb.setSize(bombSize.width, bombSize.height);
+        bomb.setLocation(bombX, bombY);
+        add(bomb);
+        bomb.setVisible(false);
+
+        Dimension explodeSize = explode.getPreferredSize();
+        explode.setSize(explodeSize.width, explodeSize.height);
+        explode.setLocation(900, 250);
+        add(explode);
+        explode.setVisible(false);
+
+
+        Dimension stealthrangerSize = stealthranger.getPreferredSize();
+        stealthranger.setSize(stealthrangerSize.width, stealthrangerSize.height);
+        stealthranger.setLocation(rangerStartX, rangerStartY);
+        add(stealthranger);
+        stealthranger.setVisible(false);
+
+        Dimension trapSize = trap.getPreferredSize();
+        trap.setSize(trapSize.width, trapSize.height);
+        trap.setLocation(rangerStartX, rangerStartY);
+        add(trap);
+        trap.setVisible(false);
+        
+
+
+
+
+
+
+
+
+        //Add all Labels, buttons etc...
+        add(energy);
+        add(block);
+        add(whosTurn);
+        add(attackButton);
+        add(blockButton);
+        add(itemButton);
+        add(skillButton);
+        add(endTurnButton);
+        add(wolf3);
+        add(wolf4);
+        add(wolf1);
+        add(wolf2);
+        add(ranger);
+        add(warrior);
+        add(mage);
+        add(healer);
+        add(playersHp);
+        add(wolf1Hp);
+        add(wolf2Hp);
+        add(wolf3Hp);
+        add(wolf4Hp);
+        add(player1Hp);
+        add(player2Hp);
+        add(player3Hp);
+        add(player4Hp);
+        add(skill1Button);
+        add(skill2Button);
+        add(skill3Button);
+        add(skill4Button);
+        add(returnButton);
 
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -309,9 +397,9 @@ public class ForestFight extends JFrame {
         //ranger
         if (turns == 2) {
             skill1Button.setText("Volley");
-            skill2Button.setText("");
-            skill3Button.setText("");
-            skill4Button.setText("");
+            skill2Button.setText("Bomb");
+            skill3Button.setText("Place trap");
+            skill4Button.setText("Stealth");
         }
         //mage
         if (turns == 3) {
@@ -353,6 +441,7 @@ public class ForestFight extends JFrame {
         if (turns == 3) {
             pyroBlastX = 90;
             pyroblastY = 300;
+            followup = true;
             fireBall.start();
         }
         if (turns == 4) {
@@ -1283,84 +1372,84 @@ public class ForestFight extends JFrame {
         exitInventory.setFocusPainted(false);//Remove border around text in button
 
         //Minor Health Potion
-        potion1 = new JButton(inv.minorHealthGif);
+        potion1 = new JButton(potions.minorHealthGif);
         potion1.setBounds(50, 60, 41, 62);
         potion1.setBackground(Color.white);
         potion1.setBorder(null);
         potion1.setFocusPainted(false);
 
         //Lesser Health Potion
-        potion2 = new JButton(inv.lesserHealthGif);
+        potion2 = new JButton(potions.lesserHealthGif);
         potion2.setBounds(100, 60, 46, 62);
         potion2.setBackground(Color.white);
         potion2.setBorder(null);
         potion2.setFocusPainted(false);
 
         //Major Health Potion
-        potion3 = new JButton(inv.majorHealthGif);
+        potion3 = new JButton(potions.majorHealthGif);
         potion3.setBounds(160, 60, 55, 64);
         potion3.setBackground(Color.white);
         potion3.setBorder(null);
         potion3.setFocusPainted(false);
 
         //Minor Block Potion
-        potion4 = new JButton(inv.minorBlockGif);
+        potion4 = new JButton(potions.minorBlockGif);
         potion4.setBounds(300, 60, 42, 63);
         potion4.setBackground(Color.white);
         potion4.setBorder(null);
         potion4.setFocusPainted(false);
 
         //Lesser Block Potion
-        potion5 = new JButton(inv.lesserBlockGif);
+        potion5 = new JButton(potions.lesserBlockGif);
         potion5.setBounds(350, 60, 47, 63);
         potion5.setBackground(Color.white);
         potion5.setBorder(null);
         potion5.setFocusPainted(false);
 
         //Major Block Potion
-        potion6 = new JButton(inv.majorBlockGif);
+        potion6 = new JButton(potions.majorBlockGif);
         potion6.setBounds(410, 60, 59, 64);
         potion6.setBackground(Color.white);
         potion6.setBorder(null);
         potion6.setFocusPainted(false);
 
         //Minor Energy Potion
-        potion7 = new JButton(inv.minorEnergyGif);
+        potion7 = new JButton(potions.minorEnergyGif);
         potion7.setBounds(550, 60, 40, 63);
         potion7.setBackground(Color.white);
         potion7.setBorder(null);
         potion7.setFocusPainted(false);
 
         //Lesser Energy Potion
-        potion8 = new JButton(inv.lesserEnergyGif);
+        potion8 = new JButton(potions.lesserEnergyGif);
         potion8.setBounds(600, 60, 46, 63);
         potion8.setBackground(Color.white);
         potion8.setBorder(null);
         potion8.setFocusPainted(false);
 
         //Major Energy Potion
-        potion9 = new JButton(inv.majorEnergyGif);
+        potion9 = new JButton(potions.majorEnergyGif);
         potion9.setBounds(660, 60, 59, 64);
         potion9.setBackground(Color.white);
         potion9.setBorder(null);
         potion9.setFocusPainted(false);
 
         //Minor Strength Potion
-        potion10 = new JButton(inv.minorStrGif);
+        potion10 = new JButton(potions.minorStrGif);
         potion10.setBounds(800, 60, 38, 63);
         potion10.setBackground(Color.white);
         potion10.setBorder(null);
         potion10.setFocusPainted(false);
 
         //Lesser Energy Potion
-        potion11 = new JButton(inv.lesserStrGif);
+        potion11 = new JButton(potions.lesserStrGif);
         potion11.setBounds(850, 60, 42, 63);
         potion11.setBackground(Color.white);
         potion11.setBorder(null);
         potion11.setFocusPainted(false);
 
         //Major Energy Potion
-        potion12 = new JButton(inv.majorStrGif);
+        potion12 = new JButton(potions.majorStrGif);
         potion12.setBounds(900, 60, 53, 64);
         potion12.setBackground(Color.white);
         potion12.setBorder(null);
@@ -2054,7 +2143,7 @@ public class ForestFight extends JFrame {
             if (phase == 1) {
                 superMegaMath -= 2;
                 warriorX += 20;
-                warriorY -= superMegaMath;
+                warriorY -= warriorMegaMath;
                 warrior.setLocation(warriorX, warriorY);
                 if (warriorY > warriorStartY) {
                     phase = 2;
@@ -2069,7 +2158,7 @@ public class ForestFight extends JFrame {
                     warriorX = warriorStartX;
                     warrior.setLocation(warriorX, warriorY);
                     timePast = 0;
-                    superMegaMath = 30;
+                    warriorMegaMath = 30;
                     phase = 0;
                     dunk.stop();
                 }
@@ -2115,13 +2204,12 @@ public class ForestFight extends JFrame {
             }
         }
     });
-    private Timer demoshout = new Timer(10, new ActionListener() {
+    private Timer shout = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
 
             if (phase == 0) {
                 MusicPick.musicStart("demoshout", " ");
-                System.out.println("fine");
                 phase = 1;
             } else if (phase == 1) {
                 warriorY -= 5;
@@ -2158,7 +2246,14 @@ public class ForestFight extends JFrame {
                     phase = 4;
                     phase = 0;
                     mobDeath();
-                    demoshout.stop();
+                    shout.stop();
+                    if (followup){battlecry.start();
+                    followup = false;
+                    }
+                    else {
+                        demoralized.start();
+                        System.out.println("working");
+                    }
                 }
             }
         }
@@ -2218,7 +2313,7 @@ public class ForestFight extends JFrame {
         }
     });
 
-    private Timer battlecry = new Timer(30, new ActionListener() {
+    private Timer battlecry = new Timer(20, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePast++;
