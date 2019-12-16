@@ -2599,7 +2599,6 @@ public class ForestFight extends JFrame {
                 phase = 1;
                 trap.setVisible(true);
             }
-
         }
     });
 }
