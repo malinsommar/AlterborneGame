@@ -1,0 +1,227 @@
+package game;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
+public class HubFrames extends JPanel {
+
+    public JFrame hubJFrame = new JFrame();
+    public JPanel hubPanel = new JPanel();
+    public JPanel backstoryPanel = new JPanel();
+
+
+    private ImageIcon backbround = new ImageIcon("backgroundMountain.png");
+    private JLabel image = new JLabel(backbround);
+
+    private JLabel gameName, backStory, backStory2, backStory3, yourParty, warrior, mage, healer,ranger;
+    public JButton tutorialButton, newRunButton, exitButton, startButton;
+    private Font pixelMplus;
+
+    //This method open hubFrame and add
+    public void hubFrame(){
+
+        hubJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        hubJFrame.setSize(1920, 1080);
+        hubJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        hubJFrame.setUndecorated(true);
+
+        hubPanel.setBounds(0,0,1920, 1080);
+        hubPanel.setLayout(null);
+
+        backstoryPanel.setBounds(0,0,1920, 1080);
+        backstoryPanel.setLayout(null);
+        backstoryPanel.setBackground(Color.darkGray);
+
+        MusicPick.musicStart("mainmenu","music");
+
+        importFont();
+        importHubButtonsLabels();
+        importBackstoryButtonsLabels();
+        importBackstoryGifs();
+        hover();
+
+        hubPanel.add(gameName);
+        hubPanel.add(newRunButton);
+        hubPanel.add(tutorialButton);
+        hubPanel.add(exitButton);
+        hubPanel.add(image);
+        hubJFrame.add(hubPanel);
+
+        backstoryPanel.add(warrior);
+        backstoryPanel.add(ranger);
+        backstoryPanel.add(mage);
+        backstoryPanel.add(healer);
+        backstoryPanel.add(startButton);
+        backstoryPanel.add(backStory);
+        backstoryPanel.add(backStory2);
+        backstoryPanel.add(backStory3);
+        backstoryPanel.add(yourParty);
+
+        newRunButton.addActionListener(e -> MusicPick.musicStart("theme","music"));
+        newRunButton.addActionListener(e -> hubJFrame.add(backstoryPanel));
+        newRunButton.addActionListener(e -> hubPanel.setVisible(false));
+
+        hubJFrame.setVisible(true);
+    }
+
+    public void importHubButtonsLabels(){
+
+        //Title of game
+        gameName = new JLabel("Alterborne");
+        gameName.setForeground(Color.white);
+        gameName.setFont((pixelMplus.deriveFont(100f)));
+        Dimension size = gameName.getPreferredSize();
+        gameName.setBounds(400, 30, size.width, size.height);
+
+        //New run Button
+        newRunButton = new JButton("New Game");
+        newRunButton.setSize(300, 100);
+        newRunButton.setLocation(500, 240);
+        newRunButton.setFont((pixelMplus.deriveFont(30f)));
+        newRunButton.setBackground(Color.white);
+        newRunButton.setBorder(null); //Remove border around button
+        newRunButton.setFocusPainted(false);//Remove border around text in button
+
+        //Tutorial Button
+        tutorialButton = new JButton("Tutorial");
+        tutorialButton.setSize(300, 100);
+        tutorialButton.setLocation(500, 360);
+        tutorialButton.setFont((pixelMplus.deriveFont(30f)));
+        tutorialButton.setBackground(Color.white);
+        tutorialButton.setBorder(null); //Remove border around button
+        tutorialButton.setFocusPainted(false);//Remove border around text in button
+
+
+        //Exit Button
+        exitButton = new JButton("Exit game");
+        exitButton.setSize(300, 100);
+        exitButton.setLocation(500, 480);
+        exitButton.setFont((pixelMplus.deriveFont(30f)));
+        exitButton.setBackground(Color.white);
+        exitButton.setBorder(null); //Remove border around button
+        exitButton.setFocusPainted(false);//Remove border around text in button
+    }
+
+    public void importBackstoryGifs(){
+        //Create a label
+        warrior = new JLabel();
+        ranger = new JLabel();
+        mage = new JLabel();
+        healer = new JLabel();
+
+        //Add a picture to the label
+        warrior.setIcon(new ImageIcon("warrior.gif"));
+        ranger.setIcon(new ImageIcon("ranger.gif"));
+        mage.setIcon(new ImageIcon("mage.gif"));
+        healer.setIcon(new ImageIcon("healer.gif"));
+
+        //Get size
+        Dimension warriorSize = warrior.getPreferredSize();
+        Dimension rangerSize = ranger.getPreferredSize();
+        Dimension mageSize = mage.getPreferredSize();
+        Dimension healerSize = healer.getPreferredSize();
+
+        //Set bounds (location and size)
+        warrior.setBounds(140, 350, warriorSize.width, warriorSize.height);
+        ranger.setBounds(340, 350, rangerSize.width, rangerSize.height);
+        mage.setBounds(540, 350, mageSize.width, mageSize.height);
+        healer.setBounds(740, 350, healerSize.width, healerSize.height);
+    }
+
+    public void importBackstoryButtonsLabels(){
+
+        startButton = new JButton("Save the world");
+        startButton.setSize(300, 100);
+        startButton.setLocation(500, 600);
+        startButton.setFont((pixelMplus.deriveFont(30f)));
+        startButton.setForeground(Color.darkGray);
+        startButton.setBackground(Color.WHITE);
+        startButton.setBorder(null); //Remove border around button
+        startButton.setFocusPainted(false);//Remove border around text in button
+
+        backStory = new JLabel("This is a backstory. very cool. This is a backstory. very cool.");
+        backStory.setFont((pixelMplus.deriveFont(30f)));
+        backStory.setForeground(Color.white);
+        Dimension size = backStory.getPreferredSize();
+        backStory.setBounds(170, 100, size.width, size.height);
+
+        backStory2 = new JLabel("This is a backstory. very nice. This is a backstory. very nice.");
+        backStory2.setFont((pixelMplus.deriveFont(30f)));
+        backStory2.setForeground(Color.white);
+        Dimension size2 = backStory2.getPreferredSize();
+        backStory2.setBounds(170, 130, size2.width, size2.height);
+
+        backStory3 = new JLabel("This is a backstory. very cool. This is a backstory. very cool.");
+        backStory3.setFont((pixelMplus.deriveFont(30f)));
+        backStory3.setForeground(Color.white);
+        Dimension size3 = backStory.getPreferredSize();
+        backStory3.setBounds(170, 70, size3.width, size3.height);
+
+        yourParty = new JLabel("This is your party.");
+        yourParty.setFont((pixelMplus.deriveFont(100f)));
+        yourParty.setForeground(Color.white);
+        Dimension size4 = yourParty.getPreferredSize();
+        yourParty.setBounds(200, 220, size4.width, size4.height);
+
+        startButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            //Change button color while hovering
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                startButton.setBackground(Color.darkGray);
+                startButton.setForeground(Color.white);
+            }
+
+            //Change back when not hovering
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                startButton.setBackground(Color.white);
+                startButton.setForeground(Color.darkGray);
+            }
+        });
+
+    }
+
+
+    public void hover(){
+
+        //new run button
+        newRunButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            //Change button color while hovering
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                newRunButton.setBackground(Color.lightGray);
+            }
+            //Change back when exiting
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                newRunButton.setBackground(Color.white);
+            }
+        });
+
+        //Tutorial Button
+        tutorialButton.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tutorialButton.setBackground(Color.lightGray);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tutorialButton.setBackground(Color.white);
+            }
+        });
+
+        //Exit button
+        exitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                exitButton.setBackground(Color.lightGray);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                exitButton.setBackground(Color.white);
+            }
+        });
+    }
+
+    public void importFont() {
+        try {
+            pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));
+        } catch (IOException | FontFormatException ignored) {
+        }
+    }
+}
