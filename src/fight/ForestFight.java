@@ -52,22 +52,25 @@ public class ForestFight extends JFrame {
     private int warriorDamage = w.combinedDamage, mageDamage = m.combinedDamage, healerDamage = h.combinedDamage, rangerDamage = r.combinedDamage;
     private int warriorBlock = w.combinedBlock, mageBlock = m.combinedBlock, healerBlock = h.combinedBlock, rangerBlock = r.combinedBlock;
 
-    //Animation variables 
+    //Animation variables
+    //player
     private int warriorStartX = 170, warriorStartY = 210, warriorX = warriorStartX, warriorY = warriorStartY;
     private int rangerStartX = 70, rangerStartY = 290, rangerX = rangerStartX, rangerY = rangerStartY;
     private int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
     private int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
-
+    //enemy
     private int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
     private int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
     private int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
     private int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
-
+    //spells/attack
+    private int swordIconX = 300, swordIconY = 300;
     private int arrowX = 120, arrowY = 360, arrowStartX = arrowX, arrowStartY = arrowY;
     private int flameStrikeY = -400;
 
-    private int superMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
-    private int counterMegaMath = -30;
+
+    private int warriorMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
+    private int bombMegaMath = 36;
     private int upMegaMath = 1;
     private int rightMegaMath = 1;
     private int downMegaMath = 1;
@@ -75,12 +78,26 @@ public class ForestFight extends JFrame {
 
     private int pyroBlastX = 45;
     private int pyroblastY = 150;
+    private int bombX = 250;
+    private int bombY = 300;
+    private int bombStartX = 250;
+    private int bombStartY = 300;
+
+    private int objXTest = 300;
+    private int objYTest = 300;
+    private int objXTestStart = 300;
+    private int objYTestStart = 300;
+    private int xmmXTest = 0;
+    private int xmmYTest = 20;
+
 
     //Another timePast to avoid conflict when they run simultaneously.
     private int timePastTakeDamage = 0;
     
     private int target;
     private int phase = 0, timePast = 0;
+    private boolean followup = false;
+    private boolean stealthed = false;
 
     private JLabel arrow = new JLabel(new ImageIcon("arrow.png"));
     private JLabel volley1 = new JLabel(new ImageIcon("arrow.png"));
@@ -92,6 +109,15 @@ public class ForestFight extends JFrame {
     private JLabel smallPyroBlast = new JLabel(new ImageIcon("miniflame.gif"));
     private JLabel bigPyroBlast = new JLabel(new ImageIcon("flame.gif"));
     private JLabel swordIcon = new JLabel(new ImageIcon("warriorRareWeapon.png"));
+    private JLabel upArrow = new JLabel(new ImageIcon("uparrow.png"));
+    private JLabel demoSword1 = new JLabel(new ImageIcon("warriorRareWeapon.png"));
+    private JLabel demoSword2 = new JLabel(new ImageIcon("warriorRareWeapon.png"));
+    private JLabel demoSword3 = new JLabel(new ImageIcon("warriorRareWeapon.png"));
+    private JLabel demoSword4 = new JLabel(new ImageIcon("warriorRareWeapon.png"));
+    private JLabel bomb = new JLabel(new ImageIcon("bomb.png"));
+    private JLabel explode = new JLabel(new ImageIcon("explode.gif"));
+    private JLabel stealthranger = new JLabel(new ImageIcon("stealth ranger.gif"));
+    private JLabel trap = new JLabel(new ImageIcon("trap.png"));
 
     OverWorld owThread;
 
@@ -124,38 +150,6 @@ public class ForestFight extends JFrame {
         importLabels();
         spellMenuStartup();
         getThread(overWorldThread);
-
-        //Add all Labels, buttons etc...
-        add(energy);
-        add(block);
-        add(whosTurn);
-        add(attackButton);
-        add(blockButton);
-        add(itemButton);
-        add(skillButton);
-        add(endTurnButton);
-        add(wolf3);
-        add(wolf4);
-        add(wolf1);
-        add(wolf2);
-        add(ranger);
-        add(warrior);
-        add(mage);
-        add(healer);
-        add(playersHp);
-        add(wolf1Hp);
-        add(wolf2Hp);
-        add(wolf3Hp);
-        add(wolf4Hp);
-        add(player1Hp);
-        add(player2Hp);
-        add(player3Hp);
-        add(player4Hp);
-        add(skill1Button);
-        add(skill2Button);
-        add(skill3Button);
-        add(skill4Button);
-        add(returnButton);
 
         hoverEffect();
         MusicPick.musicStart("forest1","music");
@@ -236,6 +230,94 @@ public class ForestFight extends JFrame {
         swordIcon.setLocation(125, 300);
         add(swordIcon);
         swordIcon.setVisible(false);
+        Dimension demoSword1Size = demoSword1.getPreferredSize();
+        demoSword1.setSize(demoSword1Size.width, demoSword1Size.height);
+        demoSword1.setLocation(125, 300);
+        add(demoSword1);
+        demoSword1.setVisible(false);
+        
+        Dimension demoSword2Size = demoSword2.getPreferredSize();
+        demoSword2.setSize(demoSword2Size.width, demoSword2Size.height);
+        demoSword2.setLocation(125, 300);
+        add(demoSword2);
+        demoSword2.setVisible(false);
+
+        Dimension demoSword3Size = demoSword3.getPreferredSize();
+        demoSword3.setSize(demoSword3Size.width, demoSword3Size.height);
+        demoSword3.setLocation(125, 300);
+        add(demoSword3);
+        demoSword3.setVisible(false);
+
+        Dimension demoSword4Size = demoSword4.getPreferredSize();
+        demoSword4.setSize(demoSword4Size.width, demoSword4Size.height);
+        demoSword4.setLocation(125, 300);
+        add(demoSword4);
+        demoSword4.setVisible(false);
+
+        Dimension bombSize = bomb.getPreferredSize();
+        bomb.setSize(bombSize.width, bombSize.height);
+        bomb.setLocation(bombX, bombY);
+        add(bomb);
+        bomb.setVisible(false);
+
+        Dimension explodeSize = explode.getPreferredSize();
+        explode.setSize(explodeSize.width, explodeSize.height);
+        explode.setLocation(900, 250);
+        add(explode);
+        explode.setVisible(false);
+
+
+        Dimension stealthrangerSize = stealthranger.getPreferredSize();
+        stealthranger.setSize(stealthrangerSize.width, stealthrangerSize.height);
+        stealthranger.setLocation(rangerStartX, rangerStartY);
+        add(stealthranger);
+        stealthranger.setVisible(false);
+
+        Dimension trapSize = trap.getPreferredSize();
+        trap.setSize(trapSize.width, trapSize.height);
+        trap.setLocation(rangerStartX, rangerStartY);
+        add(trap);
+        trap.setVisible(false);
+        
+
+
+
+
+
+
+
+
+        //Add all Labels, buttons etc...
+        add(energy);
+        add(block);
+        add(whosTurn);
+        add(attackButton);
+        add(blockButton);
+        add(itemButton);
+        add(skillButton);
+        add(endTurnButton);
+        add(wolf3);
+        add(wolf4);
+        add(wolf1);
+        add(wolf2);
+        add(ranger);
+        add(warrior);
+        add(mage);
+        add(healer);
+        add(playersHp);
+        add(wolf1Hp);
+        add(wolf2Hp);
+        add(wolf3Hp);
+        add(wolf4Hp);
+        add(player1Hp);
+        add(player2Hp);
+        add(player3Hp);
+        add(player4Hp);
+        add(skill1Button);
+        add(skill2Button);
+        add(skill3Button);
+        add(skill4Button);
+        add(returnButton);
 
 
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -316,9 +398,9 @@ public class ForestFight extends JFrame {
         //ranger
         if (turns == 2){
             skill1Button.setText("Volley");
-            skill2Button.setText("");
-            skill3Button.setText("");
-            skill4Button.setText("");
+            skill2Button.setText("Bomb");
+            skill3Button.setText("Place trap");
+            skill4Button.setText("Stealth");
         }
         //mage
         if (turns == 3) {
@@ -359,6 +441,7 @@ public class ForestFight extends JFrame {
         if (turns == 3){
             pyroBlastX = 90;
             pyroblastY = 300;
+            followup = true;
             fireBall.start();
         }
         if (turns == 4){
@@ -371,7 +454,7 @@ public class ForestFight extends JFrame {
             dunk.start();
         }
         if(turns == 2){
-            
+            bombthrow.start();
         }
         if (turns == 3){
 
@@ -383,10 +466,11 @@ public class ForestFight extends JFrame {
 
     private void skill3(){
         if (turns == 1){
-            battlecry.start();
+            followup = true;
+            shout.start();
         }
         if(turns == 2){
-            
+            placetrap.start();
         }
         if (turns == 3){
             flameStrike.start();
@@ -398,10 +482,10 @@ public class ForestFight extends JFrame {
 
     private void skill4(){
         if (turns == 1){
-            demoshout.start();
+            shout.start();
         }
         if(turns == 2){
-            
+            stealth();
         }
         if (turns == 3){
             pyroBlast.start();
@@ -2091,28 +2175,25 @@ public class ForestFight extends JFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             if (phase == 0){
-                MusicPick.musicStart("shout", "");
+                MusicPick.musicStart("charge", "");
                 phase = 1;
             }
             if (phase == 1) {
-                superMegaMath -=2;
+                warriorMegaMath -=2;
                 warriorX += 20;
-                warriorY -= superMegaMath;
+                warriorY -= warriorMegaMath;
                 warrior.setLocation(warriorX, warriorY);
                 if (warriorY > warriorStartY) {
                     phase = 2;
                 }
             } else if (phase == 2) {
                 timePast++;
-                if (timePast == 1){
-
-                }
                 if(timePast == 30) {
                     warriorY = warriorStartY;
                     warriorX = warriorStartX;
                     warrior.setLocation(warriorX, warriorY);
                     timePast = 0;
-                    superMegaMath = 30;
+                    warriorMegaMath = 30;
                     phase = 0;
                     dunk.stop();
                 }
@@ -2165,13 +2246,12 @@ public class ForestFight extends JFrame {
                }
         }
     });
-    private Timer demoshout = new Timer(10, new ActionListener() {
+    private Timer shout = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
 
             if (phase == 0) {
                 MusicPick.musicStart("demoshout", " ");
-                System.out.println("fine");
                 phase = 1;
             }
             else if (phase == 1){
@@ -2209,7 +2289,14 @@ public class ForestFight extends JFrame {
                     phase = 4;
                     phase = 0;
                     mobDeath();
-                    demoshout.stop();
+                    shout.stop();
+                    if (followup){battlecry.start();
+                    followup = false;
+                    }
+                    else {
+                        demoralized.start();
+                        System.out.println("working");
+                    }
                 }
             }
         }
@@ -2220,8 +2307,10 @@ public class ForestFight extends JFrame {
             timePast++;
             pyroBlastX += 16;
             smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            if (followup){MusicPick.musicStart("fireball", "");
+            followup = false;
+            }
             if (phase == 0){
-                MusicPick.musicStart("demoshout", "");
                 smallPyroBlast.setVisible(true);
                 upMegaMath *=2;
                 pyroblastY -= upMegaMath;
@@ -2267,18 +2356,20 @@ public class ForestFight extends JFrame {
         }
     });
 
-    private Timer battlecry = new Timer(30, new ActionListener() {
+    private Timer battlecry = new Timer(20, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePast++;
-            swordIcon.setLocation(pyroBlastX, pyroblastY);
-            if (phase == 0){
-                MusicPick.musicStart("shout", "");
+            swordIcon.setLocation(swordIconX, swordIconY);
+            if (phase == 0) {
+                //MusicPick.musicStart("demoshout", "");
                 swordIcon.setVisible(true);
-                upMegaMath *=2;
-                pyroblastY -= upMegaMath;
+                upMegaMath *= 2;
+                swordIconY -= upMegaMath;
             }
-            if (timePast % 3 == 0){phase++;}
+            if (timePast % 3 == 0) {
+                phase++;
+            }
             if (phase == 5) {
                 phase = 1;
                 rightMegaMath = 1;
@@ -2288,24 +2379,24 @@ public class ForestFight extends JFrame {
             if (phase == 2) upMegaMath = 1;
 
             if (phase == 1 || phase == 2) { //höger
-                rightMegaMath +=5;
-                pyroBlastX += rightMegaMath;
+                rightMegaMath += 5;
+                swordIconX += rightMegaMath;
             }
             if (phase == 2 || phase == 3) { //ner
-                downMegaMath +=5;
-                pyroblastY += downMegaMath;
+                downMegaMath += 5;
+                swordIconY += downMegaMath;
             }
             if (phase == 3 || phase == 4) { //vänster
-                leftMegaMath +=5;
-                pyroBlastX -= leftMegaMath;
+                leftMegaMath += 5;
+                swordIconX -= leftMegaMath;
             }
             if (phase == 4 || phase == 1) { //flyger uppåt
-                upMegaMath +=5;
-                pyroblastY -= upMegaMath;
+                upMegaMath += 5;
+                swordIconY -= upMegaMath;
             }
-            if(timePast == 50) {
-                pyroblastY = 150;
-                pyroBlastX = 45;
+            if (timePast == 50) {
+                swordIconX = 300;
+                swordIconY = 300;
                 swordIcon.setVisible(false);
                 timePast = 0;
                 upMegaMath = 1;
@@ -2317,5 +2408,198 @@ public class ForestFight extends JFrame {
             }
         }
     });
+    private Timer demoralized = new Timer(20, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            demoSword1.setLocation(swordIconX + 550, swordIconY + 50);
+            demoSword2.setLocation(swordIconX + 650, swordIconY + 100);
+            demoSword3.setLocation(swordIconX + 750, swordIconY + 50);
+            demoSword4.setLocation(swordIconX + 850, swordIconY + 100);
 
+
+            if (phase == 0) {
+                demoSword1.setVisible(true);
+                demoSword2.setVisible(true);
+                demoSword3.setVisible(true);
+                demoSword4.setVisible(true);
+                upMegaMath *= 2;
+                swordIconY -= upMegaMath;
+            }
+            if (timePast % 3 == 0) {
+                phase++;
+            }
+            if (phase == 5) {
+                phase = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+            }
+            if (phase == 2) upMegaMath = 1;
+
+            if (phase == 1 || phase == 2) { //höger
+                rightMegaMath += 5;
+                swordIconX += rightMegaMath;
+            }
+            if (phase == 2 || phase == 3) { //ner
+                downMegaMath += 5;
+                swordIconY += downMegaMath;
+            }
+            if (phase == 3 || phase == 4) { //vänster
+                leftMegaMath += 5;
+                swordIconX -= leftMegaMath;
+            }
+            if (phase == 4 || phase == 1) { //flyger uppåt
+                upMegaMath += 5;
+                swordIconY -= upMegaMath;
+            }
+            if (timePast == 50) {
+                swordIconX = 300;
+                swordIconY = 300;
+                demoSword1.setVisible(false);
+                demoSword2.setVisible(false);
+                demoSword3.setVisible(false);
+                demoSword4.setVisible(false);
+                timePast = 0;
+                upMegaMath = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+                phase = 0;
+                demoralized.stop();
+            }
+        }
+    });
+    private Timer bombthrow = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0){
+                MusicPick.musicStart("ding", "");
+                phase = 1;
+                bomb.setVisible(true);
+            }
+            if (phase == 1) {
+                bombMegaMath -=2;
+                bombX += 20;
+                bombY -= bombMegaMath;
+                bomb.setLocation(bombX, bombY);
+                if (bombY > bombStartY) {
+                    phase = 2;
+                }
+            } else if (phase == 2) {
+                timePast++;
+                if(timePast == 30) {
+                    bombY = bombStartY;
+                    bombX = bombStartX;
+                    bomb.setLocation(bombX, bombY);
+                    bomb.setVisible(false);
+                    explode.setVisible(true);
+                }
+                if(timePast == 60){
+                    bombMegaMath = 36;
+                    bomb.setVisible(false);
+                    explode.setVisible(false);
+                    timePast = 0;
+                    phase = 0;
+                    bombthrow.stop();
+                }
+            }
+        }
+    });
+
+    private Timer bombcircletest = new Timer(5, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            bomb.setLocation(objXTest, objYTest);
+            timePast++;
+            if (phase == 0){
+                MusicPick.musicStart("ding", "");
+                phase = 1;
+                bomb.setVisible(true);
+            }
+            if (phase == 1) {
+                xmmYTest -=1;
+                xmmXTest -=1;
+                objYTest -= xmmYTest;
+                objXTest -= xmmXTest;
+                if (xmmYTest <= 0) {
+                    phase = 2;
+                }
+
+            }
+            if (phase == 2){
+                xmmYTest -=1;
+                xmmXTest +=1;
+                objYTest -= xmmYTest;
+                objXTest -= xmmXTest;
+                if (xmmXTest >= 0) {
+                    phase = 3;
+                }
+            }
+            if (phase == 3){
+                xmmYTest +=1;
+                xmmXTest +=1;
+                objYTest -= xmmYTest;
+                objXTest -= xmmXTest;
+                if (xmmYTest >= 0) {
+                    phase = 4;
+                }
+            }
+            if (phase == 4){
+                xmmYTest +=1;
+                xmmXTest -=1;
+                objYTest -= xmmYTest;
+                objXTest -= xmmXTest;
+                if (xmmXTest <= 0) {
+                    phase = 1;
+                }
+            }
+
+                if(timePast > 300){
+                    bomb.setVisible(false);
+                    timePast = 0;
+                    phase = 0;
+                    objXTest = objXTestStart;
+                    objYTest = objYTestStart;
+                    xmmXTest = 0;
+                    xmmYTest = 20;
+                    bombcircletest.stop();
+                }
+        }
+    });
+
+    private void stealth(){
+        if (!stealthed){
+            MusicPick.musicStart("stealth", "");
+            ranger.setVisible(false);
+            stealthranger.setVisible(true);
+            stealthed = true;
+        }
+        else{
+            MusicPick.musicStart("unstealth", "");
+            ranger.setVisible(true);
+            stealthranger.setVisible(false);
+            stealthed = false;
+        }
+        /*
+        lägg till
+        if (stealthed == true){stealth();}
+        i alla ranger abilities
+        och öka skadan på nåt sätt
+         */
+    }
+
+    private Timer placetrap = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            bomb.setLocation(objXTest, objYTest);
+            timePast++;
+            if (phase == 0){
+                MusicPick.musicStart("ding", "");
+                phase = 1;
+                trap.setVisible(true);
+            }
+
+        }
+    });
 }
