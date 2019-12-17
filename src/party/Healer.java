@@ -9,6 +9,86 @@ public class Healer {
     public int currentArmorBlock = 5;
     public int currentArmorDamage = 0;
 
+    public String getCurrentWeaponName() {
+        return currentWeaponName;
+    }
+
+    public void setCurrentWeaponName(String currentWeaponName) {
+        this.currentWeaponName = currentWeaponName;
+    }
+
+    public int getCurrentWeaponDamage() {
+        return currentWeaponDamage;
+    }
+
+    public void setCurrentWeaponDamage(int currentWeaponDamage) {
+        this.currentWeaponDamage = currentWeaponDamage;
+    }
+
+    public String getCurrentArmorName() {
+        return currentArmorName;
+    }
+
+    public void setCurrentArmorName(String currentArmorName) {
+        this.currentArmorName = currentArmorName;
+    }
+
+    public int getCurrentArmorBlock() {
+        return currentArmorBlock;
+    }
+
+    public void setCurrentArmorBlock(int currentArmorBlock) {
+        this.currentArmorBlock = currentArmorBlock;
+    }
+
+    public int getCurrentArmorDamage() {
+        return currentArmorDamage;
+    }
+
+    public void setCurrentArmorDamage(int currentArmorDamage) {
+        this.currentArmorDamage = currentArmorDamage;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getBlock() {
+        return block;
+    }
+
+    public void setBlock(int block) {
+        this.block = block;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+
+    public int getCombinedBlock() {
+        return combinedBlock;
+    }
+
+    public void setCombinedBlock(int combinedBlock) {
+        this.combinedBlock = combinedBlock;
+    }
+
+    public int getCombinedDamage() {
+        return combinedDamage;
+    }
+
+    public void setCombinedDamage(int combinedDamage) {
+        this.combinedDamage = combinedDamage;
+    }
+
     public int hp = 100;
     public int block = 0;
     public int damage = 0;

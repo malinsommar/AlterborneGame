@@ -4,18 +4,36 @@ import davidtest.overworld.map.OverWorld;
 
 public class MasterModel {
 
-    ConHub ch = new ConHub();
     OverWorld overworld = new OverWorld();
+    private ConHub ch = new ConHub();
+    FightModel fm = new FightModel();
+
 
     //Get user input from ConHub to start game of exit game.
-    public MasterModel(){
-        int hubChoice = ch.startHub();
+    public void startGame(){
 
-        if(hubChoice == 1){
-            overworld.start();
+        ch.test();
+
+        if(ch.choice[0]==1){
+            fm.startForestFight();
         }
-        if (hubChoice == 2){
+        if (ch.choice[0]==3){
             System.exit(0);
         }
+
+       /* switch (ch.choice[0]){
+
+            case 1:
+                overworld.start();
+                //forestFight
+                //80% normal fight
+                //20% boss figth
+
+            case 2:
+                //cavefight
+                //80% normal fight
+                //20% boss figth
+        }*/
+
     }
 }
