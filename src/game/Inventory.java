@@ -1,12 +1,6 @@
 package game;
 
-import imports.Potions;
-
-import javax.swing.*;
-
 public class Inventory {
-
-    Potions potions = new Potions();
 
     public int gold = 20;
 
@@ -21,6 +15,7 @@ public class Inventory {
 
     public int minorStrengthPotion = 5, lesserStrengthPotion = 10, majorStrengthPotion = 20;
     public int ownedMinorStrengthPotion = 1, ownedLesserStrengthPotion = 0, ownedMajorStrengthPotion = 0;
+
 
     public void addPotion(int potion) {
 
@@ -64,6 +59,7 @@ public class Inventory {
 
             case 12:
                 ownedMajorStrengthPotion++;
+
         }
     }
 

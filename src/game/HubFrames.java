@@ -29,12 +29,19 @@ public class HubFrames extends JPanel {
 
         hubPanel.setBounds(0,0,1920, 1080);
         hubPanel.setLayout(null);
+        hubPanel.setBackground(Color.black);
 
         backstoryPanel.setBounds(0,0,1920, 1080);
         backstoryPanel.setLayout(null);
         backstoryPanel.setBackground(Color.darkGray);
 
         MusicPick.musicStart("mainmenu","music");
+
+        ImageIcon icon = new ImageIcon("bakgrundMountain.png");
+        JLabel backgroundImage = new JLabel();
+        backgroundImage.setIcon(icon);
+        backgroundImage.setBounds(1,-200,1920,1080);
+        hubPanel.add(backgroundImage);
 
         importFont();
         importHubButtonsLabels();
@@ -59,14 +66,10 @@ public class HubFrames extends JPanel {
         backstoryPanel.add(backStory3);
         backstoryPanel.add(yourParty);
 
-        newRunButton.addActionListener(e -> MusicPick.musicStart("theme","music"));
-        newRunButton.addActionListener(e -> hubJFrame.add(backstoryPanel));
-        newRunButton.addActionListener(e -> hubPanel.setVisible(false));
-
         hubJFrame.setVisible(true);
     }
 
-    public void importHubButtonsLabels(){
+    private void importHubButtonsLabels(){
 
         //Title of game
         gameName = new JLabel("Alterborne");
@@ -104,7 +107,7 @@ public class HubFrames extends JPanel {
         exitButton.setFocusPainted(false);//Remove border around text in button
     }
 
-    public void importBackstoryGifs(){
+    private void importBackstoryGifs(){
         //Create a label
         warrior = new JLabel();
         ranger = new JLabel();
@@ -130,7 +133,7 @@ public class HubFrames extends JPanel {
         healer.setBounds(740, 350, healerSize.width, healerSize.height);
     }
 
-    public void importBackstoryButtonsLabels(){
+    private void importBackstoryButtonsLabels(){
 
         startButton = new JButton("Save the world");
         startButton.setSize(300, 100);
@@ -181,8 +184,7 @@ public class HubFrames extends JPanel {
 
     }
 
-
-    public void hover(){
+    private void hover(){
 
         //new run button
         newRunButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -218,7 +220,7 @@ public class HubFrames extends JPanel {
         });
     }
 
-    public void importFont() {
+    private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));
         } catch (IOException | FontFormatException ignored) {

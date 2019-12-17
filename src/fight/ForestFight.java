@@ -122,7 +122,6 @@ public class ForestFight extends JFrame {
     OverWorld owThread;
 
 
-
     //Constructor for forestFight.
     public ForestFight(OverWorld overWorldThread){
         super();
@@ -167,14 +166,50 @@ public class ForestFight extends JFrame {
         skill3Button.addActionListener(e -> {skill3();});
         skill4Button.addActionListener(e -> {skill4();});
 
-
         //ActionListeners spellsmenu
         returnButton.addActionListener(e-> spellMenuInactive());
 
+        animationStuff();
+
+        //Add all Labels, buttons etc...
+        add(energy);
+        add(block);
+        add(whosTurn);
+        add(attackButton);
+        add(blockButton);
+        add(itemButton);
+        add(skillButton);
+        add(endTurnButton);
+        add(wolf3);
+        add(wolf4);
+        add(wolf1);
+        add(wolf2);
+        add(ranger);
+        add(warrior);
+        add(mage);
+        add(healer);
+        add(playersHp);
+        add(wolf1Hp);
+        add(wolf2Hp);
+        add(wolf3Hp);
+        add(wolf4Hp);
+        add(player1Hp);
+        add(player2Hp);
+        add(player3Hp);
+        add(player4Hp);
+        add(skill1Button);
+        add(skill2Button);
+        add(skill3Button);
+        add(skill4Button);
+        add(returnButton);
 
 
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
+        setVisible(true);
+    }
 
-
+    public void animationStuff(){
 
         //simon saker \/
         Dimension arrowSize = arrow.getPreferredSize();
@@ -235,7 +270,7 @@ public class ForestFight extends JFrame {
         demoSword1.setLocation(125, 300);
         add(demoSword1);
         demoSword1.setVisible(false);
-        
+
         Dimension demoSword2Size = demoSword2.getPreferredSize();
         demoSword2.setSize(demoSword2Size.width, demoSword2Size.height);
         demoSword2.setLocation(125, 300);
@@ -278,51 +313,6 @@ public class ForestFight extends JFrame {
         trap.setLocation(rangerStartX, rangerStartY);
         add(trap);
         trap.setVisible(false);
-        
-
-
-
-
-
-
-
-
-        //Add all Labels, buttons etc...
-        add(energy);
-        add(block);
-        add(whosTurn);
-        add(attackButton);
-        add(blockButton);
-        add(itemButton);
-        add(skillButton);
-        add(endTurnButton);
-        add(wolf3);
-        add(wolf4);
-        add(wolf1);
-        add(wolf2);
-        add(ranger);
-        add(warrior);
-        add(mage);
-        add(healer);
-        add(playersHp);
-        add(wolf1Hp);
-        add(wolf2Hp);
-        add(wolf3Hp);
-        add(wolf4Hp);
-        add(player1Hp);
-        add(player2Hp);
-        add(player3Hp);
-        add(player4Hp);
-        add(skill1Button);
-        add(skill2Button);
-        add(skill3Button);
-        add(skill4Button);
-        add(returnButton);
-
-
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
-        setVisible(true);
     }
 
     //simons del
@@ -2599,7 +2589,6 @@ public class ForestFight extends JFrame {
                 phase = 1;
                 trap.setVisible(true);
             }
-
         }
     });
 }
