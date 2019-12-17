@@ -17,30 +17,46 @@ public class simontest extends JFrame {
     public int startpostitionwarriory = cloudx;
     int phase = 0;
     int timepast = 0;
+    boolean timerpick;
 
-
+    JLabel greenarrow = new JLabel(new ImageIcon("holylight.png"));
+    JLabel energy = new JLabel(new ImageIcon("energize.gif"));
     JLabel player1 = new JLabel(new ImageIcon("mage.gif"));
 
     public simontest() {
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        ImageIcon picShop = new ImageIcon("C:\\Users\\96simben\\Documents\\GitHub\\Game\\src\\Gametest\\Simontest\\shopk.jpg");
+        ImageIcon picShop = new ImageIcon("bakgrundMountain.png");
         setContentPane(new JLabel(picShop)); //assign background
+
+        Dimension greenarrowSize = greenarrow.getPreferredSize();
+        greenarrow.setSize(greenarrowSize.width, greenarrowSize.height);
+        greenarrow.setLocation(cloudx - 200, cloudy - 500);
+        add(greenarrow);
+        greenarrow.setVisible(false);
+
+        Dimension energySize = energy.getPreferredSize();
+        energy.setSize(energySize.width, energySize.height);
+        energy.setLocation(400, 200);
+        add(energy);
+        energy.setVisible(false);
 
         Dimension warriorSize = player1.getPreferredSize();
         player1.setSize(warriorSize.width, warriorSize.height);
         player1.setLocation(cloudx, cloudy);
         add(player1);
 
-        tacklebutton = new JButton("move");
+        tacklebutton = new JButton("green arrow");
         tacklebutton.setSize(150, 40);
         tacklebutton.setLocation(800, 150);
         tacklebutton.setBackground(Color.white);
         add(tacklebutton);
         tacklebutton.addActionListener(e -> {
-            unusedtakedamage.start();
+            if (timerpick) energize.start();
+            else bless.start();
         });
+
         /* onödiga timer saker?
         tackle.setRepeats(true);
         tackle.setCoalesce(true);
@@ -96,6 +112,48 @@ public class simontest extends JFrame {
             }
         }
     });
+
+    private Timer placetap = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            greenarrow.setLocation(cloudx, cloudy);
+            MusicPick.musicStart("ding", "");
+            greenarrow.setVisible(true);
+            }
+    });
+
+    private Timer energize = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timepast++;
+            energy.setLocation(cloudx + 70, cloudy - 50);
+            MusicPick.musicStart("ding", "");
+            energy.setVisible(true);
+            if (timepast > 135){
+                timepast = 0;
+                energy.setVisible(false);
+                energize.stop();
+                timerpick = false;
+            }
+        }
+    });
+
+    private Timer bless = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timepast++;
+            energy.setLocation(cloudx + 70, cloudy - 50);
+            MusicPick.musicStart("ding", "");
+            greenarrow.setVisible(true);
+            if (timepast == 100){
+                timepast = 0;
+                greenarrow.setVisible(false);
+                bless.stop();
+                timerpick = true;
+            }
+        }
+    });
+
 }
 
 
@@ -270,3 +328,4 @@ public class simontest extends JFrame {
     });
 
      */
+

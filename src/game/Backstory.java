@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class Backstory extends JFrame {
 
-    private JLabel backStory, backStory2, backStory3, yourParty;
+    private JLabel backStory, backStory2, backStory3, backStory4, yourParty;
     private JButton startButton;
     Font pixelMplus;
 
@@ -44,6 +44,7 @@ public class Backstory extends JFrame {
         add(backStory);
         add(backStory2);
         add(backStory3);
+        add(backStory4);
         add(yourParty);
 
         //ActionListeners
@@ -56,29 +57,34 @@ public class Backstory extends JFrame {
 
     public void importLabels(){
 
-        backStory = new JLabel("This is a backstory. very cool. This is a backstory. very cool.");
+        backStory = new JLabel("In the heart the great land of geru'xelm, the seat of power is in danger.");
         backStory.setFont((pixelMplus.deriveFont(30f)));
         backStory.setForeground(Color.white);
         Dimension size = backStory.getPreferredSize();
-        backStory.setBounds(170, 100, size.width, size.height);
+        backStory.setBounds(70, 70, size.width, size.height);
 
-        backStory2 = new JLabel("This is a backstory. very nice. This is a backstory. very nice.");
+        backStory2 = new JLabel("There was a foe of a thousand demons, who paved the way for your damnation.");
         backStory2.setFont((pixelMplus.deriveFont(30f)));
         backStory2.setForeground(Color.white);
         Dimension size2 = backStory2.getPreferredSize();
-        backStory2.setBounds(170, 130, size2.width, size2.height);
+        backStory2.setBounds(60, 105, size2.width, size2.height);
 
-        backStory3 = new JLabel("This is a backstory. very cool. This is a backstory. very cool.");
+        backStory3 = new JLabel("You were once 189, in the service of the king. Protecting the kingdom.");
         backStory3.setFont((pixelMplus.deriveFont(30f)));
         backStory3.setForeground(Color.white);
         Dimension size3 = backStory.getPreferredSize();
-        backStory3.setBounds(170, 70, size3.width, size3.height);
+        backStory3.setBounds(90, 140, size3.width, size3.height);
+
+        backStory4 = new JLabel("Gave your lives for glory. Now only 4 of you left.");
+        backStory4.setFont((pixelMplus.deriveFont(30f)));
+        backStory4.setForeground(Color.white);
+        backStory4.setBounds(200, 175, size3.width, size3.height);
 
         yourParty = new JLabel("This is your party.");
         yourParty.setFont((pixelMplus.deriveFont(100f)));
         yourParty.setForeground(Color.white);
         Dimension size4 = yourParty.getPreferredSize();
-        yourParty.setBounds(200, 220, size4.width, size4.height);
+        yourParty.setBounds(210, 220, size4.width, size4.height);
     }
 
     public void importButton(){
