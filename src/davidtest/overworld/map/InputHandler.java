@@ -1,4 +1,4 @@
-package davidtest.overworld.hub;
+package davidtest.overworld.map;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

@@ -1,8 +1,6 @@
 package simontest;
 
-import davidtest.overworld.hub.OverWorld;
-import fight.ForestFight;
-import game.Backstory;
+import davidtest.overworld.map.OverWorld;
 
 public class fakemain {
 

@@ -1,4 +1,4 @@
-package davidtest.overworld.hub;
+package davidtest.overworld.map;
 
 import davidtest.overworld.levels.Level;
 import davidtest.overworld.entities.Player;
@@ -13,8 +13,6 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
-import java.util.Scanner;
-import java.util.Timer;
 import java.util.TimerTask;
 
 public class OverWorld extends Canvas implements Runnable {
@@ -38,6 +36,7 @@ public class OverWorld extends Canvas implements Runnable {
     public Player player;
     public int secondsPassed;
     public ForestFight forestFight;
+    public LootScreen lootScreen;
 
     public OverWorld() {
         setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -83,7 +82,7 @@ public class OverWorld extends Canvas implements Runnable {
         screen = new Screen(WIDTH, HEIGHT, new SpriteSheet("/resources/Sprite_sheet.png"));
         input = new InputHandler(this); //call input-object
         level1 = new Level("/resources/maps/lake_level.png");
-        player = new Player(level1, 245, 245, input); //call Player-object
+        player = new Player(level1, 230, 236, input); //call Player-object
 
         level1.addEntity(player);
         running = true;
@@ -101,7 +100,7 @@ public class OverWorld extends Canvas implements Runnable {
     public void run()//Method that will run as long as the program is on
     {
         MusicPick.musicStart("intofreeshort", "music");
-        long lastTime = System.nanoTime(); //returns the current value of nanoseconds
+        long lastTime = System.nanoTime(); //the current value of nanoseconds
         double nsPerTick = 1000000000D / 60D; //how many nanoseconds are within one tick
         int ticks = 0; //a variable for how many updates
         int frames = 0; //a variable for the current fps
@@ -151,7 +150,7 @@ public class OverWorld extends Canvas implements Runnable {
         tickCount++; //adds to the tick-count by one. continuing the loop of updating every class
 
         level1.tick();
-        EnterForest();
+        //EnterForest();
         //FIXME thread delay/pause
         // - start Malin work
         // - thread resume
@@ -187,35 +186,18 @@ public class OverWorld extends Canvas implements Runnable {
         bs.show();//show in JFrame
     }
 
-    public int getRandom(int max, int min) {
-        return (int) ((Math.random() * ((max - min) + 1)) + min);
-    }
-    public void getTimer() {
-        secondsPassed = 5;
-        Timer delay = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                secondsPassed++;
-                if (secondsPassed <= 0) {
-                    getRandom(10, 0);
-                }
-            }
-        }; delay.schedule(task,2000);
-    }
-
-
-    public synchronized void EnterForest() throws InterruptedException {
+    /*public synchronized void EnterForest() throws InterruptedException {
         if (player.hasEnteredForest()) {
-           forestFight = new ForestFight();
-                    this.wait();
-                    if (forestFight.attackPressed()) {
-                        System.out.println("fight is over has been returned ");
-                        LootScreen lootScreen = new LootScreen(1);
-                        if (lootScreen.notifyOverWorld()) {
-                            this.notify();
-                        }
-                    }
+            RandomEncounter randomEncounter = new RandomEncounter();
+            if(timer.randomNr == 1) {
+                forestFight = new ForestFight();
+                this.wait();
+            }
+        }
+                }*/
+
+                public static void main(String[]args) {
+        OverWorld overWorld = new OverWorld();
+        overWorld.start();
                 }
             }
-}

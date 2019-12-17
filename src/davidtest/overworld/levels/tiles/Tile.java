@@ -18,15 +18,32 @@ public abstract class Tile {
     public static final Tile MOUNTAIN = new PathTile(6,5,0, Colours.get(-1, 333, 11, -1), 0xFF3f3f3f);
     public static final Tile FIELD = new PathTile(7,6,0, Colours.get(-1, 176, 142, -1), 0xFFa3ff00);
     public static final Tile SWAMpWATER = new AnimatedTile(8, new int[][] { {0, 5}, { 1, 5}, { 2, 5 }, { 1, 5 } },
-            Colours.get(-1, 15, 17, -1), 0xFF005c81, 800);
+            Colours.get(-1, 12, 21, -1), 0xFF005c81, 800);
     public static final Tile SWAMP = new PathTile(9, 7, 0, Colours.get(-1, 18, 41, -1), 0xFF00a956);
     public static final Tile WOOD = new SolidTile(10, 8, 0, Colours.get(-1,220,221,-1), 0xFF8d6525);
-    public static final Tile LEAF = new AnimatedTile(11, new int[][] {{ 0, 3}, { 1, 3}},
+    public static final Tile LEAF = new AnimatedSolidTile(11, new int[][] {{ 0, 3}, { 1, 3}},
             Colours.get(-1, 16, 141, -1), 0xFF008d00, 800);
     public static final Tile LEFTBOTTOMHOUSE = new SolidTile(12, 0, 4, Colours.get(-1,210,211, 1), 0xFF8d3026);
     public static final Tile RIGHTBOTTOMHOUSE = new SolidTile(13, 1, 4, Colours.get(-1,210,211, 1), 0xFF8d3027);
     public static final Tile LEFTOPHOUSE = new SolidTile(14, 2, 4, Colours.get(-1,22,21,-1), 0xFF8d3028);
     public static final Tile RIGHTTOPHOUSE = new SolidTile(15, 3, 4, Colours.get(-1,22,21,-1), 0xFF8d3029);
+    public static final Tile CRACKS = new BasicTile(16, 0, 7, Colours.get(-1, 200, 1, -1), 0xFF565554);
+    public static final Tile LEFTBOTTOMCAVE = new SolidTile(17, 0, 9, Colours.get(-1,1,333, 16), 0xFF2d3c2b);
+    public static final Tile RIGHTBOTTOMCAVE = new SolidTile(18, 1, 9, Colours.get(-1,1,333, 16), 0xFF2d3a2b);
+    public static final Tile LEFTOPCAVE = new SolidTile(19, 2, 9, Colours.get(-1,1,333,16), 0xFF2d3c2b);
+    public static final Tile RIGHTTOPCAVE = new SolidTile(20, 3, 9, Colours.get(-1,1,333,16), 0xFF2d3f2b);
+    public static final Tile LEFTTOPCASTLE = new SolidTile(21, 0, 11, Colours.get(-1,1,333, 16), 0xFF785554);
+    public static final Tile RIGHTTOPCASTLE = new SolidTile(22, 1, 11, Colours.get(-1,1,333,-1), 0xFF785555);
+    public static final Tile LEFTCASTLE = new SolidTile(23, 3, 11, Colours.get(-1,1,333,-1), 0xFF785556);
+    public static final Tile RIGHTCASTLE = new SolidTile(24, 4, 11, Colours.get(-1,1,333,-1), 0xFF785557);
+    public static final Tile MIDDLECASTLE = new SolidTile(25, 2, 11, Colours.get(-1,1,333,-1), 0xFF785558);
+    public static final Tile FIRE = new AnimatedSolidTile(26, new int[][] {{ 0, 13}, { 1, 13},{2,13}},
+            Colours.get(220, 200, 1, 332), 0xFFed8100, 800);
+
+
+
+
+
 
 
 

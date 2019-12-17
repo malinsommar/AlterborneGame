@@ -96,7 +96,7 @@ public class ForestFight extends JFrame {
     private int target;
     private int phase = 0, timePast = 0;
     private boolean followup = false;
-    private boolean stealthed = false;
+    private boolean stealth = false;
 
     private JLabel arrow = new JLabel(new ImageIcon("arrow.png"));
     private JLabel volley1 = new JLabel(new ImageIcon("arrow.png"));
@@ -119,9 +119,9 @@ public class ForestFight extends JFrame {
     private JLabel trap = new JLabel(new ImageIcon("trap.png"));
 
     public boolean startLootScreen = false;
+
     //Constructor for forestFight.
     public ForestFight() {
-        super();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setSize(192, 108);
@@ -322,6 +322,7 @@ public class ForestFight extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setUndecorated(true);
         setVisible(true);
+
     }
 
     //simons del
@@ -481,7 +482,6 @@ public class ForestFight extends JFrame {
 
     private void skill4() {
         if (turns == 1) {
-            demoshout.start();
         }
         if (turns == 2) {
 
@@ -634,6 +634,7 @@ public class ForestFight extends JFrame {
             rangerAttackWolf();
             mobDeath();
             return startLootScreen;
+
         }
         //If its mage's turn and player has 2 or more energy.
         else if (turns == 3 && mageEnergyInt > 1) {
@@ -878,7 +879,7 @@ public class ForestFight extends JFrame {
     }
 
     //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
-    public boolean mobDeath() {
+    public void mobDeath() {
          if (wolf1Int <= 0) {
             wolf1Hp.setText("Wolf 1: 0");
             wolf1.setVisible(false);
@@ -897,9 +898,7 @@ public class ForestFight extends JFrame {
         }
         if (wolf1Int <= 0 && wolf2Int <= 0 && wolf3Int <= 0 && wolf4Int <=0) {
             fightIsOver();
-            return startLootScreen;
         }
-        return false;
     }
 
     //Checks if any party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
@@ -2141,7 +2140,7 @@ public class ForestFight extends JFrame {
                 phase = 1;
             }
             if (phase == 1) {
-                superMegaMath -= 2;
+                int superMegaMath = 2;
                 warriorX += 20;
                 warriorY -= warriorMegaMath;
                 warrior.setLocation(warriorX, warriorY);
@@ -2251,6 +2250,7 @@ public class ForestFight extends JFrame {
                     followup = false;
                     }
                     else {
+                        Thread demoralized = null;
                         demoralized.start();
                         System.out.println("working");
                     }

@@ -23,7 +23,7 @@ public class Hub extends JFrame {
         hover();
 
         //Background picture
-        ImageIcon background = new ImageIcon("bakgrundMountain.png"); //download image
+        ImageIcon background = new ImageIcon("backgroundmountain.png"); //download image
         setContentPane(new JLabel(background)); //set backgrund
 
         //Title of game
@@ -38,15 +38,15 @@ public class Hub extends JFrame {
         add(tutorialButton);
         add(exitButton);
 
-        newRunButton.addActionListener(e -> new NewGame());
+        newRunButton.addActionListener(e -> new Backstory());
         newRunButton.addActionListener(e -> dispose());
         //tutorialButton.addActionListener(e-> new LootScreen());
 
         exitButton.addActionListener(e -> System.exit(0));
 
         MusicPick.musicStart("mainmenu","music");
-        //setExtendedState(JFrame.MAXIMIZED_BOTH);
-        //setUndecorated(true);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setVisible(true);
     }
 

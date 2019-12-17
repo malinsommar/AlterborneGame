@@ -1,6 +1,6 @@
 package game;
 
-import davidtest.overworld.hub.OverWorld;
+import davidtest.overworld.map.OverWorld;
 
 public class MasterModel {
 

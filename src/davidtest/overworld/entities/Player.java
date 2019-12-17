@@ -5,7 +5,7 @@ import davidtest.overworld.gfx.Fonts;
 import davidtest.overworld.levels.Level;
 import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Screen;
-import davidtest.overworld.hub.InputHandler;
+import davidtest.overworld.map.InputHandler;
 
 public class Player extends Mob {
 
