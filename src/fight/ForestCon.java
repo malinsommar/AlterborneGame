@@ -72,7 +72,7 @@ public class ForestCon {
 
     private int target;
     private int phase = 0;
-    private boolean followup = false;
+    public boolean followup = false;
     private boolean stealthed = false;
 
     private int[] ownedPotions = new int[12];
@@ -220,7 +220,7 @@ public class ForestCon {
             fireBall.start();
         }
         if (turns == 4){
-
+            holyLightSpell.start();
         }
     }
 
@@ -235,7 +235,7 @@ public class ForestCon {
 
         }
         if (turns == 4){
-
+            smallHolyLightSpell.start();
         }
     }
 
@@ -245,13 +245,13 @@ public class ForestCon {
             shout.start();
         }
         if(turns == 2){
-            //placetrap.start();
+
         }
         if (turns == 3){
             flameStrike.start();
         }
         if (turns == 4){
-
+            groupHealSpell.start();
         }
     }
 
@@ -294,7 +294,7 @@ public class ForestCon {
         if (turns == 2){
             fff.skill1Button.setText("Volley");
             fff.skill2Button.setText("Bomb");
-            fff.skill3Button.setText("Place trap");
+            fff.skill3Button.setText("TBA");
             fff.skill4Button.setText("Stealth");
         }
         //mage
@@ -306,9 +306,9 @@ public class ForestCon {
         }
         //healer
         if (turns == 4){
-            fff.skill1Button.setText("Heal");
-            fff.skill2Button.setText("Deal");
-            fff.skill3Button.setText("Feel");
+            fff.skill1Button.setText("Holy light");
+            fff.skill2Button.setText("Blessed Light");
+            fff.skill3Button.setText("Party heal");
             fff.skill4Button.setText("Real");
         }
     }
@@ -1129,13 +1129,13 @@ public class ForestCon {
         public void actionPerformed(ActionEvent ae) {
             if (phase == 0) {
                 if (warriorX == 100) MusicPick.musicStart("warriorattack", "");
-                warriorX += 30;
+                warriorX += 15;
                 fff.warrior.setLocation(warriorX, warriorY);
                 if (warriorX > 200) {
                     phase = 1;
                 }
             } else if (phase == 1) {
-                warriorX -= 30;
+                warriorX -= 15;
                 fff.warrior.setLocation(warriorX, warriorY);
                 if (warriorX <= warriorStartX) {
                     warriorX = warriorStartX;
@@ -1370,7 +1370,7 @@ public class ForestCon {
             timePast++;
             fff.swordIcon.setLocation(swordIconX, swordIconY);
             if (phase == 0) {
-                //MusicPick.musicStart("demoshout", "");
+                if (upMegaMath == 1) MusicPick.musicStart("demoshout", "");
                 fff.swordIcon.setVisible(true);
                 upMegaMath *= 2;
                 swordIconY -= upMegaMath;
@@ -1515,6 +1515,7 @@ public class ForestCon {
         }
     });
 
+    //not used, don't remove
     private Timer bombcircletest = new Timer(5, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1596,6 +1597,74 @@ public class ForestCon {
         och öka skadan på nåt sätt
          */
     }
+
+    private Timer holyLightSpell = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            if (phase == 0){
+            fff.holyLight.setLocation(warriorStartX -200, warriorStartY -500);
+            MusicPick.musicStart("holylight", "");
+            fff.holyLight.setVisible(true);
+            phase = 1;
+            }
+            if (timePast == 100){
+                timePast = 0;
+                fff.holyLight.setVisible(false);
+                holyLightSpell.stop();
+                phase = 0;
+            }
+        }
+    });
+
+    private Timer smallHolyLightSpell = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            if (phase == 0){
+                fff.smallHolyLight.setLocation(warriorStartX -225, warriorStartY -500);
+                MusicPick.musicStart("holylight", "");
+                fff.smallHolyLight.setVisible(true);
+                phase = 1;
+            }
+            if (timePast == 100){
+                timePast = 0;
+                fff.smallHolyLight.setVisible(false);
+                smallHolyLightSpell.stop();
+                phase = 0;
+            }
+        }
+    });
+
+    private Timer groupHealSpell = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            if (phase == 0){
+                fff.groupHeal1.setLocation(warriorStartX, warriorStartY);
+                fff.groupHeal2.setLocation(rangerStartX, rangerStartY);
+                fff.groupHeal3.setLocation(mageStartX, mageStartY);
+                fff.groupHeal4.setLocation(healerStartX, healerStartY);
+                MusicPick.musicStart("groupheal", "");
+                fff.groupHeal1.setVisible(true);
+                fff.groupHeal2.setVisible(true);
+                fff.groupHeal3.setVisible(true);
+                fff.groupHeal4.setVisible(true);
+                phase = 1;
+            }
+            if (timePast == 700){
+                timePast = 0;
+                fff.groupHeal1.setVisible(false);
+                fff.groupHeal2.setVisible(false);
+                fff.groupHeal3.setVisible(false);
+                fff.groupHeal4.setVisible(false);
+                groupHealSpell.stop();
+                phase = 0;
+            }
+        }
+    });
+
+
 
     //Get the effect from potions.
     private void usePotion(int potion) {

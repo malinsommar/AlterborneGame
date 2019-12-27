@@ -48,6 +48,13 @@ public class ForestFightFrame {
     public JLabel explode = new JLabel(new ImageIcon("explode.gif"));
     public JLabel stealthranger = new JLabel(new ImageIcon("stealth ranger.gif"));
     public JLabel trap = new JLabel(new ImageIcon("trap.png"));
+    public JLabel holyLight = new JLabel(new ImageIcon("holylight.png"));
+    public JLabel smallHolyLight = new JLabel(new ImageIcon("smallholylight.png"));
+    public JLabel groupHeal1 = new JLabel(new ImageIcon("heartsgif2.gif"));
+    public JLabel groupHeal2 = new JLabel(new ImageIcon("heartsgif2.gif"));
+    public JLabel groupHeal3 = new JLabel(new ImageIcon("heartsgif2.gif"));
+    public JLabel groupHeal4 = new JLabel(new ImageIcon("heartsgif2.gif"));
+
 
     public void forestFightFrame(){
 
@@ -123,6 +130,12 @@ public class ForestFightFrame {
         forestFightJFrame.add(explode);
         forestFightJFrame.add(stealthranger);
         forestFightJFrame.add(trap);
+        forestFightJFrame.add(holyLight);
+        forestFightJFrame.add(smallHolyLight);
+        forestFightJFrame.add(groupHeal1);
+        forestFightJFrame.add(groupHeal2);
+        forestFightJFrame.add(groupHeal3);
+        forestFightJFrame.add(groupHeal4);
 
         forestFightJFrame.setVisible(true);
     }
@@ -214,6 +227,35 @@ public class ForestFightFrame {
         trap.setSize(trapSize.width, trapSize.height);
         trap.setLocation(70, 290);
         trap.setVisible(false);
+
+        Dimension holyLightSize = holyLight.getPreferredSize();
+        holyLight.setSize(holyLightSize.width, holyLightSize.height);
+        holyLight.setLocation(70, 290);
+        holyLight.setVisible(false);
+
+        Dimension smallHolyLightSize = holyLight.getPreferredSize();
+        smallHolyLight.setSize(smallHolyLightSize.width, smallHolyLightSize.height);
+        smallHolyLight.setLocation(70, 290);
+        smallHolyLight.setVisible(false);
+
+        Dimension groupHealSize = groupHeal1.getPreferredSize();
+        groupHeal1.setSize(groupHealSize.width, groupHealSize.height);
+        groupHeal1.setLocation(70, 290);
+        groupHeal1.setVisible(false);
+
+        groupHeal2.setSize(groupHealSize.width, groupHealSize.height);
+        groupHeal2.setLocation(70, 290);
+        groupHeal2.setVisible(false);
+
+        groupHeal3.setSize(groupHealSize.width, groupHealSize.height);
+        groupHeal3.setLocation(70, 290);
+        groupHeal3.setVisible(false);
+
+        groupHeal4.setSize(groupHealSize.width, groupHealSize.height);
+        groupHeal4.setLocation(70, 290);
+        groupHeal4.setVisible(false);
+
+
     }
 
     public void spellMenuStartup(){
