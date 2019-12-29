@@ -2,6 +2,9 @@ package party;
 
 public class Ranger {
 
+    public String rangerRareWeaponName = "Elven bow", rangerEpicWeaponName = "Dragonslayer's bow", rangerLegendaryWeaponName = "Bullseye bow", rangerRareArmorName = "Fine leather armor", rangerEpicArmorName = "Elven leather armor", rangerLegendaryArmorName = "Demonskin armor";
+    public int rangerRareWeaponDamage = 8, rangerEpicWeaponDamage = 16, rangerLegendaryWeaponDamage = 26, rangerRareArmorBlock = 5, rangerEpicArmorBlock = 11, rangerLegendaryArmorBlock = 18;
+
     public String currentWeaponName = "Simple bow";
     public int currentWeaponDamage = 5;
 
@@ -17,28 +20,28 @@ public class Ranger {
 
     //All ranger weapons
     public void rangerRareWeapon(){
-        currentWeaponName = "Elven bow";
-        currentWeaponDamage = 8;
+        currentWeaponName = rangerRareWeaponName;
+        currentWeaponDamage = rangerRareWeaponDamage;
     }
     public void rangerEpicWeapon(){
-        currentWeaponName = "Dragonslayer's bow";
-        currentWeaponDamage = 16;
+        currentWeaponName = rangerEpicWeaponName;
+        currentWeaponDamage = rangerEpicWeaponDamage;
     }
     public void rangerLegendaryWeapon(){
-        currentWeaponName = "Bullseye bow";
-        currentWeaponDamage = 26;
+        currentWeaponName = rangerLegendaryWeaponName;
+        currentWeaponDamage = rangerLegendaryWeaponDamage;
     }
     //All ranger armors
     public void rangerRareArmor(){
-        currentArmorName = "Fine leather armor";
-        currentArmorBlock = 5;
+        currentArmorName = rangerRareArmorName;
+        currentArmorBlock = rangerRareArmorBlock;
     }
     public void rangerEpicArmor(){
-        currentArmorName = "Elven leather armor";
-        currentArmorBlock = 11;
+        currentArmorName = rangerEpicArmorName;
+        currentArmorBlock = rangerEpicArmorBlock;
     }
     public void rangerLegendaryArmor(){
-        currentArmorName = "Demonskin armor";
-        currentArmorBlock = 18;
+        currentArmorName = rangerLegendaryArmorName;
+        currentArmorBlock = rangerLegendaryArmorBlock;
     }
 }

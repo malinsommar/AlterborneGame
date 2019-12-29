@@ -2,6 +2,9 @@ package party;
 
 public class Warrior {
 
+    public String warriorRareWeaponName = "Iron sword",warriorEpicWeaponName = "Tempered steel blade",warriorLegendaryWeaponName = "Sword of a thousand truths",warriorRareArmorName = "Shiny Armor",warriorEpicArmorName = "Hardened Armor",warriorLegendaryArmorName = "Royal Enchanted Armor";
+    public int warriorRareWeaponDamage = 8,warriorEpicWeaponDamage = 15,warriorLegendaryWeaponDamage = 27,warriorRareArmorBlock = 6,warriorEpicArmorBlock = 10,warriorLegendaryArmorBlock,mageRareArmorDamage = 20;
+
     public String currentWeaponName = "Wooden Sword";
     public int currentWeaponDamage = 5;
 
@@ -15,30 +18,28 @@ public class Warrior {
     public int combinedBlock = block + currentArmorBlock;
     public int combinedDamage = damage + currentWeaponDamage;
 
-    //All warrior weapons
     public void warriorRareWeapon(){
-        currentWeaponName = "Iron sword";
-        currentWeaponDamage = 8;
+        currentWeaponName = warriorRareWeaponName;
+        currentWeaponDamage = warriorRareWeaponDamage;
     }
     public void warriorEpicWeapon(){
-        currentWeaponName = "Tempered steel blade";
-        currentWeaponDamage = 15;
+        currentWeaponName = warriorEpicWeaponName;
+        currentWeaponDamage = warriorEpicWeaponDamage;
     }
     public void warriorLegendaryWeapon(){
-        currentWeaponName = "Sword of a thousand truths";
-        currentWeaponDamage = 27;
+        currentWeaponName = warriorLegendaryWeaponName;
+        currentWeaponDamage = warriorLegendaryWeaponDamage;
     }
-    //All warrior armors
     public void warriorRareArmor(){
-        currentArmorName = "Shiny Armor";
-        currentArmorBlock = 6;
+        currentArmorName = warriorRareArmorName;
+        currentArmorBlock = warriorRareArmorBlock;
     }
     public void warriorEpicArmor(){
-        currentArmorName = "Hardened Armor";
-        currentArmorBlock = 10;
+        currentArmorName = warriorEpicArmorName;
+        currentArmorBlock = warriorRareArmorBlock;
     }
     public void warriorLegendaryArmor(){
-        currentArmorName = "Royal Enchanted Armor";
-        currentArmorBlock = 20;
+        currentArmorName = warriorLegendaryArmorName;
+        currentArmorBlock = warriorLegendaryArmorBlock;
     }
 }

@@ -12,14 +12,14 @@ public class HubFrames extends JPanel {
     public JPanel backstoryPanel = new JPanel();
 
 
-    private ImageIcon backbround = new ImageIcon("backgroundMountain.png");
-    private JLabel image = new JLabel(backbround);
+    private ImageIcon background = new ImageIcon("backgroundMountain.png");
+    private JLabel image = new JLabel(background);
 
-    private JLabel gameName, backStory, backStory2, backStory3, yourParty, warrior, mage, healer,ranger;
+    private JLabel gameName, backStory, backStory2, backStory3, backStory4, yourParty, warrior, mage, healer,ranger;
     public JButton tutorialButton, newRunButton, exitButton, startButton;
     private Font pixelMplus;
 
-    //This method open hubFrame and add
+    //This method open Menu panel or backstory panel.
     public void hubFrame(){
 
         hubJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,11 +64,13 @@ public class HubFrames extends JPanel {
         backstoryPanel.add(backStory);
         backstoryPanel.add(backStory2);
         backstoryPanel.add(backStory3);
+        backstoryPanel.add(backStory4);
         backstoryPanel.add(yourParty);
 
         hubJFrame.setVisible(true);
     }
 
+    //Import buttons and labels for the hub/main menu.
     private void importHubButtonsLabels(){
 
         //Title of game
@@ -107,6 +109,7 @@ public class HubFrames extends JPanel {
         exitButton.setFocusPainted(false);//Remove border around text in button
     }
 
+    //Import buttons and labels for the .
     private void importBackstoryGifs(){
         //Create a label
         warrior = new JLabel();
@@ -144,29 +147,34 @@ public class HubFrames extends JPanel {
         startButton.setBorder(null); //Remove border around button
         startButton.setFocusPainted(false);//Remove border around text in button
 
-        backStory = new JLabel("This is a backstory. very cool. This is a backstory. very cool.");
+        backStory = new JLabel("In the heart the great land of Geru'xelm, the seat of power is in danger.");
         backStory.setFont((pixelMplus.deriveFont(30f)));
         backStory.setForeground(Color.white);
         Dimension size = backStory.getPreferredSize();
-        backStory.setBounds(170, 100, size.width, size.height);
+        backStory.setBounds(70, 70, size.width, size.height);
 
-        backStory2 = new JLabel("This is a backstory. very nice. This is a backstory. very nice.");
+        backStory2 = new JLabel("There was a foe of a thousand demons, who paved the way for your damnation.");
         backStory2.setFont((pixelMplus.deriveFont(30f)));
         backStory2.setForeground(Color.white);
         Dimension size2 = backStory2.getPreferredSize();
-        backStory2.setBounds(170, 130, size2.width, size2.height);
+        backStory2.setBounds(60, 105, size2.width, size2.height);
 
-        backStory3 = new JLabel("This is a backstory. very cool. This is a backstory. very cool.");
+        backStory3 = new JLabel("189 soldiers, in the service of the king. Protecting the kingdom.");
         backStory3.setFont((pixelMplus.deriveFont(30f)));
         backStory3.setForeground(Color.white);
         Dimension size3 = backStory.getPreferredSize();
-        backStory3.setBounds(170, 70, size3.width, size3.height);
+        backStory3.setBounds(90, 140, size3.width, size3.height);
+
+        backStory4 = new JLabel("Gave their lives for glory. Only 4 survived.");
+        backStory4.setFont((pixelMplus.deriveFont(30f)));
+        backStory4.setForeground(Color.white);
+        backStory4.setBounds(210, 175, size3.width, size3.height);
 
         yourParty = new JLabel("This is your party.");
         yourParty.setFont((pixelMplus.deriveFont(100f)));
         yourParty.setForeground(Color.white);
         Dimension size4 = yourParty.getPreferredSize();
-        yourParty.setBounds(200, 220, size4.width, size4.height);
+        yourParty.setBounds(210, 220, size4.width, size4.height);
 
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {
             //Change button color while hovering
