@@ -14,7 +14,7 @@ public class fakemain {
 
         public fakemain(){
             //new ForestFight(ow);
-            new Backstory();
+            new simontest();
 
         }
 }

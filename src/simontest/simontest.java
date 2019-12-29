@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class simontest extends JFrame {
 
-    private JButton shootarrowbutton, tacklebutton, takedamagebutton, magespellbutton, chargebutton, volleybutton;
+    private JButton shootarrowbutton, tacklebutton, takedamagebutton, magespellbutton, chargebutton, volleybutton, wolftestbutton;
 
     public int cloudx = 100;
     public int cloudy = 200;
@@ -45,7 +45,7 @@ public class simontest extends JFrame {
         Dimension warriorSize = player1.getPreferredSize();
         player1.setSize(warriorSize.width, warriorSize.height);
         player1.setLocation(cloudx, cloudy);
-        add(player1);
+        //add(player1);
 
         tacklebutton = new JButton("green arrow");
         tacklebutton.setSize(150, 40);
@@ -57,11 +57,31 @@ public class simontest extends JFrame {
             else bless.start();
         });
 
+
         /* onödiga timer saker?
         tackle.setRepeats(true);
         tackle.setCoalesce(true);
         tackle.setInitialDelay(10);
          */
+
+
+        player1.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //do stuff
+                MusicPick.musicStart("gwyn", "music");
+            }
+
+        });
+        add(player1);
+
+
+
+
+
+
+
 
 
         MusicPick.musicStart("allstar", "music");
