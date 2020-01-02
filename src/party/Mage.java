@@ -2,6 +2,9 @@ package party;
 
 public class Mage{
 
+    public String mageRareWeaponName = "Ivory fire wand", mageEpicWeaponName = "Enchanted mana wand", mageLegendaryWeaponName = "Pyromaniac's tinderbox", mageRareArmorName = "Mooncloth robe", mageEpicArmorName = "Enchanted robe", mageLegendaryArmorName = "Robe of the archmage";
+    public int mageRareWeaponDamage = 7, mageEpicWeaponDamage = 15, mageLegendaryWeaponDamage = 30, mageRareArmorBlock = 2, mageEpicArmorBlock = 4, mageLegendaryArmorBlock = 6, mageRareArmorDamage = 4, mageEpicArmorDamage = 10, mageLegendaryArmorDamage = 20;
+
     public String currentWeaponName = "Wooden wand";
     public int currentWeaponDamage = 5;
 
@@ -18,32 +21,32 @@ public class Mage{
 
     //All mage weapons
     public void mageRareWeapon(){
-        currentWeaponName = "Ivory fire wand";
-        currentWeaponDamage = 7;
+        currentWeaponName = mageRareWeaponName;
+        currentWeaponDamage = mageRareWeaponDamage;
     }
     public void mageEpicWeapon(){
-        currentWeaponName= "Enchanted mana wand";
-        currentWeaponDamage = 15;
+        currentWeaponName= mageEpicWeaponName;
+        currentWeaponDamage = mageEpicWeaponDamage;
     }
     public void mageLegendaryWeapon(){
-        currentWeaponName = "Pyromaniac's tinderbox";
-        currentWeaponDamage = 30;
+        currentWeaponName = mageLegendaryWeaponName;
+        currentWeaponDamage = mageLegendaryWeaponDamage;
     }
     //All mage armors
     public void mageRareArmor(){
-        currentArmorName = "Mooncloth robe";
-        currentArmorBlock = 2;
-        currentArmorDamage = 4;
+        currentArmorName = mageRareArmorName;
+        currentArmorBlock = mageRareArmorBlock;
+        currentArmorDamage = mageRareArmorDamage;
 
     }
     public void mageEpicArmor(){
-        currentArmorName = "Enchanted robe";
-        currentArmorBlock = 4;
-        currentArmorDamage = 10;
+        currentArmorName = mageEpicArmorName;
+        currentArmorBlock = mageEpicArmorBlock;
+        currentArmorDamage = mageEpicArmorDamage;
     }
     public void mageLegendaryArmor(){
-        currentArmorName = "Robe of the archmage";
-        currentArmorBlock = 6;
-        currentArmorDamage = 20;
+        currentArmorName = mageLegendaryArmorName;
+        currentArmorBlock = mageLegendaryArmorBlock;
+        currentArmorDamage = mageLegendaryArmorDamage;
     }
 }

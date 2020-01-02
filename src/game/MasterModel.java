@@ -1,23 +1,23 @@
 package game;
 
-import davidtest.overworld.hub.OverWorld;
+import davidtest.overworld.map.OverWorldFrame;
+import davidtest.overworld.map.WorldModel;
 
 public class MasterModel {
-
-    OverWorld overworld = new OverWorld();
-    private ConHub ch = new ConHub();
-    FightModel fm = new FightModel();
+    private HubController hubController = new HubController();
+    FightModel fightModel = new FightModel();
 
 
     //Get user input from ConHub to start game of exit game.
-    public void startGame(){
+    public void startGame() throws InterruptedException {
 
-        ch.test();
+        System.out.println("start test");
+        hubController.test();
 
-        if(ch.choice[0]==1){
-            fm.startForestFight();
+        if(hubController.choice[0]==1){
+            new WorldModel();
         }
-        if (ch.choice[0]==3){
+        if (hubController.choice[0]==3){
             System.exit(0);
         }
 
@@ -34,6 +34,8 @@ public class MasterModel {
                 //80% normal fight
                 //20% boss figth
         }*/
+
+       //LootScreen model here, skicka med xp
 
     }
 }

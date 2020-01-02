@@ -1,6 +1,5 @@
 package fight;
 
-import davidtest.overworld.hub.OverWorld;
 import game.*;
 import imports.Potions;
 import party.Healer;
@@ -16,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class ForestFight extends JFrame {
-    
+
     //Objects
     private Inventory inv = new Inventory();
     private Warrior w = new Warrior();
@@ -34,7 +33,7 @@ public class ForestFight extends JFrame {
     private JButton skill1Button, skill2Button, skill3Button, skill4Button, returnButton; //spells
 
     //Create Labels
-    private JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr ,potion1Label,potion2Label,potion3Label,potion4Label,potion5Label,potion6Label,potion7Label,potion8Label,potion9Label,potion10Label,potion11Label,potion12Label;
+    private JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr, potion1Label, potion2Label, potion3Label, potion4Label, potion5Label, potion6Label, potion7Label, potion8Label, potion9Label, potion10Label, potion11Label, potion12Label;
     private JLabel whosTurn, energy, block;
     private JLabel wolf1, wolf2, wolf3, wolf4;
     private JLabel wolf1Hp, wolf2Hp, wolf3Hp, wolf4Hp;
@@ -44,7 +43,7 @@ public class ForestFight extends JFrame {
     //Create int's
     private int turns = 1;
     private int currentEnergy;
-    private int warriorEnergyInt=5, mageEnergyInt, rangerEnergyInt, healerEnergyInt;
+    private int warriorEnergyInt = 5, mageEnergyInt, rangerEnergyInt, healerEnergyInt;
     private int wolf1Int, wolf2Int, wolf3Int, wolf4Int;
 
     //Get hp, block and damage from party
@@ -93,11 +92,11 @@ public class ForestFight extends JFrame {
 
     //Another timePast to avoid conflict when they run simultaneously.
     private int timePastTakeDamage = 0;
-    
+
     private int target;
     private int phase = 0, timePast = 0;
     private boolean followup = false;
-    private boolean stealthed = false;
+    private boolean stealth = false;
 
     private JLabel arrow = new JLabel(new ImageIcon("arrow.png"));
     private JLabel volley1 = new JLabel(new ImageIcon("arrow.png"));
@@ -119,12 +118,10 @@ public class ForestFight extends JFrame {
     private JLabel stealthranger = new JLabel(new ImageIcon("stealth ranger.gif"));
     private JLabel trap = new JLabel(new ImageIcon("trap.png"));
 
-    OverWorld owThread;
-
+    public boolean startLootScreen = false;
 
     //Constructor for forestFight.
-    public ForestFight(OverWorld overWorldThread){
-        super();
+    public ForestFight() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setSize(192, 108);
@@ -140,7 +137,7 @@ public class ForestFight extends JFrame {
         wolf2Int = 20;
         wolf3Int = 20;
         wolf4Int = 20;
-        currentEnergy=warriorEnergyInt;
+        currentEnergy = warriorEnergyInt;
 
         //Import methods
         importWolfGif();
@@ -148,68 +145,35 @@ public class ForestFight extends JFrame {
         importButtons();
         importLabels();
         spellMenuStartup();
-        getThread(overWorldThread);
 
         hoverEffect();
-        MusicPick.musicStart("forest1","music");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(false);
+        MusicPick.musicStart("forest1", "music");
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setUndecorated(false);
 
         //ActionListeners
         attackButton.addActionListener(e -> attackPressed());
         blockButton.addActionListener(e -> blockPressed());
         itemButton.addActionListener(e -> itemPressed());
         skillButton.addActionListener(e -> spellMenuActive()); //for now
-        endTurnButton.addActionListener(e-> startNewTurn());
-        skill1Button.addActionListener(e -> {skill1();});
-        skill2Button.addActionListener(e -> {skill2();});
-        skill3Button.addActionListener(e -> {skill3();});
-        skill4Button.addActionListener(e -> {skill4();});
+        endTurnButton.addActionListener(e -> startNewTurn());
+        skill1Button.addActionListener(e -> {
+            skill1();
+        });
+        skill2Button.addActionListener(e -> {
+            skill2();
+        });
+        skill3Button.addActionListener(e -> {
+            skill3();
+        });
+        skill4Button.addActionListener(e -> {
+            skill4();
+        });
+
 
         //ActionListeners spellsmenu
-        returnButton.addActionListener(e-> spellMenuInactive());
+        returnButton.addActionListener(e -> spellMenuInactive());
 
-        animationStuff();
-
-        //Add all Labels, buttons etc...
-        add(energy);
-        add(block);
-        add(whosTurn);
-        add(attackButton);
-        add(blockButton);
-        add(itemButton);
-        add(skillButton);
-        add(endTurnButton);
-        add(wolf3);
-        add(wolf4);
-        add(wolf1);
-        add(wolf2);
-        add(ranger);
-        add(warrior);
-        add(mage);
-        add(healer);
-        add(playersHp);
-        add(wolf1Hp);
-        add(wolf2Hp);
-        add(wolf3Hp);
-        add(wolf4Hp);
-        add(player1Hp);
-        add(player2Hp);
-        add(player3Hp);
-        add(player4Hp);
-        add(skill1Button);
-        add(skill2Button);
-        add(skill3Button);
-        add(skill4Button);
-        add(returnButton);
-
-
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
-        setVisible(true);
-    }
-
-    public void animationStuff(){
 
         //simon saker \/
         Dimension arrowSize = arrow.getPreferredSize();
@@ -313,10 +277,56 @@ public class ForestFight extends JFrame {
         trap.setLocation(rangerStartX, rangerStartY);
         add(trap);
         trap.setVisible(false);
+
+
+
+
+
+
+
+
+
+        //Add all Labels, buttons etc...
+        add(energy);
+        add(block);
+        add(whosTurn);
+        add(attackButton);
+        add(blockButton);
+        add(itemButton);
+        add(skillButton);
+        add(endTurnButton);
+        add(wolf3);
+        add(wolf4);
+        add(wolf1);
+        add(wolf2);
+        add(ranger);
+        add(warrior);
+        add(mage);
+        add(healer);
+        add(playersHp);
+        add(wolf1Hp);
+        add(wolf2Hp);
+        add(wolf3Hp);
+        add(wolf4Hp);
+        add(player1Hp);
+        add(player2Hp);
+        add(player3Hp);
+        add(player4Hp);
+        add(skill1Button);
+        add(skill2Button);
+        add(skill3Button);
+        add(skill4Button);
+        add(returnButton);
+
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
+        setVisible(true);
+
     }
 
     //simons del
-    public void spellMenuStartup(){
+    public void spellMenuStartup() {
 
         //button 1
         skill1Button = new JButton("error skill 1           ");
@@ -364,8 +374,8 @@ public class ForestFight extends JFrame {
         returnButton.setVisible(false);
 
     }
-    
-    private void spellMenuActive(){
+
+    private void spellMenuActive() {
         attackButton.setVisible(false);
         blockButton.setVisible(false);
         itemButton.setVisible(false);
@@ -379,14 +389,14 @@ public class ForestFight extends JFrame {
         returnButton.setVisible(true);
 
         //warrior
-        if (turns == 1){
+        if (turns == 1) {
             skill1Button.setText("Charge");
             skill2Button.setText("Slam");
             skill3Button.setText("Battlecry");
             skill4Button.setText("Demoralize");
         }
         //ranger
-        if (turns == 2){
+        if (turns == 2) {
             skill1Button.setText("Volley");
             skill2Button.setText("Bomb");
             skill3Button.setText("Place trap");
@@ -400,14 +410,15 @@ public class ForestFight extends JFrame {
             skill4Button.setText("Pyroblast");
         }
         //healer
-        if (turns == 4){
+        if (turns == 4) {
             skill1Button.setText("Heal");
             skill2Button.setText("Deal");
             skill3Button.setText("Feel");
             skill4Button.setText("Real");
         }
     }
-    private void spellMenuInactive(){
+
+    private void spellMenuInactive() {
         attackButton.setVisible(true);
         blockButton.setVisible(true);
         itemButton.setVisible(true);
@@ -421,248 +432,237 @@ public class ForestFight extends JFrame {
         returnButton.setVisible(false);
     }
 
-    private void skill1(){
-        if (turns == 1){
+    private void skill1() {
+        if (turns == 1) {
             charge.start();
         }
-        if (turns == 2){
+        if (turns == 2) {
             volley.start();
         }
-        if (turns == 3){
+        if (turns == 3) {
             pyroBlastX = 90;
             pyroblastY = 300;
             followup = true;
             fireBall.start();
         }
-        if (turns == 4){
+        if (turns == 4) {
 
         }
     }
 
-    private void skill2(){
-        if (turns == 1){
+    private void skill2() {
+        if (turns == 1) {
             dunk.start();
         }
-        if(turns == 2){
-            bombthrow.start();
-        }
-        if (turns == 3){
+        if (turns == 2) {
 
         }
-        if (turns == 4){
+        if (turns == 3) {
+
+        }
+        if (turns == 4) {
 
         }
     }
 
-    private void skill3(){
-        if (turns == 1){
-            followup = true;
-            shout.start();
+    private void skill3() {
+        if (turns == 1) {
+            battlecry.start();
         }
-        if(turns == 2){
-            placetrap.start();
+        if (turns == 2) {
+
         }
-        if (turns == 3){
+        if (turns == 3) {
             flameStrike.start();
         }
-        if (turns == 4){
+        if (turns == 4) {
 
         }
     }
 
-    private void skill4(){
-        if (turns == 1){
-            shout.start();
+    private void skill4() {
+        if (turns == 1) {
         }
-        if(turns == 2){
-            stealth();
+        if (turns == 2) {
+
         }
-        if (turns == 3){
+        if (turns == 3) {
             pyroBlast.start();
         }
-        if (turns == 4){
+        if (turns == 4) {
 
         }
     }
-
-
-
-
-
-
-
-
-
-
-    public void getThread(OverWorld overWorldThread){
-
-        owThread = overWorldThread;
-    }
-
 
 
     //When you press "end turn" button.
-    private void startNewTurn(){
+    private void startNewTurn() {
         turns++;
 
         //Warrior's turn
-        if (turns==1 && warriorCurrentHp>0){
-            warriorEnergyInt+=5; //Get energy
-            currentEnergy=warriorEnergyInt; //Update energy.
-            warriorBlock=w.combinedBlock; //Update block, reset extra block.
+        if (turns == 1 && warriorCurrentHp > 0) {
+            warriorEnergyInt += 5; //Get energy
+            currentEnergy = warriorEnergyInt; //Update energy.
+            warriorBlock = w.combinedBlock; //Update block, reset extra block.
 
             //Energy cant go over 10.
-            if (warriorEnergyInt>10){
-                warriorEnergyInt=10;
+            if (warriorEnergyInt > 10) {
+                warriorEnergyInt = 10;
             }
             //Update labels.
             whosTurn.setText("Warrior's turn");
-            playersHp.setText("Hp: "+warriorCurrentHp);
-            energy.setText("Energy: "+warriorEnergyInt);
-            block.setText("Block: "+warriorBlock);
+            playersHp.setText("Hp: " + warriorCurrentHp);
+            energy.setText("Energy: " + warriorEnergyInt);
+            block.setText("Block: " + warriorBlock);
         }
         //If warrior is dead, skip.
-        if (turns==1 && warriorCurrentHp<1){
-            turns=2;
+        if (turns == 1 && warriorCurrentHp < 1) {
+            turns = 2;
         }
         //Ranger's turn
-        if (turns==2 && rangerCurrentHp>0){
-            rangerEnergyInt+=5;
-            currentEnergy=rangerEnergyInt;
-            rangerBlock=r.combinedBlock;
+        if (turns == 2 && rangerCurrentHp > 0) {
+            rangerEnergyInt += 5;
+            currentEnergy = rangerEnergyInt;
+            rangerBlock = r.combinedBlock;
 
-            if (rangerEnergyInt>10){
-                rangerEnergyInt=10;
+            if (rangerEnergyInt > 10) {
+                rangerEnergyInt = 10;
             }
             whosTurn.setText("Ranger's turn");
-            playersHp.setText("Hp: "+rangerCurrentHp);
-            energy.setText("Energy: "+rangerEnergyInt);
-            block.setText("Block: "+rangerBlock);
+            playersHp.setText("Hp: " + rangerCurrentHp);
+            energy.setText("Energy: " + rangerEnergyInt);
+            block.setText("Block: " + rangerBlock);
         }
         //If ranger is dead, skip.
-        if (turns==2 && rangerCurrentHp<1){
-            turns=3;
+        if (turns == 2 && rangerCurrentHp < 1) {
+            turns = 3;
         }
         //Mage's turn
-        if (turns==3 && mageCurrentHp>0){
-            mageEnergyInt+=5;
-            currentEnergy=mageEnergyInt;
-            mageBlock=m.combinedBlock;
+        if (turns == 3 && mageCurrentHp > 0) {
+            mageEnergyInt += 5;
+            currentEnergy = mageEnergyInt;
+            mageBlock = m.combinedBlock;
 
-            if (mageEnergyInt>10){
-                mageEnergyInt=10;
+            if (mageEnergyInt > 10) {
+                mageEnergyInt = 10;
             }
             whosTurn.setText("Mage's turn");
-            playersHp.setText("Hp: "+mageCurrentHp);
-            energy.setText("Energy: "+mageEnergyInt);
-            block.setText("Block: "+mageBlock);
+            playersHp.setText("Hp: " + mageCurrentHp);
+            energy.setText("Energy: " + mageEnergyInt);
+            block.setText("Block: " + mageBlock);
         }
         //If mage is dead, skip.
-        if (turns==3 && mageCurrentHp<1){
-            turns=4;
+        if (turns == 3 && mageCurrentHp < 1) {
+            turns = 4;
         }
         //Healer's turn
-        if (turns==4 && healerCurrentHp>0){
-            healerEnergyInt+=5;
-            currentEnergy=healerEnergyInt;
-            healerBlock=h.combinedBlock;
+        if (turns == 4 && healerCurrentHp > 0) {
+            healerEnergyInt += 5;
+            currentEnergy = healerEnergyInt;
+            healerBlock = h.combinedBlock;
 
-            if (healerEnergyInt>10){
-                healerEnergyInt=10;
+            if (healerEnergyInt > 10) {
+                healerEnergyInt = 10;
             }
             whosTurn.setText("Healer's turn");
-            playersHp.setText("Hp: "+healerCurrentHp);
-            energy.setText("Energy: "+healerEnergyInt);
-            block.setText("Block: "+healerBlock);
+            playersHp.setText("Hp: " + healerCurrentHp);
+            energy.setText("Energy: " + healerEnergyInt);
+            block.setText("Block: " + healerBlock);
 
         }
         //If healer is dead, skip.
-        if (turns==4 && healerCurrentHp<1){
-            turns=5;
+        if (turns == 4 && healerCurrentHp < 1) {
+            turns = 5;
         }
         //  ***ENEMIES TURN***
-        if (turns==5){enemyTurnTimer.start();}
+        if (turns == 5) {
+            enemyTurnTimer.start();
+        }
     }
 
     //When player press block
-    private void blockPressed(){
+    private void blockPressed() {
 
         //If its warrior's turn and player has 2 or more energy.
-        if(turns==1 && warriorEnergyInt>1){
-            warriorEnergyInt=warriorEnergyInt-2;
-            currentEnergy=currentEnergy-2;
-            warriorBlock+=5;
-            energy.setText("Energy: "+warriorEnergyInt);
-            block.setText("Block: "+warriorBlock);
+        if (turns == 1 && warriorEnergyInt > 1) {
+            warriorEnergyInt = warriorEnergyInt - 2;
+            currentEnergy = currentEnergy - 2;
+            warriorBlock += 5;
+            energy.setText("Energy: " + warriorEnergyInt);
+            block.setText("Block: " + warriorBlock);
         }
         //If its ranger's turn and player has 2 or more energy.
-        else if(turns==2 && rangerEnergyInt>1){
-            rangerEnergyInt=rangerEnergyInt-2;
-            currentEnergy=currentEnergy-2;
-            energy.setText("Energy: "+rangerEnergyInt);
-            block.setText("Block: "+warriorBlock);
+        else if (turns == 2 && rangerEnergyInt > 1) {
+            rangerEnergyInt = rangerEnergyInt - 2;
+            currentEnergy = currentEnergy - 2;
+            energy.setText("Energy: " + rangerEnergyInt);
+            block.setText("Block: " + warriorBlock);
         }
         //If its mage's turn and player has 2 or more energy.
-        else if(turns==3 && mageEnergyInt>1){
-            mageEnergyInt=mageEnergyInt-2;
-            currentEnergy=currentEnergy-2;
-            energy.setText("Energy: "+mageEnergyInt);
-            block.setText("Block: "+warriorBlock);
+        else if (turns == 3 && mageEnergyInt > 1) {
+            mageEnergyInt = mageEnergyInt - 2;
+            currentEnergy = currentEnergy - 2;
+            energy.setText("Energy: " + mageEnergyInt);
+            block.setText("Block: " + warriorBlock);
         }
         //If its healer's turn and player has 2 or more energy.
-        else if(turns==4 && healerEnergyInt>1){
-            healerEnergyInt=healerEnergyInt-2;
-            currentEnergy=currentEnergy-2;
-            energy.setText("Energy: "+healerEnergyInt);
-            block.setText("Block: "+warriorBlock);
+        else if (turns == 4 && healerEnergyInt > 1) {
+            healerEnergyInt = healerEnergyInt - 2;
+            currentEnergy = currentEnergy - 2;
+            energy.setText("Energy: " + healerEnergyInt);
+            block.setText("Block: " + warriorBlock);
         }
     }
+
     //When you press the "attack button".
-    private void attackPressed(){
+    public boolean attackPressed() {
 
         //If its warrior's turn and player has 2 or more energy.
-        if(turns==1 && warriorEnergyInt>1){
-            warriorEnergyInt=warriorEnergyInt-2; //Energy -2.
-            currentEnergy=currentEnergy-2; // Update currentEnergy.
-            energy.setText("Energy: "+warriorEnergyInt); //Update energyLabel
+        if (turns == 1 && warriorEnergyInt > 1) {
+            warriorEnergyInt = warriorEnergyInt - 2; //Energy -2.
+            currentEnergy = currentEnergy - 2; // Update currentEnergy.
+            energy.setText("Energy: " + warriorEnergyInt); //Update energyLabel
             warriorAttackWolf(); //Warrior deals damage to a random wolf.
             mobDeath(); //Check if enemy died.
-            isFightOver(); //Check if all enemies/party members are dead.
+            return startLootScreen;
         }
         //If its ranger's turn and player has 2 or more energy.
-        else if(turns==2 && rangerEnergyInt>1){
-            rangerEnergyInt=rangerEnergyInt-2;
-            currentEnergy=currentEnergy-2;
-            energy.setText("Energy: "+rangerEnergyInt);
+        else if (turns == 2 && rangerEnergyInt > 1) {
+            rangerEnergyInt = rangerEnergyInt - 2;
+            currentEnergy = currentEnergy - 2;
+            energy.setText("Energy: " + rangerEnergyInt);
             rangerAttackWolf();
             mobDeath();
-            isFightOver();
+            return startLootScreen;
+
         }
         //If its mage's turn and player has 2 or more energy.
-        else if(turns==3 && mageEnergyInt>1){
-            mageEnergyInt=mageEnergyInt-2;
-            currentEnergy=currentEnergy-2;
-            energy.setText("Energy: "+mageEnergyInt);
+        else if (turns == 3 && mageEnergyInt > 1) {
+            mageEnergyInt = mageEnergyInt - 2;
+            currentEnergy = currentEnergy - 2;
+            energy.setText("Energy: " + mageEnergyInt);
             mageAttackWolf();
             mobDeath();
-            isFightOver();
+            return startLootScreen;
         }
         //If its healer's turn and player has 2 or more energy.
-        else if(turns==4 && healerEnergyInt>1){
-            healerEnergyInt=healerEnergyInt-2;
-            currentEnergy=currentEnergy-2;
-            energy.setText("Energy: "+healerEnergyInt);
+        else if (turns == 4 && healerEnergyInt > 1) {
+            healerEnergyInt = healerEnergyInt - 2;
+            currentEnergy = currentEnergy - 2;
+            energy.setText("Energy: " + healerEnergyInt);
             healerAttackWolf();
             mobDeath();
-            isFightOver();
+            return startLootScreen;
         }
+        return false;
     }
+
     //When warrior press the "attack button".
     private void warriorAttackWolf() {
         //Loop until one of the if-statements are true.
         while (true) {
             //Randomize a number between 1-4.
-            int target = (int) (Math.random() * 4)+1;
+            int target = (int) (Math.random() * 4) + 1;
             tackle.start();
 
             //If target is 1 and wolf 1 is alive.
@@ -693,11 +693,11 @@ public class ForestFight extends JFrame {
     }
 
     //When mage press the "attack button".
-    private void mageAttackWolf(){
+    private void mageAttackWolf() {
         //Loop until one of the if-statements are true.
         while (true) {
             //Randomize a number between 1-4.
-            int target = (int) (Math.random() * 4)+1;
+            int target = (int) (Math.random() * 4) + 1;
 
             //If target is 1 and wolf 1 is alive.
             if (target == 1 && wolf1Int > 0) {
@@ -727,11 +727,11 @@ public class ForestFight extends JFrame {
     }
 
     //When ranger press the "attack button".
-    private void rangerAttackWolf(){
+    private void rangerAttackWolf() {
         //Loop until one of the if-statements are true.
         while (true) {
             //Randomize a number between 1-4.
-            int target = (int) (Math.random() * 4)+1;
+            int target = (int) (Math.random() * 4) + 1;
             shoot.start();
 
             //If target is 1 and wolf 1 is alive.
@@ -762,10 +762,10 @@ public class ForestFight extends JFrame {
     }
 
     //When healer press the "attack button".
-    private void healerAttackWolf(){
+    private void healerAttackWolf() {
         //Loop until one of the if-statements are true.
         while (true) {
-            int target = (int) (Math.random() * 4)+1;
+            int target = (int) (Math.random() * 4) + 1;
 
             //If target is 1 and wolf 1 is alive.
             if (target == 1 && wolf1Int > 0) {
@@ -795,21 +795,20 @@ public class ForestFight extends JFrame {
     }
 
     //Checks if all of the enemies or party-members are dead.
-    private void isFightOver() {
+    public void fightIsOver() {
         //All of the wolves are dead. Victory!
-        if (wolf1Int < 1 && wolf2Int < 1 && wolf3Int < 1 && wolf4Int < 1) {
-                MusicPick.musicStop();
-            new LootScreen(1,owThread);
-            //MusicPick.musicStop();
-
-        }
-        //The whole party is dead. Game over!
+            System.out.println("wolfs are dead");
+            startLootScreen = true;
+        //MusicPick.musicStop();
+    }
+            //The whole party is dead. Game over!
+    public void isFightLost() {
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             new LoseScreen();
             dispose();
         }
-        //If none of these are true, nothing happens and the fight goes on.
     }
+            //If none of these are true, nothing happens and the fight goes on.
 
     //When the wolf attacks.
     private void wolfAttack() {
@@ -824,13 +823,13 @@ public class ForestFight extends JFrame {
             if (target == 0) {
                 //If warrior is dead, target=1.
                 if (warriorCurrentHp < 1) {
-                    target=1;
+                    target = 1;
                 }
                 //If warrior is alive.
-                if (warriorCurrentHp >0) {
-                    wolfDamage=wolfDamage-warriorBlock; //Warrior take damage equal to wolf damage.
+                if (warriorCurrentHp > 0) {
+                    wolfDamage = wolfDamage - warriorBlock; //Warrior take damage equal to wolf damage.
                     warriorCurrentHp = warriorCurrentHp - wolfDamage; //Update warrior hp.
-                    player1Hp.setText("Warrior: "+warriorCurrentHp); //Update hp Label.
+                    player1Hp.setText("Warrior: " + warriorCurrentHp); //Update hp Label.
                     break;
                 }
             }
@@ -841,10 +840,10 @@ public class ForestFight extends JFrame {
                     target = 2;
                 }
                 //If mage is alive.
-                if (mageCurrentHp >0) {
-                    wolfDamage=wolfDamage-mageBlock;
+                if (mageCurrentHp > 0) {
+                    wolfDamage = wolfDamage - mageBlock;
                     mageCurrentHp = mageCurrentHp - wolfDamage;
-                    player2Hp.setText("Mage:    "+mageCurrentHp);
+                    player2Hp.setText("Mage:    " + mageCurrentHp);
                     break;
                 }
             }
@@ -855,10 +854,10 @@ public class ForestFight extends JFrame {
                     target = 3;
                 }
                 //If ranger is alive.
-                if (rangerCurrentHp >0) {
-                    wolfDamage=wolfDamage-rangerBlock;
+                if (rangerCurrentHp > 0) {
+                    wolfDamage = wolfDamage - rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - wolfDamage;
-                    player3Hp.setText("Ranger:  "+rangerCurrentHp);
+                    player3Hp.setText("Ranger:  " + rangerCurrentHp);
                     break;
                 }
             }
@@ -869,10 +868,10 @@ public class ForestFight extends JFrame {
                     target = 0;
                 }
                 //If healer is alive.
-                if (healerCurrentHp >0) {
-                    wolfDamage=wolfDamage-healerBlock;
+                if (healerCurrentHp > 0) {
+                    wolfDamage = wolfDamage - healerBlock;
                     healerCurrentHp = healerCurrentHp - wolfDamage;
-                    player4Hp.setText("Healer:   "+healerCurrentHp);
+                    player4Hp.setText("Healer:   " + healerCurrentHp);
                     break;
                 }
             }
@@ -880,47 +879,49 @@ public class ForestFight extends JFrame {
     }
 
     //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
-    private void mobDeath(){
-
-        if(wolf1Int<=0){
+    public void mobDeath() {
+         if (wolf1Int <= 0) {
             wolf1Hp.setText("Wolf 1: 0");
             wolf1.setVisible(false);
         }
-        if(wolf2Int<=0){
+         if (wolf2Int <= 0) {
             wolf2Hp.setText("Wolf 2: 0");
             wolf2.setVisible(false);
         }
-        if(wolf3Int<=0){
+         if (wolf3Int <= 0) {
             wolf3Hp.setText("Wolf 3: 0");
             wolf3.setVisible(false);
         }
-        if(wolf4Int<=0){
+         if (wolf4Int <= 0) {
             wolf4Hp.setText("Wolf 4: 0");
             wolf4.setVisible(false);
         }
+        if (wolf1Int <= 0 && wolf2Int <= 0 && wolf3Int <= 0 && wolf4Int <=0) {
+            fightIsOver();
         }
+    }
 
     //Checks if any party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
-    private void partyDeath(){
+    private void partyDeath() {
 
-        if(warriorCurrentHp<=0){
+        if (warriorCurrentHp <= 0) {
             warriorCurrentHp = 0;
-            player1Hp.setText("Warrior: "+warriorCurrentHp);
+            player1Hp.setText("Warrior: " + warriorCurrentHp);
             warrior.setVisible(false);
         }
-        if(mageCurrentHp<=0){
+        if (mageCurrentHp <= 0) {
             mageCurrentHp = 0;
-            player2Hp.setText("Mage:    "+mageCurrentHp);
+            player2Hp.setText("Mage:    " + mageCurrentHp);
             mage.setVisible(false);
         }
-        if(rangerCurrentHp<=0){
+        if (rangerCurrentHp <= 0) {
             rangerCurrentHp = 0;
-            player3Hp.setText("Ranger:  "+rangerCurrentHp);
+            player3Hp.setText("Ranger:  " + rangerCurrentHp);
             ranger.setVisible(false);
         }
-        if(healerCurrentHp<=0){
+        if (healerCurrentHp <= 0) {
             healerCurrentHp = 0;
-            player4Hp.setText("Healer:  "+healerCurrentHp);
+            player4Hp.setText("Healer:  " + healerCurrentHp);
             healer.setVisible(false);
         }
     }
@@ -938,7 +939,7 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + warriorCurrentHp); //Update Warrior's hp Label.
                     player1Hp.setText("Warrior: " + warriorCurrentHp); // Update currentPlayer Hp label.
                     inv.ownedMinorHealingPotion--; //Delete one potion.
-                    potion1Label.setText(""+inv.ownedMinorHealingPotion); //Update ownedPotion Label.
+                    potion1Label.setText("" + inv.ownedMinorHealingPotion); //Update ownedPotion Label.
                 }
             } else if (potion == 2) {
                 if (inv.ownedLesserHealingPotion > 0) {
@@ -946,7 +947,7 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + warriorCurrentHp);
                     player1Hp.setText("Warrior: " + warriorCurrentHp);
                     inv.ownedLesserHealingPotion--;
-                    potion2Label.setText(""+inv.ownedLesserHealingPotion);
+                    potion2Label.setText("" + inv.ownedLesserHealingPotion);
                 }
             } else if (potion == 3) {
                 if (inv.ownedMajorHealingPotion > 0) {
@@ -954,70 +955,70 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + warriorCurrentHp);
                     player1Hp.setText("Warrior: " + warriorCurrentHp);
                     inv.ownedMajorHealingPotion--;
-                    potion3Label.setText(""+inv.ownedMajorHealingPotion);
+                    potion3Label.setText("" + inv.ownedMajorHealingPotion);
                 }
             } else if (potion == 4) {
                 if (inv.ownedMinorBlockPotion > 0) {
                     warriorBlock += inv.minorBlockPotion;
                     block.setText("Block: " + warriorBlock);
                     inv.ownedMinorBlockPotion--;
-                    potion4Label.setText(""+inv.ownedMinorBlockPotion);
+                    potion4Label.setText("" + inv.ownedMinorBlockPotion);
                 }
             } else if (potion == 5) {
                 if (inv.ownedLesserBlockPotion > 0) {
                     warriorBlock += inv.minorBlockPotion;
                     block.setText("Block: " + warriorBlock);
                     inv.ownedLesserBlockPotion--;
-                    potion5Label.setText(""+inv.ownedLesserBlockPotion);
+                    potion5Label.setText("" + inv.ownedLesserBlockPotion);
                 }
             } else if (potion == 6) {
                 if (inv.ownedMajorBlockPotion > 0) {
                     warriorBlock += inv.majorBlockPotion;
                     block.setText("Block: " + warriorBlock);
                     inv.ownedMajorBlockPotion--;
-                    potion6Label.setText(""+inv.ownedMajorBlockPotion);
+                    potion6Label.setText("" + inv.ownedMajorBlockPotion);
                 }
             } else if (potion == 7) {
                 if (inv.ownedMinorEnergyPotion > 0) {
                     warriorEnergyInt += inv.minorEnergyPotion;
                     energy.setText("Energy: " + warriorEnergyInt);
                     inv.ownedMinorEnergyPotion--;
-                    potion7Label.setText(""+inv.ownedMinorEnergyPotion);
+                    potion7Label.setText("" + inv.ownedMinorEnergyPotion);
                 }
             } else if (potion == 8) {
                 if (inv.ownedLesserEnergyPotion > 0) {
                     warriorCurrentHp += inv.lesserEnergyPotion;
                     energy.setText("Energy: " + warriorEnergyInt);
                     inv.ownedLesserEnergyPotion--;
-                    potion8Label.setText(""+inv.ownedLesserEnergyPotion);
+                    potion8Label.setText("" + inv.ownedLesserEnergyPotion);
                 }
             } else if (potion == 9) {
                 if (inv.ownedMajorEnergyPotion > 0) {
                     warriorCurrentHp += inv.majorEnergyPotion;
                     energy.setText("Energy: " + warriorEnergyInt);
                     inv.ownedMajorEnergyPotion--;
-                    potion9Label.setText(""+inv.ownedMajorEnergyPotion);
+                    potion9Label.setText("" + inv.ownedMajorEnergyPotion);
                 }
             }
             if (potion == 10) {
                 if (inv.ownedMinorStrengthPotion > 0) {
                     warriorDamage += inv.minorStrengthPotion;
                     inv.ownedMinorStrengthPotion--;
-                    potion10Label.setText(""+inv.ownedMinorStrengthPotion);
+                    potion10Label.setText("" + inv.ownedMinorStrengthPotion);
                 }
             }
             if (potion == 11) {
                 if (inv.ownedLesserStrengthPotion > 0) {
                     warriorDamage += inv.lesserStrengthPotion;
                     inv.ownedLesserStrengthPotion--;
-                    potion11Label.setText(""+inv.ownedLesserStrengthPotion);
+                    potion11Label.setText("" + inv.ownedLesserStrengthPotion);
                 }
             }
             if (potion == 12) {
                 if (inv.ownedMajorStrengthPotion > 0) {
                     warriorDamage += inv.majorStrengthPotion;
                     inv.ownedMajorStrengthPotion--;
-                    potion12Label.setText(""+inv.ownedMajorStrengthPotion);
+                    potion12Label.setText("" + inv.ownedMajorStrengthPotion);
                 }
             }
         }
@@ -1029,7 +1030,7 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + rangerCurrentHp);
                     player2Hp.setText("Ranger: " + rangerCurrentHp);
                     inv.ownedMinorHealingPotion--;
-                    potion1Label.setText(""+inv.ownedMinorHealingPotion);
+                    potion1Label.setText("" + inv.ownedMinorHealingPotion);
                 }
             } else if (potion == 2) {
                 if (inv.ownedLesserHealingPotion > 0) {
@@ -1037,7 +1038,7 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + rangerCurrentHp);
                     player2Hp.setText("Ranger: " + rangerCurrentHp);
                     inv.ownedLesserHealingPotion--;
-                    potion2Label.setText(""+inv.ownedLesserHealingPotion);
+                    potion2Label.setText("" + inv.ownedLesserHealingPotion);
                 }
             } else if (potion == 3) {
                 if (inv.ownedMajorHealingPotion > 0) {
@@ -1045,28 +1046,28 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + rangerCurrentHp);
                     player2Hp.setText("Ranger: " + rangerCurrentHp);
                     inv.ownedMajorHealingPotion--;
-                    potion3Label.setText(""+inv.ownedMajorHealingPotion);
+                    potion3Label.setText("" + inv.ownedMajorHealingPotion);
                 }
             } else if (potion == 4) {
                 if (inv.ownedMinorBlockPotion > 0) {
                     rangerBlock += inv.minorBlockPotion;
                     block.setText("Block: " + rangerBlock);
                     inv.ownedMinorBlockPotion--;
-                    potion4Label.setText(""+inv.ownedMinorBlockPotion);
+                    potion4Label.setText("" + inv.ownedMinorBlockPotion);
                 }
             } else if (potion == 5) {
                 if (inv.ownedLesserBlockPotion > 0) {
                     rangerBlock += inv.minorBlockPotion;
                     block.setText("Block: " + rangerBlock);
                     inv.ownedLesserBlockPotion--;
-                    potion5Label.setText(""+inv.ownedLesserBlockPotion);
+                    potion5Label.setText("" + inv.ownedLesserBlockPotion);
                 }
             } else if (potion == 6) {
                 if (inv.ownedMajorBlockPotion > 0) {
                     rangerBlock += inv.majorBlockPotion;
                     block.setText("Block: " + rangerBlock);
                     inv.ownedMajorBlockPotion--;
-                    potion6Label.setText(""+inv.ownedMajorBlockPotion);
+                    potion6Label.setText("" + inv.ownedMajorBlockPotion);
                 }
             }
             if (potion == 7) {
@@ -1074,39 +1075,39 @@ public class ForestFight extends JFrame {
                     rangerEnergyInt += inv.minorEnergyPotion;
                     energy.setText("Energy: " + rangerEnergyInt);
                     inv.ownedMinorEnergyPotion--;
-                    potion7Label.setText(""+inv.ownedMinorEnergyPotion);
+                    potion7Label.setText("" + inv.ownedMinorEnergyPotion);
                 }
             } else if (potion == 8) {
                 if (inv.ownedLesserEnergyPotion > 0) {
                     rangerEnergyInt += inv.lesserEnergyPotion;
                     energy.setText("Energy: " + rangerEnergyInt);
                     inv.ownedLesserEnergyPotion--;
-                    potion8Label.setText(""+inv.ownedLesserEnergyPotion);
+                    potion8Label.setText("" + inv.ownedLesserEnergyPotion);
                 }
             } else if (potion == 9) {
                 if (inv.ownedMajorEnergyPotion > 0) {
                     rangerEnergyInt += inv.majorEnergyPotion;
                     energy.setText("Energy: " + rangerEnergyInt);
                     inv.ownedMajorEnergyPotion--;
-                    potion9Label.setText(""+inv.ownedMajorEnergyPotion);
+                    potion9Label.setText("" + inv.ownedMajorEnergyPotion);
                 }
             } else if (potion == 10) {
                 if (inv.ownedMinorStrengthPotion > 0) {
                     rangerDamage += inv.minorStrengthPotion;
                     inv.ownedMinorStrengthPotion--;
-                    potion10Label.setText(""+inv.ownedMinorStrengthPotion);
+                    potion10Label.setText("" + inv.ownedMinorStrengthPotion);
                 }
             } else if (potion == 11) {
                 if (inv.ownedLesserStrengthPotion > 0) {
                     rangerDamage += inv.lesserStrengthPotion;
                     inv.ownedLesserStrengthPotion--;
-                    potion11Label.setText(""+inv.ownedLesserStrengthPotion);
+                    potion11Label.setText("" + inv.ownedLesserStrengthPotion);
                 }
             } else if (potion == 12) {
                 if (inv.ownedMajorStrengthPotion > 0) {
                     rangerDamage += inv.majorStrengthPotion;
                     inv.ownedMajorStrengthPotion--;
-                    potion12Label.setText(""+inv.ownedMajorStrengthPotion);
+                    potion12Label.setText("" + inv.ownedMajorStrengthPotion);
                 }
             }
         }
@@ -1118,7 +1119,7 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + mageCurrentHp);
                     player3Hp.setText("Mage: " + mageCurrentHp);
                     inv.ownedMinorHealingPotion--;
-                    potion1Label.setText(""+inv.ownedMinorHealingPotion);
+                    potion1Label.setText("" + inv.ownedMinorHealingPotion);
                 }
             } else if (potion == 2) {
                 if (inv.ownedLesserHealingPotion > 0) {
@@ -1126,14 +1127,14 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + mageCurrentHp);
                     player3Hp.setText("Mage: " + mageCurrentHp);
                     inv.ownedLesserHealingPotion--;
-                    potion2Label.setText(""+inv.ownedLesserHealingPotion);
+                    potion2Label.setText("" + inv.ownedLesserHealingPotion);
                 }
             } else if (potion == 3) {
                 if (inv.ownedMajorHealingPotion > 0) {
                     rangerCurrentHp += inv.majorHealingPotion;
                     playersHp.setText("Hp: " + mageCurrentHp);
                     player3Hp.setText("Mage: " + mageCurrentHp);
-                    potion3Label.setText(""+inv.ownedMajorHealingPotion);
+                    potion3Label.setText("" + inv.ownedMajorHealingPotion);
                     inv.ownedMajorHealingPotion--;
                 }
             } else if (potion == 4) {
@@ -1141,21 +1142,21 @@ public class ForestFight extends JFrame {
                     mageBlock += inv.minorBlockPotion;
                     block.setText("Block: " + mageBlock);
                     inv.ownedMinorBlockPotion--;
-                    potion4Label.setText(""+inv.ownedMinorBlockPotion);
+                    potion4Label.setText("" + inv.ownedMinorBlockPotion);
                 }
             } else if (potion == 5) {
                 if (inv.ownedLesserBlockPotion > 0) {
                     mageBlock += inv.minorBlockPotion;
                     block.setText("Block: " + mageBlock);
                     inv.ownedLesserBlockPotion--;
-                    potion5Label.setText(""+inv.ownedLesserBlockPotion);
+                    potion5Label.setText("" + inv.ownedLesserBlockPotion);
                 }
             } else if (potion == 6) {
                 if (inv.ownedMajorBlockPotion > 0) {
                     mageBlock += inv.majorBlockPotion;
                     block.setText("Block: " + mageBlock);
                     inv.ownedMajorBlockPotion--;
-                    potion6Label.setText(""+inv.ownedMajorBlockPotion);
+                    potion6Label.setText("" + inv.ownedMajorBlockPotion);
                 }
             }
             if (potion == 7) {
@@ -1163,39 +1164,39 @@ public class ForestFight extends JFrame {
                     mageEnergyInt += inv.minorEnergyPotion;
                     energy.setText("Energy: " + mageEnergyInt);
                     inv.ownedMinorEnergyPotion--;
-                    potion7Label.setText(""+inv.ownedMinorEnergyPotion);
+                    potion7Label.setText("" + inv.ownedMinorEnergyPotion);
                 }
             } else if (potion == 8) {
                 if (inv.ownedLesserEnergyPotion > 0) {
                     mageEnergyInt += inv.lesserEnergyPotion;
                     energy.setText("Energy: " + mageEnergyInt);
                     inv.ownedLesserEnergyPotion--;
-                    potion8Label.setText(""+inv.ownedLesserEnergyPotion);
+                    potion8Label.setText("" + inv.ownedLesserEnergyPotion);
                 }
             } else if (potion == 9) {
                 if (inv.ownedMajorEnergyPotion > 0) {
                     mageEnergyInt += inv.majorEnergyPotion;
                     energy.setText("Energy: " + mageEnergyInt);
                     inv.ownedMajorEnergyPotion--;
-                    potion9Label.setText(""+inv.ownedMajorEnergyPotion);
+                    potion9Label.setText("" + inv.ownedMajorEnergyPotion);
                 }
             } else if (potion == 10) {
                 if (inv.ownedMinorStrengthPotion > 0) {
                     mageDamage += inv.minorStrengthPotion;
                     inv.ownedMinorStrengthPotion--;
-                    potion10Label.setText(""+inv.ownedMinorStrengthPotion);
+                    potion10Label.setText("" + inv.ownedMinorStrengthPotion);
                 }
             } else if (potion == 11) {
                 if (inv.ownedLesserStrengthPotion > 0) {
                     mageDamage += inv.lesserStrengthPotion;
                     inv.ownedLesserStrengthPotion--;
-                    potion11Label.setText(""+inv.ownedLesserStrengthPotion);
+                    potion11Label.setText("" + inv.ownedLesserStrengthPotion);
                 }
             } else if (potion == 12) {
                 if (inv.ownedMajorStrengthPotion > 0) {
                     mageDamage += inv.majorStrengthPotion;
                     inv.ownedMajorStrengthPotion--;
-                    potion12Label.setText(""+inv.ownedMajorStrengthPotion);
+                    potion12Label.setText("" + inv.ownedMajorStrengthPotion);
                 }
             }
         }
@@ -1207,7 +1208,7 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + healerCurrentHp);
                     player4Hp.setText("Mage: " + healerCurrentHp);
                     inv.ownedMinorHealingPotion--;
-                    potion1Label.setText(""+inv.ownedMinorHealingPotion);
+                    potion1Label.setText("" + inv.ownedMinorHealingPotion);
                 }
             } else if (potion == 2) {
                 if (inv.ownedLesserHealingPotion > 0) {
@@ -1215,7 +1216,7 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + healerCurrentHp);
                     player4Hp.setText("Mage: " + healerCurrentHp);
                     inv.ownedLesserHealingPotion--;
-                    potion2Label.setText(""+inv.ownedLesserHealingPotion);
+                    potion2Label.setText("" + inv.ownedLesserHealingPotion);
                 }
             } else if (potion == 3) {
                 if (inv.ownedMajorHealingPotion > 0) {
@@ -1223,28 +1224,28 @@ public class ForestFight extends JFrame {
                     playersHp.setText("Hp: " + healerCurrentHp);
                     player4Hp.setText("Mage: " + healerCurrentHp);
                     inv.ownedMajorHealingPotion--;
-                    potion3Label.setText(""+inv.ownedMajorHealingPotion);
+                    potion3Label.setText("" + inv.ownedMajorHealingPotion);
                 }
             } else if (potion == 4) {
                 if (inv.ownedMinorBlockPotion > 0) {
                     healerBlock += inv.minorBlockPotion;
                     block.setText("Block: " + healerBlock);
                     inv.ownedMinorBlockPotion--;
-                    potion4Label.setText(""+inv.ownedMinorBlockPotion);
+                    potion4Label.setText("" + inv.ownedMinorBlockPotion);
                 }
             } else if (potion == 5) {
                 if (inv.ownedLesserBlockPotion > 0) {
                     healerBlock += inv.minorBlockPotion;
                     block.setText("Block: " + healerBlock);
                     inv.ownedLesserBlockPotion--;
-                    potion5Label.setText(""+inv.ownedLesserBlockPotion);
+                    potion5Label.setText("" + inv.ownedLesserBlockPotion);
                 }
             } else if (potion == 6) {
                 if (inv.ownedMajorBlockPotion > 0) {
                     healerBlock += inv.majorBlockPotion;
                     block.setText("Block: " + healerBlock);
                     inv.ownedMajorBlockPotion--;
-                    potion6Label.setText(""+inv.ownedMajorBlockPotion);
+                    potion6Label.setText("" + inv.ownedMajorBlockPotion);
                 }
             }
             if (potion == 7) {
@@ -1252,45 +1253,46 @@ public class ForestFight extends JFrame {
                     healerEnergyInt += inv.minorEnergyPotion;
                     energy.setText("Energy: " + healerEnergyInt);
                     inv.ownedMinorEnergyPotion--;
-                    potion7Label.setText(""+inv.ownedMinorEnergyPotion);
+                    potion7Label.setText("" + inv.ownedMinorEnergyPotion);
                 }
             } else if (potion == 8) {
                 if (inv.ownedLesserEnergyPotion > 0) {
                     healerEnergyInt += inv.lesserEnergyPotion;
                     energy.setText("Energy: " + healerEnergyInt);
                     inv.ownedLesserEnergyPotion--;
-                    potion8Label.setText(""+inv.ownedLesserEnergyPotion);
+                    potion8Label.setText("" + inv.ownedLesserEnergyPotion);
                 }
             } else if (potion == 9) {
                 if (inv.ownedMajorEnergyPotion > 0) {
                     healerEnergyInt += inv.majorEnergyPotion;
                     energy.setText("Energy: " + healerEnergyInt);
                     inv.ownedMajorEnergyPotion--;
-                    potion9Label.setText(""+inv.ownedMajorEnergyPotion);
+                    potion9Label.setText("" + inv.ownedMajorEnergyPotion);
                 }
             } else if (potion == 10) {
                 if (inv.ownedMinorStrengthPotion > 0) {
                     healerDamage += inv.minorStrengthPotion;
                     inv.ownedMinorStrengthPotion--;
-                    potion10Label.setText(""+inv.ownedMinorStrengthPotion);
+                    potion10Label.setText("" + inv.ownedMinorStrengthPotion);
                 }
             } else if (potion == 11) {
                 if (inv.ownedLesserStrengthPotion > 0) {
                     healerDamage += inv.lesserStrengthPotion;
                     inv.ownedLesserStrengthPotion--;
-                    potion11Label.setText(""+inv.ownedLesserStrengthPotion);
+                    potion11Label.setText("" + inv.ownedLesserStrengthPotion);
                 }
             } else if (potion == 12) {
                 if (inv.ownedMajorStrengthPotion > 0) {
                     healerDamage += inv.majorStrengthPotion;
                     inv.ownedMajorStrengthPotion--;
-                    potion12Label.setText(""+inv.ownedMajorStrengthPotion);
+                    potion12Label.setText("" + inv.ownedMajorStrengthPotion);
                 }
             }
         }
     }
+
     //This method triggers when you press the "Item button". It opens up another JFrame that covers the hud.
-    private void itemPressed(){
+    private void itemPressed() {
 
         //Frame settings
         JFrame inventory = new JFrame();
@@ -1298,7 +1300,7 @@ public class ForestFight extends JFrame {
         inventory.setLayout(null);
         inventory.setSize(1920, 300);
         inventory.setTitle("Inventory");
-        inventory.setLocation(0,538);
+        inventory.setLocation(0, 538);
 
         getInventory();
 
@@ -1338,21 +1340,21 @@ public class ForestFight extends JFrame {
         inventory.add(potion12Label);
 
         //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
-        potion1.addActionListener(e->usePotion(1));
-        potion2.addActionListener(e->usePotion(2));
-        potion3.addActionListener(e->usePotion(3));
-        potion4.addActionListener(e->usePotion(4));
-        potion5.addActionListener(e->usePotion(5));
-        potion6.addActionListener(e->usePotion(6));
-        potion7.addActionListener(e->usePotion(7));
-        potion8.addActionListener(e->usePotion(8));
-        potion9.addActionListener(e->usePotion(9));
-        potion10.addActionListener(e->usePotion(10));
-        potion11.addActionListener(e->usePotion(11));
-        potion12.addActionListener(e->usePotion(12));
+        potion1.addActionListener(e -> usePotion(1));
+        potion2.addActionListener(e -> usePotion(2));
+        potion3.addActionListener(e -> usePotion(3));
+        potion4.addActionListener(e -> usePotion(4));
+        potion5.addActionListener(e -> usePotion(5));
+        potion6.addActionListener(e -> usePotion(6));
+        potion7.addActionListener(e -> usePotion(7));
+        potion8.addActionListener(e -> usePotion(8));
+        potion9.addActionListener(e -> usePotion(9));
+        potion10.addActionListener(e -> usePotion(10));
+        potion11.addActionListener(e -> usePotion(11));
+        potion12.addActionListener(e -> usePotion(12));
 
         //Dispose the item frame.
-        exitInventory.addActionListener(e->inventory.dispose());
+        exitInventory.addActionListener(e -> inventory.dispose());
 
         inventory.setUndecorated(true);
         inventory.setVisible(true);
@@ -1552,68 +1554,68 @@ public class ForestFight extends JFrame {
     }
 
     //Set al "stats" for labels.
-    private void importLabels(){
-        playersHp = new JLabel("Hp: "+warriorCurrentHp);
+    private void importLabels() {
+        playersHp = new JLabel("Hp: " + warriorCurrentHp);
         playersHp.setFont(pixelMplus.deriveFont(30f));
         playersHp.setForeground(Color.black);
         Dimension playersHpSize = playersHp.getPreferredSize();
         playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
 
-        wolf1Hp = new JLabel("Wolf 1: "+ wolf1Int);
+        wolf1Hp = new JLabel("Wolf 1: " + wolf1Int);
         wolf1Hp.setFont(pixelMplus.deriveFont(30f));
         wolf1Hp.setForeground(Color.black);
         Dimension wolf1HpSize = wolf1Hp.getPreferredSize();
         wolf1Hp.setBounds(660, 560, wolf1HpSize.width, wolf1HpSize.height);
 
-        wolf2Hp = new JLabel("Wolf 2: "+ wolf2Int);
+        wolf2Hp = new JLabel("Wolf 2: " + wolf2Int);
         wolf2Hp.setFont(pixelMplus.deriveFont(30f));
         wolf2Hp.setForeground(Color.black);
         Dimension wolf2HpSize = wolf2Hp.getPreferredSize();
         wolf2Hp.setBounds(660, 595, wolf2HpSize.width, wolf2HpSize.height);
 
-        wolf3Hp = new JLabel("Wolf 3: "+ wolf3Int);
+        wolf3Hp = new JLabel("Wolf 3: " + wolf3Int);
         wolf3Hp.setFont(pixelMplus.deriveFont(30f));
         wolf3Hp.setForeground(Color.black);
         Dimension wolf3HpSize = wolf3Hp.getPreferredSize();
         wolf3Hp.setBounds(660, 630, wolf3HpSize.width, wolf3HpSize.height);
 
-        wolf4Hp = new JLabel("Wolf 4: "+ wolf4Int);
+        wolf4Hp = new JLabel("Wolf 4: " + wolf4Int);
         wolf4Hp.setFont(pixelMplus.deriveFont(30f));
         wolf4Hp.setForeground(Color.black);
         Dimension wolf4HpSize = wolf4Hp.getPreferredSize();
         wolf4Hp.setBounds(660, 665, wolf4HpSize.width, wolf4HpSize.height);
 
-        player1Hp = new JLabel("Warrior: "+ warriorCurrentHp);
+        player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
         Dimension player1HpSize = player1Hp.getPreferredSize();
         player1Hp.setBounds(430, 560, player1HpSize.width, player1HpSize.height);
 
-        player2Hp = new JLabel("Mage:    "+ mageCurrentHp);
+        player2Hp = new JLabel("Mage:    " + mageCurrentHp);
         player2Hp.setFont(pixelMplus.deriveFont(30f));
         player2Hp.setForeground(Color.black);
         Dimension player2HpSize = player1Hp.getPreferredSize();
         player2Hp.setBounds(430, 595, player2HpSize.width, player2HpSize.height);
 
-        player3Hp = new JLabel("Ranger:  "+ rangerCurrentHp);
+        player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
         player3Hp.setFont(pixelMplus.deriveFont(30f));
         player3Hp.setForeground(Color.black);
         Dimension player3HpSize = player3Hp.getPreferredSize();
         player3Hp.setBounds(430, 630, player3HpSize.width, player3HpSize.height);
 
-        player4Hp = new JLabel("Healer:  "+ healerCurrentHp);
+        player4Hp = new JLabel("Healer:  " + healerCurrentHp);
         player4Hp.setFont(pixelMplus.deriveFont(30f));
         player4Hp.setForeground(Color.black);
         Dimension player4HpSize = player4Hp.getPreferredSize();
         player4Hp.setBounds(430, 665, player4HpSize.width, player4HpSize.height);
 
-        energy = new JLabel("Energy: "+warriorEnergyInt);
+        energy = new JLabel("Energy: " + warriorEnergyInt);
         energy.setFont(pixelMplus.deriveFont(30f));
         energy.setForeground(Color.black);
         Dimension energySize = energy.getPreferredSize();
         energy.setBounds(30, 640, energySize.width, energySize.height);
 
-        block = new JLabel("Block: "+warriorBlock);
+        block = new JLabel("Block: " + warriorBlock);
         block.setFont(pixelMplus.deriveFont(30f));
         block.setForeground(Color.black);
         Dimension blockSize = energy.getPreferredSize();
@@ -1629,7 +1631,7 @@ public class ForestFight extends JFrame {
     }
 
     //Set all stats for buttons.
-    private void importButtons(){
+    private void importButtons() {
         //Attack button
         attackButton = new JButton("Attack");
         attackButton.setSize(200, 70);
@@ -1677,7 +1679,7 @@ public class ForestFight extends JFrame {
     }
 
     //Get all party-gif's.
-    private void importPartyGif(){
+    private void importPartyGif() {
         warrior = new JLabel();
         warrior.setIcon(new ImageIcon("warrior.gif"));
         Dimension warriorSize = warrior.getPreferredSize();
@@ -1700,7 +1702,7 @@ public class ForestFight extends JFrame {
     }
 
     //Get wolf gif.
-    private void importWolfGif(){
+    private void importWolfGif() {
         wolf1 = new JLabel();
         wolf1.setIcon(new ImageIcon("forestMob.gif"));
         Dimension wolfSize = wolf1.getPreferredSize();
@@ -1734,13 +1736,14 @@ public class ForestFight extends JFrame {
         attackButton.addMouseListener(new java.awt.event.MouseAdapter() {
             //Change button color while hovering depending on your current energy.
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                if(currentEnergy>1) {
+                if (currentEnergy > 1) {
                     attackButton.setBackground(Color.lightGray);
                 }
-                if(currentEnergy<2){
+                if (currentEnergy < 2) {
                     attackButton.setBackground(Color.pink);
                 }
             }
+
             //Change back when not hovering over button
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 attackButton.setBackground(Color.white);
@@ -1750,13 +1753,14 @@ public class ForestFight extends JFrame {
         //Block Hover
         blockButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                if(currentEnergy>1) {
+                if (currentEnergy > 1) {
                     blockButton.setBackground(Color.lightGray);
                 }
-                if(currentEnergy<2){
+                if (currentEnergy < 2) {
                     blockButton.setBackground(Color.pink);
                 }
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 blockButton.setBackground(Color.white);
             }
@@ -1767,6 +1771,7 @@ public class ForestFight extends JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 itemButton.setBackground(Color.lightGray);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 itemButton.setBackground(Color.white);
             }
@@ -1776,6 +1781,7 @@ public class ForestFight extends JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 skillButton.setBackground(Color.lightGray);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 skillButton.setBackground(Color.white);
             }
@@ -1786,6 +1792,7 @@ public class ForestFight extends JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 endTurnButton.setBackground(Color.lightGray);
             }
+
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 endTurnButton.setBackground(Color.white);
             }
@@ -1793,16 +1800,7 @@ public class ForestFight extends JFrame {
     }
 
 
-
-
-
-
-
-
-
     //simons animationer
-
-
 
 
     private Timer charge = new Timer(10, new ActionListener() {
@@ -1811,18 +1809,16 @@ public class ForestFight extends JFrame {
             if (phase == 0) {
                 MusicPick.musicStart("charge", "");
                 phase = 1;
-            }
-            else if (phase == 1) {
+            } else if (phase == 1) {
                 warriorX += 20;
                 warrior.setLocation(warriorX, warriorY);
                 if (warriorX > 2000) {
                     phase = 2;
                 }
-            }
-            else if (phase == 2) {
+            } else if (phase == 2) {
                 warriorX = warriorStartX;
                 warriorY = warriorStartY;
-                warrior.setLocation(warriorX,warriorY);
+                warrior.setLocation(warriorX, warriorY);
                 phase = 0;
                 charge.stop();
             }
@@ -1840,26 +1836,21 @@ public class ForestFight extends JFrame {
                 volley1.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 1;
-            }
-            else if (phase == 1 && arrowX > arrowStartX + 300) {
+            } else if (phase == 1 && arrowX > arrowStartX + 300) {
                 volley2.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 2;
-            }
-            else if (phase == 2 && arrowX > arrowStartX + 600) {
+            } else if (phase == 2 && arrowX > arrowStartX + 600) {
                 volley3.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 3;
-            }
-            else if (phase == 3 && arrowX > 1000) {
+            } else if (phase == 3 && arrowX > 1000) {
                 volley1.setVisible(false);
                 phase = 4;
-            }
-            else if (phase == 4 && arrowX > 1200) {
+            } else if (phase == 4 && arrowX > 1200) {
                 volley2.setVisible(false);
                 phase = 5;
-            }
-            else if (phase == 5 && arrowX > 1400) {
+            } else if (phase == 5 && arrowX > 1400) {
                 volley3.setVisible(false);
                 phase = 6;
             }
@@ -1868,26 +1859,21 @@ public class ForestFight extends JFrame {
                 volley1.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 7;
-            }
-            else if (phase == 7 && arrowX > arrowStartX + 300) {
+            } else if (phase == 7 && arrowX > arrowStartX + 300) {
                 volley2.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 8;
-            }
-            else if (phase == 8 && arrowX > arrowStartX + 600) {
+            } else if (phase == 8 && arrowX > arrowStartX + 600) {
                 volley3.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 9;
-            }
-            else if (phase == 9 && arrowX > 1000) {
+            } else if (phase == 9 && arrowX > 1000) {
                 volley1.setVisible(false);
                 phase = 10;
-            }
-            else if (phase == 10 && arrowX > 1200) {
+            } else if (phase == 10 && arrowX > 1200) {
                 volley2.setVisible(false);
                 phase = 11;
-            }
-            else if (phase == 11 && arrowX > 1400) {
+            } else if (phase == 11 && arrowX > 1400) {
                 volley3.setVisible(false);
                 phase = 12;
                 arrowX = 300;
@@ -1896,30 +1882,24 @@ public class ForestFight extends JFrame {
                 volley1.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 13;
-            }
-            else if (phase == 13 && arrowX > arrowStartX + 300) {
+            } else if (phase == 13 && arrowX > arrowStartX + 300) {
                 volley2.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 14;
-            }
-            else if (phase == 14 && arrowX > arrowStartX + 600) {
+            } else if (phase == 14 && arrowX > arrowStartX + 600) {
                 volley3.setVisible(true);
                 MusicPick.musicStart("ding", "");
                 phase = 15;
-            }
-            else if (phase == 15 && arrowX > 1000) {
+            } else if (phase == 15 && arrowX > 1000) {
                 volley1.setVisible(false);
                 phase = 16;
-            }
-            else if (phase == 16 && arrowX > 1200) {
+            } else if (phase == 16 && arrowX > 1200) {
                 volley2.setVisible(false);
                 phase = 17;
-            }
-            else if (phase == 17 && arrowX > 1400) {
+            } else if (phase == 17 && arrowX > 1400) {
                 volley3.setVisible(false);
                 phase = 18;
-            }
-            else if (phase == 18){
+            } else if (phase == 18) {
                 arrowX = 270;
                 phase = 0;
                 volley.stop();
@@ -1934,14 +1914,13 @@ public class ForestFight extends JFrame {
             if (phase == 0) {
                 MusicPick.musicStart("magespell", "");
                 phase = 1;
-            }
-            else if (phase == 1){
+            } else if (phase == 1) {
                 mageY -= 3;
                 mage.setLocation(mageX, mageY);
                 if (mageY < 50) {
                     phase = 2;
-                }}
-            else if (phase == 2) {
+                }
+            } else if (phase == 2) {
                 if (mageY < 50) {
                     mageY = 50;
                     mage.setLocation(mageX, mageY);
@@ -1963,13 +1942,13 @@ public class ForestFight extends JFrame {
                     fireStorm.setVisible(true);
                     flameStrikeY = -400;
                     flame.setLocation(700, flameStrikeY);
-                    wolf1Int = wolf1Int - mageDamage/2;
+                    wolf1Int = wolf1Int - mageDamage / 2;
                     wolf1Hp.setText("Wolf 1: " + wolf1Int);
-                    wolf2Int = wolf2Int - mageDamage/2;
+                    wolf2Int = wolf2Int - mageDamage / 2;
                     wolf2Hp.setText("Wolf 2: " + wolf2Int);
-                    wolf3Int = wolf3Int - mageDamage/2;
+                    wolf3Int = wolf3Int - mageDamage / 2;
                     wolf3Hp.setText("Wolf 3: " + wolf3Int);
-                    wolf4Int = wolf4Int - mageDamage/2;
+                    wolf4Int = wolf4Int - mageDamage / 2;
                     wolf4Hp.setText("Wolf 4: " + wolf4Int);
                 }
                 if (timePast > 130) {
@@ -1999,20 +1978,17 @@ public class ForestFight extends JFrame {
     });
 
 
-
     private Timer enemyTurnTimer = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePast++;
             endTurnButton.setVisible(false);
-             if (timePast < 50) {
-                 if (wolf1Int<1)timePast = 140;
+            if (timePast < 50) {
+                if (wolf1Int < 1) timePast = 140;
                 whosTurn.setText("Wolf 1 turn");
                 playersHp.setText("Hp: " + wolf1Int);
                 energy.setText("  ");
-            }
-
-            else if (timePast == 50 && wolf1Int > 0) {
+            } else if (timePast == 50 && wolf1Int > 0) {
                 wolfAttack();
                 partyDeath();
             } else if (timePast < 60) {
@@ -2021,11 +1997,9 @@ public class ForestFight extends JFrame {
             } else if (timePast < 70) {
                 wolf1X += 15;
                 wolf1.setLocation(wolf1X, wolf1Y);
-            }
-
-            else if (timePast < 150) {
-                 if (wolf2Int<1)timePast = 240;
-                 wolf1.setLocation(wolf1StartX, wolf1StartY);
+            } else if (timePast < 150) {
+                if (wolf2Int < 1) timePast = 240;
+                wolf1.setLocation(wolf1StartX, wolf1StartY);
                 whosTurn.setText("Wolf 2 turn");
                 playersHp.setText("Hp: " + wolf2Int);
                 energy.setText("  ");
@@ -2038,11 +2012,9 @@ public class ForestFight extends JFrame {
             } else if (timePast < 170) {
                 wolf2X += 15;
                 wolf2.setLocation(wolf2X, wolf2Y);
-            }
-
-            else if (timePast < 250) {
-                 if (wolf3Int<1)timePast = 340;
-                 wolf2.setLocation(wolf2StartX, wolf2StartY);
+            } else if (timePast < 250) {
+                if (wolf3Int < 1) timePast = 340;
+                wolf2.setLocation(wolf2StartX, wolf2StartY);
                 whosTurn.setText("Wolf 3 turn");
                 playersHp.setText("Hp: " + wolf3Int);
                 energy.setText("  ");
@@ -2055,11 +2027,9 @@ public class ForestFight extends JFrame {
             } else if (timePast < 270) {
                 wolf3X += 15;
                 wolf3.setLocation(wolf3X, wolf3Y);
-            }
-
-            else if (timePast < 350) {
-                 if (wolf4Int<1)timePast = 440;
-                 wolf3.setLocation(wolf3StartX, wolf3StartY);
+            } else if (timePast < 350) {
+                if (wolf4Int < 1) timePast = 440;
+                wolf3.setLocation(wolf3StartX, wolf3StartY);
                 whosTurn.setText("Wolf 4 turn");
                 playersHp.setText("Hp: " + wolf4Int);
                 energy.setText("  ");
@@ -2162,14 +2132,15 @@ public class ForestFight extends JFrame {
     });
 
     private Timer dunk = new Timer(10, new ActionListener() {
+
         @Override
         public void actionPerformed(ActionEvent ae) {
-            if (phase == 0){
-                MusicPick.musicStart("charge", "");
+            if (phase == 0) {
+                MusicPick.musicStart("shout", "");
                 phase = 1;
             }
             if (phase == 1) {
-                warriorMegaMath -=2;
+                int superMegaMath = 2;
                 warriorX += 20;
                 warriorY -= warriorMegaMath;
                 warrior.setLocation(warriorX, warriorY);
@@ -2178,7 +2149,10 @@ public class ForestFight extends JFrame {
                 }
             } else if (phase == 2) {
                 timePast++;
-                if(timePast == 30) {
+                if (timePast == 1) {
+
+                }
+                if (timePast == 30) {
                     warriorY = warriorStartY;
                     warriorX = warriorStartX;
                     warrior.setLocation(warriorX, warriorY);
@@ -2187,8 +2161,8 @@ public class ForestFight extends JFrame {
                     phase = 0;
                     dunk.stop();
                 }
-                }
             }
+        }
     });
 
     private Timer pyroBlast = new Timer(10, new ActionListener() {
@@ -2197,43 +2171,36 @@ public class ForestFight extends JFrame {
             timePast++;
             if (timePast < 100) {
                 smallPyroBlast.setVisible(true);
-            }
-            else if (timePast < 200) {
+            } else if (timePast < 200) {
                 smallPyroBlast.setVisible(false);
                 mediumPyroBlast.setVisible(true);
-            }
-            else if (timePast < 350) {
+            } else if (timePast < 350) {
                 mediumPyroBlast.setVisible(false);
                 bigPyroBlast.setVisible(true);
-            }
-            else if (timePast < 400 ){
+            } else if (timePast < 400) {
                 pyroBlastX += 3;
                 pyroblastY -= 1;
                 bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else if (timePast < 460){
+            } else if (timePast < 460) {
                 pyroBlastX += 3;
                 pyroblastY += 1;
                 bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else if (timePast < 530){
+            } else if (timePast < 530) {
                 pyroBlastX += 3;
                 pyroblastY -= 1;
                 bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else if (timePast < 590){
+            } else if (timePast < 590) {
                 pyroBlastX += 4;
                 pyroblastY += 1;
                 bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else {
+            } else {
                 bigPyroBlast.setVisible(false);
                 timePast = 0;
                 pyroBlastX = 45;
                 pyroblastY = 150;
                 bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
                 pyroBlast.stop();
-               }
+            }
         }
     });
     private Timer shout = new Timer(10, new ActionListener() {
@@ -2243,14 +2210,13 @@ public class ForestFight extends JFrame {
             if (phase == 0) {
                 MusicPick.musicStart("demoshout", " ");
                 phase = 1;
-            }
-            else if (phase == 1){
+            } else if (phase == 1) {
                 warriorY -= 5;
                 warrior.setLocation(warriorX, warriorY);
                 if (warriorY < warriorStartY + 50) {
                     phase = 2;
-                }}
-            else if (phase == 2) {
+                }
+            } else if (phase == 2) {
                 if (warriorY < 50) {
                     warriorY = 50;
                     warrior.setLocation(warriorX, warriorY);
@@ -2284,6 +2250,7 @@ public class ForestFight extends JFrame {
                     followup = false;
                     }
                     else {
+                        Thread demoralized = null;
                         demoralized.start();
                         System.out.println("working");
                     }
@@ -2297,15 +2264,15 @@ public class ForestFight extends JFrame {
             timePast++;
             pyroBlastX += 16;
             smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            if (followup){MusicPick.musicStart("fireball", "");
-            followup = false;
-            }
-            if (phase == 0){
+            if (phase == 0) {
+                MusicPick.musicStart("demoshout", "");
                 smallPyroBlast.setVisible(true);
-                upMegaMath *=2;
+                upMegaMath *= 2;
                 pyroblastY -= upMegaMath;
             }
-            if (timePast % 3 == 0){phase++;}
+            if (timePast % 3 == 0) {
+                phase++;
+            }
             if (phase == 5) {
                 phase = 1;
                 rightMegaMath = 1;
@@ -2315,22 +2282,22 @@ public class ForestFight extends JFrame {
             if (phase == 2) upMegaMath = 1;
 
             if (phase == 1 || phase == 2) { //höger
-                rightMegaMath *=2;
+                rightMegaMath *= 2;
                 pyroBlastX += rightMegaMath;
             }
             if (phase == 2 || phase == 3) { //ner
-                downMegaMath *=2;
+                downMegaMath *= 2;
                 pyroblastY += downMegaMath;
             }
             if (phase == 3 || phase == 4) { //vänster
-                leftMegaMath *=2;
+                leftMegaMath *= 2;
                 pyroBlastX -= leftMegaMath;
             }
             if (phase == 4 || phase == 1) { //flyger uppåt
-                upMegaMath *=2;
+                upMegaMath *= 2;
                 pyroblastY -= upMegaMath;
             }
-            if(timePast == 50) {
+            if (timePast == 50) {
                 pyroblastY = 150;
                 pyroBlastX = 45;
                 smallPyroBlast.setVisible(false);
@@ -2350,12 +2317,12 @@ public class ForestFight extends JFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePast++;
-            swordIcon.setLocation(swordIconX, swordIconY);
+            swordIcon.setLocation(pyroBlastX, pyroblastY);
             if (phase == 0) {
-                //MusicPick.musicStart("demoshout", "");
+                MusicPick.musicStart("shout", "");
                 swordIcon.setVisible(true);
                 upMegaMath *= 2;
-                swordIconY -= upMegaMath;
+                pyroblastY -= upMegaMath;
             }
             if (timePast % 3 == 0) {
                 phase++;
@@ -2370,23 +2337,23 @@ public class ForestFight extends JFrame {
 
             if (phase == 1 || phase == 2) { //höger
                 rightMegaMath += 5;
-                swordIconX += rightMegaMath;
+                pyroBlastX += rightMegaMath;
             }
             if (phase == 2 || phase == 3) { //ner
                 downMegaMath += 5;
-                swordIconY += downMegaMath;
+                pyroblastY += downMegaMath;
             }
             if (phase == 3 || phase == 4) { //vänster
                 leftMegaMath += 5;
-                swordIconX -= leftMegaMath;
+                pyroBlastX -= leftMegaMath;
             }
             if (phase == 4 || phase == 1) { //flyger uppåt
                 upMegaMath += 5;
-                swordIconY -= upMegaMath;
+                pyroblastY -= upMegaMath;
             }
             if (timePast == 50) {
-                swordIconX = 300;
-                swordIconY = 300;
+                pyroblastY = 150;
+                pyroBlastX = 45;
                 swordIcon.setVisible(false);
                 timePast = 0;
                 upMegaMath = 1;
@@ -2395,199 +2362,6 @@ public class ForestFight extends JFrame {
                 leftMegaMath = 1;
                 phase = 0;
                 battlecry.stop();
-            }
-        }
-    });
-    private Timer demoralized = new Timer(20, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePast++;
-            demoSword1.setLocation(swordIconX + 550, swordIconY + 50);
-            demoSword2.setLocation(swordIconX + 650, swordIconY + 100);
-            demoSword3.setLocation(swordIconX + 750, swordIconY + 50);
-            demoSword4.setLocation(swordIconX + 850, swordIconY + 100);
-
-
-            if (phase == 0) {
-                demoSword1.setVisible(true);
-                demoSword2.setVisible(true);
-                demoSword3.setVisible(true);
-                demoSword4.setVisible(true);
-                upMegaMath *= 2;
-                swordIconY -= upMegaMath;
-            }
-            if (timePast % 3 == 0) {
-                phase++;
-            }
-            if (phase == 5) {
-                phase = 1;
-                rightMegaMath = 1;
-                downMegaMath = 1;
-                leftMegaMath = 1;
-            }
-            if (phase == 2) upMegaMath = 1;
-
-            if (phase == 1 || phase == 2) { //höger
-                rightMegaMath += 5;
-                swordIconX += rightMegaMath;
-            }
-            if (phase == 2 || phase == 3) { //ner
-                downMegaMath += 5;
-                swordIconY += downMegaMath;
-            }
-            if (phase == 3 || phase == 4) { //vänster
-                leftMegaMath += 5;
-                swordIconX -= leftMegaMath;
-            }
-            if (phase == 4 || phase == 1) { //flyger uppåt
-                upMegaMath += 5;
-                swordIconY -= upMegaMath;
-            }
-            if (timePast == 50) {
-                swordIconX = 300;
-                swordIconY = 300;
-                demoSword1.setVisible(false);
-                demoSword2.setVisible(false);
-                demoSword3.setVisible(false);
-                demoSword4.setVisible(false);
-                timePast = 0;
-                upMegaMath = 1;
-                rightMegaMath = 1;
-                downMegaMath = 1;
-                leftMegaMath = 1;
-                phase = 0;
-                demoralized.stop();
-            }
-        }
-    });
-    private Timer bombthrow = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            if (phase == 0){
-                MusicPick.musicStart("ding", "");
-                phase = 1;
-                bomb.setVisible(true);
-            }
-            if (phase == 1) {
-                bombMegaMath -=2;
-                bombX += 20;
-                bombY -= bombMegaMath;
-                bomb.setLocation(bombX, bombY);
-                if (bombY > bombStartY) {
-                    phase = 2;
-                }
-            } else if (phase == 2) {
-                timePast++;
-                if(timePast == 30) {
-                    bombY = bombStartY;
-                    bombX = bombStartX;
-                    bomb.setLocation(bombX, bombY);
-                    bomb.setVisible(false);
-                    explode.setVisible(true);
-                }
-                if(timePast == 60){
-                    bombMegaMath = 36;
-                    bomb.setVisible(false);
-                    explode.setVisible(false);
-                    timePast = 0;
-                    phase = 0;
-                    bombthrow.stop();
-                }
-            }
-        }
-    });
-
-    private Timer bombcircletest = new Timer(5, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            bomb.setLocation(objXTest, objYTest);
-            timePast++;
-            if (phase == 0){
-                MusicPick.musicStart("ding", "");
-                phase = 1;
-                bomb.setVisible(true);
-            }
-            if (phase == 1) {
-                xmmYTest -=1;
-                xmmXTest -=1;
-                objYTest -= xmmYTest;
-                objXTest -= xmmXTest;
-                if (xmmYTest <= 0) {
-                    phase = 2;
-                }
-
-            }
-            if (phase == 2){
-                xmmYTest -=1;
-                xmmXTest +=1;
-                objYTest -= xmmYTest;
-                objXTest -= xmmXTest;
-                if (xmmXTest >= 0) {
-                    phase = 3;
-                }
-            }
-            if (phase == 3){
-                xmmYTest +=1;
-                xmmXTest +=1;
-                objYTest -= xmmYTest;
-                objXTest -= xmmXTest;
-                if (xmmYTest >= 0) {
-                    phase = 4;
-                }
-            }
-            if (phase == 4){
-                xmmYTest +=1;
-                xmmXTest -=1;
-                objYTest -= xmmYTest;
-                objXTest -= xmmXTest;
-                if (xmmXTest <= 0) {
-                    phase = 1;
-                }
-            }
-
-                if(timePast > 300){
-                    bomb.setVisible(false);
-                    timePast = 0;
-                    phase = 0;
-                    objXTest = objXTestStart;
-                    objYTest = objYTestStart;
-                    xmmXTest = 0;
-                    xmmYTest = 20;
-                    bombcircletest.stop();
-                }
-        }
-    });
-
-    private void stealth(){
-        if (!stealthed){
-            MusicPick.musicStart("stealth", "");
-            ranger.setVisible(false);
-            stealthranger.setVisible(true);
-            stealthed = true;
-        }
-        else{
-            MusicPick.musicStart("unstealth", "");
-            ranger.setVisible(true);
-            stealthranger.setVisible(false);
-            stealthed = false;
-        }
-        /*
-        lägg till
-        if (stealthed == true){stealth();}
-        i alla ranger abilities
-        och öka skadan på nåt sätt
-         */
-    }
-
-    private Timer placetrap = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            bomb.setLocation(objXTest, objYTest);
-            timePast++;
-            if (phase == 0){
-                MusicPick.musicStart("ding", "");
-                phase = 1;
-                trap.setVisible(true);
             }
         }
     });

@@ -2,92 +2,15 @@ package party;
 
 public class Healer {
 
-    public String currentWeaponName = "Wodden staff";
+    public String healerRareWeaponName = "Stick of truth", healerEpicWeaponName = "Cleric's blessed walking stick", healerLegendaryWeaponName = "Root of the world tree", healerRareArmorName = "Priests robe", healerEpicArmorName = "Clerics armor", healerLegendaryArmorName = "Plate armor of Parl'ont the crusader";
+    public int healerRareWeaponDamage = 7, healerEpicWeaponDamage = 13, healerLegendaryWeaponDamage = 23, healerRareArmorBlock = 2, healerEpicArmorBlock = 8, healerLegendaryArmorBlock = 13, healerRareArmorDamage = 3, healerEpicArmorDamage = 7, healerLegendaryArmorDamage = 15;
+
+    public String currentWeaponName = "Wooden staff";
     public int currentWeaponDamage = 5;
 
-    String currentArmorName = "Cloth scraps";
+    public String currentArmorName = "Cloth scraps";
     public int currentArmorBlock = 5;
     public int currentArmorDamage = 0;
-
-    public String getCurrentWeaponName() {
-        return currentWeaponName;
-    }
-
-    public void setCurrentWeaponName(String currentWeaponName) {
-        this.currentWeaponName = currentWeaponName;
-    }
-
-    public int getCurrentWeaponDamage() {
-        return currentWeaponDamage;
-    }
-
-    public void setCurrentWeaponDamage(int currentWeaponDamage) {
-        this.currentWeaponDamage = currentWeaponDamage;
-    }
-
-    public String getCurrentArmorName() {
-        return currentArmorName;
-    }
-
-    public void setCurrentArmorName(String currentArmorName) {
-        this.currentArmorName = currentArmorName;
-    }
-
-    public int getCurrentArmorBlock() {
-        return currentArmorBlock;
-    }
-
-    public void setCurrentArmorBlock(int currentArmorBlock) {
-        this.currentArmorBlock = currentArmorBlock;
-    }
-
-    public int getCurrentArmorDamage() {
-        return currentArmorDamage;
-    }
-
-    public void setCurrentArmorDamage(int currentArmorDamage) {
-        this.currentArmorDamage = currentArmorDamage;
-    }
-
-    public int getHp() {
-        return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
-    public int getBlock() {
-        return block;
-    }
-
-    public void setBlock(int block) {
-        this.block = block;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    public int getCombinedBlock() {
-        return combinedBlock;
-    }
-
-    public void setCombinedBlock(int combinedBlock) {
-        this.combinedBlock = combinedBlock;
-    }
-
-    public int getCombinedDamage() {
-        return combinedDamage;
-    }
-
-    public void setCombinedDamage(int combinedDamage) {
-        this.combinedDamage = combinedDamage;
-    }
 
     public int hp = 100;
     public int block = 0;
@@ -98,31 +21,31 @@ public class Healer {
 
     //All healer weapons
     public void healerRareWeapon(){
-        currentWeaponName = "Stick of truth";
-        currentWeaponDamage = 7;
+        currentWeaponName = healerRareWeaponName;
+        currentWeaponDamage = healerRareWeaponDamage;
     }
     public void healerEpicWeapon(){
-        currentWeaponName = "Cleric's blessed walking stick";
-        currentWeaponDamage = 13;
+        currentWeaponName = healerEpicWeaponName;
+        currentWeaponDamage = healerEpicWeaponDamage;
     }
     public void healerLegendaryWeapon(){
-        currentWeaponName = "Root of the world tree";
-        currentWeaponDamage = 23;
+        currentWeaponName = healerLegendaryWeaponName;
+        currentWeaponDamage = healerLegendaryWeaponDamage;
     }
     //All healer armors
     public void healerRareArmor(){
-        currentArmorName = "Priests robe";
-        currentArmorBlock = 2;
-        currentArmorDamage = 3;
+        currentArmorName = healerRareArmorName;
+        currentArmorBlock = healerRareArmorBlock;
+        currentArmorDamage = healerRareArmorDamage;
     }
     public void healerEpicArmor(){
-        currentArmorName = "Clerics armor";
-        currentArmorBlock = 8;
-        currentArmorDamage = 7;
+        currentArmorName = healerEpicArmorName;
+        currentArmorBlock = healerEpicArmorBlock;
+        currentArmorDamage = healerEpicArmorDamage;
     }
     public void healerLegendaryArmor(){
-        currentArmorName = "Plate armor of Parl'ont the crusader";
-        currentArmorBlock = 13;
-        currentArmorDamage = 15;
+        currentArmorName = healerLegendaryArmorName;
+        currentArmorBlock = healerLegendaryArmorBlock;
+        currentArmorDamage = healerLegendaryArmorDamage;
     }
 }

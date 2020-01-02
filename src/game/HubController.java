@@ -1,6 +1,6 @@
 package game;
 
-public class ConHub {
+public class HubController {
 
     private HubFrames hf = new HubFrames();
 
@@ -17,15 +17,21 @@ public class ConHub {
         hf.hubFrame();
 
         while (choice[0] <= 0) {
-
                 hf.newRunButton.addActionListener(e -> {
                     if (newRunCount == 1) {
+                        System.out.println("new run");
                         newRunButtonClick();
                     }
                 });
-
+            hf.startButton.addActionListener(e -> {
+                if (startCount == 1) {
+                    System.out.println("start");
+                    startGameClick();
+                }
+            });
                 hf.exitButton.addActionListener(e -> {
                     if (exitCount == 1) {
+                        System.out.println("exit");
                         exitButtonClick();
                     }
                 });
@@ -34,18 +40,13 @@ public class ConHub {
                 break;
                  }
 
-                hf.startButton.addActionListener(e -> {
-                    if (startCount == 1) {
-                        startGameClick();
-                    }
-                    });
         }
     }
 
     //Call this method when newRunButton is clicked in hubPanel.
     private void newRunButtonClick(){
         newRunCount++;
-        hf.hubJFrame.add(hf.backstoryPanel);
+        hf.hubJFrame.add(hf.BackStoryPanel);
         hf.hubPanel.setVisible(false);
         MusicPick.musicStart("theme", "music");
     }
@@ -57,7 +58,7 @@ public class ConHub {
         hf.hubJFrame.dispose();
     }
 
-    //Call this method when startGame is clicked in backstoryPanel.
+    //Call this method when startGame is clicked in BackStoryPanel.
     private void startGameClick(){
         startCount++;
         choice[0] = 1;

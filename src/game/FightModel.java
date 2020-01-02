@@ -8,7 +8,7 @@ import party.Warrior;
 
 public class FightModel {
 
-    private ForestCon fc = new ForestCon();
+    private ForestCon forestCon = new ForestCon();
     private Inventory inv = new Inventory();
 
     private Warrior w = new Warrior();
@@ -28,18 +28,18 @@ public class FightModel {
     public void startForestFight(){
         sendInventory();
         sendStats();
-        fc.startFight();
+        forestCon.startFight();
     }
 
     //This method sends inventory info to ForestFightController.
     public void sendInventory(){
-        fc.getInventory(ownedPotions);
+        forestCon.getInventory(ownedPotions);
     }
 
     //This method sends stats info to ForestFightController.
     public void sendStats(){
         getStats();
-        fc.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
+        forestCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
     }
 
     //This method get stats from party-member classes.

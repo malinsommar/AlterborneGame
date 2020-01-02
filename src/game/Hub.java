@@ -13,7 +13,7 @@ public class Hub extends JFrame {
 
     public Hub() {
 
-        super("Alterborne");
+        super("AlterBorne");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         setSize(1920, 1080);
@@ -23,11 +23,11 @@ public class Hub extends JFrame {
         hover();
 
         //Background picture
-        ImageIcon background = new ImageIcon("bakgrundMountain.png"); //download image
-        setContentPane(new JLabel(background)); //set backgrund
+        ImageIcon background = new ImageIcon("backgroundmountain.png"); //download image
+        setContentPane(new JLabel(background)); //set background
 
         //Title of game
-        gameName = new JLabel("Alterborne");
+        gameName = new JLabel("AlterBorne");
         gameName.setForeground(Color.white);
         gameName.setFont((pixelMplus.deriveFont(100f)));
         Dimension size = gameName.getPreferredSize();
@@ -38,8 +38,10 @@ public class Hub extends JFrame {
         add(tutorialButton);
         add(exitButton);
 
-        newRunButton.addActionListener(e -> dispose());
         newRunButton.addActionListener(e -> new Backstory());
+        newRunButton.addActionListener(e -> dispose());
+        //tutorialButton.addActionListener(e-> new LootScreen());
+
         exitButton.addActionListener(e -> System.exit(0));
 
         MusicPick.musicStart("mainmenu","music");
