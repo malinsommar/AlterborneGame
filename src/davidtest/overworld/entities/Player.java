@@ -6,6 +6,7 @@ import davidtest.overworld.levels.Level;
 import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.map.InputHandler;
+import davidtest.overworld.map.RandomEncounter;
 
 public class Player extends Mob {
 
@@ -14,7 +15,7 @@ public class Player extends Mob {
     private int scale = 1; //assign size to character
     protected boolean isSwimming = false; //assign the isSwimming value as natively false
     protected boolean isSwampSwimming = false;
-    protected boolean isOnForestPath = false; // if player is on tile to enter forest-combat
+    public boolean isOnForestPath = false; // if player is on tile to enter forest-combat
     private int tickCount = 0; //counts the ticks since the last update
     private String username;
 
@@ -73,7 +74,11 @@ public class Player extends Mob {
             }
 
             if (level1.getTile( this.x + x >> 4,this.y >> 3).getId() ==5) {
-                isOnForestPath = true;
+                RandomEncounter randomEncounter = new RandomEncounter();
+                if (randomEncounter.randomNr == 1) {
+                    System.out.println(randomEncounter.randomNr);
+                    isOnForestPath = true;
+                }
             }
             else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() !=5) {
                 isOnForestPath = false;
@@ -141,7 +146,7 @@ public class Player extends Mob {
     }
 
     public boolean hasEnteredForest() {
-            return isOnForestPath;
+                return isOnForestPath;
     }
 
     @Override

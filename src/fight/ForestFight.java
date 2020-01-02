@@ -170,10 +170,10 @@ public class ForestFight extends JFrame {
             skill4();
         });
 
+
         //ActionListeners spellsmenu
         returnButton.addActionListener(e -> spellMenuInactive());
 
-    public void animationStuff(){
 
         //simon saker \/
         Dimension arrowSize = arrow.getPreferredSize();
@@ -277,7 +277,7 @@ public class ForestFight extends JFrame {
         trap.setLocation(rangerStartX, rangerStartY);
         add(trap);
         trap.setVisible(false);
-        
+
 
 
 

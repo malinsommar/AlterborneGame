@@ -9,11 +9,11 @@ public class HubFrames extends JPanel {
 
     public JFrame hubJFrame = new JFrame();
     public JPanel hubPanel = new JPanel();
-    public JPanel backstoryPanel = new JPanel();
+    public JPanel BackStoryPanel = new JPanel();
 
 
-    private ImageIcon backbround = new ImageIcon("backgroundMountain.png");
-    private JLabel image = new JLabel(backbround);
+    private ImageIcon background = new ImageIcon("backgroundMountain.png");
+    private JLabel image = new JLabel(background);
 
     private JLabel gameName, backStory, backStory2, backStory3, yourParty, warrior, mage, healer,ranger;
     public JButton tutorialButton, newRunButton, exitButton, startButton;
@@ -31,9 +31,9 @@ public class HubFrames extends JPanel {
         hubPanel.setLayout(null);
         hubPanel.setBackground(Color.black);
 
-        backstoryPanel.setBounds(0,0,1920, 1080);
-        backstoryPanel.setLayout(null);
-        backstoryPanel.setBackground(Color.darkGray);
+        BackStoryPanel.setBounds(0,0,1920, 1080);
+        BackStoryPanel.setLayout(null);
+        BackStoryPanel.setBackground(Color.darkGray);
 
         MusicPick.musicStart("mainmenu","music");
 
@@ -56,15 +56,15 @@ public class HubFrames extends JPanel {
         hubPanel.add(image);
         hubJFrame.add(hubPanel);
 
-        backstoryPanel.add(warrior);
-        backstoryPanel.add(ranger);
-        backstoryPanel.add(mage);
-        backstoryPanel.add(healer);
-        backstoryPanel.add(startButton);
-        backstoryPanel.add(backStory);
-        backstoryPanel.add(backStory2);
-        backstoryPanel.add(backStory3);
-        backstoryPanel.add(yourParty);
+        BackStoryPanel.add(warrior);
+        BackStoryPanel.add(ranger);
+        BackStoryPanel.add(mage);
+        BackStoryPanel.add(healer);
+        BackStoryPanel.add(startButton);
+        BackStoryPanel.add(backStory);
+        BackStoryPanel.add(backStory2);
+        BackStoryPanel.add(backStory3);
+        BackStoryPanel.add(yourParty);
 
         hubJFrame.setVisible(true);
     }
@@ -72,7 +72,7 @@ public class HubFrames extends JPanel {
     private void importHubButtonsLabels(){
 
         //Title of game
-        gameName = new JLabel("Alterborne");
+        gameName = new JLabel("AlterBorne");
         gameName.setForeground(Color.white);
         gameName.setFont((pixelMplus.deriveFont(100f)));
         Dimension size = gameName.getPreferredSize();
@@ -144,23 +144,23 @@ public class HubFrames extends JPanel {
         startButton.setBorder(null); //Remove border around button
         startButton.setFocusPainted(false);//Remove border around text in button
 
-        backStory = new JLabel("This is a backstory. very cool. This is a backstory. very cool.");
+        backStory = new JLabel("As worlds collide, hope does so too. Unending suffering for those who lack courage");
         backStory.setFont((pixelMplus.deriveFont(30f)));
         backStory.setForeground(Color.white);
         Dimension size = backStory.getPreferredSize();
-        backStory.setBounds(170, 100, size.width, size.height);
+        backStory.setBounds(10, 70, size.width, size.height);
 
-        backStory2 = new JLabel("This is a backstory. very nice. This is a backstory. very nice.");
+        backStory2 = new JLabel("Failure breeds growth. Growth brings opportunity. Do not let despair be the end");
         backStory2.setFont((pixelMplus.deriveFont(30f)));
         backStory2.setForeground(Color.white);
         Dimension size2 = backStory2.getPreferredSize();
-        backStory2.setBounds(170, 130, size2.width, size2.height);
+        backStory2.setBounds(10, 100, size2.width, size2.height);
 
-        backStory3 = new JLabel("This is a backstory. very cool. This is a backstory. very cool.");
+        backStory3 = new JLabel("For you are endless");
         backStory3.setFont((pixelMplus.deriveFont(30f)));
         backStory3.setForeground(Color.white);
         Dimension size3 = backStory.getPreferredSize();
-        backStory3.setBounds(170, 70, size3.width, size3.height);
+        backStory3.setBounds(450, 130, size3.width, size3.height);
 
         yourParty = new JLabel("This is your party.");
         yourParty.setFont((pixelMplus.deriveFont(100f)));

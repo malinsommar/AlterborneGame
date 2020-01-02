@@ -1,10 +1,8 @@
 package simontest;
 
-import davidtest.overworld.map.OverWorld;
+import davidtest.overworld.map.OverWorldFrame;
 
 public class fakemain {
-
-    OverWorld ow = new OverWorld();
 
         public static void main(String[] args) {
             new fakemain();

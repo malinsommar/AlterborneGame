@@ -3,24 +3,29 @@ package davidtest.overworld.map;
 import java.util.TimerTask;
 
 public class RandomEncounter {
-    int secondsPassed;
-    int randomNr;
+    public int secondsPassed;
+    public int randomNr;
 
     public RandomEncounter() {
-getRandom(200, 1);
+        getRandom(100, 1);
     }
-    public int getRandom(int max, int min) {
-        return ((randomNr = (int) (Math.random() * ((max - min) + 1))) + min);
+    private void getRandom(int max, int min) {
+        randomNr = (int) (Math.random() * ((max - min) + 1));
     }
     public void getTimer() {
-        secondsPassed = 10;
+        secondsPassed = 0;
         java.util.Timer delay = new java.util.Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                --secondsPassed;
+                secondsPassed++;
+                System.out.println("time " +secondsPassed);
+                if (secondsPassed >= 3) {
+                    getRandom(5, 1);
+                    secondsPassed = 0;
+                    System.out.println("number " + randomNr);
                 }
-        }; delay.schedule(task,100000000, 1000000000);
+                }
+        }; delay.scheduleAtFixedRate(task,1500, 1000);
     }
-
 }
