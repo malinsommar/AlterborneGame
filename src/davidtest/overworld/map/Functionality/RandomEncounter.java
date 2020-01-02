@@ -1,4 +1,4 @@
-package davidtest.overworld.map;
+package davidtest.overworld.map.Functionality;
 
 import java.util.TimerTask;
 

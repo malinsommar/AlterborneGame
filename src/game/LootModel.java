@@ -37,8 +37,7 @@ public class LootModel {
     //1=mage, 2=healer.
     private int[] armorDamage = new int[2];
 
-    public void startController(){
-
+    public void startLootController(){
         getEquipment();
         lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, armorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock);
         lc.startLootScreen();

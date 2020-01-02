@@ -1,15 +1,13 @@
 package davidtest.overworld.map;
 
+import davidtest.overworld.gfx.SpriteSheet;
 import davidtest.overworld.levels.Level;
 import davidtest.overworld.entities.Player;
 import davidtest.overworld.gfx.Screen;
-import davidtest.overworld.gfx.SpriteSheet;
-import game.FightModel;
-import game.MusicPick;
+import davidtest.overworld.map.Functionality.InputHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
@@ -44,6 +42,12 @@ public class OverWorldFrame extends Canvas {
         frame.add(this, BorderLayout.CENTER);//Center Canvas within the JFrame
         frame.pack(); //Sets frames above or at preferred size
          input = new InputHandler(this); //call input-object
+         screen = new Screen(OverWorldFrame.WIDTH, OverWorldFrame.HEIGHT, new SpriteSheet("/resources/spriteSheet/Sprite_sheet.png"));//call spriteSheet-object
+         level1 = new Level("/resources/maps/Map.png");//call map-object
+         player = new Player(level1, 230, 235, input); //call Player-object and position it on map
+
+         level1.addEntity(player); //add player onto the screen
+
 
          //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 

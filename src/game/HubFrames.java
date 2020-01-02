@@ -37,7 +37,7 @@ public class HubFrames extends JPanel {
 
         MusicPick.musicStart("mainmenu","music");
 
-        ImageIcon icon = new ImageIcon("bakgrundMountain.png");
+        ImageIcon icon = new ImageIcon("/bakgrundMountain.png");
         JLabel backgroundImage = new JLabel();
         backgroundImage.setIcon(icon);
         backgroundImage.setBounds(1,-200,1920,1080);
@@ -56,16 +56,16 @@ public class HubFrames extends JPanel {
         hubPanel.add(image);
         hubJFrame.add(hubPanel);
 
-        backstoryPanel.add(warrior);
-        backstoryPanel.add(ranger);
-        backstoryPanel.add(mage);
-        backstoryPanel.add(healer);
-        backstoryPanel.add(startButton);
-        backstoryPanel.add(backStory);
-        backstoryPanel.add(backStory2);
-        backstoryPanel.add(backStory3);
-        backstoryPanel.add(backStory4);
-        backstoryPanel.add(yourParty);
+        BackStoryPanel.add(warrior);
+        BackStoryPanel.add(ranger);
+        BackStoryPanel.add(mage);
+        BackStoryPanel.add(healer);
+        BackStoryPanel.add(startButton);
+        BackStoryPanel.add(backStory);
+        BackStoryPanel.add(backStory2);
+        BackStoryPanel.add(backStory3);
+        BackStoryPanel.add(backStory4);
+        BackStoryPanel.add(yourParty);
 
         hubJFrame.setVisible(true);
     }

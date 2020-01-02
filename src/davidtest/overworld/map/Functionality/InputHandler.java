@@ -1,4 +1,6 @@
-package davidtest.overworld.map;
+package davidtest.overworld.map.Functionality;
+
+import davidtest.overworld.map.OverWorldFrame;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

@@ -17,7 +17,7 @@ public abstract class Tile {
     public static final Tile FOREST = new PathTile(5,4,0, Colours.get(-1,16,1,2), 0xFF005000);
     public static final Tile MOUNTAIN = new PathTile(6,5,0, Colours.get(-1, 333, 11, -1), 0xFF3f3f3f);
     public static final Tile FIELD = new PathTile(7,6,0, Colours.get(-1, 176, 142, -1), 0xFFa3ff00);
-    public static final Tile SWAMpWATER = new AnimatedTile(8, new int[][] { {0, 5}, { 1, 5}, { 2, 5 }, { 1, 5 } },
+    public static final Tile SWAMPWATER = new AnimatedTile(8, new int[][] { {0, 5}, { 1, 5}, { 2, 5 }, { 1, 5 } },
             Colours.get(-1, 12, 21, -1), 0xFF005c81, 800);
     public static final Tile SWAMP = new PathTile(9, 7, 0, Colours.get(-1, 18, 41, -1), 0xFF00a956);
     public static final Tile WOOD = new SolidTile(10, 8, 0, Colours.get(-1,220,221,-1), 0xFF8d6525);
@@ -39,14 +39,17 @@ public abstract class Tile {
     public static final Tile MIDDLECASTLE = new SolidTile(25, 2, 11, Colours.get(-1,1,333,-1), 0xFF785558);
     public static final Tile FIRE = new AnimatedSolidTile(26, new int[][] {{ 0, 13}, { 1, 13},{2,13}},
             Colours.get(220, 200, 1, 332), 0xFFed8100, 800);
-
-
-
-
-
-
-
-
+    public static final Tile SHEEPBODY = new SolidTile(27, 0, 15, Colours.get(-1,334,333,-1), 0xFF7a8b51);
+    public static final Tile SHEEPHEAD = new AnimatedSolidTile(28, new int[][] {{ 1, 15}, { 2, 15},},
+            Colours.get(176, 334, 333, 1), 0xFF7a8b53, 2000);
+    public static final Tile SHEEPLEGS = new SolidTile(29, 3, 15, Colours.get(176,3,1,2), 0xFF7a8b52);
+    public static final Tile SHEEPHEADLEFT = new AnimatedSolidTile(30, new int[][] {{ 4, 15}, { 5, 15},},
+            Colours.get(176, 334, 333, 1), 0xFF7a8b54, 1900);
+    public static final Tile SHEEPBODYLEFT = new SolidTile(31, 6, 15, Colours.get(-1,334,333,-1), 0xFF7a8b55);
+    public static final Tile FORESTCHEST = new SolidTile(32, 0, 17, Colours.get(16,210,178,332), 0xFFab6a1c);
+    public static final Tile FIELDCHEST = new SolidTile(33, 1, 17, Colours.get(176,210,178,332), 0xFFab6a2c);
+    public static final Tile MOUNTAINCHEST = new SolidTile(34, 2, 17, Colours.get(333,210,178,332), 0xFFab6a3c);
+    public static final Tile SWAMPCHEST = new SolidTile(35, 3, 17, Colours.get(18,210,178,332), 0xFFab6a4c);
 
 
     protected byte id;

@@ -12,10 +12,10 @@ public class MusicPick {
 
     public static void musicStart(String pick, String soundType) {
         try {
-            if (!first && soundType == "music" ) {
+            if (!first && soundType.equals("music")) {
                 musicClip.stop();
             }
-            if (soundType == "music"){
+            if (soundType.equals("music")){
                 File yourFile = new File(pick + ".wav");
                 AudioInputStream audioIn = AudioSystem.getAudioInputStream(yourFile);
                 musicClip = (Clip) AudioSystem.getLine(new DataLine.Info(Clip.class, audioIn.getFormat()));
@@ -28,7 +28,7 @@ public class MusicPick {
                 first = false;
             }
 
-            else if (soundType != "music") {
+            else {
                 File yourFile = new File(pick + ".wav");
                 AudioInputStream audioIn = AudioSystem.getAudioInputStream(yourFile);
                 soundClip = (Clip) AudioSystem.getLine(new DataLine.Info(Clip.class, audioIn.getFormat()));

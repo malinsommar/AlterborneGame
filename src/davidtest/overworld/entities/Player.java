@@ -5,8 +5,8 @@ import davidtest.overworld.gfx.Fonts;
 import davidtest.overworld.levels.Level;
 import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Screen;
-import davidtest.overworld.map.InputHandler;
-import davidtest.overworld.map.RandomEncounter;
+import davidtest.overworld.map.Functionality.InputHandler;
+import davidtest.overworld.map.Functionality.RandomEncounter;
 
 public class Player extends Mob {
 

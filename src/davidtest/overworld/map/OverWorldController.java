@@ -4,6 +4,7 @@ import davidtest.overworld.entities.Player;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.gfx.SpriteSheet;
 import davidtest.overworld.levels.Level;
+import davidtest.overworld.map.Functionality.MouseClickSimulated;
 import game.MusicPick;
 
 import java.awt.*;
@@ -20,6 +21,7 @@ public class OverWorldController extends Canvas implements Runnable {
 
     public void EnterWorld() throws InterruptedException {
         start();//start the program
+        new MouseClickSimulated();
         while (Entrance[0] <= 0) {
             if (ForestEntrance == 1) {
                 EnterForest();
@@ -28,12 +30,6 @@ public class OverWorldController extends Canvas implements Runnable {
     }
 
     public synchronized void start() throws InterruptedException {
-        owf.screen = new Screen(OverWorldFrame.WIDTH, OverWorldFrame.HEIGHT, new SpriteSheet("/resources/Sprite_sheet.png"));//call spriteSheet-object
-        owf.level1 = new Level("/resources/maps/lake_level.png");//call map-object
-        owf.player = new Player(owf.level1, 230, 235, owf.input); //call Player-object and position it on map
-
-        owf.level1.addEntity(owf.player); //add player onto the screen
-
         running = true;//set the state of running to true
         new Thread(this).start(); //start thread
     }
