@@ -70,7 +70,7 @@ public class ForestCon {
     //Another timePast to avoid conflict when they run simultaneously.
     private int timePastTakeDamage = 0;
 
-    private int target;
+    public int target;
     private int phase = 0;
     public boolean followup = false;
     private boolean stealthed = false;
@@ -845,6 +845,8 @@ public class ForestCon {
                 fff.warrior.setLocation(warriorX,warriorY);
                 phase = 0;
                 charge.stop();
+
+                spellDamageSystem(6,"line");
             }
         }
     });
@@ -2029,6 +2031,30 @@ public class ForestCon {
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
             }
+        }
+    }
+
+    //called from spells to deal damage to enemies
+    //damageTargets types: single, line, all
+    public void spellDamageSystem(int damage, String damageTargets){
+        if (damageTargets.equals("single")){
+            wolfHp[target] -= damage;
+        }
+        if (damageTargets.equals("line")){
+            if (target == 1 || target == 2){
+                wolfHp[1] -= damage;
+                wolfHp[2] -= damage;
+            }
+            if (target == 3 || target == 4){
+                wolfHp[3] -= damage;
+                wolfHp[4] -= damage;
+            }
+        }
+        if (damageTargets.equals("all")){
+            wolfHp[1] -= damage;
+            wolfHp[2] -= damage;
+            wolfHp[3] -= damage;
+            wolfHp[4] -= damage;
         }
     }
 }
