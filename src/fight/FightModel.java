@@ -1,6 +1,8 @@
-package game;
+package fight;
 
 import fight.ForestCon;
+import game.Inventory;
+import game.LootModel;
 import party.Healer;
 import party.Mage;
 import party.Ranger;
@@ -10,6 +12,7 @@ public class FightModel {
 
     private ForestCon forestCon = new ForestCon();
     private Inventory inv = new Inventory();
+    private LootModel lm = new LootModel();
 
     private Warrior w = new Warrior();
     private Mage m = new Mage();
@@ -29,6 +32,12 @@ public class FightModel {
         sendInventory();
         sendStats();
         forestCon.startFight();
+
+    }
+
+    public void fightWon(){
+
+        lm.startLootController();
     }
 
     //This method sends inventory info to ForestFightController.

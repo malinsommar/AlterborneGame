@@ -9,7 +9,7 @@ public class LootController {
 
     LootFrame lf = new LootFrame();
 
-    private int textDelay = 0, whatLoot, xpInt, goldInt;
+     int textDelay = 0, whatLoot, xpInt, goldInt;
 
     private String warriorWeaponName, mageWeaponName, rangerWeaponName, healerWeaponName;
     private String warriorArmorName, mageArmorName,rangerArmorName, healerArmorName;
@@ -34,19 +34,20 @@ public class LootController {
     private int mageRareArmorDamage, mageEpicArmorDamage, mageLegendaryArmorDamage, healerRareArmorDamage, healerEpicArmorDamage, healerLegendaryArmorDamage;
 
     private boolean showEquipButton = false;
+    boolean playerWantsLoot = false;
 
 
+    //This method starts LootFrame and implements the methods needed for LootScreen.
     public void startLootScreen(int fight){
 
         lf.lootScreenFrame();
-        hover();
         generateLoot(fight);
+        hover();
 
         lf.equipButton.addActionListener(e-> equipLoot());
-
     }
 
-    //Method that gets info from model about gold, xp, weapons, armor etc.
+    //Method that collects info from model about gold, xp, weapons, armor etc.
     public void getInfo(int getGold, int getXp, String[] armorNames, String[] weaponNames, int[] weaponDamage, int[] currentArmorDamage, int[] armorBlock, String[] rareWeaponArmorNames, String[] epicWeaponArmorNames, String[] legendaryWeaponArmorNames, int[] rareWeaponArmorDamageBlock, int[] epicWeaponArmorDamageBlock, int[] legendaryWeaponArmorDamageBlock, int[] armorDamage){
 
         goldInt = getGold;
@@ -208,16 +209,17 @@ public class LootController {
         }
     }
 
+    //The following 24 methods equips the loot and updates labels depending on what the player gets.
     private void getRareWarriorArmor(){
-        lf.currentEquipment = new JLabel("Current Armor:");
-        lf.currentEquipmentName = new JLabel(warriorArmorName);
-        lf.currentEquipmentStats = new JLabel("Block: "+warriorArmorBlock);
+        lf.currentEquipment.setText("Current Armor:");
+        lf.currentEquipmentName.setText(warriorArmorName);
+        lf.currentEquipmentStats.setText("Block: "+warriorArmorBlock);
 
-        lf.newEquipment = new JLabel("New Armor:");
-        lf.newEquipmentName = new JLabel(warriorRareArmorName);
-        lf.newEquipmentStats = new JLabel("Block: "+warriorRareArmorBlock);
+        lf.newEquipment.setText("New Armor:");
+        lf.newEquipmentName.setText(warriorRareArmorName);
+        lf.newEquipmentStats.setText("Block: "+warriorRareArmorBlock);
 
-        lf.item = new JLabel("Warrior found: "+warriorRareArmorName);
+        lf.item.setText("Warrior found: "+warriorRareArmorName);
         lf.item.setForeground(Color.blue);
         whatLoot = 1;
         showEquipButton = true;
@@ -554,192 +556,189 @@ public class LootController {
         whatLoot = 24;
         showEquipButton = true;
     }
-
-
-
+    //The following 16 methods adds the potion player gets from the fight and updates labels.
     private void getMinorHealingPotion(){
-        //add potion
+        whatLoot = 25;
         lf.item = new JLabel("Found a minor healing potion.");
         lf.hideLabels();
     }
     private void getLesserHealingPotion(){
-        //add potion
+        whatLoot = 26;
         lf.item = new JLabel("Found a lesser healing potion.");
         lf.hideLabels();
     }
     private void getMajorHealingPotion(){
-        //add potion
+        whatLoot = 27;
         lf.item = new JLabel("Found a major healing potion.");
         lf.hideLabels();
     }
 
     private void getMinorEnergyPotion(){
-        //add potion
+        whatLoot = 28;
         lf.item = new JLabel("Found a minor energy potion.");
         lf.hideLabels();
     }
     private void getLesserEnergyPotion(){
-        //add potion
+        whatLoot = 29;
         lf.item = new JLabel("Found a lesser energy potion.");
         lf.hideLabels();
     }
     private void getMajorEnergyPotion(){
-        //add potion
+        whatLoot = 30;
         lf.item = new JLabel("Found a major energy potion.");
         lf.hideLabels();
     }
 
     private void getMinorStrengthPotion(){
-        //add potion
+        whatLoot = 31;
         lf.item = new JLabel("Found a minor strength potion.");
         lf.hideLabels();
     }
     private void getLesserStrengthPotion(){
-        //add potion
+        whatLoot = 32;
         lf.item = new JLabel("Found a lesser strength potion.");
         lf.hideLabels();
     }
     private void getMajorStrengthPotion(){
-        //add potion
+        whatLoot = 33;
         lf.item = new JLabel("Found a major strength potion.");
         lf.hideLabels();
     }
 
     private void getMinorBlockPotion(){
-        //add potion
+        whatLoot = 34;
         lf.item = new JLabel("Found a minor block potion.");
         lf.hideLabels();
     }
     private void getLesserBlockPotion(){
-        //add potion
+        whatLoot = 35;
         lf.item = new JLabel("Found a lesser block potion.");
         lf.hideLabels();
     }
     private void getMajorBlockPotion(){
-        //add potion
+        whatLoot = 36;
         lf.item = new JLabel("Found a major block potion.");
         lf.hideLabels();
     }
-
-
-
 
     //Method is called when equipButton is pressed. Changes the party-members armor/weapon and updates currentWeapon labels.
     private void equipLoot(){
         //Warrior
         if (whatLoot==1) {
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(warriorRareArmorName);
             lf.currentEquipmentStats.setText("Block: "+warriorRareArmorBlock);
         }
         else if(whatLoot==2) {
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(warriorEpicArmorName);
             lf.currentEquipmentStats.setText("Block: "+warriorEpicArmorBlock);
         }
         else if(whatLoot==3) {
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(warriorLegendaryArmorName);
             lf.currentEquipmentStats.setText("Block: "+warriorLegendaryArmorBlock);
         }
         else if(whatLoot==4){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(warriorRareWeaponName);
             lf.currentEquipmentStats.setText("Damage: "+warriorRareWeaponDamage);
         }
         else if(whatLoot==5){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(warriorEpicWeaponName);
             lf.currentEquipmentStats.setText("Damage: "+warriorEpicWeaponDamage);
         }
         else if(whatLoot==6){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(warriorLegendaryWeaponName);
             lf.currentEquipmentStats.setText("Damage: "+warriorLegendaryWeaponDamage);
         }
         //Mage
         else if(whatLoot==7){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(mageRareArmorName);
             lf.currentEquipmentStats.setText("Block: "+mageRareArmorBlock+"Str: "+mageRareArmorDamage);
         }
         else if(whatLoot==8){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(mageEpicArmorName);
             lf.currentEquipmentStats.setText("Block: "+mageEpicArmorBlock+"Str: "+mageEpicArmorDamage);
         }
         else if(whatLoot==9){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(mageLegendaryArmorName);
             lf.currentEquipmentStats.setText("Block: "+mageLegendaryArmorBlock+"Str: "+mageLegendaryArmorDamage);
         }
         else if(whatLoot==10){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(mageRareWeaponName);
             lf.currentEquipmentStats.setText("Damage: "+mageRareWeaponDamage);
         }
         else if(whatLoot==11){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(mageEpicArmorName);
             lf.currentEquipmentStats.setText("Damage: "+mageEpicWeaponDamage);
         }
         else if(whatLoot==12){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(mageLegendaryArmorName);
             lf.currentEquipmentStats.setText("Damage: "+mageLegendaryWeaponDamage);
         }
         //Ranger
         else if(whatLoot==14){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(rangerRareArmorName);
             lf.currentEquipmentStats.setText("Block: "+rangerRareArmorBlock);
         }
         else if(whatLoot==15){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(rangerEpicArmorName);
             lf.currentEquipmentStats.setText("Block: "+rangerEpicArmorBlock);
         }
         else if(whatLoot==16){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(rangerLegendaryArmorName);
             lf.currentEquipmentStats.setText("Block: "+rangerLegendaryArmorBlock);
         }
         else if(whatLoot==17){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(rangerRareWeaponName);
             lf.currentEquipmentStats.setText("Damage: "+rangerRareWeaponDamage);
         }
         else if(whatLoot==18){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(rangerEpicWeaponName);
             lf.currentEquipmentStats.setText("Damage: "+rangerEpicWeaponDamage);
         }
         else if(whatLoot==19){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(rangerLegendaryWeaponName);
             lf.currentEquipmentStats.setText("Damage: "+rangerLegendaryWeaponDamage);
         }
         //Healer
         else if(whatLoot==20){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(healerRareArmorName);
             lf.currentEquipmentStats.setText("Block: "+healerRareArmorBlock+"Str: "+healerRareArmorDamage);
         }
         else if(whatLoot==21){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(healerEpicArmorName);
             lf.currentEquipmentStats.setText("Block: "+healerRareArmorBlock+"Str: "+healerRareArmorDamage);
         }
         else if(whatLoot==22){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(healerLegendaryArmorName);
             lf.currentEquipmentStats.setText("Block: "+healerRareArmorBlock+"Str: "+healerRareArmorDamage);
         }
         else if(whatLoot==23){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(healerRareWeaponName);
             lf.currentEquipmentStats.setText("Damage: "+healerRareWeaponDamage);
         }
         else if(whatLoot==24){
-            //equip
+            playerWantsLoot = true;
             lf.currentEquipmentName.setText(healerEpicWeaponName);
             lf.currentEquipmentStats.setText("Damage: "+healerEpicWeaponDamage);
         }
