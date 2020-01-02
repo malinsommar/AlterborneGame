@@ -55,7 +55,7 @@ public class Backstory extends JFrame {
 
     public void importLabels(){
 
-        backStory = new JLabel("In the heart the great land of geru'xelm, the seat of power is in danger.");
+        backStory = new JLabel("In the heart the great land of Geru'xelm, the seat of power is in danger.");
         backStory.setFont((pixelMplus.deriveFont(30f)));
         backStory.setForeground(Color.white);
         Dimension size = backStory.getPreferredSize();
@@ -67,13 +67,13 @@ public class Backstory extends JFrame {
         Dimension size2 = backStory2.getPreferredSize();
         backStory2.setBounds(60, 105, size2.width, size2.height);
 
-        backStory3 = new JLabel("You were once 189, in the service of the king. Protecting the kingdom.");
+        backStory3 = new JLabel("189 soldiers, in the service of the king. Protecting the kingdom.");
         backStory3.setFont((pixelMplus.deriveFont(30f)));
         backStory3.setForeground(Color.white);
         Dimension size3 = backStory.getPreferredSize();
         backStory3.setBounds(90, 140, size3.width, size3.height);
 
-        backStory4 = new JLabel("Gave your lives for glory. Now only 4 of you left.");
+        backStory4 = new JLabel("Gave their lives for glory. Now only 4 of you left.");
         backStory4.setFont((pixelMplus.deriveFont(30f)));
         backStory4.setForeground(Color.white);
         backStory4.setBounds(200, 175, size3.width, size3.height);

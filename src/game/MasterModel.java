@@ -35,5 +35,7 @@ public class MasterModel {
                 //20% boss figth
         }*/
 
+       //LootScreen model here, skicka med xp
+
     }
 }
