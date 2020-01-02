@@ -1,7 +1,6 @@
 package game;
 
-import davidtest.overworld.hub.OverWorld;
-import fight.ForestFight;
+import davidtest.overworld.map.OverWorldFrame;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,7 +17,7 @@ public class Backstory extends JFrame {
     Font pixelMplus;
 
     private JLabel warrior, mage, healer,ranger;
-    OverWorld overWorld = new OverWorld();
+    OverWorldFrame overWorld = new OverWorldFrame();
 
     public Backstory() {
 
@@ -28,8 +27,8 @@ public class Backstory extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().setBackground(Color.darkGray);
         MusicPick.musicStart("theme","music");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //setUndecorated(true);
 
         importFont();
         importLabels();
@@ -49,7 +48,6 @@ public class Backstory extends JFrame {
 
         //ActionListeners
         startButton.addActionListener(e -> dispose());
-        startButton.addActionListener(e -> overWorld.start());
 
 
         setVisible(true);
@@ -88,7 +86,6 @@ public class Backstory extends JFrame {
     }
 
     public void importButton(){
-
         startButton = new JButton("Save the world");
         startButton.setSize(300, 100);
         startButton.setLocation(500, 600);

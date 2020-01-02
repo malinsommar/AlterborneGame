@@ -1,6 +1,5 @@
 package game;
 
-import davidtest.overworld.hub.OverWorld;
 import party.Healer;
 import party.Mage;
 import party.Ranger;
@@ -32,8 +31,8 @@ public class LootScreen extends JFrame {
 
     private boolean showEquipButton = false;
 
-    
-    public LootScreen(int fight, OverWorld owThread){
+
+    public LootScreen(int fight){
 
         super("Loot Screen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,7 +58,6 @@ public class LootScreen extends JFrame {
         textDelayTimer.start();
 
         //ActionListeners
-        continueButton.addActionListener(e -> owThread.notify());
         continueButton.addActionListener(e -> dispose());
 
         equipButton.addActionListener(e->equipLoot());

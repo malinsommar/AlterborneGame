@@ -39,8 +39,7 @@ public class LootModel {
     private int[] armorDamage= new int[6];
 
 
-    public void startController(){
-
+    public void startLootController(){
         getEquipment();
         lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
         int forestfight = 1;

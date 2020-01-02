@@ -2,19 +2,11 @@ package davidtest.overworld.entities;
 
 
 import davidtest.overworld.gfx.Fonts;
-import davidtest.overworld.hub.OverWorld;
 import davidtest.overworld.levels.Level;
 import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Screen;
-import davidtest.overworld.hub.InputHandler;
-import davidtest.overworld.levels.tiles.PathTile;
-import fight.ForestFight;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.FileOutputStream;
-import java.sql.Time;
-import java.util.Random;
+import davidtest.overworld.map.Functionality.InputHandler;
+import davidtest.overworld.map.Functionality.RandomEncounter;
 
 public class Player extends Mob {
 
@@ -23,7 +15,7 @@ public class Player extends Mob {
     private int scale = 1; //assign size to character
     protected boolean isSwimming = false; //assign the isSwimming value as natively false
     protected boolean isSwampSwimming = false;
-    protected boolean isOnForestPath = false;
+    public boolean isOnForestPath = false; // if player is on tile to enter forest-combat
     private int tickCount = 0; //counts the ticks since the last update
     private String username;
 
@@ -82,7 +74,11 @@ public class Player extends Mob {
             }
 
             if (level1.getTile( this.x + x >> 4,this.y >> 3).getId() ==5) {
-                isOnForestPath = true;
+                RandomEncounter randomEncounter = new RandomEncounter();
+                if (randomEncounter.randomNr == 1) {
+                    System.out.println(randomEncounter.randomNr);
+                    isOnForestPath = true;
+                }
             }
             else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() !=5) {
                 isOnForestPath = false;
@@ -148,10 +144,9 @@ public class Player extends Mob {
             Fonts.render(username,screen, xOffset - ((username.length() - 1) / 2 * 8),yOffset - 10, Colours.get(-1,-1,-1,555), 1);
         }
     }
+
     public boolean hasEnteredForest() {
-        {
-            return isOnForestPath;
-        }
+                return isOnForestPath;
     }
 
     @Override

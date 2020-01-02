@@ -1,4 +1,6 @@
-package davidtest.overworld.hub;
+package davidtest.overworld.map.Functionality;
+
+import davidtest.overworld.map.OverWorldFrame;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -7,13 +9,13 @@ import java.util.List;
 
 public class InputHandler implements KeyListener {
 
-    public InputHandler(OverWorld game) {
+    public InputHandler(OverWorldFrame game) {
         game.addKeyListener(this); //calls the InputHandler whenever a key is pressed
     }
 
-    public class Key {
+    public static class Key {
         private int numTimesPressed = 0; //total times inputs pressed
-        public boolean pressed = false; //sets default value of "pressed" to false
+        boolean pressed = false; //sets default value of "pressed" to false
 
         public int getNumTimesPressed() {
             return numTimesPressed;
@@ -55,7 +57,7 @@ public class InputHandler implements KeyListener {
     }
 
     public void toggleKey(int keyCode, boolean isPressed) {
-        //assign the key-objects with a key
+        //assign the key-objects with a keyboard-key
         if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
             up.toggle((isPressed));
         }

@@ -9,7 +9,7 @@ public class HubFrames extends JPanel {
 
     public JFrame hubJFrame = new JFrame();
     public JPanel hubPanel = new JPanel();
-    public JPanel backstoryPanel = new JPanel();
+    public JPanel BackStoryPanel = new JPanel();
 
 
     private ImageIcon background = new ImageIcon("backgroundMountain.png");
@@ -31,13 +31,13 @@ public class HubFrames extends JPanel {
         hubPanel.setLayout(null);
         hubPanel.setBackground(Color.black);
 
-        backstoryPanel.setBounds(0,0,1920, 1080);
-        backstoryPanel.setLayout(null);
-        backstoryPanel.setBackground(Color.darkGray);
+        BackStoryPanel.setBounds(0,0,1920, 1080);
+        BackStoryPanel.setLayout(null);
+        BackStoryPanel.setBackground(Color.darkGray);
 
         MusicPick.musicStart("mainmenu","music");
 
-        ImageIcon icon = new ImageIcon("bakgrundMountain.png");
+        ImageIcon icon = new ImageIcon("/bakgrundMountain.png");
         JLabel backgroundImage = new JLabel();
         backgroundImage.setIcon(icon);
         backgroundImage.setBounds(1,-200,1920,1080);
@@ -56,16 +56,16 @@ public class HubFrames extends JPanel {
         hubPanel.add(image);
         hubJFrame.add(hubPanel);
 
-        backstoryPanel.add(warrior);
-        backstoryPanel.add(ranger);
-        backstoryPanel.add(mage);
-        backstoryPanel.add(healer);
-        backstoryPanel.add(startButton);
-        backstoryPanel.add(backStory);
-        backstoryPanel.add(backStory2);
-        backstoryPanel.add(backStory3);
-        backstoryPanel.add(backStory4);
-        backstoryPanel.add(yourParty);
+        BackStoryPanel.add(warrior);
+        BackStoryPanel.add(ranger);
+        BackStoryPanel.add(mage);
+        BackStoryPanel.add(healer);
+        BackStoryPanel.add(startButton);
+        BackStoryPanel.add(backStory);
+        BackStoryPanel.add(backStory2);
+        BackStoryPanel.add(backStory3);
+        BackStoryPanel.add(backStory4);
+        BackStoryPanel.add(yourParty);
 
         hubJFrame.setVisible(true);
     }
@@ -74,7 +74,7 @@ public class HubFrames extends JPanel {
     private void importHubButtonsLabels(){
 
         //Title of game
-        gameName = new JLabel("Alterborne");
+        gameName = new JLabel("AlterBorne");
         gameName.setForeground(Color.white);
         gameName.setFont((pixelMplus.deriveFont(100f)));
         Dimension size = gameName.getPreferredSize();

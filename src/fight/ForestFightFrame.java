@@ -55,6 +55,8 @@ public class ForestFightFrame {
     public JLabel groupHeal3 = new JLabel(new ImageIcon("heartsgif2.gif"));
     public JLabel groupHeal4 = new JLabel(new ImageIcon("heartsgif2.gif"));
 
+    int target = 1; //ta bort
+
 
     public void forestFightFrame(){
 
@@ -75,6 +77,7 @@ public class ForestFightFrame {
         importWolfGif();
         spellMenuStartup();
         animationStuff();
+        targetsystem();
 
         forestFightJFrame.add(energy);
         forestFightJFrame.add(block);
@@ -706,5 +709,56 @@ public class ForestFightFrame {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));
         } catch (IOException | FontFormatException ignored) {
         }
+    }
+
+
+
+
+
+
+    public void targetsystem(){
+
+        //pilen ska försvinna när vargen dör
+
+        JLabel targetarrow = new JLabel(new ImageIcon("targetarrow.png"));
+        Dimension targetarrowSize = targetarrow.getPreferredSize();
+        targetarrow.setSize(targetarrowSize.width, targetarrowSize.height);
+        targetarrow.setLocation(200, 500);
+        forestFightJFrame.add(targetarrow);
+        targetarrow.setVisible(false);
+
+        //lägger till action listener
+        wolf1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                target = 1;
+                targetarrow.setLocation(875, 250);
+                targetarrow.setVisible(true);
+            }
+        });
+        wolf2.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                target = 2;
+                targetarrow.setLocation(1065, 250);
+                targetarrow.setVisible(true);
+            }
+        });
+        wolf3.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                target = 3;
+                targetarrow.setLocation(925, 325);
+                targetarrow.setVisible(true);
+            }
+        });
+        wolf4.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                target = 4;
+                targetarrow.setLocation(1100, 325);
+                targetarrow.setVisible(true);
+            }
+        });
     }
 }
