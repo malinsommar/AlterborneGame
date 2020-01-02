@@ -15,7 +15,7 @@ public class MasterModel {
         ch.test();
 
         if(ch.choice[0]==1){
-            fm.startForestFight();
+            overworld.start();
         }
         if (ch.choice[0]==3){
             System.exit(0);

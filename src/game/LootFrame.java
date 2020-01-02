@@ -12,8 +12,8 @@ public class LootFrame {
 
     private Font pixelMplus;
 
-    private JButton continueButton,equipButton;
-    private JLabel vicTitle, item, xp, gold, currentEquipment, currentEquipmentStats, currentEquipmentName, newEquipment, newEquipmentStats, newEquipmentName;
+    public JButton continueButton,equipButton;
+    public JLabel vicTitle, item, xp, gold, currentEquipment, currentEquipmentStats, currentEquipmentName, newEquipment, newEquipmentStats, newEquipmentName;
 
     public void lootScreenFrame(){
 
@@ -35,7 +35,7 @@ public class LootFrame {
     }
 
     //Set text in labels to " " when they are not supposed to show.
-    private void hideLabels(){
+    void hideLabels(){
         currentEquipment = new JLabel(" ");
         currentEquipmentName = new JLabel(" ");
         currentEquipmentStats = new JLabel(" ");

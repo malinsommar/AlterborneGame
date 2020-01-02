@@ -24,24 +24,27 @@ public class LootModel {
     private int[] weaponDamage = new int[4];
     private int[] armorBlock = new int[4];
 
+    //1=mage, 2=healer.
+    private int[] currentArmorDamage = new int[6];
+
     //1 2 = warrior, 3 4 = mage, 5 6 = ranger, 7 8 = healer.
     private String[] rareWeaponArmorNames = new String[8];
     private String[] epicWeaponArmorNames = new String[8];
     private String[] legendaryWeaponArmorNames = new String[8];
 
-    //1 2 3 = warrior, 4 5 6 7 8 9 = mage, 10 11 12 = ranger, 13 14 15 16 17 18 = healer.
+    //1 2 3 = warrior, 4 5 6 = mage, 7 8 9 = ranger, 10 11 12= healer.
     private int[] rareWeaponArmorDamageBlock = new int[18];
     private int[] epicWeaponArmorDamageBlock = new int[18];
     private int[] legendaryWeaponArmorDamageBlock = new int[18];
+    private int[] armorDamage= new int[6];
 
-    //1=mage, 2=healer.
-    private int[] armorDamage = new int[2];
 
     public void startController(){
 
         getEquipment();
-        lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, armorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock);
-        lc.startLootScreen();
+        lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
+        int forestfight = 1;
+        lc.startLootScreen(forestfight); //for now, ska vara vilken fight från overworld
     }
 
     private void getEquipment(){
@@ -60,8 +63,9 @@ public class LootModel {
         armorBlock[2] = r.currentArmorBlock;
         armorBlock[3] = h.currentArmorBlock;
 
-        armorDamage[0] = m.currentArmorDamage;
-        armorDamage[1] = h.currentArmorDamage;
+        currentArmorDamage[0] = m.currentArmorDamage;
+        currentArmorDamage[1] = h.currentArmorDamage;
+
 
         weaponDamage[0] = w.currentWeaponDamage;
         weaponDamage[1] = m.currentWeaponDamage;
@@ -121,5 +125,12 @@ public class LootModel {
         legendaryWeaponArmorDamageBlock[5] = r.rangerLegendaryArmorBlock;
         legendaryWeaponArmorDamageBlock[6] = h.healerLegendaryWeaponDamage;
         legendaryWeaponArmorDamageBlock[7] = h.healerLegendaryArmorBlock;
+
+        armorDamage[0] = m.mageRareArmorDamage;
+        armorDamage[1] = m.mageEpicArmorDamage;
+        armorDamage[2] = m.mageLegendaryArmorDamage;
+        armorDamage[3] = h.healerRareArmorDamage;
+        armorDamage[4] = h.healerEpicArmorDamage;
+        armorDamage[5] = h.healerLegendaryArmorDamage;
     }
 }

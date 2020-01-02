@@ -1,19 +1,28 @@
 package game;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class LootController {
 
     LootFrame lf = new LootFrame();
 
-    private int textDelay = 0, whatLoot, xp, gold;
+    private int textDelay = 0, whatLoot, xpInt, goldInt;
 
     private String warriorWeaponName, mageWeaponName, rangerWeaponName, healerWeaponName;
     private String warriorArmorName, mageArmorName,rangerArmorName, healerArmorName;
+
+    private int warriorWeaponDamage, mageWeaponDamage, rangerWeaponDamage, healerWeaponDamage;
+    private int warriorArmorBlock, mageArmorBlock, rangerArmorBlock, healerArmorBlock;
+    private int mageArmorDamage, healerArmorDamage;
 
     private String warriorRareWeaponName, mageRareWeaponName, rangerRareWeaponName, healerRareWeaponName;
     private String warriorEpicWeaponName, mageEpicWeaponName, rangerEpicWeaponName, healerEpicWeaponName;
     private String warriorLegendaryWeaponName, mageLegendaryWeaponName, rangerLegendaryWeaponName, healerLegendaryWeaponName;
     private String warriorRareArmorName, mageRareArmorName, rangerRareArmorName, healerRareArmorName;
-    private String warriorEpicArmorName, mageEpicAmorName, rangerEpicArmorName, healerEpicArmorName;
+    private String warriorEpicArmorName, mageEpicArmorName, rangerEpicArmorName, healerEpicArmorName;
     private String warriorLegendaryArmorName, mageLegendaryArmorName, rangerLegendaryArmorName, healerLegendaryArmorName;
 
     private int warriorRareWeaponDamage, mageRareWeaponDamage, rangerRareWeaponDamage, healerRareWeaponDamage;
@@ -24,24 +33,24 @@ public class LootController {
     private int warriorLegendaryArmorBlock, mageLegendaryArmorBlock, rangerLegendaryArmorBlock, healerLegendaryArmorBlock;
     private int mageRareArmorDamage, mageEpicArmorDamage, mageLegendaryArmorDamage, healerRareArmorDamage, healerEpicArmorDamage, healerLegendaryArmorDamage;
 
-
-
-    private int warriorWeaponDamage, mageWeaponDamage, rangerWeaponDamage, healerWeaponDamage;
-    private int warriorArmorBlock, mageArmorBlock, rangerArmorBlock, healerArmorBlock;
-    private int mageArmorDamage, healerArmorDamage;
-
     private boolean showEquipButton = false;
 
 
-    public void startLootScreen(){
+    public void startLootScreen(int fight){
 
         lf.lootScreenFrame();
+        hover();
+        generateLoot(fight);
+
+        lf.equipButton.addActionListener(e-> equipLoot());
+
     }
 
-    public void getInfo(int getGold, int getXp, String[] armorNames, String[] weaponNames, int[] weaponDamage, int[] armorDamage, int[] armorBlock, String[] rareWeaponArmorNames, String[] epicWeaponArmorNames, String[] legendaryWeaponArmorNames, int[] rareWeaponArmorDamageBlock, int[] epicWeaponArmorDamageBlock, int[] legendaryWeaponArmorDamageBlock){
+    //Method that gets info from model about gold, xp, weapons, armor etc.
+    public void getInfo(int getGold, int getXp, String[] armorNames, String[] weaponNames, int[] weaponDamage, int[] currentArmorDamage, int[] armorBlock, String[] rareWeaponArmorNames, String[] epicWeaponArmorNames, String[] legendaryWeaponArmorNames, int[] rareWeaponArmorDamageBlock, int[] epicWeaponArmorDamageBlock, int[] legendaryWeaponArmorDamageBlock, int[] armorDamage){
 
-        gold = getGold;
-        xp = getXp;
+        goldInt = getGold;
+        xpInt = getXp;
 
         warriorArmorName = armorNames[0];
         mageArmorName = armorNames[1];
@@ -63,236 +72,676 @@ public class LootController {
         rangerArmorBlock = armorBlock[2];
         healerArmorBlock = armorBlock[3];
 
-        mageArmorDamage = armorDamage[0];
-        healerArmorDamage = armorDamage[1];
+        mageArmorDamage = currentArmorDamage[0];
+        healerArmorDamage = currentArmorDamage[1];
 
+        warriorRareWeaponName = rareWeaponArmorNames[0];
+        warriorRareArmorName = rareWeaponArmorNames[1];
+        mageRareWeaponName = rareWeaponArmorNames[2];
+        mageRareArmorName = rareWeaponArmorNames[3];
+        rangerRareWeaponName = rareWeaponArmorNames[4];
+        rangerRareArmorName = rareWeaponArmorNames[5];
+        healerRareWeaponName = rareWeaponArmorNames[6];
+        healerRareArmorName = rareWeaponArmorNames[7];
 
+        warriorEpicWeaponName = epicWeaponArmorNames[0];
+        warriorEpicArmorName = epicWeaponArmorNames[1];
+        mageEpicWeaponName = epicWeaponArmorNames[2];
+        mageEpicArmorName = epicWeaponArmorNames[3];
+        rangerEpicWeaponName = epicWeaponArmorNames[4];
+        rangerEpicArmorName = epicWeaponArmorNames[5];
+        healerEpicWeaponName = epicWeaponArmorNames[6];
+        healerEpicArmorName = epicWeaponArmorNames[7];
 
+        warriorLegendaryWeaponName = legendaryWeaponArmorNames[0];
+        warriorLegendaryArmorName = legendaryWeaponArmorNames[1];
+        mageLegendaryWeaponName = legendaryWeaponArmorNames[2];
+        mageLegendaryArmorName = legendaryWeaponArmorNames[3];
+        rangerLegendaryWeaponName = legendaryWeaponArmorNames[4];
+        rangerLegendaryArmorName = legendaryWeaponArmorNames[5];
+        healerLegendaryWeaponName = legendaryWeaponArmorNames[6];
+        healerLegendaryArmorName = legendaryWeaponArmorNames[7];
 
+        warriorRareWeaponDamage = rareWeaponArmorDamageBlock[0];
+        warriorRareArmorBlock = rareWeaponArmorDamageBlock[1];
+        mageRareWeaponDamage = rareWeaponArmorDamageBlock[2];
+        mageRareArmorBlock = rareWeaponArmorDamageBlock[3];
+        rangerRareWeaponDamage = rareWeaponArmorDamageBlock[4];
+        rangerRareArmorBlock = rareWeaponArmorDamageBlock[5];
+        healerRareWeaponDamage = rareWeaponArmorDamageBlock[6];
+        healerRareArmorBlock = rareWeaponArmorDamageBlock[7];
 
+        warriorEpicWeaponDamage = epicWeaponArmorDamageBlock[0];
+        warriorEpicArmorBlock = epicWeaponArmorDamageBlock[1];
+        mageEpicWeaponDamage = epicWeaponArmorDamageBlock[2];
+        mageEpicArmorBlock = epicWeaponArmorDamageBlock[3];
+        rangerEpicWeaponDamage = epicWeaponArmorDamageBlock[4];
+        rangerEpicArmorBlock = epicWeaponArmorDamageBlock[5];
+        healerEpicWeaponDamage = epicWeaponArmorDamageBlock[6];
+        healerEpicArmorBlock = epicWeaponArmorDamageBlock[7];
 
+        warriorLegendaryWeaponDamage = legendaryWeaponArmorDamageBlock[0];
+        warriorLegendaryArmorBlock = legendaryWeaponArmorDamageBlock[1];
+        mageLegendaryWeaponDamage = legendaryWeaponArmorDamageBlock[2];
+        mageLegendaryArmorBlock = legendaryWeaponArmorDamageBlock[3];
+        rangerLegendaryWeaponDamage = legendaryWeaponArmorDamageBlock[4];
+        rangerLegendaryArmorBlock = legendaryWeaponArmorDamageBlock[5];
+        healerLegendaryWeaponDamage = legendaryWeaponArmorDamageBlock[6];
+        healerLegendaryArmorBlock = legendaryWeaponArmorDamageBlock[7];
+
+        mageRareArmorDamage = armorDamage[0];
+        mageEpicArmorDamage = armorDamage[1];
+        mageLegendaryArmorDamage = armorDamage[2];
+        healerRareArmorDamage = armorDamage[3];
+        healerEpicArmorDamage = armorDamage[4];
+        healerLegendaryArmorDamage = armorDamage[5];
     }
 
-}
-
-    /*
     //Generate what weapon/armor/potion player get from fight. The odds differ depending what fight player came from which the parameter int keeps track of.
     private void generateLoot(int fight){
-        int ranLoot = (int) (Math.random() * 110) + 1;
+        int ranLoot = (int) (Math.random() * 10);
+        int ran = (int)(Math.random()*2)+1;
 
+        //If player comes from forestFight.
         if(fight==1){
             int xpUp = (int)(Math.random()*7)+10;
-            int xpBefore = lu.xp;
-            lu.xp += xpUp;
-            xp = new JLabel("Xp: "+xpBefore+" --> "+lu.xp);
+            int xpBefore = xpInt;
+            xpInt += xpUp;
+            lf.xp = new JLabel("Xp: "+xpBefore+" --> "+lf.xp);
 
+            int newGold = (int) (Math.random() * 10) + 10;
+            lf.gold = new JLabel("Gold: "+newGold);
+            goldInt += newGold;
 
-            int intGold = (int) (Math.random() * 20) + 15;
-            gold = new JLabel("Gold: "+intGold);
-            i.gold += intGold;
-
-            //Random number 1-29
-            if (ranLoot >1 && ranLoot <30){
-                item = new JLabel("     No items found.");
-                hideLabels();
+            if ( ranLoot == 0 || ranLoot == 1){
+                lf.item = new JLabel("     No items found.");
+                lf.hideLabels();
             }
-            //Random number 30-39. Warrior rare loot.
-            else if(ranLoot >29 && ranLoot <40){
-                int ran = (int)(Math.random()*2)+1;
+
+            else if(ranLoot == 2){
                 if (ran==1){
-                    currentEquipment = new JLabel("Current Armor:");
-                    currentEquipmentName = new JLabel(w.currentArmorName);
-                    currentEquipmentStats = new JLabel("Block: "+w.currentArmorBlock);
-
-                    newEquipment = new JLabel("New Armor:");
-                    newEquipmentName = new JLabel("Shiny Armor");
-                    newEquipmentStats = new JLabel("Block: 6");
-
-                    item = new JLabel("Warrior found: Shiny Armor");
-                    item.setForeground(Color.blue);
-                    whatLoot = 1;
-                    showEquipButton = true;
+                    getRareWarriorArmor();
                 }
                 if (ran==2){
-                    currentEquipment = new JLabel("Current Weapon:");
-                    currentEquipmentName = new JLabel(w.currentWeaponName);
-                    currentEquipmentStats = new JLabel("Damage: "+w.currentWeaponDamage);
-
-                    newEquipment = new JLabel("New Weapon:");
-                    newEquipmentName = new JLabel("Iron sword");
-                    newEquipmentStats = new JLabel("Damage: 8");
-
-                    item = new JLabel("Warrior found: Iron sword");
-                    item.setForeground(Color.blue);
-                    whatLoot = 2;
-                    showEquipButton = true;
+                   getRareWarriorWeapon();
                 }
             }
-            //Random number 40-49, Ranger rare loot.
-            else if(ranLoot >39 && ranLoot <50){
-                int ran = (int)(Math.random()*2)+1;
+            else if(ranLoot == 3){
                 if (ran==1){
-                    currentEquipment = new JLabel("Current Armor:");
-                    currentEquipmentName = new JLabel(r.currentArmorName);
-                    currentEquipmentStats = new JLabel("Block: "+r.currentArmorBlock);
-
-                    newEquipment = new JLabel("New Armor:");
-                    newEquipmentName = new JLabel("Fine leather armor");
-                    newEquipmentStats = new JLabel("Block: 5");
-
-                    item = new JLabel("Ranger found: Fine leather armor");
-                    item.setForeground(Color.blue);
-                    whatLoot = 3;
-                    showEquipButton = true;
+                   getRareRangerArmor();
                 }
                 if (ran==2){
-                    currentEquipment = new JLabel("Current Weapon:");
-                    currentEquipmentName = new JLabel(r.currentWeaponName);
-                    currentEquipmentStats = new JLabel("Damage: "+r.currentWeaponDamage);
-
-                    newEquipment = new JLabel("New Weapon:");
-                    newEquipmentName = new JLabel("Elven Bow");
-                    newEquipmentStats = new JLabel("Damage: 8");
-
-                    item = new JLabel("Ranger found: Elven bow");
-                    item.setForeground(Color.blue);
-                    whatLoot = 4;
-                    showEquipButton = true;
+                    getRareRangerWeapon();
                 }
             }
-            //Random number 50-59, Mage rare loot.
-            else if(ranLoot >49 && ranLoot <60){
-                int ran = (int)(Math.random()*2)+1;
+            else if(ranLoot == 4){
                 if (ran==1){
-                    currentEquipment = new JLabel("Current Armor:");
-                    currentEquipmentName = new JLabel(m.currentArmorName);
-                    currentEquipmentStats = new JLabel("Block: "+m.currentArmorBlock+"Str: "+m.currentArmorDamage);
-
-                    newEquipment = new JLabel("New Armor:");
-                    newEquipmentName = new JLabel("Mooncloth robe");
-                    newEquipmentStats = new JLabel("Block: 2, Str: 4");
-
-                    item = new JLabel("Mage found: Mooncloth robe");
-                    item.setForeground(Color.blue);
-                    whatLoot = 5;
-                    showEquipButton = true;
+                    getRareMageArmor();
                 }
                 if (ran==2){
-                    currentEquipment = new JLabel("Current Weapon:");
-                    currentEquipmentName = new JLabel(m.currentWeaponName);
-                    currentEquipmentStats = new JLabel("Damage: "+m.currentWeaponDamage);
-
-                    newEquipment = new JLabel("New Weapon:");
-                    newEquipmentName = new JLabel("Ivory fire wand");
-                    newEquipmentStats = new JLabel("Damage: 7");
-
-                    item = new JLabel("Mage found: Ivory fire wand");
-                    item.setForeground(Color.blue);
-                    whatLoot = 6;
-                    showEquipButton = true;
+                   getRareMageWeapon();
                 }
             }
-            //Random number 60-69, Healer rare loot.
-            else if(ranLoot >59 && ranLoot <70){
-                int ran = (int)(Math.random()*2)+1;
+            else if(ranLoot == 5){
                 if (ran==1){
-                    currentEquipment = new JLabel("Current Armor:");
-                    currentEquipmentName = new JLabel(m.currentArmorName);
-                    currentEquipmentStats = new JLabel("Block: "+m.currentArmorBlock);
-
-                    newEquipment = new JLabel("New Armor:");
-                    newEquipmentName = new JLabel("Priests robe");
-                    newEquipmentStats = new JLabel("Block: 2, Str: 3");
-
-                    item = new JLabel("Healer found: Priests robe");
-                    item.setForeground(Color.blue);
-                    whatLoot = 7;
-                    showEquipButton = true;
+                    getRareHealerArmor();
                 }
                 if (ran==2){
-                    currentEquipment = new JLabel("Current Weapon:");
-                    currentEquipmentName = new JLabel(m.currentWeaponName);
-                    currentEquipmentStats = new JLabel("Damage: "+m.currentWeaponDamage);
-
-                    newEquipment = new JLabel("New Weapon:");
-                    newEquipmentName = new JLabel("Stick of truth");
-                    newEquipmentStats = new JLabel("Damage: 7");
-
-                    item = new JLabel("Healer found: Stick of truth");
-                    item.setForeground(Color.blue);
-                    whatLoot = 8;
-                    showEquipButton = true;
+                    getRareHealerWeapon();
                 }
             }
-            //Random number 70-79, Get minor heal potion.
-            else if(ranLoot >69 && ranLoot <80){
-                i.ownedMinorHealingPotion++;
-                item = new JLabel("Found a minor healing potion.");
-                hideLabels();
+            else if(ranLoot == 6){
+                getMinorHealingPotion();
             }
-            //Random number 80-89, Get minor strength potion.
-            else if(ranLoot >79 && ranLoot <90){
-                i.ownedMinorStrengthPotion++;
-                item = new JLabel("Found a minor strength potion.");
-                hideLabels();
+            else if(ranLoot == 7){
+               getMinorStrengthPotion();
             }
-            //Random number 90-99, Get minor energy potion.
-            else if(ranLoot >89 && ranLoot <100){
-                i.ownedMinorEnergyPotion++;
-                item = new JLabel("Found a minor energy potion.");
-                hideLabels();
+            else if(ranLoot == 8){
+               getMinorEnergyPotion();
             }
-            //Random number 100-110, Get minor block potion.
-            else if(ranLoot >99 && ranLoot <111){
-                //minor block
-                i.ownedMinorBlockPotion++;
-                item = new JLabel("Found a minor block potion.");
-                hideLabels();
+            else if(ranLoot == 9){
+                getMinorBlockPotion();
             }
         }
+        else if (fight == 2){
+            //cave fight
+        }
     }
+
+    private void getRareWarriorArmor(){
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(warriorArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+warriorArmorBlock);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(warriorRareArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+warriorRareArmorBlock);
+
+        lf.item = new JLabel("Warrior found: "+warriorRareArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 1;
+        showEquipButton = true;
+    }
+    private void getEpicWarriorArmor(){
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(warriorArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+warriorArmorBlock);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(warriorEpicArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+warriorEpicArmorBlock);
+
+        lf.item = new JLabel("Warrior found: "+warriorEpicArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 2;
+        showEquipButton = true;
+    }
+    private void getLegendaryWarriorArmor(){
+
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(warriorArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+warriorArmorBlock);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(warriorLegendaryArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+warriorLegendaryArmorBlock);
+
+        lf.item = new JLabel("Warrior found: "+warriorLegendaryArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 3;
+        showEquipButton = true;
+    }
+    private void getRareWarriorWeapon(){
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(warriorWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+warriorWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(warriorRareWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+warriorRareWeaponDamage);
+
+        lf.item = new JLabel("Warrior found: "+warriorRareWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 4;
+        showEquipButton = true;
+    }
+    private void getEpicWarriorWeapon(){
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(warriorWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+warriorWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(warriorEpicWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+warriorEpicWeaponDamage);
+
+        lf.item = new JLabel("Warrior found: "+warriorEpicWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 5;
+        showEquipButton = true;
+    }
+    private void getLegendaryWarriorWeapon(){
+
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(warriorWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+warriorWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(warriorLegendaryWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+warriorLegendaryWeaponDamage);
+
+        lf.item = new JLabel("Warrior found: "+warriorLegendaryWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 6;
+        showEquipButton = true;
+    }
+
+    private void getRareMageArmor(){
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(mageArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+mageArmorBlock+"Str: "+mageArmorDamage);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(mageRareArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+mageRareArmorBlock+", Str: "+mageRareArmorDamage);
+
+        lf.item = new JLabel("Mage found: "+mageRareArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 7;
+        showEquipButton = true;
+    }
+    private void getEpicMageArmor(){
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(mageArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+mageArmorBlock+"Str: "+mageArmorDamage);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(mageEpicArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+mageEpicArmorBlock+", Str: "+mageEpicArmorDamage);
+
+        lf.item = new JLabel("Mage found: "+mageEpicArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 8;
+        showEquipButton = true;
+    }
+    private void getLegendaryMageArmor(){
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(mageArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+mageArmorBlock+"Str: "+mageArmorDamage);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(mageRareArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+mageLegendaryArmorBlock+", Str: "+mageLegendaryArmorDamage);
+
+        lf.item = new JLabel("Mage found: "+mageLegendaryArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 9;
+        showEquipButton = true;
+    }
+    private void getRareMageWeapon(){
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(mageWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+mageWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(mageRareWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+mageRareWeaponDamage);
+
+        lf.item = new JLabel("Mage found: "+mageRareWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 10;
+        showEquipButton = true;
+    }
+    private void getEpicMageWeapon(){
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(mageWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+mageWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(mageEpicWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+mageEpicWeaponDamage);
+
+        lf.item = new JLabel("Mage found: "+mageEpicWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 11;
+        showEquipButton = true;
+    }
+    private void getLegendaryMageWeapon(){
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(mageWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+mageWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(mageLegendaryWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+mageLegendaryWeaponDamage);
+
+        lf.item = new JLabel("Mage found: "+mageLegendaryWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 12;
+        showEquipButton = true;
+    }
+
+    private void getRareRangerArmor(){
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(rangerArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+rangerArmorBlock);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(rangerRareArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+rangerRareArmorBlock);
+
+        lf.item = new JLabel(rangerRareArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 13;
+        showEquipButton = true;
+    }
+    private void getEpicRangerArmor(){
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(rangerArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+rangerArmorBlock);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(rangerEpicArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+rangerEpicArmorBlock);
+
+        lf.item = new JLabel(rangerEpicArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 14;
+        showEquipButton = true;
+    }
+    private void getLegendaryRangerArmor(){
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(rangerArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+rangerArmorBlock);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(rangerLegendaryArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+rangerLegendaryArmorBlock);
+
+        lf.item = new JLabel(rangerLegendaryArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 15;
+        showEquipButton = true;
+    }
+    private void getRareRangerWeapon(){
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(rangerWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+rangerWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(rangerRareWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+rangerRareWeaponDamage);
+
+        lf.item = new JLabel("Ranger found: "+rangerRareWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 16;
+        showEquipButton = true;
+    }
+    private void getEpicRangerWeapon(){
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(rangerWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+rangerWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(rangerEpicWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+rangerEpicWeaponDamage);
+
+        lf.item = new JLabel("Ranger found: "+rangerEpicWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 17;
+        showEquipButton = true;
+    }
+    private void getLegendaryRangerWeapon(){
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(rangerWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+rangerWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(rangerLegendaryWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+rangerLegendaryWeaponDamage);
+
+        lf.item = new JLabel("Ranger found: "+rangerLegendaryWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 18;
+        showEquipButton = true;
+    }
+
+    private void getRareHealerArmor(){
+
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(healerArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+healerArmorBlock+", Str: "+healerArmorDamage);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(healerRareArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+healerRareArmorBlock+", Str: "+healerRareArmorDamage);
+
+
+        lf.item = new JLabel("Healer found: "+healerRareArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 19;
+        showEquipButton = true;
+    }
+    private void getEpicHealerArmor(){
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(healerArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+healerArmorBlock+", Str: "+healerArmorDamage);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(healerEpicArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+healerEpicArmorBlock+", Str: "+healerEpicArmorDamage);
+
+
+        lf.item = new JLabel("Healer found: "+healerEpicArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 20;
+        showEquipButton = true;
+    }
+    private void getLegendaryHealerArmor(){
+        lf.currentEquipment = new JLabel("Current Armor:");
+        lf.currentEquipmentName = new JLabel(healerArmorName);
+        lf.currentEquipmentStats = new JLabel("Block: "+healerArmorBlock+", Str: "+healerArmorDamage);
+
+        lf.newEquipment = new JLabel("New Armor:");
+        lf.newEquipmentName = new JLabel(healerLegendaryArmorName);
+        lf.newEquipmentStats = new JLabel("Block: "+healerLegendaryArmorBlock+", Str: "+healerLegendaryArmorDamage);
+
+
+        lf.item = new JLabel("Healer found: "+healerLegendaryArmorName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 21;
+        showEquipButton = true;
+    }
+    private void getRareHealerWeapon(){
+
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(healerWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+healerWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(healerRareWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+healerRareArmorDamage);
+
+        lf.item = new JLabel("Healer found: "+healerRareWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 22;
+        showEquipButton = true;
+    }
+    private void getEpicHealerWeapon(){
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(healerWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+healerWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(healerEpicWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+healerEpicArmorDamage);
+
+        lf.item = new JLabel("Healer found: "+healerEpicWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 23;
+        showEquipButton = true;
+    }
+    private void getLegendaryHealerWeapon(){
+        lf.currentEquipment = new JLabel("Current Weapon:");
+        lf.currentEquipmentName = new JLabel(healerWeaponName);
+        lf.currentEquipmentStats = new JLabel("Damage: "+healerWeaponDamage);
+
+        lf.newEquipment = new JLabel("New Weapon:");
+        lf.newEquipmentName = new JLabel(healerLegendaryWeaponName);
+        lf.newEquipmentStats = new JLabel("Damage: "+healerLegendaryWeaponDamage);
+
+        lf.item = new JLabel("Healer found: "+healerLegendaryWeaponName);
+        lf.item.setForeground(Color.blue);
+        whatLoot = 24;
+        showEquipButton = true;
+    }
+
+
+
+    private void getMinorHealingPotion(){
+        //add potion
+        lf.item = new JLabel("Found a minor healing potion.");
+        lf.hideLabels();
+    }
+    private void getLesserHealingPotion(){
+        //add potion
+        lf.item = new JLabel("Found a lesser healing potion.");
+        lf.hideLabels();
+    }
+    private void getMajorHealingPotion(){
+        //add potion
+        lf.item = new JLabel("Found a major healing potion.");
+        lf.hideLabels();
+    }
+
+    private void getMinorEnergyPotion(){
+        //add potion
+        lf.item = new JLabel("Found a minor energy potion.");
+        lf.hideLabels();
+    }
+    private void getLesserEnergyPotion(){
+        //add potion
+        lf.item = new JLabel("Found a lesser energy potion.");
+        lf.hideLabels();
+    }
+    private void getMajorEnergyPotion(){
+        //add potion
+        lf.item = new JLabel("Found a major energy potion.");
+        lf.hideLabels();
+    }
+
+    private void getMinorStrengthPotion(){
+        //add potion
+        lf.item = new JLabel("Found a minor strength potion.");
+        lf.hideLabels();
+    }
+    private void getLesserStrengthPotion(){
+        //add potion
+        lf.item = new JLabel("Found a lesser strength potion.");
+        lf.hideLabels();
+    }
+    private void getMajorStrengthPotion(){
+        //add potion
+        lf.item = new JLabel("Found a major strength potion.");
+        lf.hideLabels();
+    }
+
+    private void getMinorBlockPotion(){
+        //add potion
+        lf.item = new JLabel("Found a minor block potion.");
+        lf.hideLabels();
+    }
+    private void getLesserBlockPotion(){
+        //add potion
+        lf.item = new JLabel("Found a lesser block potion.");
+        lf.hideLabels();
+    }
+    private void getMajorBlockPotion(){
+        //add potion
+        lf.item = new JLabel("Found a major block potion.");
+        lf.hideLabels();
+    }
+
+
+
 
     //Method is called when equipButton is pressed. Changes the party-members armor/weapon and updates currentWeapon labels.
     private void equipLoot(){
+        //Warrior
         if (whatLoot==1) {
-            w.warriorRareArmor();
-            currentEquipmentName.setText(w.currentArmorName);
-            currentEquipmentStats.setText("Block: "+w.currentArmorBlock);
+            //equip
+            lf.currentEquipmentName.setText(warriorRareArmorName);
+            lf.currentEquipmentStats.setText("Block: "+warriorRareArmorBlock);
         }
-        else if(whatLoot==2){
-            w.warriorRareWeapon();
-            currentEquipmentName.setText(w.currentWeaponName);
-            currentEquipmentStats.setText("Damage: "+w.currentWeaponDamage);
+        else if(whatLoot==2) {
+            lf.currentEquipmentName.setText(warriorEpicArmorName);
+            lf.currentEquipmentStats.setText("Block: "+warriorEpicArmorBlock);
         }
-        else if(whatLoot==3){
-            r.rangerRareArmor();
-            currentEquipmentName.setText(r.currentArmorName);
-            currentEquipmentStats.setText("Block: "+r.currentArmorBlock);
+        else if(whatLoot==3) {
+            lf.currentEquipmentName.setText(warriorLegendaryArmorName);
+            lf.currentEquipmentStats.setText("Block: "+warriorLegendaryArmorBlock);
         }
         else if(whatLoot==4){
-            r.rangerRareWeapon();
-            currentEquipmentName.setText(r.currentWeaponName);
-            currentEquipmentStats.setText("Damage: "+r.currentWeaponDamage);
+            //equip
+            lf.currentEquipmentName.setText(warriorRareWeaponName);
+            lf.currentEquipmentStats.setText("Damage: "+warriorRareWeaponDamage);
         }
         else if(whatLoot==5){
-            m.mageRareArmor();
-            currentEquipmentName.setText(m.currentArmorName);
-            currentEquipmentStats.setText("Block: "+m.currentArmorBlock+"Str: "+m.currentArmorDamage);
+            //equip
+            lf.currentEquipmentName.setText(warriorEpicWeaponName);
+            lf.currentEquipmentStats.setText("Damage: "+warriorEpicWeaponDamage);
         }
         else if(whatLoot==6){
-            m.mageRareWeapon();
-            currentEquipmentName.setText(m.currentWeaponName);
-            currentEquipmentStats.setText("Damage: "+m.currentWeaponDamage);
+            //equip
+            lf.currentEquipmentName.setText(warriorLegendaryWeaponName);
+            lf.currentEquipmentStats.setText("Damage: "+warriorLegendaryWeaponDamage);
         }
+        //Mage
         else if(whatLoot==7){
-            h.healerRareArmor();
-            currentEquipmentName.setText(m.currentWeaponName);
-            currentEquipmentStats.setText("Block: "+h.currentArmorBlock+"Str: "+h.currentArmorDamage);
+            //equip
+            lf.currentEquipmentName.setText(mageRareArmorName);
+            lf.currentEquipmentStats.setText("Block: "+mageRareArmorBlock+"Str: "+mageRareArmorDamage);
         }
         else if(whatLoot==8){
-            h.healerRareWeapon();
-            currentEquipmentName.setText(h.currentWeaponName);
-            currentEquipmentStats.setText("Damage: "+m.currentWeaponDamage);
+            //equip
+            lf.currentEquipmentName.setText(mageEpicArmorName);
+            lf.currentEquipmentStats.setText("Block: "+mageEpicArmorBlock+"Str: "+mageEpicArmorDamage);
+        }
+        else if(whatLoot==9){
+            //equip
+            lf.currentEquipmentName.setText(mageLegendaryArmorName);
+            lf.currentEquipmentStats.setText("Block: "+mageLegendaryArmorBlock+"Str: "+mageLegendaryArmorDamage);
+        }
+        else if(whatLoot==10){
+            //equip
+            lf.currentEquipmentName.setText(mageRareWeaponName);
+            lf.currentEquipmentStats.setText("Damage: "+mageRareWeaponDamage);
+        }
+        else if(whatLoot==11){
+            //equip
+            lf.currentEquipmentName.setText(mageEpicArmorName);
+            lf.currentEquipmentStats.setText("Damage: "+mageEpicWeaponDamage);
+        }
+        else if(whatLoot==12){
+            //equip
+            lf.currentEquipmentName.setText(mageLegendaryArmorName);
+            lf.currentEquipmentStats.setText("Damage: "+mageLegendaryWeaponDamage);
+        }
+        //Ranger
+        else if(whatLoot==14){
+            //equip
+            lf.currentEquipmentName.setText(rangerRareArmorName);
+            lf.currentEquipmentStats.setText("Block: "+rangerRareArmorBlock);
+        }
+        else if(whatLoot==15){
+            //equip
+            lf.currentEquipmentName.setText(rangerEpicArmorName);
+            lf.currentEquipmentStats.setText("Block: "+rangerEpicArmorBlock);
+        }
+        else if(whatLoot==16){
+            //equip
+            lf.currentEquipmentName.setText(rangerLegendaryArmorName);
+            lf.currentEquipmentStats.setText("Block: "+rangerLegendaryArmorBlock);
+        }
+        else if(whatLoot==17){
+            //equip
+            lf.currentEquipmentName.setText(rangerRareWeaponName);
+            lf.currentEquipmentStats.setText("Damage: "+rangerRareWeaponDamage);
+        }
+        else if(whatLoot==18){
+            //equip
+            lf.currentEquipmentName.setText(rangerEpicWeaponName);
+            lf.currentEquipmentStats.setText("Damage: "+rangerEpicWeaponDamage);
+        }
+        else if(whatLoot==19){
+            //equip
+            lf.currentEquipmentName.setText(rangerLegendaryWeaponName);
+            lf.currentEquipmentStats.setText("Damage: "+rangerLegendaryWeaponDamage);
+        }
+        //Healer
+        else if(whatLoot==20){
+            //equip
+            lf.currentEquipmentName.setText(healerRareArmorName);
+            lf.currentEquipmentStats.setText("Block: "+healerRareArmorBlock+"Str: "+healerRareArmorDamage);
+        }
+        else if(whatLoot==21){
+            //equip
+            lf.currentEquipmentName.setText(healerEpicArmorName);
+            lf.currentEquipmentStats.setText("Block: "+healerRareArmorBlock+"Str: "+healerRareArmorDamage);
+        }
+        else if(whatLoot==22){
+            //equip
+            lf.currentEquipmentName.setText(healerLegendaryArmorName);
+            lf.currentEquipmentStats.setText("Block: "+healerRareArmorBlock+"Str: "+healerRareArmorDamage);
+        }
+        else if(whatLoot==23){
+            //equip
+            lf.currentEquipmentName.setText(healerRareWeaponName);
+            lf.currentEquipmentStats.setText("Damage: "+healerRareWeaponDamage);
+        }
+        else if(whatLoot==24){
+            //equip
+            lf.currentEquipmentName.setText(healerEpicWeaponName);
+            lf.currentEquipmentStats.setText("Damage: "+healerEpicWeaponDamage);
         }
     }
 
@@ -303,50 +752,49 @@ public class LootController {
             textDelay++;
             if (textDelay == 2){
                 MusicPick.musicStart("ding","");
-                add(xp);
+                lf.lootScreenJFrame.add(lf.xp);
             }
             else if(textDelay == 3){
                 MusicPick.musicStart("ding","");
-                add(gold);
+                lf.lootScreenJFrame.add(lf.gold);
             }
             else if(textDelay == 4){
                 MusicPick.musicStart("ding","");
-                add(item);
+                lf.lootScreenJFrame.add(lf.item);
                 if(showEquipButton){
-                    add(equipButton);
-                    add(currentEquipment);
-                    add(currentEquipmentName);
-                    add(currentEquipmentStats);
-                    add(newEquipment);
-                    add(newEquipmentName);
-                    add(newEquipmentStats);
+                    lf.lootScreenJFrame.add(lf.equipButton);
+                    lf.lootScreenJFrame.add(lf.currentEquipment);
+                    lf.lootScreenJFrame.add(lf.currentEquipmentName);
+                    lf.lootScreenJFrame.add(lf.currentEquipmentStats);
+                    lf.lootScreenJFrame.add(lf.newEquipment);
+                    lf.lootScreenJFrame.add(lf.newEquipmentName);
+                    lf.lootScreenJFrame.add(lf.newEquipmentStats);
                 }
                 textDelayTimer.stop();
             }
-            repaint();
+            lf.lootScreenJFrame.repaint();
         }
     });
 
     //Adds hover effect to buttons.
     private void hover(){
-        continueButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        lf.continueButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                continueButton.setBackground(Color.darkGray);
+                lf.continueButton.setBackground(Color.darkGray);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) { }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                continueButton.setBackground(Color.gray);
+                lf.continueButton.setBackground(Color.gray);
             }
         });
-        equipButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        lf.equipButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                equipButton.setBackground(Color.darkGray);
+                lf.equipButton.setBackground(Color.darkGray);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                equipButton.setBackground(Color.gray);
+                lf.equipButton.setBackground(Color.gray);
             }
         });
     }
 }
-*/
