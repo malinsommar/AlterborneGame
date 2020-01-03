@@ -1,5 +1,7 @@
 package game;
 
+import OldClasses.Hub;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
