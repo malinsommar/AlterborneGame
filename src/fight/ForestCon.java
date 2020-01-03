@@ -90,7 +90,8 @@ public class ForestCon {
         setStartLabels();
         fff.forestFightFrame();
         hoverEffect();
-        targetsystem();
+        targetSystem();
+        friendlyTargetSystem();
 
         //ActionListeners
         fff.attackButton.addActionListener(e -> attackPressed());
@@ -644,18 +645,22 @@ public class ForestCon {
         if(wolfHp[0]<=0){
             fff.wolf1Hp.setText("Wolf 1: 0");
             fff.wolf1.setVisible(false);
+            if (target == 1) {fff.targetarrow.setVisible(false);}
         }
         if(wolfHp[1]<=0){
             fff.wolf2Hp.setText("Wolf 2: 0");
             fff.wolf2.setVisible(false);
+            if (target == 2) {fff.targetarrow.setVisible(false);}
         }
         if(wolfHp[2]<=0){
             fff.wolf3Hp.setText("Wolf 3: 0");
             fff.wolf3.setVisible(false);
+            if (target == 3) {fff.targetarrow.setVisible(false);}
         }
         if(wolfHp[3]<=0){
             fff.wolf4Hp.setText("Wolf 4: 0");
             fff.wolf4.setVisible(false);
+            if (target == 4) {fff.targetarrow.setVisible(false);}
         }
     }
 
@@ -1028,6 +1033,7 @@ public class ForestCon {
         public void actionPerformed(ActionEvent ae) {
             timePast++;
             fff.endTurnButton.setVisible(false);
+            fff.targetarrow.setVisible(false);
             if (timePast < 50) {
                 if (wolfHp[0]<1)timePast = 140;
                 fff.whosTurn.setText("Wolf 1 turn");
@@ -1657,6 +1663,7 @@ public class ForestCon {
                 fff.holyLight.setVisible(false);
                 holyLightSpell.stop();
                 phase = 0;
+                spellHealSystem(40, "single");
             }
         }
     });
@@ -1676,6 +1683,7 @@ public class ForestCon {
                 fff.smallHolyLight.setVisible(false);
                 smallHolyLightSpell.stop();
                 phase = 0;
+                spellHealSystem(20, "single");
             }
         }
     });
@@ -1704,6 +1712,7 @@ public class ForestCon {
                 fff.groupHeal4.setVisible(false);
                 groupHealSpell.stop();
                 phase = 0;
+                spellHealSystem(10, "all");
             }
         }
     });
@@ -2076,11 +2085,8 @@ public class ForestCon {
         }
     }
 
-    public void targetsystem(){
+    public void targetSystem(){
 
-        //pilen ska försvinna när vargen dör
-
-        //lägger till action listener
         fff.wolf1.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -2110,6 +2116,43 @@ public class ForestCon {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 4;
                 fff.targetarrow.setLocation(1100, 325);
+                fff.targetarrow.setVisible(true);
+            }
+        });
+    }
+
+    public void friendlyTargetSystem(){
+
+        //pilen ska försvinna när man dör
+        fff.warrior.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                target = 1;
+                fff.targetarrow.setLocation(200, 100);
+                fff.targetarrow.setVisible(true);
+            }
+        });
+        fff.healer.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                target = 2;
+                fff.targetarrow.setLocation(100, 100);
+                fff.targetarrow.setVisible(true);
+            }
+        });
+        fff.ranger.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                target = 3;
+                fff.targetarrow.setLocation(200, 200);
+                fff.targetarrow.setVisible(true);
+            }
+        });
+        fff.mage.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                target = 4;
+                fff.targetarrow.setLocation(100, 200);
                 fff.targetarrow.setVisible(true);
             }
         });
@@ -2146,21 +2189,22 @@ public class ForestCon {
     }
 
     //fixa denna
-    public void spellHealSystem(int damage, String damageTargets){
-        if (damageTargets.equals("single")){
-            wolfHp[target-1] -= damage;
+    public void spellHealSystem(int healing, String healingTargets){
+        if (healingTargets.equals("single")){
+            if (target == 1) warriorCurrentHp += healing;
+            if (target == 2)healerCurrentHp += healing;
+            if (target == 3)rangerCurrentHp += healing;
+            if (target == 4)mageCurrentHp += healing;
         }
-        if (damageTargets.equals("all")){
-            wolfHp[0] += damage;
-            wolfHp[1] += damage;
-            wolfHp[2] += damage;
-            wolfHp[3] += damage;
+        if (healingTargets.equals("all")){
+            warriorCurrentHp += healing;
+            healerCurrentHp += healing;
+            rangerCurrentHp += healing;
+            mageCurrentHp += healing;
         }
-        fff.wolf1Hp.setText("Wolf 1: " + wolfHp[0]);
-        fff.wolf2Hp.setText("Wolf 2: " + wolfHp[1]);
-        fff.wolf3Hp.setText("Wolf 3: " + wolfHp[2]);
-        fff.wolf4Hp.setText("Wolf 4: " + wolfHp[3]);
-        mobDeath();
-        isFightOver();
+        fff.player1Hp.setText("Wolf 1: " + warriorCurrentHp);
+        fff.player2Hp.setText("Wolf 2: " + healerCurrentHp);
+        fff.player3Hp.setText("Wolf 3: " + rangerCurrentHp);
+        fff.player4Hp.setText("Wolf 4: " + mageCurrentHp);
     }
 }
