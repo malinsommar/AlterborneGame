@@ -76,10 +76,12 @@ public class ForestCon {
     private int phase = 0;
     public boolean followup = false;
     private boolean stealthed = false;
+    boolean fightWon = false;
+    boolean fightLost = false;
 
     private int[] ownedPotions = new int[12];
 
-    private int[] wolfHp = {20,20,20,20};
+    int[] wolfHp = {20,20,20,20};
 
     public void startFight(){
 
@@ -562,11 +564,17 @@ public class ForestCon {
         //If all of the wolves are dead. Open lootScreen.
         if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
             MusicPick.musicStop();
-            //lootscreen
+            fff.forestFightJFrame.dispose();
+            fightWon = true;
+            //TODO This does not follow MVC
+            FightModel fm = new FightModel();
+            fm.fightWon();
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             fff.forestFightJFrame.dispose();
+            fightLost = true;
+            //Death screen,
         }
         //If none of these are true, nothing happens and the fight goes on.
     }
