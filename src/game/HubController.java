@@ -23,10 +23,6 @@ public class HubController {
                         newRunButtonClick();
                     }
                 });
-            hf.tutorialButton.addActionListener(e -> {
-                LootModel lm = new LootModel();
-                lm.startLootController();
-            });
             hf.startButton.addActionListener(e -> {
                 if (startCount == 1) {
                     System.out.println("start");

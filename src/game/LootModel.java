@@ -14,6 +14,7 @@ public class LootModel {
     private Warrior w = new Warrior();
     private Ranger r = new Ranger();
     private Healer h = new Healer();
+    MasterModel mm = new MasterModel();
 
     private int currentXp = lu.xp;
     private int currentGold = inv.gold;
@@ -45,12 +46,10 @@ public class LootModel {
 
         int forestFight = 1;
         lc.startLootScreen(forestFight); //for now, ska vara vilken fight från overworld
-
-        //addloot
     }
 
     //This method saves gold, xp and weapon/armor that player got from lootController.
-    public void addLoot(){
+    public void addLoot() throws InterruptedException {
 
         inv.gold = lc.goldInt;
         lu.xp = lc.xpInt;
@@ -137,6 +136,7 @@ public class LootModel {
             else if (lc.whatLoot == 24){
                 h.healerLegendaryWeapon();
             }
+            mm.startWorldModel();
         }
         //Potions
         if (lc.whatLoot == 25){

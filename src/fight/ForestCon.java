@@ -561,6 +561,7 @@ public class ForestCon {
             MusicPick.musicStop();
             fff.forestFightJFrame.dispose();
             fightWon = true;
+            //TODO This does not follow MVC
             FightModel fm = new FightModel();
             fm.fightWon();
         }

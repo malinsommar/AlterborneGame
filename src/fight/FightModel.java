@@ -1,6 +1,5 @@
 package fight;
 
-import fight.ForestCon;
 import game.Inventory;
 import game.LootModel;
 import party.Healer;
