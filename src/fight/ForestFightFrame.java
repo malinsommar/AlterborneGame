@@ -50,13 +50,12 @@ public class ForestFightFrame {
     public JLabel trap = new JLabel(new ImageIcon("trap.png"));
     public JLabel holyLight = new JLabel(new ImageIcon("holylight.png"));
     public JLabel smallHolyLight = new JLabel(new ImageIcon("smallholylight.png"));
-    public JLabel groupHeal1 = new JLabel(new ImageIcon("heartsgif2.gif"));
-    public JLabel groupHeal2 = new JLabel(new ImageIcon("heartsgif2.gif"));
-    public JLabel groupHeal3 = new JLabel(new ImageIcon("heartsgif2.gif"));
-    public JLabel groupHeal4 = new JLabel(new ImageIcon("heartsgif2.gif"));
-
-    int target = 1; //ta bort
-
+    public JLabel groupHeal1 = new JLabel(new ImageIcon("smallholylight.png"));
+    public JLabel groupHeal2 = new JLabel(new ImageIcon("smallholylight.png"));
+    public JLabel groupHeal3 = new JLabel(new ImageIcon("smallholylight.png"));
+    public JLabel groupHeal4 = new JLabel(new ImageIcon("smallholylight.png"));
+    public JLabel targetarrow = new JLabel(new ImageIcon("targetarrow.png"));
+    public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
 
     public void forestFightFrame(){
 
@@ -77,11 +76,12 @@ public class ForestFightFrame {
         importWolfGif();
         spellMenuStartup();
         animationStuff();
-        targetsystem();
 
         forestFightJFrame.add(energy);
         forestFightJFrame.add(block);
         forestFightJFrame.add(whosTurn);
+
+        forestFightJFrame.add(targetarrow);
 
         forestFightJFrame.add(attackButton);
         forestFightJFrame.add(blockButton);
@@ -119,6 +119,7 @@ public class ForestFightFrame {
         forestFightJFrame.add(volley1);
         forestFightJFrame.add(volley2);
         forestFightJFrame.add(volley3);
+        forestFightJFrame.add(blast);
         forestFightJFrame.add(fireStorm);
         forestFightJFrame.add(flame);
         forestFightJFrame.add(smallPyroBlast);
@@ -160,6 +161,11 @@ public class ForestFightFrame {
         volley3.setSize(arrowSize.width, arrowSize.height);
         volley3.setLocation(-100, 120);
         volley3.setVisible(false);
+
+        Dimension blastSize = blast.getPreferredSize();
+        blast.setSize(blastSize.width, blastSize.height);
+        blast.setLocation(100, 121);
+        blast.setVisible(false);
 
         Dimension fireSize = fireStorm.getPreferredSize();
         fireStorm.setSize(fireSize.width, fireSize.height);
@@ -258,6 +264,10 @@ public class ForestFightFrame {
         groupHeal4.setLocation(70, 290);
         groupHeal4.setVisible(false);
 
+        Dimension targetarrowSize = targetarrow.getPreferredSize();
+        targetarrow.setSize(targetarrowSize.width, targetarrowSize.height);
+        targetarrow.setLocation(200, 500);
+        targetarrow.setVisible(false);
 
     }
 
@@ -709,56 +719,5 @@ public class ForestFightFrame {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));
         } catch (IOException | FontFormatException ignored) {
         }
-    }
-
-
-
-
-
-
-    public void targetsystem(){
-
-        //pilen ska försvinna när vargen dör
-
-        JLabel targetarrow = new JLabel(new ImageIcon("targetarrow.png"));
-        Dimension targetarrowSize = targetarrow.getPreferredSize();
-        targetarrow.setSize(targetarrowSize.width, targetarrowSize.height);
-        targetarrow.setLocation(200, 500);
-        forestFightJFrame.add(targetarrow);
-        targetarrow.setVisible(false);
-
-        //lägger till action listener
-        wolf1.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                target = 1;
-                targetarrow.setLocation(875, 250);
-                targetarrow.setVisible(true);
-            }
-        });
-        wolf2.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                target = 2;
-                targetarrow.setLocation(1065, 250);
-                targetarrow.setVisible(true);
-            }
-        });
-        wolf3.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                target = 3;
-                targetarrow.setLocation(925, 325);
-                targetarrow.setVisible(true);
-            }
-        });
-        wolf4.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                target = 4;
-                targetarrow.setLocation(1100, 325);
-                targetarrow.setVisible(true);
-            }
-        });
     }
 }
