@@ -12,8 +12,8 @@ public class LootFrame {
 
     private Font pixelMplus;
 
-    private JButton continueButton,equipButton;
-    private JLabel vicTitle, item, xp, gold, currentEquipment, currentEquipmentStats, currentEquipmentName, newEquipment, newEquipmentStats, newEquipmentName;
+    public JButton continueButton,equipButton;
+    public JLabel vicTitle, item, xp, gold, currentEquipment, currentEquipmentStats, currentEquipmentName, newEquipment, newEquipmentStats, newEquipmentName;
 
     public void lootScreenFrame(){
 
@@ -35,7 +35,7 @@ public class LootFrame {
     }
 
     //Set text in labels to " " when they are not supposed to show.
-    private void hideLabels(){
+    void hideLabels(){
         currentEquipment = new JLabel(" ");
         currentEquipmentName = new JLabel(" ");
         currentEquipmentStats = new JLabel(" ");
@@ -54,46 +54,55 @@ public class LootFrame {
         Dimension size = vicTitle.getPreferredSize();
         vicTitle.setBounds(130, 30, size.width, size.height);
 
+        xp = new JLabel("                   ");
         xp.setForeground(Color.black);
         xp.setFont((pixelMplus.deriveFont(30f)));
         Dimension xpSize = xp.getPreferredSize();
         xp.setBounds(160, 70, xpSize.width, xpSize.height);
 
+        gold = new JLabel("                   ");
         gold.setForeground(Color.black);
         gold.setFont((pixelMplus.deriveFont(30f)));
         Dimension goldSize = gold.getPreferredSize();
-        gold.setBounds(175, 110, goldSize.width, goldSize.height);
+        gold.setBounds(140, 110, goldSize.width, goldSize.height);
 
+        item = new JLabel("                                       ");
         item.setFont((pixelMplus.deriveFont(25f)));
         Dimension itemSize = item.getPreferredSize();
         item.setBounds(90, 150, itemSize.width, itemSize.height);
 
         //Current Equipment
+        currentEquipment = new JLabel(" ");
         Dimension currentEquipmentSize = currentEquipment.getPreferredSize();
         currentEquipment.setBounds(10,140,1000,currentEquipmentSize.height+100);
         currentEquipment.setFont(pixelMplus.deriveFont(20f));
 
         //Current Equipment Name
+        currentEquipmentName = new JLabel(" ");
         Dimension currentEquipmentNameSize = currentEquipmentName.getPreferredSize();
         currentEquipmentName.setBounds(10,160,1000,currentEquipmentNameSize.height+100);
         currentEquipmentName.setFont(pixelMplus.deriveFont(20f));
 
         //Current Equipment stats
+        currentEquipmentStats = new JLabel(" ");
         Dimension currentEquipmentStatsSize = currentEquipmentStats.getPreferredSize();
         currentEquipmentStats.setBounds(10,180,1000,currentEquipmentStatsSize.height+100);
         currentEquipmentStats.setFont(pixelMplus.deriveFont(20f));
 
         //New Equipment
+        newEquipment = new JLabel(" ");
         Dimension newEquipmentSize = newEquipment.getPreferredSize();
         newEquipment.setBounds(320,140,1000,newEquipmentSize.height+100);
         newEquipment.setFont(pixelMplus.deriveFont(20f));
 
         //new equipment name
+        newEquipmentName = new JLabel(" ");
         Dimension newEquipmentNameSize = newEquipmentName.getPreferredSize();
         newEquipmentName.setBounds(320,160,1000,newEquipmentNameSize.height+100);
         newEquipmentName.setFont(pixelMplus.deriveFont(20f));
 
         //new equipment stats
+        newEquipmentStats = new JLabel(" ");
         Dimension newEquipmentStatsSize = newEquipmentStats.getPreferredSize();
         newEquipmentStats.setBounds(320,180,1000,newEquipmentStatsSize.height+100);
         newEquipmentStats.setFont(pixelMplus.deriveFont(20f));

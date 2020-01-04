@@ -1,5 +1,8 @@
-package game;
+package OldClasses;
 
+import OldClasses.Hub;
+import game.Inventory;
+import game.MusicPick;
 import imports.ArmorWeapon;
 import imports.Potions;
 import party.Healer;

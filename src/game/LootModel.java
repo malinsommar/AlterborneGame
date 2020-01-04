@@ -14,6 +14,7 @@ public class LootModel {
     private Warrior w = new Warrior();
     private Ranger r = new Ranger();
     private Healer h = new Healer();
+    MasterModel mm = new MasterModel();
 
     private int currentXp = lu.xp;
     private int currentGold = inv.gold;
@@ -24,25 +25,163 @@ public class LootModel {
     private int[] weaponDamage = new int[4];
     private int[] armorBlock = new int[4];
 
+    //1=mage, 2=healer.
+    private int[] currentArmorDamage = new int[6];
+
     //1 2 = warrior, 3 4 = mage, 5 6 = ranger, 7 8 = healer.
     private String[] rareWeaponArmorNames = new String[8];
     private String[] epicWeaponArmorNames = new String[8];
     private String[] legendaryWeaponArmorNames = new String[8];
 
-    //1 2 3 = warrior, 4 5 6 7 8 9 = mage, 10 11 12 = ranger, 13 14 15 16 17 18 = healer.
+    //1 2 3 = warrior, 4 5 6 = mage, 7 8 9 = ranger, 10 11 12= healer.
     private int[] rareWeaponArmorDamageBlock = new int[18];
     private int[] epicWeaponArmorDamageBlock = new int[18];
     private int[] legendaryWeaponArmorDamageBlock = new int[18];
+    private int[] armorDamage= new int[6];
 
-    //1=mage, 2=healer.
-    private int[] armorDamage = new int[2];
-
+    //This method sends away all information lootController is going to need and starts it.
     public void startLootController(){
         getEquipment();
-        lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, armorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock);
-        lc.startLootScreen();
+        lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
+
+        int forestFight = 1;
+        lc.startLootScreen(forestFight); //for now, ska vara vilken fight från overworld
     }
 
+    //This method saves gold, xp and weapon/armor that player got from lootController.
+    public void addLoot() throws InterruptedException {
+
+        inv.gold = lc.goldInt;
+        lu.xp = lc.xpInt;
+
+        if(lc.playerWantsLoot){
+
+            //Armor & Weapons
+            if (lc.whatLoot == 1){
+                w.warriorRareArmor();
+            }
+            else if (lc.whatLoot == 2){
+                w.warriorEpicArmor();
+            }
+            else if (lc.whatLoot == 3){
+                w.warriorLegendaryArmor();
+            }
+
+            else if (lc.whatLoot == 4){
+                w.warriorRareWeapon();
+            }
+            else if (lc.whatLoot == 5){
+                w.warriorEpicWeapon();
+            }
+            else if (lc.whatLoot == 6){
+                w.warriorLegendaryWeapon();
+            }
+
+            else if (lc.whatLoot == 7){
+                m.mageRareArmor();
+            }
+            else if (lc.whatLoot == 8){
+                m.mageEpicArmor();
+            }
+            else if (lc.whatLoot == 9){
+                m.mageLegendaryArmor();
+            }
+
+            else if (lc.whatLoot == 10){
+                m.mageRareWeapon();
+            }
+            else if (lc.whatLoot == 11){
+                m.mageEpicWeapon();
+            }
+            else if (lc.whatLoot == 12){
+                m.mageLegendaryWeapon();
+            }
+
+            else if (lc.whatLoot == 13){
+                r.rangerRareArmor();
+            }
+            else if (lc.whatLoot == 14){
+                r.rangerEpicArmor();
+            }
+            else if (lc.whatLoot == 15){
+                r.rangerLegendaryArmor();
+            }
+
+            else if (lc.whatLoot == 16){
+                r.rangerRareWeapon();
+            }
+            else if (lc.whatLoot == 17){
+                r.rangerEpicWeapon();
+            }
+            else if (lc.whatLoot == 18){
+                r.rangerLegendaryWeapon();
+            }
+
+            else if (lc.whatLoot == 19){
+                h.healerRareArmor();
+            }
+            else if (lc.whatLoot == 20){
+                h.healerEpicArmor();
+            }
+            else if (lc.whatLoot == 21){
+                h.healerLegendaryArmor();
+            }
+
+            else if (lc.whatLoot == 22){
+                h.healerRareWeapon();
+            }
+            else if (lc.whatLoot == 23){
+                h.healerEpicWeapon();
+            }
+            else if (lc.whatLoot == 24){
+                h.healerLegendaryWeapon();
+            }
+            mm.startWorldModel();
+        }
+        //Potions
+        if (lc.whatLoot == 25){
+                inv.ownedMinorHealingPotion++;
+            }
+        else if (lc.whatLoot == 26){
+            inv.ownedLesserHealingPotion++;
+        }
+        else if (lc.whatLoot == 27){
+            inv.ownedMajorHealingPotion++;
+        }
+
+        else if (lc.whatLoot == 28){
+            inv.ownedMinorEnergyPotion++;
+        }
+        else if (lc.whatLoot == 29){
+            inv.ownedLesserEnergyPotion++;
+        }
+        else if (lc.whatLoot == 30){
+            inv.ownedMajorEnergyPotion++;
+        }
+
+        else if (lc.whatLoot == 31){
+            inv.ownedMinorStrengthPotion++;
+        }
+        else if (lc.whatLoot == 32){
+            inv.ownedLesserStrengthPotion++;
+        }
+        else if (lc.whatLoot == 33){
+            inv.ownedMajorStrengthPotion++;
+        }
+
+        else if (lc.whatLoot == 34){
+            inv.ownedMinorBlockPotion++;
+        }
+        else if (lc.whatLoot == 35){
+            inv.ownedLesserBlockPotion++;
+        }
+        else if (lc.whatLoot == 36){
+            inv.ownedMajorBlockPotion++;
+        }
+
+    }
+
+    //Collects information about armor, weapons etc.
     private void getEquipment(){
         armorNames[0] = w.currentArmorName;
         armorNames[1] = m.currentArmorName;
@@ -59,8 +198,8 @@ public class LootModel {
         armorBlock[2] = r.currentArmorBlock;
         armorBlock[3] = h.currentArmorBlock;
 
-        armorDamage[0] = m.currentArmorDamage;
-        armorDamage[1] = h.currentArmorDamage;
+        currentArmorDamage[0] = m.currentArmorDamage;
+        currentArmorDamage[1] = h.currentArmorDamage;
 
         weaponDamage[0] = w.currentWeaponDamage;
         weaponDamage[1] = m.currentWeaponDamage;
@@ -120,5 +259,12 @@ public class LootModel {
         legendaryWeaponArmorDamageBlock[5] = r.rangerLegendaryArmorBlock;
         legendaryWeaponArmorDamageBlock[6] = h.healerLegendaryWeaponDamage;
         legendaryWeaponArmorDamageBlock[7] = h.healerLegendaryArmorBlock;
+
+        armorDamage[0] = m.mageRareArmorDamage;
+        armorDamage[1] = m.mageEpicArmorDamage;
+        armorDamage[2] = m.mageLegendaryArmorDamage;
+        armorDamage[3] = h.healerRareArmorDamage;
+        armorDamage[4] = h.healerEpicArmorDamage;
+        armorDamage[5] = h.healerLegendaryArmorDamage;
     }
 }

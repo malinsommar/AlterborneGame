@@ -1,8 +1,6 @@
 package davidtest.overworld.map;
 
-import game.FightModel;
-
-import java.util.Arrays;
+import fight.FightModel;
 
 public class WorldModel {
 

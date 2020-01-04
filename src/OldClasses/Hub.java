@@ -1,4 +1,6 @@
-package game;
+package OldClasses;
+
+import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;

@@ -50,11 +50,12 @@ public class ForestFightFrame {
     public JLabel trap = new JLabel(new ImageIcon("trap.png"));
     public JLabel holyLight = new JLabel(new ImageIcon("holylight.png"));
     public JLabel smallHolyLight = new JLabel(new ImageIcon("smallholylight.png"));
-    public JLabel groupHeal1 = new JLabel(new ImageIcon("heartsgif2.gif"));
-    public JLabel groupHeal2 = new JLabel(new ImageIcon("heartsgif2.gif"));
-    public JLabel groupHeal3 = new JLabel(new ImageIcon("heartsgif2.gif"));
-    public JLabel groupHeal4 = new JLabel(new ImageIcon("heartsgif2.gif"));
-
+    public JLabel groupHeal1 = new JLabel(new ImageIcon("smallholylight.png"));
+    public JLabel groupHeal2 = new JLabel(new ImageIcon("smallholylight.png"));
+    public JLabel groupHeal3 = new JLabel(new ImageIcon("smallholylight.png"));
+    public JLabel groupHeal4 = new JLabel(new ImageIcon("smallholylight.png"));
+    public JLabel targetarrow = new JLabel(new ImageIcon("targetarrow.png"));
+    public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
 
     public void forestFightFrame(){
 
@@ -79,6 +80,8 @@ public class ForestFightFrame {
         forestFightJFrame.add(energy);
         forestFightJFrame.add(block);
         forestFightJFrame.add(whosTurn);
+
+        forestFightJFrame.add(targetarrow);
 
         forestFightJFrame.add(attackButton);
         forestFightJFrame.add(blockButton);
@@ -116,6 +119,7 @@ public class ForestFightFrame {
         forestFightJFrame.add(volley1);
         forestFightJFrame.add(volley2);
         forestFightJFrame.add(volley3);
+        forestFightJFrame.add(blast);
         forestFightJFrame.add(fireStorm);
         forestFightJFrame.add(flame);
         forestFightJFrame.add(smallPyroBlast);
@@ -157,6 +161,11 @@ public class ForestFightFrame {
         volley3.setSize(arrowSize.width, arrowSize.height);
         volley3.setLocation(-100, 120);
         volley3.setVisible(false);
+
+        Dimension blastSize = blast.getPreferredSize();
+        blast.setSize(blastSize.width, blastSize.height);
+        blast.setLocation(100, 121);
+        blast.setVisible(false);
 
         Dimension fireSize = fireStorm.getPreferredSize();
         fireStorm.setSize(fireSize.width, fireSize.height);
@@ -255,6 +264,10 @@ public class ForestFightFrame {
         groupHeal4.setLocation(70, 290);
         groupHeal4.setVisible(false);
 
+        Dimension targetarrowSize = targetarrow.getPreferredSize();
+        targetarrow.setSize(targetarrowSize.width, targetarrowSize.height);
+        targetarrow.setLocation(200, 500);
+        targetarrow.setVisible(false);
 
     }
 
