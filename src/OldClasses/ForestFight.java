@@ -1,4 +1,4 @@
-package fight;
+package OldClasses;
 
 import game.*;
 import imports.Potions;

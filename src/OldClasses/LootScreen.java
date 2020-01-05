@@ -1,5 +1,8 @@
-package game;
+package OldClasses;
 
+import game.Inventory;
+import game.LevelUp;
+import game.MusicPick;
 import party.Healer;
 import party.Mage;
 import party.Ranger;
