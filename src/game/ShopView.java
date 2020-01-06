@@ -8,7 +8,7 @@ import java.io.IOException;
 public class ShopView {
 
     public Font pixelMplus;
-    JButton back, potion1, potion2, potion3, potion4, potion5, potion6, potion7, potion8, potion9, potion10, potion11, potion12;
+    JButton Exit, potion1, potion2, potion3, potion4, potion5, potion6, potion7, potion8, potion9, potion10, potion11, potion12;
     JButton healerWeapon1, healerWeapon2, healerWeapon3, warriorWeapon1, warriorWeapon2, warriorWeapon3, rangerWeapon1, rangerWeapon2, rangerWeapon3, mageWeapon1, mageWeapon2, mageWeapon3;
     JButton healerArmor1, healerArmor2, healerArmor3, warriorArmor1, warriorArmor2, warriorArmor3, rangerArmor1, rangerArmor2, rangerArmor3, mageArmor1, mageArmor2, mageArmor3;
     JLabel currentAction, goldLabel;
@@ -81,7 +81,7 @@ public class ShopView {
         ImageIcon background = new ImageIcon("white.jpg");
         shopFrame.setContentPane(new JLabel(background));
 
-        shopFrame.add(back);
+        shopFrame.add(Exit);
         shopFrame.add(currentAction);
         shopFrame.add(goldLabel);
         shopFrame.add(health);
@@ -206,13 +206,13 @@ public class ShopView {
 
     private void addButtons(){
 
-        back = new JButton("Exit shop");
-        back.setBounds(20,600,300,100);
-        back.setFont(pixelMplus.deriveFont(30f));
-        back.setBackground(Color.lightGray);
-        back.setForeground(Color.black);
-        back.setBorder(null);
-        back.setFocusPainted(false);
+        Exit = new JButton("Exit shop");
+        Exit.setBounds(20,600,300,100);
+        Exit.setFont(pixelMplus.deriveFont(30f));
+        Exit.setBackground(Color.lightGray);
+        Exit.setForeground(Color.black);
+        Exit.setBorder(null);
+        Exit.setFocusPainted(false);
 
         //Minor Health Potion
         potion1 = new JButton(minorHealthGif);

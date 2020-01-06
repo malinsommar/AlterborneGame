@@ -1,5 +1,6 @@
 package game;
 
+import davidtest.overworld.map.WorldModel;
 import party.Healer;
 import party.Mage;
 import party.Ranger;
@@ -16,11 +17,15 @@ public class ShopModel {
 
     private int currentGold=inv.gold;
 
-    public void startShopController(){
+    public void startShopController() throws InterruptedException {
 
         sc.startShopView(currentGold);
+
+        if (sc.choice[0] == 1) {
+            System.out.println("open World");
+            startWorldModel();
+        }
     }
-    
     public void addBoughtItems(){
 
         inv.gold = sc.currentGold;
@@ -137,4 +142,9 @@ public class ShopModel {
             inv.ownedMajorBlockPotion++;
         }
     }
+    public void startWorldModel() throws InterruptedException {
+        System.out.println("start new World");
+        new WorldModel();
+    }
+
 }
