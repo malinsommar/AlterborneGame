@@ -20,6 +20,7 @@ public class ForestFightFrame {
     public JButton attackButton, blockButton, itemButton, skillButton, endTurnButton;
     public JButton exitInventory, potion1, potion2, potion3, potion4, potion5, potion6, potion7, potion8, potion9, potion10, potion11, potion12;
     public JButton skill1Button, skill2Button, skill3Button, skill4Button, returnButton; //spells
+    public JButton healWarriorButton, healRangerButton, healMageButton, healHealerButton; //healing target button
 
     //Create Labels
     public JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr ,potion1Label,potion2Label,potion3Label,potion4Label,potion5Label,potion6Label,potion7Label,potion8Label,potion9Label,potion10Label,potion11Label,potion12Label;
@@ -76,6 +77,7 @@ public class ForestFightFrame {
         importWolfGif();
         spellMenuStartup();
         animationStuff();
+        healingTarget();
 
         forestFightJFrame.add(energy);
         forestFightJFrame.add(block);
@@ -114,6 +116,11 @@ public class ForestFightFrame {
         forestFightJFrame.add(skill3Button);
         forestFightJFrame.add(skill4Button);
         forestFightJFrame.add(returnButton);
+
+        forestFightJFrame.add(healWarriorButton);
+        forestFightJFrame.add(healRangerButton);
+        forestFightJFrame.add(healMageButton);
+        forestFightJFrame.add(healHealerButton);
 
         forestFightJFrame.add(arrow);
         forestFightJFrame.add(volley1);
@@ -317,6 +324,47 @@ public class ForestFightFrame {
         returnButton.setBorder(null); //Remove border around button
         returnButton.setFocusPainted(false);//Remove border around text in button
         returnButton.setVisible(false);
+
+    }
+
+    //to select target for healing
+    public void healingTarget(){
+
+        //button 1
+        healWarriorButton = new JButton("Warrior");
+        healWarriorButton.setSize(200, 70);
+        healWarriorButton.setLocation(840, 555);
+        healWarriorButton.setFont(pixelMplus.deriveFont(30f));
+        healWarriorButton.setBackground(Color.white);
+        healWarriorButton.setBorder(null); //Remove border around button
+        healWarriorButton.setFocusPainted(false);//Remove border around text in button
+
+        //button 2
+        healRangerButton = new JButton("Ranger");
+        healRangerButton.setSize(200, 70);
+        healRangerButton.setLocation(1050, 555);
+        healRangerButton.setFont(pixelMplus.deriveFont(30f));
+        healRangerButton.setBackground(Color.white);
+        healRangerButton.setBorder(null); //Remove border around button
+        healRangerButton.setFocusPainted(false);//Remove border around text in button
+
+        //button 3
+        healMageButton = new JButton("Mage");
+        healMageButton.setSize(200, 70);
+        healMageButton.setLocation(1050, 630);
+        healMageButton.setFont(pixelMplus.deriveFont(30f));
+        healMageButton.setBackground(Color.white);
+        healMageButton.setBorder(null); //Remove border around button
+        healMageButton.setFocusPainted(false);//Remove border around text in button
+
+        //Skill Button
+        healHealerButton = new JButton("Healer");
+        healHealerButton.setSize(200, 70);
+        healHealerButton.setLocation(840, 630);
+        healHealerButton.setFont(pixelMplus.deriveFont(30f));
+        healHealerButton.setBackground(Color.white);
+        healHealerButton.setBorder(null); //Remove border around button
+        healHealerButton.setFocusPainted(false);//Remove border around text in button
 
     }
 

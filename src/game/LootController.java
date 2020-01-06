@@ -8,8 +8,10 @@ import java.awt.event.ActionListener;
 public class LootController {
 
     private LootFrame lf = new LootFrame();
+    LootModel lm = new LootModel();  //TODO this does not follow MVC
 
-     int textDelay = 0, whatLoot, xpInt, goldInt;
+
+    int textDelay = 0, whatLoot, xpInt, goldInt;
 
     private String warriorWeaponName, mageWeaponName, rangerWeaponName, healerWeaponName;
     private String warriorArmorName, mageArmorName,rangerArmorName, healerArmorName;
@@ -38,7 +40,7 @@ public class LootController {
 
 
     //This method starts LootFrame and implements the methods needed for LootScreen.
-    public void startLootScreen(int fight){
+    public void startLootScreen(int fight) {
 
         lf.lootScreenFrame();
         generateLoot(fight);
@@ -46,9 +48,10 @@ public class LootController {
 
         textDelayTimer.start();
 
-        lf.equipButton.addActionListener(e-> equipLoot());
-
-        LootModel lm = new LootModel();  //TODO this does not follow MVC
+        lf.equipButton.addActionListener(e -> equipLoot());
+        lm.startLootController();
+    }
+    public boolean endLootScreen() {
         lf.continueButton.addActionListener(e-> lf.lootScreenJFrame.dispose());
         lf.continueButton.addActionListener(e-> {
             try {
@@ -57,6 +60,7 @@ public class LootController {
                 ex.printStackTrace();
             }
         });
+        return true;
     }
 
     //Method that collects info from model about gold, xp, weapons, armor etc.

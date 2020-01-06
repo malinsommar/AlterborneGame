@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 public class ForestCon {
 
@@ -74,6 +75,7 @@ public class ForestCon {
 
     public int target;
     private int phase = 0;
+    private int healTarget = 0;
     public boolean followup = false;
     private boolean stealthed = false;
     boolean fightWon = false;
@@ -92,7 +94,7 @@ public class ForestCon {
         setStartLabels();
         fff.forestFightFrame();
         hoverEffect();
-        targetsystem();
+        targetSystem();
 
         //ActionListeners
         fff.attackButton.addActionListener(e -> attackPressed());
@@ -212,35 +214,60 @@ public class ForestCon {
     }
 
     private void skill1(){
-        if (turns == 1){
-            charge.start();
+        if (turns == 1 && warriorEnergyInt>1 && fff.targetarrow.isVisible()){
+                warriorEnergyInt=warriorEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                fff.energy.setText("Energy: "+warriorEnergyInt);
+                charge.start();
+                mobDeath();
+                isFightOver();
         }
-        if (turns == 2){
-            volley.start();
+        if (turns==2 && rangerEnergyInt>3 && fff.targetarrow.isVisible()){
+                rangerEnergyInt=rangerEnergyInt-4;
+                currentEnergy=currentEnergy-4;
+                fff.energy.setText("Energy: "+rangerEnergyInt);
+                volley.start();
+                mobDeath();
+                isFightOver();
         }
-        if (turns == 3){
+        if (turns==3 && mageEnergyInt>1 && fff.targetarrow.isVisible()){
             pyroBlastX = 90;
             pyroblastY = 300;
             followup = true;
+            mageEnergyInt=mageEnergyInt-2;
+            currentEnergy=currentEnergy-2;
+            fff.energy.setText("Energy: "+mageEnergyInt);
             fireBall.start();
+            mobDeath();
+            isFightOver();
         }
-        if (turns == 4){
-            holyLightSpell.start();
+        if (turns==4 && healerEnergyInt>1) {
+            healingTargetMenu(1);
         }
     }
 
     private void skill2(){
-        if (turns == 1){
+        if (turns == 1 && warriorEnergyInt>1){
+            warriorEnergyInt=warriorEnergyInt-2;
+            currentEnergy=currentEnergy-2;
+            fff.energy.setText("Energy: "+warriorEnergyInt);
             dunk.start();
+            mobDeath();
+            isFightOver();
         }
-        if(turns == 2){
+        if (turns==2 && rangerEnergyInt>2){
+            rangerEnergyInt=rangerEnergyInt-3;
+            currentEnergy=currentEnergy-3;
+            fff.energy.setText("Energy: "+rangerEnergyInt);
             bombthrow.start();
+            mobDeath();
+            isFightOver();
         }
         if (turns == 3){
 
         }
-        if (turns == 4){
-            smallHolyLightSpell.start();
+        if (turns == 4 && healerEnergyInt>1){
+            healingTargetMenu(2);
         }
     }
 
@@ -252,10 +279,18 @@ public class ForestCon {
         if(turns == 2){
 
         }
-        if (turns == 3){
-            flameStrike.start();
+        if (turns==3 && mageEnergyInt>2){
+                mageEnergyInt=mageEnergyInt-3;
+                currentEnergy=currentEnergy-3;
+                fff.energy.setText("Energy: "+mageEnergyInt);
+                flameStrike.start();
+                mobDeath();
+                isFightOver();
         }
-        if (turns == 4){
+        if (turns == 4 && healerEnergyInt>4){
+            healerEnergyInt=healerEnergyInt-5;
+            currentEnergy=currentEnergy-5;
+            fff.energy.setText("Energy: "+healerEnergyInt);
             groupHealSpell.start();
         }
     }
@@ -264,11 +299,22 @@ public class ForestCon {
         if (turns == 1){
             shout.start();
         }
-        if(turns == 2){
-            stealth();
+        if(turns == 2 && rangerEnergyInt>2){
+                rangerEnergyInt=rangerEnergyInt-3;
+                currentEnergy=currentEnergy-3;
+                fff.energy.setText("Energy: "+rangerEnergyInt);
+                stealth();
         }
-        if (turns == 3){
-            pyroBlast.start();
+        if (turns == 3 && mageEnergyInt>4 && fff.targetarrow.isVisible()){
+                pyroBlastX = 90;
+                pyroblastY = 300;
+                followup = true;
+                mageEnergyInt=mageEnergyInt-5;
+                currentEnergy=currentEnergy-5;
+                fff.energy.setText("Energy: "+mageEnergyInt);
+                pyroBlast.start();
+                mobDeath();
+                isFightOver();
         }
         if (turns == 4){
 
@@ -314,7 +360,7 @@ public class ForestCon {
             fff.skill1Button.setText("Holy light");
             fff.skill2Button.setText("Blessed Light");
             fff.skill3Button.setText("Party heal");
-            fff.skill4Button.setText("Real");
+            fff.skill4Button.setText("TBA");
         }
     }
     //When player press block
@@ -357,7 +403,7 @@ public class ForestCon {
     private void attackPressed(){
 
         //If its warrior's turn and player has 2 or more energy.
-        if(turns==1 && warriorEnergyInt>1){
+        if(turns==1 && warriorEnergyInt>1 && fff.targetarrow.isVisible()){
             warriorEnergyInt=warriorEnergyInt-2; //Energy -2.
             currentEnergy=currentEnergy-2; // Update currentEnergy.
             fff.energy.setText("Energy: "+warriorEnergyInt); //Update energyLabel
@@ -366,7 +412,7 @@ public class ForestCon {
             isFightOver(); //Check if all enemies/party members are dead.
         }
         //If its ranger's turn and player has 2 or more energy.
-        else if(turns==2 && rangerEnergyInt>1){
+        else if(turns==2 && rangerEnergyInt>1 && fff.targetarrow.isVisible()){
             rangerEnergyInt=rangerEnergyInt-2;
             currentEnergy=currentEnergy-2;
             fff.energy.setText("Energy: "+rangerEnergyInt);
@@ -375,7 +421,7 @@ public class ForestCon {
             isFightOver();
         }
         //If its mage's turn and player has 2 or more energy.
-        else if(turns==3 && mageEnergyInt>1){
+        else if(turns==3 && mageEnergyInt>1 && fff.targetarrow.isVisible()){
             mageEnergyInt=mageEnergyInt-2;
             currentEnergy=currentEnergy-2;
             fff.energy.setText("Energy: "+mageEnergyInt);
@@ -384,7 +430,7 @@ public class ForestCon {
             isFightOver();
         }
         //If its healer's turn and player has 2 or more energy.
-        else if(turns==4 && healerEnergyInt>1){
+        else if(turns==4 && healerEnergyInt>1 && fff.targetarrow.isVisible()){
             healerEnergyInt=healerEnergyInt-2;
             currentEnergy=currentEnergy-2;
             fff.energy.setText("Energy: "+healerEnergyInt);
@@ -395,141 +441,24 @@ public class ForestCon {
     }
 
     //When warrior press the "attack button".
-    private void warriorAttackWolf() {
-
-        //Loops until it hits an live wolf.
-        while (true) {
-            //Randomize a number between 1-4.
-            int target = (int) (Math.random() * 4)+1;
+    private void warriorAttackWolf() { //detta är helt onödigt, fixa
             tackle.start();
-
-            //If target is 1 and wolf 1 is alive.
-            if (target == 1 && wolfHp[0] > 0) {
-                wolfHp[0] = wolfHp[0] - warriorDamage;//Wolf take damage equals to warriors damage.
-                fff.wolf1Hp.setText("Wolf 1: " + wolfHp[0]);//Update wolf 1 hp label.
-                break;
-            }
-            //If target is 2 and wolf 2 is alive.
-            if (target == 2 && wolfHp[1] > 0) {
-                wolfHp[1] = wolfHp[1] - warriorDamage;
-                fff.wolf2Hp.setText("Wolf 2: " + wolfHp[1]);
-                break;
-            }
-            //If target is 3 and wolf 3 is alive.
-            if (target == 3 && wolfHp[2] > 0) {
-                wolfHp[2] = wolfHp[2] - warriorDamage;
-                fff.wolf3Hp.setText("Wolf 3: " + wolfHp[2]);
-                break;
-            }
-            //If target is 4 and wolf 4 is alive.
-            if (target == 4 && wolfHp[3] > 0) {
-                wolfHp[3] = wolfHp[3] - warriorDamage;
-                fff.wolf4Hp.setText("Wolf 4: " + wolfHp[3]);
-                break;
-            }
-        }
     }
 
     //When mage press the "attack button".
-    private void mageAttackWolf(){
-
-        //Loops until it hits an live wolf.
-        while (true) {
-            //Randomize a number between 1-4.
-            int target = (int) (Math.random() * 4)+1;
-            blast.start();
-
-            //If target is 1 and wolf 1 is alive.
-            if (target == 1 && wolfHp[0] > 0) {
-                wolfHp[0] = wolfHp[0] - mageDamage;//Wolf take damage equals to mage's damage.
-                fff.wolf1Hp.setText("Wolf 1: " + wolfHp[0]); //Update wolf 1 hp label.
-                break;
-            }
-            //If target is 2 and wolf 2 is alive.
-            if (target == 2 && wolfHp[1] > 0) {
-                wolfHp[1] = wolfHp[1] - mageDamage;
-                fff.wolf2Hp.setText("Wolf 2: " + wolfHp[1]);
-                break;
-            }
-            //If target is 3 and wolf 3 is alive.
-            if (target == 3 && wolfHp[2] > 0) {
-                wolfHp[2] = wolfHp[2] - mageDamage;
-                fff.wolf3Hp.setText("Wolf 3: " + wolfHp[2]);
-                break;
-            }
-            //If target is 4 and wolf 4 is alive.
-            if (target == 4 && wolfHp[3] > 0) {
-                wolfHp[3] = wolfHp[3] - mageDamage;
-                fff.wolf4Hp.setText("Wolf 4: " + wolfHp[3]);
-                break;
-            }
-        }
+    private void mageAttackWolf(){ //detta är helt onödigt, fixa
+            blast.start(); //Animation
     }
 
     //When ranger press the "attack button".
-    private void rangerAttackWolf(){
-        //Loops until it hits an live wolf.
-        while (true) {
-            //Randomize a number between 1-4.
-            int target = (int) (Math.random() * 4)+1;
-            shoot.start();
-
-            //If target is 1 and wolf 1 is alive.
-            if (target == 1 && wolfHp[0] > 0) {
-                if (stealthed){
-                    wolfHp[0] = wolfHp[0] - rangerDamage;//Wolf take damage equals to rangers damage.
-                    wolfHp[0] = wolfHp[0] - 5;//Wolf take damage equals to rangers extra damage.
-                }
-                else {
-                    wolfHp[0] = wolfHp[0] - rangerDamage;//Wolf take damage equals to rangers damage.
-                }
-                fff.wolf1Hp.setText("Wolf 1: " + wolfHp[0]);
-                break;
-            }
-            //If target is 2 and wolf 2 is alive.
-            if (target == 2 && wolfHp[1] > 0) {
-                if (stealthed){
-                    wolfHp[0] = wolfHp[0] - rangerDamage;//Wolf take damage equals to rangers damage.
-                    wolfHp[0] = wolfHp[0] - 5;//Wolf take damage equals to rangers extra damage.
-                }
-                else {
-                    wolfHp[1] = wolfHp[1] - rangerDamage;
-                }
-                fff.wolf2Hp.setText("Wolf 2: " + wolfHp[1]);
-                break;
-            }
-            //If target is 3 and wolf 3 is alive.
-            if (target == 3 && wolfHp[2] > 0) {
-                if (stealthed){
-                    wolfHp[0] = wolfHp[0] - rangerDamage;//Wolf take damage equals to rangers damage.
-                    wolfHp[0] = wolfHp[0] - 5;//Wolf take damage equals to rangers extra damage.
-                }
-                else {
-                    wolfHp[2] = wolfHp[2] - rangerDamage;
-                }
-                fff.wolf3Hp.setText("Wolf 3: " + wolfHp[2]);
-                break;
-            }
-            //If target is 4 and wolf 4 is alive.
-            if (target == 4 && wolfHp[3] > 0) {
-                if (stealthed){
-                    wolfHp[0] = wolfHp[0] - rangerDamage;//Wolf take damage equals to rangers damage.
-                    wolfHp[0] = wolfHp[0] - 5;//Wolf take damage equals to rangers extra damage.
-                }
-                else {
-                    wolfHp[3] = wolfHp[3] - rangerDamage;
-                }
-                fff.wolf4Hp.setText("Wolf 4: " + wolfHp[3]);
-                break;
-            }
-        }
+    private void rangerAttackWolf(){ //detta är helt onödigt, fixa
+            shoot.start(); //Animation
     }
 
     //When healer press the "attack button".
     private void healerAttackWolf(){
         //Loops until it hits an live wolf.
         while (true) {
-            int target = (int) (Math.random() * 4)+1;
 
             //If target is 1 and wolf 1 is alive.
             if (target == 1 && wolfHp[0] > 0) {
@@ -652,18 +581,22 @@ public class ForestCon {
         if(wolfHp[0]<=0){
             fff.wolf1Hp.setText("Wolf 1: 0");
             fff.wolf1.setVisible(false);
+            if (target == 1) {fff.targetarrow.setVisible(false);}
         }
         if(wolfHp[1]<=0){
             fff.wolf2Hp.setText("Wolf 2: 0");
             fff.wolf2.setVisible(false);
+            if (target == 2) {fff.targetarrow.setVisible(false);}
         }
         if(wolfHp[2]<=0){
             fff.wolf3Hp.setText("Wolf 3: 0");
             fff.wolf3.setVisible(false);
+            if (target == 3) {fff.targetarrow.setVisible(false);}
         }
         if(wolfHp[3]<=0){
             fff.wolf4Hp.setText("Wolf 4: 0");
             fff.wolf4.setVisible(false);
+            if (target == 4) {fff.targetarrow.setVisible(false);}
         }
     }
 
@@ -774,7 +707,7 @@ public class ForestCon {
     //Add hover effect to buttons.
     private void hoverEffect() {
         //Attack Hover
-        fff.attackButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        fff.attackButton.addMouseListener(new MouseAdapter() {
             //Change button color while hovering depending on your current energy.
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 if(currentEnergy>=2) {
@@ -791,7 +724,7 @@ public class ForestCon {
         });
 
         //Block Hover
-        fff.blockButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        fff.blockButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 if(currentEnergy>=2) {
                     fff.blockButton.setBackground(Color.lightGray);
@@ -806,7 +739,7 @@ public class ForestCon {
         });
 
         //Item Hover
-        fff.itemButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        fff.itemButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 fff.itemButton.setBackground(Color.lightGray);
             }
@@ -815,7 +748,7 @@ public class ForestCon {
             }
         });
         //Skill Hover
-        fff.skillButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        fff.skillButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 fff.skillButton.setBackground(Color.lightGray);
             }
@@ -825,7 +758,7 @@ public class ForestCon {
         });
 
         //End turn Hover
-        fff.endTurnButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        fff.endTurnButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 fff.endTurnButton.setBackground(Color.lightGray);
             }
@@ -1036,6 +969,7 @@ public class ForestCon {
         public void actionPerformed(ActionEvent ae) {
             timePast++;
             fff.endTurnButton.setVisible(false);
+            fff.targetarrow.setVisible(false);
             if (timePast < 50) {
                 if (wolfHp[0]<1)timePast = 140;
                 fff.whosTurn.setText("Wolf 1 turn");
@@ -1655,7 +1589,10 @@ public class ForestCon {
         public void actionPerformed(ActionEvent ae) {
             timePast++;
             if (phase == 0){
-            fff.holyLight.setLocation(warriorStartX -200, warriorStartY -500);
+                if (healTarget == 1)fff.holyLight.setLocation(warriorStartX -220, warriorStartY -500);
+                if (healTarget == 2)fff.holyLight.setLocation(rangerStartX -220, rangerStartY -450);
+                if (healTarget == 3)fff.holyLight.setLocation(mageStartX -220, mageStartY -450);
+                if (healTarget == 4)fff.holyLight.setLocation(healerStartX -220, healerStartY -500);
             MusicPick.musicStart("holylight", "");
             fff.holyLight.setVisible(true);
             phase = 1;
@@ -1665,6 +1602,7 @@ public class ForestCon {
                 fff.holyLight.setVisible(false);
                 holyLightSpell.stop();
                 phase = 0;
+                spellHealSystem(40, "single");
             }
         }
     });
@@ -1674,7 +1612,10 @@ public class ForestCon {
         public void actionPerformed(ActionEvent ae) {
             timePast++;
             if (phase == 0){
-                fff.smallHolyLight.setLocation(warriorStartX -225, warriorStartY -500);
+                if (healTarget == 1)fff.smallHolyLight.setLocation(warriorStartX -225, warriorStartY -500);
+                if (healTarget == 2)fff.smallHolyLight.setLocation(rangerStartX -225, rangerStartY -500);
+                if (healTarget == 3)fff.smallHolyLight.setLocation(mageStartX -225, mageStartY -500);
+                if (healTarget == 4)fff.smallHolyLight.setLocation(healerStartX -225, healerStartY -500);
                 MusicPick.musicStart("holylight", "");
                 fff.smallHolyLight.setVisible(true);
                 phase = 1;
@@ -1684,6 +1625,7 @@ public class ForestCon {
                 fff.smallHolyLight.setVisible(false);
                 smallHolyLightSpell.stop();
                 phase = 0;
+                spellHealSystem(20, "single");
             }
         }
     });
@@ -1712,6 +1654,7 @@ public class ForestCon {
                 fff.groupHeal4.setVisible(false);
                 groupHealSpell.stop();
                 phase = 0;
+                spellHealSystem(10, "all");
             }
         }
     });
@@ -2084,12 +2027,9 @@ public class ForestCon {
         }
     }
 
-    public void targetsystem(){
+    public void targetSystem(){
 
-        //pilen ska försvinna när vargen dör
-
-        //lägger till action listener
-        fff.wolf1.addMouseListener(new java.awt.event.MouseAdapter() {
+        fff.wolf1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 1;
@@ -2097,7 +2037,7 @@ public class ForestCon {
                 fff.targetarrow.setVisible(true);
             }
         });
-        fff.wolf2.addMouseListener(new java.awt.event.MouseAdapter() {
+        fff.wolf2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 2;
@@ -2105,7 +2045,7 @@ public class ForestCon {
                 fff.targetarrow.setVisible(true);
             }
         });
-        fff.wolf3.addMouseListener(new java.awt.event.MouseAdapter() {
+        fff.wolf3.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 3;
@@ -2113,7 +2053,7 @@ public class ForestCon {
                 fff.targetarrow.setVisible(true);
             }
         });
-        fff.wolf4.addMouseListener(new java.awt.event.MouseAdapter() {
+        fff.wolf4.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 4;
@@ -2122,6 +2062,77 @@ public class ForestCon {
             }
         });
     }
+
+    private void healingTargetMenu(int chosenSpell) {
+        fff.skill1Button.setVisible(false);
+        fff.skill2Button.setVisible(false);
+        fff.skill3Button.setVisible(false);
+        fff.skill4Button.setVisible(false);
+
+        fff.healWarriorButton.setVisible(true);
+        fff.healRangerButton.setVisible(true);
+        fff.healMageButton.setVisible(true);
+        fff.healHealerButton.setVisible(true);
+
+        fff.healWarriorButton.addActionListener(e -> {
+            if (chosenSpell == 1 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                fff.energy.setText("Energy: "+healerEnergyInt);
+                healTarget = 1;
+                holyLightSpell.start();}
+
+            if (chosenSpell == 2 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                fff.energy.setText("Energy: "+healerEnergyInt);
+                healTarget = 1;
+                smallHolyLightSpell.start();}
+        });
+        fff.healRangerButton.addActionListener(e -> {
+            if (chosenSpell == 1 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                fff.energy.setText("Energy: "+healerEnergyInt);
+                healTarget = 2;
+                holyLightSpell.start();}
+            if (chosenSpell == 2 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                fff.energy.setText("Energy: "+healerEnergyInt);
+                healTarget = 2;
+                smallHolyLightSpell.start();}
+        });
+        fff.healMageButton.addActionListener(e -> {
+            if (chosenSpell == 1 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                fff.energy.setText("Energy: "+healerEnergyInt);
+                healTarget = 3;
+                holyLightSpell.start();}
+            if (chosenSpell == 2 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                fff.energy.setText("Energy: "+healerEnergyInt);
+                healTarget = 3;
+                smallHolyLightSpell.start();}
+        });
+        fff.healHealerButton.addActionListener(e -> {
+            if (chosenSpell == 1 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                fff.energy.setText("Energy: "+healerEnergyInt);
+                healTarget = 4;
+                holyLightSpell.start();}
+            if (chosenSpell == 2 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                fff.energy.setText("Energy: "+healerEnergyInt);
+                healTarget = 4;
+                smallHolyLightSpell.start();}
+        });
+    }
+
 
     //called from spells to deal damage to enemies
     //damageTargets types: single, line, all
@@ -2154,21 +2165,22 @@ public class ForestCon {
     }
 
     //fixa denna
-    public void spellHealSystem(int damage, String damageTargets){
-        if (damageTargets.equals("single")){
-            wolfHp[target-1] -= damage;
+    public void spellHealSystem(int healing, String healingTargets){
+        if (healingTargets.equals("single")){
+            if (healTarget == 1) warriorCurrentHp += healing;
+            if (healTarget == 2) healerCurrentHp += healing;
+            if (healTarget == 3) rangerCurrentHp += healing;
+            if (healTarget == 4) mageCurrentHp += healing;
         }
-        if (damageTargets.equals("all")){
-            wolfHp[0] += damage;
-            wolfHp[1] += damage;
-            wolfHp[2] += damage;
-            wolfHp[3] += damage;
+        if (healingTargets.equals("all")){
+            warriorCurrentHp += healing;
+            healerCurrentHp += healing;
+            rangerCurrentHp += healing;
+            mageCurrentHp += healing;
         }
-        fff.wolf1Hp.setText("Wolf 1: " + wolfHp[0]);
-        fff.wolf2Hp.setText("Wolf 2: " + wolfHp[1]);
-        fff.wolf3Hp.setText("Wolf 3: " + wolfHp[2]);
-        fff.wolf4Hp.setText("Wolf 4: " + wolfHp[3]);
-        mobDeath();
-        isFightOver();
+        fff.player1Hp.setText("Warrior: " + warriorCurrentHp);
+        fff.player2Hp.setText("Ranger: " + healerCurrentHp);
+        fff.player3Hp.setText("Mage: " + rangerCurrentHp);
+        fff.player4Hp.setText("Healer: " + mageCurrentHp);
     }
 }

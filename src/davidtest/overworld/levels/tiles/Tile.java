@@ -23,10 +23,10 @@ public abstract class Tile {
     public static final Tile WOOD = new SolidTile(10, 8, 0, Colours.get(-1,220,221,-1), 0xFF8d6525);
     public static final Tile LEAF = new AnimatedSolidTile(11, new int[][] {{ 0, 3}, { 1, 3}},
             Colours.get(-1, 16, 141, -1), 0xFF008d00, 800);
-    public static final Tile LEFTBOTTOMHOUSE = new SolidTile(12, 0, 4, Colours.get(-1,210,211, 1), 0xFF8d3026);
-    public static final Tile RIGHTBOTTOMHOUSE = new SolidTile(13, 1, 4, Colours.get(-1,210,211, 1), 0xFF8d3027);
-    public static final Tile LEFTOPHOUSE = new SolidTile(14, 2, 4, Colours.get(-1,22,21,-1), 0xFF8d3028);
-    public static final Tile RIGHTTOPHOUSE = new SolidTile(15, 3, 4, Colours.get(-1,22,21,-1), 0xFF8d3029);
+    public static final Tile LEFTBOTTOMHOUSE = new DoorTile(12, 0, 4, Colours.get(-1,210,211, 1), 0xFF8d3026);
+    public static final Tile RIGHTBOTTOMHOUSE = new DoorTile(13, 1, 4, Colours.get(-1,210,211, 1), 0xFF8d3027);
+    public static final Tile LEFTOPHOUSE = new DoorTile(14, 2, 4, Colours.get(-1,22,21,-1), 0xFF8d3028);
+    public static final Tile RIGHTTOPHOUSE = new DoorTile(15, 3, 4, Colours.get(-1,22,21,-1), 0xFF8d3029);
     public static final Tile CRACKS = new BasicTile(16, 0, 7, Colours.get(-1, 200, 1, -1), 0xFF565554);
     public static final Tile LEFTBOTTOMCAVE = new SolidTile(17, 0, 9, Colours.get(-1,1,333, 16), 0xFF2d3c2b);
     public static final Tile RIGHTBOTTOMCAVE = new SolidTile(18, 1, 9, Colours.get(-1,1,333, 16), 0xFF2d3a2b);
@@ -56,15 +56,17 @@ public abstract class Tile {
     protected boolean solid;
     protected boolean emitter;
     protected boolean path;
+    protected boolean door;
     private int levelColour;
 
-    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isPath, int levelColour) {
+    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isPath, boolean isDoor, int levelColour) {
         this.id = (byte) id;
         if (tiles[id] != null)
             throw new RuntimeException("Duplicate tile id on" + id);
         this.solid = isSolid;
         this.emitter = isEmitter;
         this.path = isPath;
+        this.door = isDoor;
         this.levelColour  = levelColour;
         tiles[id] = this;
     }
@@ -86,6 +88,10 @@ public abstract class Tile {
 
     public boolean isPath() {
         return path;
+    }
+
+    public boolean isDoor() {
+        return door;
     }
 
     public abstract void tick();
