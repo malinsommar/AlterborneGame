@@ -16,20 +16,24 @@ public class OverWorldController extends Canvas implements Runnable {
 
     //int-variables to handle Model-execution
     private int ForestEntrance = 1;
+    private int ShopEntrance = 1;
     private int ForestBossEntrance = 1;
     private int MountainEntrance = 1;
 
-    public void EnterWorld() throws InterruptedException {
+     OverWorldController() throws InterruptedException {
         start();//start the program
         new MouseClickSimulated();
         while (Entrance[0] <= 0) {
             if (ForestEntrance == 1) {
                 EnterForest();
             }
+            if (ShopEntrance == 1) {
+                EnterShop();
+            }
         }
     }
 
-    public synchronized void start() throws InterruptedException {
+    public synchronized void start() {
         running = true;//set the state of running to true
         new Thread(this).start(); //start thread
     }
@@ -114,6 +118,9 @@ public class OverWorldController extends Canvas implements Runnable {
         if (Entrance[0] == 1) {
             this.wait();
         }
+        if (Entrance[0] == 2) {
+            owf.frame.dispose();
+        }
         //FIXME thread delay/pause
         // - start Malin work
         // - thread resume
@@ -154,5 +161,11 @@ public class OverWorldController extends Canvas implements Runnable {
                 ForestEntrance++;
                 Entrance[0] = 1;
             }
+        }
+        public synchronized void EnterShop() throws InterruptedException {
+        if (owf.player.hasEnteredShop()) {
+            ShopEntrance++;
+            Entrance[0] = 2;
+        }
         }
     }

@@ -349,3 +349,247 @@ public class simontest extends JFrame {
 
      */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* safety copy
+
+
+
+
+
+
+
+
+
+
+
+            //If target is 1 and wolf 1 is alive.
+            if (target == 1 && wolfHp[0] > 0) {
+                wolfHp[0] = wolfHp[0] - warriorDamage;//Wolf take damage equals to warriors damage.
+                fff.wolf1Hp.setText("Wolf 1: " + wolfHp[0]);//Update wolf 1 hp label.
+                break;
+            }
+            //If target is 2 and wolf 2 is alive.
+            if (target == 2 && wolfHp[1] > 0) {
+                wolfHp[1] = wolfHp[1] - warriorDamage;
+                fff.wolf2Hp.setText("Wolf 2: " + wolfHp[1]);
+                break;
+            }
+            //If target is 3 and wolf 3 is alive.
+            if (target == 3 && wolfHp[2] > 0) {
+                wolfHp[2] = wolfHp[2] - warriorDamage;
+                fff.wolf3Hp.setText("Wolf 3: " + wolfHp[2]);
+                break;
+            }
+            //If target is 4 and wolf 4 is alive.
+            if (target == 4 && wolfHp[3] > 0) {
+                wolfHp[3] = wolfHp[3] - warriorDamage;
+                fff.wolf4Hp.setText("Wolf 4: " + wolfHp[3]);
+                break;
+            }
+        }
+
+
+
+
+
+
+    //If target is 1 and wolf 1 is alive.
+            if (target == 1 && wolfHp[0] > 0) {
+                if (stealthed){
+                    wolfHp[0] = wolfHp[0] - rangerDamage;//Wolf take damage equals to rangers damage.
+                    wolfHp[0] = wolfHp[0] - 5;//Wolf take damage equals to rangers extra damage.
+                }
+                else {
+                    wolfHp[0] = wolfHp[0] - rangerDamage;//Wolf take damage equals to rangers damage.
+                }
+                fff.wolf1Hp.setText("Wolf 1: " + wolfHp[0]);
+                break;
+            }
+            //If target is 2 and wolf 2 is alive.
+            if (target == 2 && wolfHp[1] > 0) {
+                if (stealthed){
+                    wolfHp[0] = wolfHp[0] - rangerDamage;//Wolf take damage equals to rangers damage.
+                    wolfHp[0] = wolfHp[0] - 5;//Wolf take damage equals to rangers extra damage.
+                }
+                else {
+                    wolfHp[1] = wolfHp[1] - rangerDamage;
+                }
+                fff.wolf2Hp.setText("Wolf 2: " + wolfHp[1]);
+                break;
+            }
+            //If target is 3 and wolf 3 is alive.
+            if (target == 3 && wolfHp[2] > 0) {
+                if (stealthed){
+                    wolfHp[0] = wolfHp[0] - rangerDamage;//Wolf take damage equals to rangers damage.
+                    wolfHp[0] = wolfHp[0] - 5;//Wolf take damage equals to rangers extra damage.
+                }
+                else {
+                    wolfHp[2] = wolfHp[2] - rangerDamage;
+                }
+                fff.wolf3Hp.setText("Wolf 3: " + wolfHp[2]);
+                break;
+            }
+            //If target is 4 and wolf 4 is alive.
+            if (target == 4 && wolfHp[3] > 0) {
+                if (stealthed){
+                    wolfHp[0] = wolfHp[0] - rangerDamage;//Wolf take damage equals to rangers damage.
+                    wolfHp[0] = wolfHp[0] - 5;//Wolf take damage equals to rangers extra damage.
+                }
+                else {
+                    wolfHp[3] = wolfHp[3] - rangerDamage;
+                }
+                fff.wolf4Hp.setText("Wolf 4: " + wolfHp[3]);
+                break;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //If target is 1 and wolf 1 is alive.
+            if (target == 1 && wolfHp[0] > 0) {
+                wolfHp[0] = wolfHp[0] - mageDamage;//Wolf take damage equals to mage's damage.
+                fff.wolf1Hp.setText("Wolf 1: " + wolfHp[0]); //Update wolf 1 hp label.
+                break;
+            }
+            //If target is 2 and wolf 2 is alive.
+            if (target == 2 && wolfHp[1] > 0) {
+                wolfHp[1] = wolfHp[1] - mageDamage;
+                fff.wolf2Hp.setText("Wolf 2: " + wolfHp[1]);
+                break;
+            }
+            //If target is 3 and wolf 3 is alive.
+            if (target == 3 && wolfHp[2] > 0) {
+                wolfHp[2] = wolfHp[2] - mageDamage;
+                fff.wolf3Hp.setText("Wolf 3: " + wolfHp[2]);
+                break;
+            }
+            //If target is 4 and wolf 4 is alive.
+            if (target == 4 && wolfHp[3] > 0) {
+                wolfHp[3] = wolfHp[3] - mageDamage;
+                fff.wolf4Hp.setText("Wolf 4: " + wolfHp[3]);
+                break;
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     */
