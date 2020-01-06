@@ -40,7 +40,7 @@ public class LootModel {
     private int[] armorDamage= new int[6];
 
     //This method sends away all information lootController is going to need and starts it.
-    public void startLootController(){
+    public void startLootController() throws InterruptedException {
         getEquipment();
         lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
 
@@ -136,7 +136,6 @@ public class LootModel {
             else if (lc.whatLoot == 24){
                 h.healerLegendaryWeapon();
             }
-            mm.startWorldModel();
         }
         //Potions
         if (lc.whatLoot == 25){
@@ -178,7 +177,7 @@ public class LootModel {
         else if (lc.whatLoot == 36){
             inv.ownedMajorBlockPotion++;
         }
-
+        mm.startWorldModel();
     }
 
     //Collects information about armor, weapons etc.

@@ -23,4 +23,9 @@ public class MasterModel {
     public void startWorldModel() throws InterruptedException {
         new WorldModel();
     }
+
+    public void startLootModel() throws InterruptedException {
+        LootModel lm = new LootModel();
+        lm.startLootController();
+    }
 }
