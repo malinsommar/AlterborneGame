@@ -19,7 +19,13 @@ public class MasterModel {
             System.exit(0);
         }
     }
+
     public void startWorldModel() throws InterruptedException {
         new WorldModel();
+    }
+
+    public void startLootModel() throws InterruptedException {
+        LootModel lm = new LootModel();
+        lm.startLootController();
     }
 }

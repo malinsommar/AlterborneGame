@@ -3,6 +3,7 @@ package fight;
 import davidtest.overworld.map.WorldModel;
 import game.Inventory;
 import game.LootModel;
+import game.MasterModel;
 import party.Healer;
 import party.Mage;
 import party.Ranger;
@@ -33,8 +34,13 @@ public class FightModel {
         forestCon.startFight();
     }
 
-    public void fightWon() {
-
+    public void fightWon(){
+        MasterModel mm = new MasterModel();
+        try {
+            mm.startLootModel();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     //This method sends inventory info to ForestFightController.
