@@ -19,6 +19,7 @@ public class MasterModel {
             System.exit(0);
         }
     }
+
     public void startWorldModel() throws InterruptedException {
         new WorldModel();
     }
