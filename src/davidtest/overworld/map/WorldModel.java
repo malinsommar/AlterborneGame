@@ -5,7 +5,7 @@ import game.ShopModel;
 
 public class WorldModel {
 
-    public WorldModel() throws InterruptedException {
+     public WorldModel() throws InterruptedException {
         OverWorldController overWorldController = new OverWorldController();
         if(overWorldController.Entrance[0]==1){
             FightModel fightModel = new FightModel();
@@ -15,5 +15,9 @@ public class WorldModel {
             ShopModel shopModel = new ShopModel();
             shopModel.startShopController();
         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        new WorldModel();
     }
 }

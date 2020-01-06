@@ -77,7 +77,7 @@ public class ForestCon {
     private int phase = 0;
     private int healTarget = 0;
     public boolean followup = false;
-    private boolean stealthed = false;
+    private boolean stealth = false;
     boolean fightWon = false;
     boolean fightLost = false;
 
@@ -768,7 +768,7 @@ public class ForestCon {
         });
     }
 
-    //ANIMATIONER OCH TIMERS
+    //ANIMATION OCH TIMERS
 
     private Timer charge = new Timer(10, new ActionListener() {
         @Override
@@ -890,7 +890,7 @@ public class ForestCon {
                 arrowX = 270;
                 phase = 0;
                 volley.stop();
-                if (stealthed){
+                if (stealth){
                     spellDamageSystem(40,"single");
                     unstealth();
                 }
@@ -1067,7 +1067,7 @@ public class ForestCon {
                 fff.arrow.setLocation(arrowX, arrowY);
                 phase = 0;
                 shoot.stop();
-                if (stealthed){
+                if (stealth){
                     spellDamageSystem(16,"line");
                     unstealth();
                 }
@@ -1493,7 +1493,7 @@ public class ForestCon {
                     timePast = 0;
                     phase = 0;
                     bombthrow.stop();
-                    if (stealthed){
+                    if (stealth){
                         spellDamageSystem(8,"all");
                         unstealth();
                     }
@@ -1568,19 +1568,19 @@ public class ForestCon {
     });
 
     private void stealth() {
-        if (!stealthed) {
+        if (!stealth) {
             MusicPick.musicStart("stealth", "");
             fff.ranger.setVisible(false);
             fff.stealthranger.setVisible(true);
-            stealthed = true;
+            stealth = true;
         }
     }
     private void unstealth(){
-        if (stealthed){
+        if (stealth){
             MusicPick.musicStart("unstealth", "");
             fff.ranger.setVisible(true);
             fff.stealthranger.setVisible(false);
-            stealthed = false;
+            stealth = false;
         }
     }
 
