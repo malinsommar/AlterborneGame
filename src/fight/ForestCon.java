@@ -441,7 +441,7 @@ public class ForestCon {
 
     private void fightIsOver() {
         FightModel fightModel = new FightModel();
-        fightModel.fightWon();
+        fightModel.startForestFight();
         fff.forestFightJFrame.dispose();
     }
 
