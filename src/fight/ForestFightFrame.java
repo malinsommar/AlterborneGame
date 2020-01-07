@@ -91,16 +91,6 @@ public class ForestFightFrame {
         forestFightJFrame.add(skillButton);
         forestFightJFrame.add(endTurnButton);
 
-        forestFightJFrame.add(wolf3);
-        forestFightJFrame.add(wolf4);
-        forestFightJFrame.add(wolf1);
-        forestFightJFrame.add(wolf2);
-
-        forestFightJFrame.add(ranger);
-        forestFightJFrame.add(warrior);
-        forestFightJFrame.add(mage);
-        forestFightJFrame.add(healer);
-
         forestFightJFrame.add(playersHp);
         forestFightJFrame.add(wolf1Hp);
         forestFightJFrame.add(wolf2Hp);
@@ -147,6 +137,16 @@ public class ForestFightFrame {
         forestFightJFrame.add(groupHeal2);
         forestFightJFrame.add(groupHeal3);
         forestFightJFrame.add(groupHeal4);
+
+        forestFightJFrame.add(wolf3);
+        forestFightJFrame.add(wolf4);
+        forestFightJFrame.add(wolf1);
+        forestFightJFrame.add(wolf2);
+
+        forestFightJFrame.add(ranger);
+        forestFightJFrame.add(warrior);
+        forestFightJFrame.add(mage);
+        forestFightJFrame.add(healer);
 
         forestFightJFrame.setVisible(true);
     }

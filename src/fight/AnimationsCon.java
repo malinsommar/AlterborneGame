@@ -14,55 +14,55 @@ public class AnimationsCon {
 
     //Animation variables
     //player
-    private int warriorStartX = 170, warriorStartY = 210, warriorX = warriorStartX, warriorY = warriorStartY;
-    private int rangerStartX = 70, rangerStartY = 290, rangerX = rangerStartX, rangerY = rangerStartY;
-    private int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
-    private int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
+    public int warriorStartX = 170, warriorStartY = 210, warriorX = warriorStartX, warriorY = warriorStartY;
+    public int rangerStartX = 70, rangerStartY = 290, rangerX = rangerStartX, rangerY = rangerStartY;
+    public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
+    public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
     //enemy
-    private int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
-    private int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
-    private int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
-    private int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
+    public int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
+    public int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
+    public int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
+    public int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
     int[] wolfHp = {20, 20, 20, 20};
     //spells/attack
-    private int swordIconX = 300, swordIconY = 300;
-    private int arrowX = 120, arrowY = 360, arrowStartX = arrowX;
-    private int blastX = 120, blastY = 360, blastStartX = arrowX;
+    public int swordIconX = 300, swordIconY = 300;
+    public int arrowX = 120, arrowY = 360, arrowStartX = arrowX;
+    public int blastX = 120, blastY = 360, blastStartX = arrowX;
 
-    private int flameStrikeY = -400;
+    public int flameStrikeY = -400;
 
 
-    private int warriorMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
-    private int bombMegaMath = 36;
-    private int upMegaMath = 1;
-    private int rightMegaMath = 1;
-    private int downMegaMath = 1;
-    private int leftMegaMath = 1;
+    public int warriorMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
+    public int bombMegaMath = 36;
+    public int upMegaMath = 1;
+    public int rightMegaMath = 1;
+    public int downMegaMath = 1;
+    public int leftMegaMath = 1;
 
-    private int pyroBlastX = 45;
-    private int pyroblastY = 150;
-    private int bombX = 250;
-    private int bombY = 300;
-    private int bombStartX = 250;
-    private int bombStartY = 300;
+    public int pyroBlastX = 45;
+    public int pyroblastY = 150;
+    public int bombX = 250;
+    public int bombY = 300;
+    public int bombStartX = 250;
+    public int bombStartY = 300;
 
-    private int objXTest = 300;
-    private int objYTest = 300;
-    private int objXTestStart = 300;
-    private int objYTestStart = 300;
-    private int xmmXTest = 0;
-    private int xmmYTest = 20;
+    public int objXTest = 300;
+    public int objYTest = 300;
+    public int objXTestStart = 300;
+    public int objYTestStart = 300;
+    public int xmmXTest = 0;
+    public int xmmYTest = 20;
 
 
     //Another timePast to avoid conflict when they run simultaneously.
-    private int timePastTakeDamage = 0;
+    public int timePastTakeDamage = 0;
 
     public int target;
-    private int phase = 0;
-    private int timePast = 0;
-    private int healTarget = 0;
+    public int phase = 0;
+    public int timePast = 0;
+    public int healTarget = 0;
     public boolean followup = false;
-    private boolean stealthed = false;
+    public boolean stealthed = false;
 
 
 
