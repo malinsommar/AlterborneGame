@@ -1,5 +1,6 @@
 package game;
 
+import davidtest.overworld.map.WorldModel;
 import party.Healer;
 import party.Mage;
 import party.Ranger;
@@ -14,7 +15,7 @@ public class LootModel {
     private Warrior w = new Warrior();
     private Ranger r = new Ranger();
     private Healer h = new Healer();
-    MasterModel mm = new MasterModel();
+    private MasterModel mm = new MasterModel();
 
     private int currentXp = lu.xp;
     private int currentGold = inv.gold;
@@ -177,7 +178,13 @@ public class LootModel {
         else if (lc.whatLoot == 36){
             inv.ownedMajorBlockPotion++;
         }
-        mm.startWorldModel();
+        if (lc.status[0] == 1) {
+            startOverWorld();
+        }
+    }
+
+    private void startOverWorld() throws InterruptedException {
+        new WorldModel();
     }
 
     //Collects information about armor, weapons etc.

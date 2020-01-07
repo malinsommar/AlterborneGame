@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.util.Arrays;
 
 public class ForestCon {
 
@@ -85,6 +86,9 @@ public class ForestCon {
 
     int[] wolfHp = {20,20,20,20};
 
+    public int[] status = new int[1];
+    public int battleWon = 1;
+
     public void startFight(){
 
         MusicPick.musicStart("forest1","music");
@@ -97,15 +101,45 @@ public class ForestCon {
         targetSystem();
 
         //ActionListeners
-        fff.attackButton.addActionListener(e -> attackPressed());
+        fff.attackButton.addActionListener(e -> {
+            try {
+                attackPressed();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
         fff.blockButton.addActionListener(e -> blockPressed());
         fff.itemButton.addActionListener(e -> fff.itemPressed());
         fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
         fff.endTurnButton.addActionListener(e-> startNewTurn());
-        fff.skill1Button.addActionListener(e -> {skill1();});
-        fff.skill2Button.addActionListener(e -> {skill2();});
-        fff.skill3Button.addActionListener(e -> {skill3();});
-        fff.skill4Button.addActionListener(e -> {skill4();});
+        fff.skill1Button.addActionListener(e -> {
+            try {
+                skill1();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+        fff.skill2Button.addActionListener(e -> {
+            try {
+                skill2();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+        fff.skill3Button.addActionListener(e -> {
+            try {
+                skill3();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+        fff.skill4Button.addActionListener(e -> {
+            try {
+                skill4();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
         fff.returnButton.addActionListener(e-> spellMenuInactive());
 
         //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
@@ -213,7 +247,7 @@ public class ForestCon {
         if (turns==5){enemyTurnTimer.start();}
     }
 
-    private void skill1(){
+    private void skill1() throws InterruptedException {
         if (turns == 1 && warriorEnergyInt>1 && fff.targetarrow.isVisible()){
                 warriorEnergyInt=warriorEnergyInt-2;
                 currentEnergy=currentEnergy-2;
@@ -246,7 +280,7 @@ public class ForestCon {
         }
     }
 
-    private void skill2(){
+    private void skill2() throws InterruptedException {
         if (turns == 1 && warriorEnergyInt>1){
             warriorEnergyInt=warriorEnergyInt-2;
             currentEnergy=currentEnergy-2;
@@ -271,7 +305,7 @@ public class ForestCon {
         }
     }
 
-    private void skill3(){
+    private void skill3() throws InterruptedException {
         if (turns == 1){
             followup = true;
             shout.start();
@@ -295,7 +329,7 @@ public class ForestCon {
         }
     }
 
-    private void skill4(){
+    private void skill4() throws InterruptedException {
         if (turns == 1){
             shout.start();
         }
@@ -400,7 +434,7 @@ public class ForestCon {
         }
     }
     //When you press the "attack button".
-    private void attackPressed(){
+    private void attackPressed() throws InterruptedException {
 
         //If its warrior's turn and player has 2 or more energy.
         if(turns==1 && warriorEnergyInt>1 && fff.targetarrow.isVisible()){
@@ -488,15 +522,13 @@ public class ForestCon {
     }
 
     //Checks if all of the enemies or party-members are dead.
-    private void isFightOver() {
+    private void isFightOver() throws InterruptedException {
         //If all of the wolves are dead. Open lootScreen.
-        if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
-            MusicPick.musicStop();
-            fff.forestFightJFrame.dispose();
-            fightWon = true;
-            //TODO This does not follow MVC
-            FightModel fm = new FightModel();
-            fm.fightWon();
+            if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
+                MusicPick.musicStop();
+                fightWon = true;
+                //TODO This does not follow MVC
+                fightIsOver();
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
@@ -505,6 +537,12 @@ public class ForestCon {
             //Death screen,
         }
         //If none of these are true, nothing happens and the fight goes on.
+    }
+
+    private void fightIsOver() {
+        FightModel fightModel = new FightModel();
+        fightModel.fightWon();
+        fff.forestFightJFrame.dispose();
     }
 
     //When the wolf attacks.
@@ -791,7 +829,11 @@ public class ForestCon {
                 phase = 0;
                 charge.stop();
 
-                spellDamageSystem(6,"line");
+                try {
+                    spellDamageSystem(6,"line");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     });
@@ -891,11 +933,19 @@ public class ForestCon {
                 phase = 0;
                 volley.stop();
                 if (stealth){
-                    spellDamageSystem(40,"single");
+                    try {
+                        spellDamageSystem(40,"single");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     unstealth();
                 }
                 else {
-                    spellDamageSystem(20, "single");
+                    try {
+                        spellDamageSystem(20, "single");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -958,7 +1008,11 @@ public class ForestCon {
                     fff.fireStorm.setVisible(false);
                     flameStrike.stop();
                     phase = 0;
-                    spellDamageSystem(5, "all");
+                    try {
+                        spellDamageSystem(5, "all");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -1068,11 +1122,19 @@ public class ForestCon {
                 phase = 0;
                 shoot.stop();
                 if (stealth){
-                    spellDamageSystem(16,"line");
+                    try {
+                        spellDamageSystem(16,"line");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     unstealth();
                 }
                     else {
-                    spellDamageSystem(8, "line");
+                    try {
+                        spellDamageSystem(8, "line");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -1096,7 +1158,11 @@ public class ForestCon {
                     fff.warrior.setLocation(warriorX, warriorY);
                     phase = 0;
                     tackle.stop();
-                    spellDamageSystem(10,"single");
+                    try {
+                        spellDamageSystem(10,"single");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -1159,7 +1225,11 @@ public class ForestCon {
                     warriorMegaMath = 30;
                     phase = 0;
                     dunk.stop();
-                    spellDamageSystem(3,"all");
+                    try {
+                        spellDamageSystem(3,"all");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -1184,7 +1254,11 @@ public class ForestCon {
                 fff.blast.setLocation(blastX, blastY);
                 phase = 0;
                 blast.stop();
-                spellDamageSystem(8, "single");
+                try {
+                    spellDamageSystem(8, "single");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
             }
         }
@@ -1232,7 +1306,11 @@ public class ForestCon {
                 pyroblastY = 150;
                 fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
                 pyroBlast.stop();
-                spellDamageSystem(20,"single");
+                try {
+                    spellDamageSystem(20,"single");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     });
@@ -1342,7 +1420,11 @@ public class ForestCon {
                 phase = 0;
                 fireBall.stop();
                 fff.smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                spellDamageSystem(8,"single");
+                try {
+                    spellDamageSystem(8,"single");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     });
@@ -1494,11 +1576,19 @@ public class ForestCon {
                     phase = 0;
                     bombthrow.stop();
                     if (stealth){
-                        spellDamageSystem(8,"all");
+                        try {
+                            spellDamageSystem(8,"all");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         unstealth();
                     }
                     else {
-                        spellDamageSystem(4, "all");
+                        try {
+                            spellDamageSystem(4, "all");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -2136,7 +2226,7 @@ public class ForestCon {
 
     //called from spells to deal damage to enemies
     //damageTargets types: single, line, all
-    public void spellDamageSystem(int damage, String damageTargets){
+    public void spellDamageSystem(int damage, String damageTargets) throws InterruptedException {
         if (damageTargets.equals("single")){
             wolfHp[target-1] -= damage;
         }

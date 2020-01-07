@@ -14,6 +14,7 @@ public class Player extends Mob {
     private int colour = Colours.get(-1, 111, 111, 332); //Assign colour for character which will be calculated within the Colours-class
     private int scale = 1; //assign size to character
     protected boolean isSwimming = false; //assign the isSwimming value as natively false
+
     protected boolean isSwampSwimming = false;//assign the isSwampSwimming value as natively false
     public boolean isOnForestPath = false; // if player is on tile to enter forest-combat
     public boolean EnterShop = false;
@@ -78,11 +79,11 @@ public class Player extends Mob {
                 RandomEncounter randomEncounter = new RandomEncounter();
                 if (randomEncounter.randomNr == 1) {
                     System.out.println(randomEncounter.randomNr);
-                    isOnForestPath = true;
+                    //isOnForestPath = true;
                 }
             }
             else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() !=5) {
-                isOnForestPath = false;
+                //isOnForestPath = false;
             }
                 tickCount++; //adds to tick whenever a move is made
         }
@@ -146,10 +147,6 @@ public class Player extends Mob {
         }
     }
 
-    public boolean hasEnteredForest() {
-                return isOnForestPath;
-    }
-
     @Override
 
     //create a collisionBox on the player that will react if they collide with a solid tile
@@ -172,6 +169,9 @@ public class Player extends Mob {
             if (isDoorTile(xa,ya,x,yMin)) {
                 EnterShop = true;
             }
+            if (isPathTile(xa,ya,x,yMin)) {
+                isOnForestPath = true;
+            }
         }
         for (int x = xMin; x < xMax; x++) {
             if (isSolidTile(xa, ya, x, yMax)) {
@@ -193,5 +193,9 @@ public class Player extends Mob {
 
     public boolean hasEnteredShop() {
         return EnterShop;
+    }
+
+    public boolean hasEnteredForest() {
+                return isOnForestPath;
     }
 }

@@ -1,6 +1,5 @@
 package fight;
 
-import davidtest.overworld.map.WorldModel;
 import game.Inventory;
 import game.LootModel;
 import game.MasterModel;
@@ -32,6 +31,7 @@ public class FightModel {
         sendInventory();
         sendStats();
         forestCon.startFight();
+
     }
 
     public void fightWon(){

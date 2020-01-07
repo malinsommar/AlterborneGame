@@ -6,9 +6,9 @@ import game.MusicPick;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-public class OverWorldController extends Canvas implements Runnable {
-    public OverWorldFrame owf = new OverWorldFrame();
-    public int[] Entrance = new int[1];
+public class WorldController extends Canvas implements Runnable {
+    private WorldFrame owf = new WorldFrame();
+    int[] Entrance = new int[1];
 
     //int-variables to handle Model-execution
     private int ForestEntrance = 1;
@@ -16,7 +16,7 @@ public class OverWorldController extends Canvas implements Runnable {
     private int ForestBossEntrance = 1;
     private int MountainEntrance = 1;
 
-     OverWorldController() throws InterruptedException {
+     WorldController() throws InterruptedException {
         start();//start the program
         new MouseClickSimulated();
         while (Entrance[0] <= 0) {
@@ -146,7 +146,7 @@ public class OverWorldController extends Canvas implements Runnable {
         for (int y = 0; y < owf.screen.height; y++) {
             for (int x = 0; x < owf.screen.width; x++) {
                 int colourCode = owf.screen.pixels[x + y * owf.screen.width];
-                if (colourCode < 255) owf.pixels[x + y * OverWorldFrame.WIDTH] = owf.colours[colourCode];
+                if (colourCode < 255) owf.pixels[x + y * WorldFrame.WIDTH] = owf.colours[colourCode];
             }
         }
 
