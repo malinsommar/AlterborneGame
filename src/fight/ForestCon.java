@@ -439,12 +439,6 @@ public class ForestCon {
         //If none of these are true, nothing happens and the fight goes on.
     }
 
-    private void fightIsOver() {
-        FightModel fightModel = new FightModel();
-        fightModel.startForestFight();
-        fff.forestFightJFrame.dispose();
-    }
-
     //When the wolf attacks.
     public void wolfAttack() {
         ac.target = (int) (Math.random() * 4); //Random target, 0-3.
