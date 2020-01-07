@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 public class CaveController {
     
     CaveView cv = new CaveView();
+    AnimationsCon ac = new AnimationsCon();
 
     //Get hp, block and damage from party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
@@ -24,12 +25,9 @@ public class CaveController {
     private int currentEnergy;
     private int warriorEnergyInt=5, mageEnergyInt, rangerEnergyInt, healerEnergyInt;
 
-    boolean fightWon = false;
-    boolean fightLost = false;
-
     private int[] ownedPotions = new int[12];
 
-    int[] goblinHp = {20,20,20,20};
+    int[] goblinHp = {30,30,30,30};
 
     public void startFight(){
 
@@ -39,8 +37,8 @@ public class CaveController {
 
         setStartLabels();
         cv.caveFightFrame();
-        //hoverEffect();
-        //targetSystem();
+        hoverEffect();
+        targetSystem();
 
         //ActionListeners
         cv.attackButton.addActionListener(e -> attackPressed());
@@ -156,15 +154,51 @@ public class CaveController {
             turns=5;
         }
         //  ***ENEMIES TURN***
-        if (turns==5){enemyTurnTimer.start();}
+        if (turns==5){ac.enemyTurnTimer.start();}
     }
 
+    public void targetSystem(){
+
+        cv.goblin1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ac.target = 1;
+                cv.targetarrow.setLocation(875, 250);
+                cv.targetarrow.setVisible(true);
+            }
+        });
+        cv.goblin2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ac.target = 2;
+                cv.targetarrow.setLocation(1065, 250);
+                cv.targetarrow.setVisible(true);
+            }
+        });
+        cv.goblin3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ac.target = 3;
+                cv.targetarrow.setLocation(925, 325);
+                cv.targetarrow.setVisible(true);
+            }
+        });
+        cv.goblin4.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ac.target = 4;
+                cv.targetarrow.setLocation(1100, 325);
+                cv.targetarrow.setVisible(true);
+            }
+        });
+    }
+    
     private void skill1(){
         if (turns == 1 && warriorEnergyInt>1 && cv.targetarrow.isVisible()){
             warriorEnergyInt=warriorEnergyInt-2;
             currentEnergy=currentEnergy-2;
             cv.energy.setText("Energy: "+warriorEnergyInt);
-            charge.start();
+            ac.charge.start();
             mobDeath();
             isFightOver();
         }
@@ -172,18 +206,18 @@ public class CaveController {
             rangerEnergyInt=rangerEnergyInt-4;
             currentEnergy=currentEnergy-4;
             cv.energy.setText("Energy: "+rangerEnergyInt);
-            volley.start();
+            ac.volley.start();
             mobDeath();
             isFightOver();
         }
         if (turns==3 && mageEnergyInt>1 && cv.targetarrow.isVisible()){
-            pyroBlastX = 90;
-            pyroblastY = 300;
-            followup = true;
+            ac.pyroBlastX = 90;
+            ac.pyroblastY = 300;
+            ac.followup = true;
             mageEnergyInt=mageEnergyInt-2;
             currentEnergy=currentEnergy-2;
             cv.energy.setText("Energy: "+mageEnergyInt);
-            fireBall.start();
+            ac.fireBall.start();
             mobDeath();
             isFightOver();
         }
@@ -197,7 +231,7 @@ public class CaveController {
             warriorEnergyInt=warriorEnergyInt-2;
             currentEnergy=currentEnergy-2;
             cv.energy.setText("Energy: "+warriorEnergyInt);
-            dunk.start();
+            ac.dunk.start();
             mobDeath();
             isFightOver();
         }
@@ -205,7 +239,7 @@ public class CaveController {
             rangerEnergyInt=rangerEnergyInt-3;
             currentEnergy=currentEnergy-3;
             cv.energy.setText("Energy: "+rangerEnergyInt);
-            bombthrow.start();
+            ac.bombthrow.start();
             mobDeath();
             isFightOver();
         }
@@ -219,8 +253,8 @@ public class CaveController {
 
     private void skill3(){
         if (turns == 1){
-            followup = true;
-            shout.start();
+            ac.followup = true;
+            ac.shout.start();
         }
         if(turns == 2){
 
@@ -229,7 +263,7 @@ public class CaveController {
             mageEnergyInt=mageEnergyInt-3;
             currentEnergy=currentEnergy-3;
             cv.energy.setText("Energy: "+mageEnergyInt);
-            flameStrike.start();
+            ac.flameStrike.start();
             mobDeath();
             isFightOver();
         }
@@ -237,34 +271,104 @@ public class CaveController {
             healerEnergyInt=healerEnergyInt-5;
             currentEnergy=currentEnergy-5;
             cv.energy.setText("Energy: "+healerEnergyInt);
-            groupHealSpell.start();
+            ac.groupHealSpell.start();
         }
     }
 
     private void skill4(){
         if (turns == 1){
-            shout.start();
+            ac.shout.start();
         }
         if(turns == 2 && rangerEnergyInt>2){
             rangerEnergyInt=rangerEnergyInt-3;
             currentEnergy=currentEnergy-3;
             cv.energy.setText("Energy: "+rangerEnergyInt);
-            stealth();
+            ac.stealth();
         }
         if (turns == 3 && mageEnergyInt>4 && cv.targetarrow.isVisible()){
-            pyroBlastX = 90;
-            pyroblastY = 300;
-            followup = true;
+            ac.pyroBlastX = 90;
+            ac.pyroblastY = 300;
+            ac.followup = true;
             mageEnergyInt=mageEnergyInt-5;
             currentEnergy=currentEnergy-5;
             cv.energy.setText("Energy: "+mageEnergyInt);
-            pyroBlast.start();
+            ac.pyroBlast.start();
             mobDeath();
             isFightOver();
         }
         if (turns == 4){
 
         }
+    }
+
+    private void healingTargetMenu(int chosenSpell) {
+        cv.skill1Button.setVisible(false);
+        cv.skill2Button.setVisible(false);
+        cv.skill3Button.setVisible(false);
+        cv.skill4Button.setVisible(false);
+
+        cv.healWarriorButton.setVisible(true);
+        cv.healRangerButton.setVisible(true);
+        cv.healMageButton.setVisible(true);
+        cv.healHealerButton.setVisible(true);
+
+        cv.healWarriorButton.addActionListener(e -> {
+            if (chosenSpell == 1 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                cv.energy.setText("Energy: "+healerEnergyInt);
+                ac.healTarget = 1;
+                ac.holyLightSpell.start();}
+
+            if (chosenSpell == 2 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                cv.energy.setText("Energy: "+healerEnergyInt);
+                ac.healTarget = 1;
+                ac.smallHolyLightSpell.start();}
+        });
+        cv.healRangerButton.addActionListener(e -> {
+            if (chosenSpell == 1 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                cv.energy.setText("Energy: "+healerEnergyInt);
+                ac.healTarget = 2;
+                ac.holyLightSpell.start();}
+            if (chosenSpell == 2 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                cv.energy.setText("Energy: "+healerEnergyInt);
+                ac.healTarget = 2;
+                ac.smallHolyLightSpell.start();}
+        });
+        cv.healMageButton.addActionListener(e -> {
+            if (chosenSpell == 1 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                cv.energy.setText("Energy: "+healerEnergyInt);
+                ac.healTarget = 3;
+                ac.holyLightSpell.start();}
+            if (chosenSpell == 2 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                cv.energy.setText("Energy: "+healerEnergyInt);
+                ac.healTarget = 3;
+                ac.smallHolyLightSpell.start();}
+        });
+        cv.healHealerButton.addActionListener(e -> {
+            if (chosenSpell == 1 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                cv.energy.setText("Energy: "+healerEnergyInt);
+                ac.healTarget = 4;
+                ac.holyLightSpell.start();}
+            if (chosenSpell == 2 && healerEnergyInt > 1){
+                healerEnergyInt=healerEnergyInt-2;
+                currentEnergy=currentEnergy-2;
+                cv.energy.setText("Energy: "+healerEnergyInt);
+                ac.healTarget = 4;
+                ac.smallHolyLightSpell.start();}
+        });
     }
 
     private void spellMenuActive(){
@@ -353,7 +457,7 @@ public class CaveController {
             warriorEnergyInt=warriorEnergyInt-2; //Energy -2.
             currentEnergy=currentEnergy-2; // Update currentEnergy.
             cv.energy.setText("Energy: "+warriorEnergyInt); //Update energyLabel
-            warriorAttackGoblin(); //Warrior deals damage to a random wolf.
+            ac.tackle.start(); //Warrior deals damage to a wolf.
             mobDeath(); //Check if enemy died.
             isFightOver(); //Check if all enemies/party members are dead.
         }
@@ -362,7 +466,7 @@ public class CaveController {
             rangerEnergyInt=rangerEnergyInt-2;
             currentEnergy=currentEnergy-2;
             cv.energy.setText("Energy: "+rangerEnergyInt);
-            rangerAttackGoblin();
+            ac.shoot.start();
             mobDeath();
             isFightOver();
         }
@@ -371,7 +475,7 @@ public class CaveController {
             mageEnergyInt=mageEnergyInt-2;
             currentEnergy=currentEnergy-2;
             cv.energy.setText("Energy: "+mageEnergyInt);
-            mageAttackGoblin();
+            ac.blast.start();
             mobDeath();
             isFightOver();
         }
@@ -380,7 +484,7 @@ public class CaveController {
             healerEnergyInt=healerEnergyInt-2;
             currentEnergy=currentEnergy-2;
             cv.energy.setText("Energy: "+healerEnergyInt);
-            healerAttackGoblin();
+            ac.healerAttack.start();
             mobDeath();
             isFightOver();
         }
@@ -391,16 +495,14 @@ public class CaveController {
         //If all of the wolves are dead. Open lootScreen.
         if (goblinHp[0] < 1 && goblinHp[1] < 1 && goblinHp[2] < 1 && goblinHp[3] < 1) {
             MusicPick.musicStop();
-            cv.forestFightJFrame.dispose();
-            fightWon = true;
+            cv.caveFightJFrame.dispose();
             //TODO This does not follow MVC
             FightModel fm = new FightModel();
-            fm.fightWon();
+            fm.fightWon(2);
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
-            cv.forestFightJFrame.dispose();
-            fightLost = true;
+            cv.caveFightJFrame.dispose();
             //Death screen,
         }
         //If none of these are true, nothing happens and the fight goes on.
@@ -436,18 +538,18 @@ public class CaveController {
 
     //When the goblin attacks.
     private void goblinAttack() {
-        target = (int) (Math.random() * 4); //Random target, 0-3.
+        ac.target = (int) (Math.random() * 4); //Random target, 0-3.
         int goblinDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
-        takeDamage.start();
+        ac.takeDamage.start();
 
         //Loops until it reaches an alive party-member.
         while (true) {
 
             //Warrior, Target 2.
-            if (target == 0) {
+            if (ac.target == 0) {
                 //If warrior is dead, target=1.
                 if (warriorCurrentHp < 1) {
-                    target=1;
+                    ac.target=1;
                 }
                 //If warrior is alive.
                 if (warriorCurrentHp >0) {
@@ -458,10 +560,10 @@ public class CaveController {
                 }
             }
             //Mage, Target 1.
-            if (target == 1) {
+            if (ac.target == 1) {
                 //If mage is dead, target=2.
                 if (mageCurrentHp < 1) {
-                    target = 2;
+                    ac.target = 2;
                 }
                 //If mage is alive.
                 if (mageCurrentHp >0) {
@@ -472,10 +574,10 @@ public class CaveController {
                 }
             }
             //Ranger, target 2.
-            if (target == 2) {
+            if (ac.target == 2) {
                 //If ranger is dead, target=3.
                 if (rangerCurrentHp < 1) {
-                    target = 3;
+                    ac.target = 3;
                 }
                 //If ranger is alive.
                 if (rangerCurrentHp >0) {
@@ -486,10 +588,10 @@ public class CaveController {
                 }
             }
             //Healer, target3.
-            if (target == 3) {
+            if (ac.target == 3) {
                 //If healer is dead, target=0.
                 if (healerCurrentHp < 1) {
-                    target = 0;
+                    ac.target = 0;
                 }
                 //If healer is alive.
                 if (healerCurrentHp >0) {
@@ -508,22 +610,22 @@ public class CaveController {
         if(goblinHp[0]<=0){
             cv.goblin1Hp.setText("Goblin 1: 0");
             cv.goblin1.setVisible(false);
-            if (target == 1) {cv.targetarrow.setVisible(false);}
+            if (ac.target == 1) {cv.targetarrow.setVisible(false);}
         }
         if(goblinHp[1]<=0){
             cv.goblin2Hp.setText("Goblin 2: 0");
             cv.goblin2.setVisible(false);
-            if (target == 2) {cv.targetarrow.setVisible(false);}
+            if (ac.target == 2) {cv.targetarrow.setVisible(false);}
         }
         if(goblinHp[2]<=0){
             cv.goblin3Hp.setText("Goblin 3: 0");
             cv.goblin3.setVisible(false);
-            if (target == 3) {cv.targetarrow.setVisible(false);}
+            if (ac.target == 3) {cv.targetarrow.setVisible(false);}
         }
         if(goblinHp[3]<=0){
             cv.goblin4Hp.setText("Goblin 4: 0");
             cv.goblin4.setVisible(false);
-            if (target == 4) {cv.targetarrow.setVisible(false);}
+            if (ac.target == 4) {cv.targetarrow.setVisible(false);}
         }
     }
 
@@ -595,7 +697,7 @@ public class CaveController {
         mageStartDamage = mage[2];
 
         healerCurrentHp = healer[0];
-        healerStartBlock = healer[1];<
+        healerStartBlock = healer[1];
         healerStartDamage = healer[2];
 
         rangerCurrentHp = ranger[0];

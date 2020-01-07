@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         //MasterModel mm = new MasterModel();
         //mm.startGame();
-        CaveView c = new CaveView();
-        c.caveFightFrame();
+        LoseScreen ls = new LoseScreen();
+        ls.loseScreen();
     }
 }

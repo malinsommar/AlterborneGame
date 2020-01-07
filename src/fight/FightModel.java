@@ -43,10 +43,10 @@ public class FightModel {
         caveCon.startFight();
     }
 
-    public void fightWon(){
+    public void fightWon(int whatFight){
         MasterModel mm = new MasterModel();
         try {
-            mm.startLootModel();
+            mm.startLootModel(whatFight);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
