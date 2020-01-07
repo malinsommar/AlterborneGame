@@ -581,6 +581,37 @@ public class simontest extends JFrame {
 
 
 
+//When healer press the "attack button".
+    private void healerAttackWolf(){
+        //Loops until it hits an live wolf.
+        while (true) {
+
+            //If target is 1 and wolf 1 is alive.
+            if (target == 1 && wolfHp[0] > 0) {
+                wolfHp[0] = wolfHp[0] - healerDamage;//Wolf take damage equals to healers damage.
+                fff.wolf1Hp.setText("Wolf 1: " + wolfHp[0]);
+                break;
+            }
+            //If target is 2 and wolf 2 is alive.
+            if (target == 2 && wolfHp[1] > 0) {
+                wolfHp[1] = wolfHp[1] - healerDamage;
+                fff.wolf2Hp.setText("Wolf 2: " + wolfHp[1]);
+                break;
+            }
+            //If target is 3 and wolf 3 is alive.
+            if (target == 3 && wolfHp[2] > 0) {
+                wolfHp[2] = wolfHp[2] - healerDamage;
+                fff.wolf3Hp.setText("Wolf 3: " + wolfHp[2]);
+                break;
+            }
+            //If target is 4 and wolf 4 is alive.
+            if (target == 4 && wolfHp[3] > 0) {
+                wolfHp[3] = wolfHp[3] - healerDamage;
+                fff.wolf4Hp.setText("Wolf 4: " + wolfHp[3]);
+                break;
+            }
+        }
+    }
 
 
 
