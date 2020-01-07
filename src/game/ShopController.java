@@ -1,64 +1,80 @@
 package game;
 
+import java.util.Arrays;
+
 public class ShopController {
 
     ShopView sv = new ShopView();
+    public int[] choice = new int[1];
 
+    private int exitCount = 1;
     int currentGold, whatLoot;
 
-    public void startShopView(int gold){
+    public void startShopView(int gold) {
 
         currentGold = gold;
 
         sv.startShopFrame();
         hoverEffect();
 
+
         //When you press one of the armors/weapons --> buyEquipment()
-        sv.warriorArmor1.addActionListener(e-> buyEquipment(1));
-        sv.warriorArmor2.addActionListener(e-> buyEquipment(2));
-        sv.warriorArmor3.addActionListener(e-> buyEquipment(3));
-        sv.warriorWeapon1.addActionListener(e-> buyEquipment(4));
-        sv.warriorWeapon2.addActionListener(e-> buyEquipment(5));
-        sv.warriorWeapon3.addActionListener(e-> buyEquipment(6));
+        sv.warriorArmor1.addActionListener(e -> buyEquipment(1));
+        sv.warriorArmor2.addActionListener(e -> buyEquipment(2));
+        sv.warriorArmor3.addActionListener(e -> buyEquipment(3));
+        sv.warriorWeapon1.addActionListener(e -> buyEquipment(4));
+        sv.warriorWeapon2.addActionListener(e -> buyEquipment(5));
+        sv.warriorWeapon3.addActionListener(e -> buyEquipment(6));
 
-        sv.mageArmor1.addActionListener(e-> buyEquipment(7));
-        sv.mageArmor2.addActionListener(e-> buyEquipment(8));
-        sv.mageArmor3.addActionListener(e-> buyEquipment(9));
-        sv.mageWeapon1.addActionListener(e-> buyEquipment(10));
-        sv.mageWeapon2.addActionListener(e-> buyEquipment(11));
-        sv.mageWeapon3.addActionListener(e-> buyEquipment(12));
+        sv.mageArmor1.addActionListener(e -> buyEquipment(7));
+        sv.mageArmor2.addActionListener(e -> buyEquipment(8));
+        sv.mageArmor3.addActionListener(e -> buyEquipment(9));
+        sv.mageWeapon1.addActionListener(e -> buyEquipment(10));
+        sv.mageWeapon2.addActionListener(e -> buyEquipment(11));
+        sv.mageWeapon3.addActionListener(e -> buyEquipment(12));
 
-        sv.rangerArmor1.addActionListener(e-> buyEquipment(13));
-        sv.rangerArmor2.addActionListener(e-> buyEquipment(14));
-        sv.rangerArmor3.addActionListener(e-> buyEquipment(15));
-        sv.rangerWeapon1.addActionListener(e-> buyEquipment(16));
-        sv.rangerWeapon2.addActionListener(e-> buyEquipment(17));
-        sv.rangerWeapon3.addActionListener(e-> buyEquipment(18));
+        sv.rangerArmor1.addActionListener(e -> buyEquipment(13));
+        sv.rangerArmor2.addActionListener(e -> buyEquipment(14));
+        sv.rangerArmor3.addActionListener(e -> buyEquipment(15));
+        sv.rangerWeapon1.addActionListener(e -> buyEquipment(16));
+        sv.rangerWeapon2.addActionListener(e -> buyEquipment(17));
+        sv.rangerWeapon3.addActionListener(e -> buyEquipment(18));
 
-        sv.healerArmor1.addActionListener(e-> buyEquipment(19));
-        sv.healerArmor2.addActionListener(e-> buyEquipment(20));
-        sv.healerArmor3.addActionListener(e-> buyEquipment(21));
-        sv.healerWeapon1.addActionListener(e-> buyEquipment(22));
-        sv.healerWeapon2.addActionListener(e-> buyEquipment(23));
-        sv.healerWeapon3.addActionListener(e-> buyEquipment(24));
-
-        //ActionListeners
-        sv.back.addActionListener(e -> sv.shopFrame.dispose());
+        sv.healerArmor1.addActionListener(e -> buyEquipment(19));
+        sv.healerArmor2.addActionListener(e -> buyEquipment(20));
+        sv.healerArmor3.addActionListener(e -> buyEquipment(21));
+        sv.healerWeapon1.addActionListener(e -> buyEquipment(22));
+        sv.healerWeapon2.addActionListener(e -> buyEquipment(23));
+        sv.healerWeapon3.addActionListener(e -> buyEquipment(24));
 
         //When you press one of the potions -->buyPotions()
-        sv.potion1.addActionListener(e-> buyPotion(1));
-        sv.potion2.addActionListener(e-> buyPotion(2));
-        sv.potion3.addActionListener(e-> buyPotion(3));
-        sv.potion4.addActionListener(e-> buyPotion(4));
-        sv.potion5.addActionListener(e-> buyPotion(5));
-        sv.potion6.addActionListener(e-> buyPotion(6));
-        sv.potion7.addActionListener(e-> buyPotion(7));
-        sv.potion8.addActionListener(e-> buyPotion(8));
-        sv.potion9.addActionListener(e-> buyPotion(9));
-        sv.potion10.addActionListener(e-> buyPotion(10));
-        sv.potion11.addActionListener(e-> buyPotion(11));
-        sv.potion12.addActionListener(e-> buyPotion(12));
+        sv.potion1.addActionListener(e -> buyPotion(1));
+        sv.potion2.addActionListener(e -> buyPotion(2));
+        sv.potion3.addActionListener(e -> buyPotion(3));
+        sv.potion4.addActionListener(e -> buyPotion(4));
+        sv.potion5.addActionListener(e -> buyPotion(5));
+        sv.potion6.addActionListener(e -> buyPotion(6));
+        sv.potion7.addActionListener(e -> buyPotion(7));
+        sv.potion8.addActionListener(e -> buyPotion(8));
+        sv.potion9.addActionListener(e -> buyPotion(9));
+        sv.potion10.addActionListener(e -> buyPotion(10));
+        sv.potion11.addActionListener(e -> buyPotion(11));
+        sv.potion12.addActionListener(e -> buyPotion(12));
+
+        while (choice[0] == 0) {
+            sv.Exit.addActionListener(e -> {
+                if (exitCount == 1) {
+                    exitShop();
+                }
+            });
+        }
     }
+    public void exitShop() {
+        exitCount++;
+        choice[0] = 1;
+        System.out.println(Arrays.toString(choice));
+        sv.shopFrame.dispose();
+        }
 
     public void buyEquipment(int whatEquipment){
 

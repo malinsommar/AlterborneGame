@@ -855,7 +855,7 @@ public class ForestCon {
                 arrowX = 270;
                 phase = 0;
                 volley.stop();
-                if (stealthed){
+                if (stealth){
                     spellDamageSystem(40,"single");
                     unstealth();
                 }
@@ -1458,7 +1458,7 @@ public class ForestCon {
                     timePast = 0;
                     phase = 0;
                     bombthrow.stop();
-                    if (stealthed){
+                    if (stealth){
                         spellDamageSystem(8,"all");
                         unstealth();
                     }
@@ -1533,19 +1533,19 @@ public class ForestCon {
     });
 
     private void stealth() {
-        if (!stealthed) {
+        if (!stealth) {
             MusicPick.musicStart("stealth", "");
             fff.ranger.setVisible(false);
             fff.stealthranger.setVisible(true);
-            stealthed = true;
+            stealth = true;
         }
     }
     private void unstealth(){
-        if (stealthed){
+        if (stealth){
             MusicPick.musicStart("unstealth", "");
             fff.ranger.setVisible(true);
             fff.stealthranger.setVisible(false);
-            stealthed = false;
+            stealth = false;
         }
     }
 

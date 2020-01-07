@@ -33,7 +33,6 @@ public abstract class Mob extends Entity {
 
         //Collision detection
         if (!hasCollided(xa, ya)) {
-            //indicate which way character will be facing
             if (ya < 0)
                 movingDir = 0;
             if (ya > 0)
@@ -49,7 +48,6 @@ public abstract class Mob extends Entity {
 
     public abstract boolean hasCollided(int xa, int ya);
 
-    //the tile you walk on if you're not walking on the solid tile
 
     //compare tiles whether they are Basic or BasicSolid-tile (seen in Tile-class).
     protected boolean isSolidTile(int xa, int ya, int x, int y) {
@@ -59,8 +57,19 @@ public abstract class Mob extends Entity {
         //the solid tiles
         Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
         Tile solidTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(solidTile) //If the tile player spawns on is an IsSolid tile it won´t be solid immediately
-                && solidTile.isSolid();  //solidTile is Solid
+        return !lastTile.equals(solidTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
+                && solidTile.isSolid(); //solidTile is Solid
+        //if no difference is identified return false
+    }
+    protected boolean isDoorTile(int xa, int ya, int x, int y) {
+        if (level1 == null) {
+            return false;
+        }
+        //the solid path tiles
+        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
+        Tile doorTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(doorTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
+                && doorTile.isDoor(); //solidPathTile is Solid
         //if no difference is identified return false
     }
 

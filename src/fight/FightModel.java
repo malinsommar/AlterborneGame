@@ -1,7 +1,9 @@
 package fight;
 
+import davidtest.overworld.map.WorldModel;
 import game.Inventory;
 import game.LootModel;
+import game.MasterModel;
 import party.Healer;
 import party.Mage;
 import party.Ranger;
@@ -11,7 +13,6 @@ public class FightModel {
 
     private ForestCon forestCon = new ForestCon();
     private Inventory inv = new Inventory();
-    private LootModel lm = new LootModel();
 
     private Warrior w = new Warrior();
     private Mage m = new Mage();
@@ -31,12 +32,15 @@ public class FightModel {
         sendInventory();
         sendStats();
         forestCon.startFight();
-
     }
 
     public void fightWon(){
-
-        lm.startLootController();
+        MasterModel mm = new MasterModel();
+        try {
+            mm.startLootModel();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     //This method sends inventory info to ForestFightController.
@@ -68,5 +72,10 @@ public class FightModel {
         rangerStats[0]=r.hp;
         rangerStats[1]=r.combinedBlock;
         rangerStats[2]=r.combinedDamage;
+    }
+
+    public static void main(String[] args) {
+        FightModel fightModel = new FightModel();
+        fightModel.startForestFight();
     }
 }

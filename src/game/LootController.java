@@ -9,7 +9,9 @@ public class LootController {
 
     private LootFrame lf = new LootFrame();
 
-     int textDelay = 0, whatLoot, xpInt, goldInt;
+
+
+    int textDelay = 0, whatLoot, xpInt, goldInt;
 
     private String warriorWeaponName, mageWeaponName, rangerWeaponName, healerWeaponName;
     private String warriorArmorName, mageArmorName,rangerArmorName, healerArmorName;
@@ -38,7 +40,7 @@ public class LootController {
 
 
     //This method starts LootFrame and implements the methods needed for LootScreen.
-    public void startLootScreen(int fight){
+    public void startLootScreen(int fight) throws InterruptedException {
 
         lf.lootScreenFrame();
         generateLoot(fight);
@@ -46,11 +48,9 @@ public class LootController {
 
         textDelayTimer.start();
 
-        lf.equipButton.addActionListener(e-> equipLoot());
-
+        lf.equipButton.addActionListener(e -> equipLoot());
         LootModel lm = new LootModel();  //TODO this does not follow MVC
-        lf.continueButton.addActionListener(e-> lf.lootScreenJFrame.dispose());
-        lf.continueButton.addActionListener(e-> {
+        lf.continueButton.addActionListener(e -> {
             try {
                 lm.addLoot();
             } catch (InterruptedException ex) {
