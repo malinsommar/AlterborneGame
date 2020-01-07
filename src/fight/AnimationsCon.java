@@ -89,7 +89,11 @@ public class AnimationsCon {
                     phase = 0;
                     charge.stop();
 
-                    fc.spellDamageSystem(6,"line");
+                    try {
+                        fc.spellDamageSystem(6,"line");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -189,11 +193,19 @@ public class AnimationsCon {
                     phase = 0;
                     volley.stop();
                     if (stealthed){
-                        fc.spellDamageSystem(40,"single");
+                        try {
+                            fc.spellDamageSystem(40,"single");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         unstealth();
                     }
                     else {
-                        fc.spellDamageSystem(20, "single");
+                        try {
+                            fc.spellDamageSystem(20, "single");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -256,7 +268,11 @@ public class AnimationsCon {
                         fff.fireStorm.setVisible(false);
                         flameStrike.stop();
                         phase = 0;
-                        fc.spellDamageSystem(5, "all");
+                        try {
+                            fc.spellDamageSystem(5, "all");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -366,11 +382,19 @@ public class AnimationsCon {
                     phase = 0;
                     shoot.stop();
                     if (stealthed){
-                        fc.spellDamageSystem(fc.rangerDamage * 2,"single");
+                        try {
+                            fc.spellDamageSystem(fc.rangerDamage * 2,"single");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         unstealth();
                     }
                     else {
-                        fc.spellDamageSystem(fc.rangerDamage, "single");
+                        try {
+                            fc.spellDamageSystem(fc.rangerDamage, "single");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -394,7 +418,11 @@ public class AnimationsCon {
                         fff.warrior.setLocation(warriorX, warriorY);
                         phase = 0;
                         tackle.stop();
-                        fc.spellDamageSystem(fc.warriorDamage,"single");
+                        try {
+                            fc.spellDamageSystem(fc.warriorDamage,"single");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -457,7 +485,11 @@ public class AnimationsCon {
                         warriorMegaMath = 30;
                         phase = 0;
                         dunk.stop();
-                        fc.spellDamageSystem(3,"all");
+                        try {
+                            fc.spellDamageSystem(3,"all");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -482,7 +514,11 @@ public class AnimationsCon {
                     fff.blast.setLocation(blastX, blastY);
                     phase = 0;
                     blast.stop();
-                    fc.spellDamageSystem(fc.mageDamage, "single");
+                    try {
+                        fc.spellDamageSystem(fc.mageDamage, "single");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                 }
             }
@@ -530,7 +566,11 @@ public class AnimationsCon {
                     pyroblastY = 150;
                     fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
                     pyroBlast.stop();
-                    fc.spellDamageSystem(20,"single");
+                    try {
+                        fc.spellDamageSystem(20,"single");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -640,7 +680,11 @@ public class AnimationsCon {
                     phase = 0;
                     fireBall.stop();
                     fff.smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                    fc.spellDamageSystem(8,"single");
+                    try {
+                        fc.spellDamageSystem(8,"single");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -792,11 +836,19 @@ public class AnimationsCon {
                         phase = 0;
                         bombthrow.stop();
                         if (stealthed){
-                            fc.spellDamageSystem(8,"all");
+                            try {
+                                fc.spellDamageSystem(8,"all");
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             unstealth();
                         }
                         else {
-                            fc.spellDamageSystem(4, "all");
+                            try {
+                                fc.spellDamageSystem(4, "all");
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
@@ -975,7 +1027,11 @@ public class AnimationsCon {
                         fff.healer.setLocation(healerX, healerY);
                         phase = 0;
                         tackle.stop();
-                        fc.spellDamageSystem(fc.healerDamage,"single");
+                        try {
+                            fc.spellDamageSystem(fc.healerDamage,"single");
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

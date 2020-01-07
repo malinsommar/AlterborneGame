@@ -89,8 +89,6 @@ public class ForestCon {
 
     private int[] ownedPotions = new int[12];
 
-    int[] wolfHp = {20,20,20,20};
-
     public int[] status = new int[1];
     public int battleWon = 1;
 
