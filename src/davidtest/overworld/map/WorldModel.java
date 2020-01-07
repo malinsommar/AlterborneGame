@@ -18,7 +18,7 @@ public class WorldModel {
          }
          if(overWorldController.Entrance[0]==3){
              FightModel fightModel = new FightModel();
-             //fightModel.startMountainPath();
+             fightModel.startCaveFight();
          }
     }
 }
