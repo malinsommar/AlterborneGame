@@ -50,22 +50,28 @@ public abstract class Tile {
     public static final Tile FIELDCHEST = new SolidTile(33, 1, 17, Colours.get(176,210,178,332), 0xFFab6a2c);
     public static final Tile MOUNTAINCHEST = new SolidTile(34, 2, 17, Colours.get(333,210,178,332), 0xFFab6a3c);
     public static final Tile SWAMPCHEST = new SolidTile(35, 3, 17, Colours.get(18,210,178,332), 0xFFab6a4c);
+    public static final Tile LEFTBOTTOMMOUNTAINCAVE = new MountainPathTile(36, 0, 21, Colours.get(-1,1,333, 16), 0xFF555551);
+    public static final Tile RIGHTBOTTOMMOUNTAINCAVE = new MountainPathTile(37, 1, 21, Colours.get(-1,1,333, 16), 0xFF555552);
+    public static final Tile LEFTOPMOUNTAINCAVE = new MountainPathTile(38, 2, 21, Colours.get(-1,1,333,16), 0xFF555553);
+    public static final Tile RIGHTTOPMOUNTAINCAVE = new MountainPathTile(39, 3, 21, Colours.get(-1,1,333,16), 0xFF555554);
 
 
     protected byte id;
     protected boolean solid;
     protected boolean emitter;
-    protected boolean forestpath;
+    protected boolean forestPath;
+    protected boolean mountainPath;
     protected boolean door;
     private int levelColour;
 
-    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isForestPath, boolean isDoor, int levelColour) {
+    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isForestPath, boolean isDoor, boolean isMountainPath, int levelColour) {
         this.id = (byte) id;
         if (tiles[id] != null)
             throw new RuntimeException("Duplicate tile id on" + id);
         this.solid = isSolid;
         this.emitter = isEmitter;
-        this.forestpath = isForestPath;
+        this.forestPath = isForestPath;
+        this.mountainPath = isMountainPath;
         this.door = isDoor;
         this.levelColour  = levelColour;
         tiles[id] = this;
@@ -87,7 +93,10 @@ public abstract class Tile {
     }
 
     public boolean isForestPath() {
-        return forestpath;
+        return forestPath;
+    }
+    public boolean isMountainPath() {
+        return mountainPath;
     }
 
     public boolean isDoor() {
