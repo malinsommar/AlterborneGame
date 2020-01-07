@@ -1,5 +1,6 @@
 package fight;
 
+import davidtest.overworld.map.WorldModel;
 import game.Inventory;
 import game.LootModel;
 import game.MasterModel;
@@ -33,7 +34,6 @@ public class FightModel {
         getStats();
         forestCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
         forestCon.startFight();
-
     }
 
     public void startCaveFight(){
@@ -74,5 +74,10 @@ public class FightModel {
         rangerStats[0]=r.hp;
         rangerStats[1]=r.combinedBlock;
         rangerStats[2]=r.combinedDamage;
+    }
+
+    public static void main(String[] args) {
+        FightModel fightModel = new FightModel();
+        fightModel.startForestFight();
     }
 }

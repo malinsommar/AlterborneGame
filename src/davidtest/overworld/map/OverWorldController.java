@@ -1,9 +1,5 @@
 package davidtest.overworld.map;
 
-import davidtest.overworld.entities.Player;
-import davidtest.overworld.gfx.Screen;
-import davidtest.overworld.gfx.SpriteSheet;
-import davidtest.overworld.levels.Level;
 import davidtest.overworld.map.Functionality.MouseClickSimulated;
 import game.MusicPick;
 
@@ -120,6 +116,10 @@ public class OverWorldController extends Canvas implements Runnable {
         }
         if (Entrance[0] == 2) {
             owf.frame.dispose();
+            if (Entrance[0] == 0) {
+                this.notify();
+                System.out.println("notified");
+            }
         }
         //FIXME thread delay/pause
         // - start Malin work

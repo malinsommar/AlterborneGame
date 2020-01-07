@@ -1,5 +1,6 @@
 package game;
 
+import davidtest.overworld.map.OverWorldController;
 import davidtest.overworld.map.WorldModel;
 import party.Healer;
 import party.Mage;
@@ -144,7 +145,6 @@ public class ShopModel {
     }
     public void startWorldModel() throws InterruptedException {
         System.out.println("start new World");
-        new WorldModel();
+        WorldModel worldModel = new WorldModel();
     }
-
 }

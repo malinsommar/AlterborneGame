@@ -11,7 +11,7 @@ import davidtest.overworld.map.Functionality.RandomEncounter;
 public class Player extends Mob {
 
     private InputHandler input;
-    private int colour = Colours.get(-1, 111, 111, 543); //Assign colour for character which will be calculated within the Colours-class
+    private int colour = Colours.get(-1, 111, 111, 332); //Assign colour for character which will be calculated within the Colours-class
     private int scale = 1; //assign size to character
     protected boolean isSwimming = false; //assign the isSwimming value as natively false
     protected boolean isSwampSwimming = false;//assign the isSwampSwimming value as natively false
