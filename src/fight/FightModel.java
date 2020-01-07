@@ -2,6 +2,7 @@ package fight;
 
 import game.Inventory;
 import game.LootModel;
+import game.LoseScreen;
 import game.MasterModel;
 import party.Healer;
 import party.Mage;
@@ -12,6 +13,7 @@ public class FightModel {
 
     private ForestCon forestCon = new ForestCon();
     private ForestCon caveCon = new ForestCon();
+    private FieldController fieldCon = new FieldController();
     private Inventory inv = new Inventory();
 
     private Warrior w = new Warrior();
@@ -43,6 +45,13 @@ public class FightModel {
         caveCon.startFight();
     }
 
+    public void startFieldFight(){
+        fieldCon.getInventory(ownedPotions);
+        getStats();
+        fieldCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
+        fieldCon.startFight();
+    }
+
     public void fightWon(int whatFight){
         MasterModel mm = new MasterModel();
         try {
@@ -53,7 +62,8 @@ public class FightModel {
     }
 
     public void fightLost(){
-        //Lose screen/score screen
+        LoseScreen ls = new LoseScreen();
+        ls.loseScreen();
     }
 
     //This method get stats from party-member classes.
@@ -74,10 +84,5 @@ public class FightModel {
         rangerStats[0]=r.hp;
         rangerStats[1]=r.combinedBlock;
         rangerStats[2]=r.combinedDamage;
-    }
-
-    public static void main(String[] args) {
-        FightModel fightModel = new FightModel();
-        fightModel.startForestFight();
     }
 }
