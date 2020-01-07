@@ -55,17 +55,17 @@ public abstract class Tile {
     protected byte id;
     protected boolean solid;
     protected boolean emitter;
-    protected boolean path;
+    protected boolean forestpath;
     protected boolean door;
     private int levelColour;
 
-    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isPath, boolean isDoor, int levelColour) {
+    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isForestPath, boolean isDoor, int levelColour) {
         this.id = (byte) id;
         if (tiles[id] != null)
             throw new RuntimeException("Duplicate tile id on" + id);
         this.solid = isSolid;
         this.emitter = isEmitter;
-        this.path = isPath;
+        this.forestpath = isForestPath;
         this.door = isDoor;
         this.levelColour  = levelColour;
         tiles[id] = this;
