@@ -1,8 +1,8 @@
 package fight;
 
-import davidtest.overworld.map.WorldModel;
 import game.Inventory;
 import game.LootModel;
+import game.LoseScreen;
 import game.MasterModel;
 import party.Healer;
 import party.Mage;
@@ -12,6 +12,8 @@ import party.Warrior;
 public class FightModel {
 
     private ForestCon forestCon = new ForestCon();
+    private ForestCon caveCon = new ForestCon();
+    private FieldController fieldCon = new FieldController();
     private Inventory inv = new Inventory();
 
     private Warrior w = new Warrior();
@@ -29,29 +31,39 @@ public class FightModel {
 
     //This method imports all stats that the battle will need and start ForestFightController.
     public void startForestFight(){
-        sendInventory();
-        sendStats();
+        forestCon.getInventory(ownedPotions);
+        getStats();
+        forestCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
         forestCon.startFight();
+
     }
 
-    public void fightWon(){
+    public void startCaveFight(){
+        caveCon.getInventory(ownedPotions);
+        getStats();
+        caveCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
+        caveCon.startFight();
+    }
+
+    public void startFieldFight(){
+        fieldCon.getInventory(ownedPotions);
+        getStats();
+        fieldCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
+        fieldCon.startFight();
+    }
+
+    public void fightWon(int whatFight){
         MasterModel mm = new MasterModel();
         try {
-            mm.startLootModel();
+            mm.startLootModel(whatFight);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    //This method sends inventory info to ForestFightController.
-    public void sendInventory(){
-        forestCon.getInventory(ownedPotions);
-    }
-
-    //This method sends stats info to ForestFightController.
-    public void sendStats(){
-        getStats();
-        forestCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
+    public void fightLost(){
+        LoseScreen ls = new LoseScreen();
+        ls.loseScreen();
     }
 
     //This method get stats from party-member classes.
@@ -72,10 +84,5 @@ public class FightModel {
         rangerStats[0]=r.hp;
         rangerStats[1]=r.combinedBlock;
         rangerStats[2]=r.combinedDamage;
-    }
-
-    public static void main(String[] args) {
-        FightModel fightModel = new FightModel();
-        fightModel.startForestFight();
     }
 }

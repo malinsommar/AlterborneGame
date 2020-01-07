@@ -352,7 +352,7 @@ public class AnimationsCon {
         }
     });
 
-        public Timer volley = new Timer(10, new ActionListener() {
+        Timer volley = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 arrowX += 30;
@@ -897,7 +897,6 @@ public class AnimationsCon {
                 }
             }
         });
-
 
 
 

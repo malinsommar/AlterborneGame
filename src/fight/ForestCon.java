@@ -4,9 +4,8 @@ import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
+import java.util.Arrays;
 
 public class ForestCon {
 
@@ -88,6 +87,9 @@ public class ForestCon {
 
     private int[] ownedPotions = new int[12];
 
+    public int[] status = new int[1];
+    public int battleWon = 1;
+
     public void startFight(){
 
         MusicPick.musicStart("forest1","music");
@@ -100,15 +102,45 @@ public class ForestCon {
         targetSystem();
 
         //ActionListeners
-        fff.attackButton.addActionListener(e -> attackPressed());
+        fff.attackButton.addActionListener(e -> {
+            try {
+                attackPressed();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
         fff.blockButton.addActionListener(e -> blockPressed());
         fff.itemButton.addActionListener(e -> fff.itemPressed());
         fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
         fff.endTurnButton.addActionListener(e-> startNewTurn());
-        fff.skill1Button.addActionListener(e -> {skill1();});
-        fff.skill2Button.addActionListener(e -> {skill2();});
-        fff.skill3Button.addActionListener(e -> {skill3();});
-        fff.skill4Button.addActionListener(e -> {skill4();});
+        fff.skill1Button.addActionListener(e -> {
+            try {
+                skill1();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+        fff.skill2Button.addActionListener(e -> {
+            try {
+                skill2();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+        fff.skill3Button.addActionListener(e -> {
+            try {
+                skill3();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+        fff.skill4Button.addActionListener(e -> {
+            try {
+                skill4();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
         fff.returnButton.addActionListener(e-> spellMenuInactive());
 
         //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
@@ -427,7 +459,7 @@ public class ForestCon {
         }
     }
     //When you press the "attack button".
-    private void attackPressed(){
+    private void attackPressed() throws InterruptedException {
 
         //If its warrior's turn and player has 2 or more energy.
         if(turns==1 && warriorEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
@@ -478,7 +510,7 @@ public class ForestCon {
     }
 
     //Checks if all of the enemies or party-members are dead.
-    private void isFightOver() {
+    private void isFightOver() throws InterruptedException {
         //If all of the wolves are dead. Open lootScreen.
         if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
             MusicPick.musicStop();
@@ -486,7 +518,7 @@ public class ForestCon {
             fightWon = true;
             //TODO This does not follow MVC
             FightModel fm = new FightModel();
-            fm.fightWon();
+            fm.fightWon(1);
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {

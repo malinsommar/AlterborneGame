@@ -1,5 +1,6 @@
 package game;
 
+import davidtest.overworld.map.WorldModel;
 import party.Healer;
 import party.Mage;
 import party.Ranger;
@@ -14,7 +15,7 @@ public class LootModel {
     private Warrior w = new Warrior();
     private Ranger r = new Ranger();
     private Healer h = new Healer();
-    MasterModel mm = new MasterModel();
+    private MasterModel mm = new MasterModel();
 
     private int currentXp = lu.xp;
     private int currentGold = inv.gold;
@@ -40,12 +41,11 @@ public class LootModel {
     private int[] armorDamage= new int[6];
 
     //This method sends away all information lootController is going to need and starts it.
-    public void startLootController() throws InterruptedException {
+    public void startLootController(int whatFight) throws InterruptedException {
         getEquipment();
         lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
 
-        int forestFight = 1;
-        lc.startLootScreen(forestFight); //for now, ska vara vilken fight från overworld
+        lc.startLootScreen(whatFight);
     }
 
     //This method saves gold, xp and weapon/armor that player got from lootController.
@@ -177,7 +177,13 @@ public class LootModel {
         else if (lc.whatLoot == 36){
             inv.ownedMajorBlockPotion++;
         }
-        mm.startWorldModel();
+        if (lc.status[0] == 1) {
+            startOverWorld();
+        }
+    }
+
+    private void startOverWorld() throws InterruptedException {
+        new WorldModel();
     }
 
     //Collects information about armor, weapons etc.

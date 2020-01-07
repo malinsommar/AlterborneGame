@@ -6,9 +6,9 @@ import game.MusicPick;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-public class OverWorldController extends Canvas implements Runnable {
-    public OverWorldFrame owf = new OverWorldFrame();
-    public int[] Entrance = new int[1];
+public class WorldController extends Canvas implements Runnable {
+    private WorldFrame owf = new WorldFrame();
+    int[] Entrance = new int[1];
 
     //int-variables to handle Model-execution
     private int ForestEntrance = 1;
@@ -16,7 +16,7 @@ public class OverWorldController extends Canvas implements Runnable {
     private int ForestBossEntrance = 1;
     private int MountainEntrance = 1;
 
-     OverWorldController() throws InterruptedException {
+    WorldController() throws InterruptedException {
         start();//start the program
         new MouseClickSimulated();
         while (Entrance[0] <= 0) {
@@ -25,6 +25,9 @@ public class OverWorldController extends Canvas implements Runnable {
             }
             if (ShopEntrance == 1) {
                 EnterShop();
+            }
+            if (MountainEntrance == 1) {
+                EnterMountain();
             }
         }
     }
@@ -111,61 +114,60 @@ public class OverWorldController extends Canvas implements Runnable {
     private synchronized void tick() throws InterruptedException {
         tickCount++; //adds to the tick-count by one. continuing the loop of updating every class
         owf.level1.tick();
-        if (Entrance[0] == 1) {
-            this.wait();
-        }
-        if (Entrance[0] == 2) {
+        if (Entrance[0] > 0) {
             owf.frame.dispose();
-            if (Entrance[0] == 0) {
-                this.notify();
-                System.out.println("notified");
+        }
+            //FIXME thread delay/pause
+            // - start Malin work
+            // - thread resume
+        }
+
+        private void render () //prints out what the logic in the tick-function has stated should be printed out
+        {
+            BufferStrategy bs = owf.getBufferStrategy(); //an Object to organize the data in the canvas
+            if (bs == null) {
+                owf.createBufferStrategy(3); //reducing tearing in the image. Higher value would require higher processing-power
+                return;
             }
-        }
-        //FIXME thread delay/pause
-        // - start Malin work
-        // - thread resume
-    }
 
-    private void render() //prints out what the logic in the tick-function has stated should be printed out
-    {
-        BufferStrategy bs = owf.getBufferStrategy(); //an Object to organize the data in the canvas
-        if (bs == null) {
-            owf.createBufferStrategy(3); //reducing tearing in the image. Higher value would require higher processing-power
-            return;
-        }
+            int xOffset = owf.player.x - (owf.screen.width / 2);
+            int yOffset = owf.player.y - (owf.screen.height / 2);
 
-        int xOffset = owf.player.x - (owf.screen.width / 2);
-        int yOffset = owf.player.y - (owf.screen.height / 2);
+            //render the map into the game
+            owf.level1.renderTiles(owf.screen, xOffset, yOffset);
 
-        //render the map into the game
-        owf.level1.renderTiles(owf.screen, xOffset, yOffset);
+            //render the available mobs into to game
+            owf.level1.renderEntities(owf.screen);
 
-        //render the available mobs into to game
-        owf.level1.renderEntities(owf.screen);
-
-        for (int y = 0; y < owf.screen.height; y++) {
-            for (int x = 0; x < owf.screen.width; x++) {
-                int colourCode = owf.screen.pixels[x + y * owf.screen.width];
-                if (colourCode < 255) owf.pixels[x + y * OverWorldFrame.WIDTH] = owf.colours[colourCode];
+            for (int y = 0; y < owf.screen.height; y++) {
+                for (int x = 0; x < owf.screen.width; x++) {
+                    int colourCode = owf.screen.pixels[x + y * owf.screen.width];
+                    if (colourCode < 255) owf.pixels[x + y * WorldFrame.WIDTH] = owf.colours[colourCode];
+                }
             }
+
+            Graphics g = bs.getDrawGraphics(); //a graphic-object
+            g.drawImage(owf.image, 0, 0, owf.getWidth(), owf.getHeight(), null); //draws the image on the screen
+            g.dispose(); //free up space
+            bs.show();//show in JFrame
         }
-
-        Graphics g = bs.getDrawGraphics(); //a graphic-object
-        g.drawImage(owf.image, 0, 0, owf.getWidth(), owf.getHeight(), null); //draws the image on the screen
-        g.dispose(); //free up space
-        bs.show();//show in JFrame
+    public synchronized void EnterShop() throws InterruptedException {
+        if (owf.player.hasEnteredShop()) {
+            ShopEntrance++;
+            Entrance[0] = 1;
+        }
     }
-
     public synchronized void EnterForest() throws InterruptedException {
         if (owf.player.hasEnteredForest()) {
                 ForestEntrance++;
-                Entrance[0] = 1;
+                Entrance[0] = 2;
             }
         }
-        public synchronized void EnterShop() throws InterruptedException {
-        if (owf.player.hasEnteredShop()) {
-            ShopEntrance++;
-            Entrance[0] = 2;
+
+    public synchronized void EnterMountain() throws InterruptedException {
+        if (owf.player.hasEnteredMountain()) {
+            MountainEntrance++;
+            Entrance[0] = 3;
         }
-        }
+    }
     }

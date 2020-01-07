@@ -38,6 +38,9 @@ public class LootController {
     private boolean showEquipButton = false;
     boolean playerWantsLoot = false;
 
+    public int[] status = new int[1];
+
+
 
     //This method starts LootFrame and implements the methods needed for LootScreen.
     public void startLootScreen(int fight) throws InterruptedException {
@@ -52,7 +55,11 @@ public class LootController {
         LootModel lm = new LootModel();  //TODO this does not follow MVC
         lf.continueButton.addActionListener(e -> {
             try {
-                lm.addLoot();
+                while (status[0] == 0) {
+                    status[0] = 1;
+                    lm.addLoot();
+                    lf.lootScreenJFrame.dispose();
+                }
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
