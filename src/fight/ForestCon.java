@@ -4,6 +4,8 @@ import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.util.Arrays;
 
@@ -114,32 +116,16 @@ public class ForestCon {
         fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
         fff.endTurnButton.addActionListener(e-> startNewTurn());
         fff.skill1Button.addActionListener(e -> {
-            try {
-                skill1();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            skill1();
         });
         fff.skill2Button.addActionListener(e -> {
-            try {
-                skill2();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            skill2();
         });
         fff.skill3Button.addActionListener(e -> {
-            try {
-                skill3();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            skill3();
         });
         fff.skill4Button.addActionListener(e -> {
-            try {
-                skill4();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            skill4();
         });
         fff.returnButton.addActionListener(e-> spellMenuInactive());
 
@@ -510,7 +496,7 @@ public class ForestCon {
     }
 
     //Checks if all of the enemies or party-members are dead.
-    private void isFightOver() throws InterruptedException {
+    private void isFightOver(){
         //If all of the wolves are dead. Open lootScreen.
         if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
             MusicPick.musicStop();
