@@ -170,6 +170,7 @@ public class Player extends Mob {
                 EnterShop = true;
             }
             if (isPathTile(xa,ya,x,yMin)) {
+
                 isOnForestPath = true;
             }
         }

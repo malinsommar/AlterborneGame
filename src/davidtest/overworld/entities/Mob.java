@@ -78,9 +78,9 @@ public abstract class Mob extends Entity {
         }
         //the solid path tiles
         Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
-        Tile pathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(pathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
-                && pathTile.isPath(); //solidPathTile is Solid
+        Tile forestPathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(forestPathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
+                && forestPathTile.isPath(); //solidPathTile is Solid
         //if no difference is identified return false
     }
 

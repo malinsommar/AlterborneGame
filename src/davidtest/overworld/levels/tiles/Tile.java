@@ -28,10 +28,10 @@ public abstract class Tile {
     public static final Tile LEFTOPHOUSE = new DoorTile(14, 2, 4, Colours.get(-1,22,21,-1), 0xFF8d3028);
     public static final Tile RIGHTTOPHOUSE = new DoorTile(15, 3, 4, Colours.get(-1,22,21,-1), 0xFF8d3029);
     public static final Tile CRACKS = new BasicTile(16, 0, 7, Colours.get(-1, 200, 1, -1), 0xFF565554);
-    public static final Tile LEFTBOTTOMFORESTCAVE = new PathTile(17, 0, 9, Colours.get(-1,1,333, 16), 0xFF2d3c2b);
-    public static final Tile RIGHTBOTTOMFORESTCAVE = new PathTile(18, 1, 9, Colours.get(-1,1,333, 16), 0xFF2d3a2b);
-    public static final Tile LEFTOPFORESTCAVE = new PathTile(19, 2, 9, Colours.get(-1,1,333,16), 0xFF2d3c2b);
-    public static final Tile RIGHTTOPFORESTCAVE = new PathTile(20, 3, 9, Colours.get(-1,1,333,16), 0xFF2d3f2b);
+    public static final Tile LEFTBOTTOMFORESTCAVE = new ForestPathTile(17, 0, 9, Colours.get(-1,1,333, 16), 0xFF2d3c2b);
+    public static final Tile RIGHTBOTTOMFORESTCAVE = new ForestPathTile(18, 1, 9, Colours.get(-1,1,333, 16), 0xFF2d3a2b);
+    public static final Tile LEFTOPFORESTCAVE = new ForestPathTile(19, 2, 9, Colours.get(-1,1,333,16), 0xFF2d3c2b);
+    public static final Tile RIGHTTOPFORESTCAVE = new ForestPathTile(20, 3, 9, Colours.get(-1,1,333,16), 0xFF2d3f2b);
     public static final Tile LEFTTOPCASTLE = new SolidTile(21, 0, 11, Colours.get(-1,1,333, 16), 0xFF785554);
     public static final Tile RIGHTTOPCASTLE = new SolidTile(22, 1, 11, Colours.get(-1,1,333,-1), 0xFF785555);
     public static final Tile LEFTCASTLE = new SolidTile(23, 3, 11, Colours.get(-1,1,333,-1), 0xFF785556);
@@ -86,8 +86,8 @@ public abstract class Tile {
         return levelColour;
     }
 
-    public boolean isPath() {
-        return path;
+    public boolean isForestPath() {
+        return forestpath;
     }
 
     public boolean isDoor() {
