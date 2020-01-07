@@ -72,7 +72,7 @@ public abstract class Mob extends Entity {
                 && doorTile.isDoor(); //solidPathTile is Solid
         //if no difference is identified return false
     }
-    protected boolean isPathTile(int xa, int ya, int x, int y) {
+    protected boolean isForestPathTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
         }
@@ -81,6 +81,17 @@ public abstract class Mob extends Entity {
         Tile forestPathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
         return !lastTile.equals(forestPathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
                 && forestPathTile.isForestPath(); //solidPathTile is Solid
+        //if no difference is identified return false
+    }
+    protected boolean isMountainPathTile(int xa, int ya, int x, int y) {
+        if (level1 == null) {
+            return false;
+        }
+        //the solid path tiles
+        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
+        Tile mountainPathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(mountainPathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
+                && mountainPathTile.isMountainPath(); //solidPathTile is Solid
         //if no difference is identified return false
     }
 
