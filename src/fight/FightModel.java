@@ -11,6 +11,7 @@ import party.Warrior;
 public class FightModel {
 
     private ForestCon forestCon = new ForestCon();
+    private ForestCon caveCon = new ForestCon();
     private Inventory inv = new Inventory();
 
     private Warrior w = new Warrior();
@@ -28,30 +29,31 @@ public class FightModel {
 
     //This method imports all stats that the battle will need and start ForestFightController.
     public void startForestFight(){
-        sendInventory();
-        sendStats();
+        forestCon.getInventory(ownedPotions);
+        getStats();
+        forestCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
         forestCon.startFight();
 
     }
 
-    public void fightWon(){
+    public void startCaveFight(){
+        caveCon.getInventory(ownedPotions);
+        getStats();
+        caveCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
+        caveCon.startFight();
+    }
+
+    public void fightWon(int whatFight){
         MasterModel mm = new MasterModel();
         try {
-            mm.startLootModel();
+            mm.startLootModel(whatFight);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    //This method sends inventory info to ForestFightController.
-    public void sendInventory(){
-        forestCon.getInventory(ownedPotions);
-    }
-
-    //This method sends stats info to ForestFightController.
-    public void sendStats(){
-        getStats();
-        forestCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
+    public void fightLost(){
+        //Lose screen/score screen
     }
 
     //This method get stats from party-member classes.

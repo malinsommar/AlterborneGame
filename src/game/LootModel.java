@@ -41,12 +41,11 @@ public class LootModel {
     private int[] armorDamage= new int[6];
 
     //This method sends away all information lootController is going to need and starts it.
-    public void startLootController() throws InterruptedException {
+    public void startLootController(int whatFight) throws InterruptedException {
         getEquipment();
         lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
 
-        int forestFight = 1;
-        lc.startLootScreen(forestFight); //for now, ska vara vilken fight från overworld
+        lc.startLootScreen(whatFight);
     }
 
     //This method saves gold, xp and weapon/armor that player got from lootController.

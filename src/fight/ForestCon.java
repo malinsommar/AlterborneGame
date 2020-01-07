@@ -4,8 +4,6 @@ import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.util.Arrays;
 
@@ -430,7 +428,7 @@ public class ForestCon {
             fightWon = true;
             //TODO This does not follow MVC
             FightModel fm = new FightModel();
-            fm.fightWon();
+            fm.fightWon(1);
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
