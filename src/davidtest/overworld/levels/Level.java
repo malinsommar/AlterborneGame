@@ -53,10 +53,10 @@ public class Level {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 //loop through all the possible tiles located in the "tiles"-variable
-                tileCheck: for (Tile t : Tile.tiles) {
-                    if(t != null && t.getLevelColour() == tileColours[x + y * width]) {
+                for (Tile t : Tile.tiles) {
+                    if (t != null && t.getLevelColour() == tileColours[x + y * width]) {
                         this.tiles[x + y * width] = t.getId();
-                        break tileCheck;
+                        break;
                     }
                 }
             }

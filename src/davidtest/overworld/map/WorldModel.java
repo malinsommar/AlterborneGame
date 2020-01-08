@@ -20,5 +20,17 @@ public class WorldModel {
              FightModel fightModel = new FightModel();
              fightModel.startCaveFight();
          }
+         if(overWorldController.Entrance[0]==4){
+             FightModel fightModel = new FightModel();
+             fightModel.startFieldFight();
+         }
+         if (overWorldController.Entrance[0]==5) {
+             FightModel fightModel = new FightModel();
+             fightModel.startFieldFight();
+         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        new WorldModel();
     }
 }

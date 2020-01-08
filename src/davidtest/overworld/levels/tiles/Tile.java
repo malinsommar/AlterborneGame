@@ -50,10 +50,21 @@ public abstract class Tile {
     public static final Tile FIELDCHEST = new SolidTile(33, 1, 17, Colours.get(176,210,178,332), 0xFFab6a2c);
     public static final Tile MOUNTAINCHEST = new SolidTile(34, 2, 17, Colours.get(333,210,178,332), 0xFFab6a3c);
     public static final Tile SWAMPCHEST = new SolidTile(35, 3, 17, Colours.get(18,210,178,332), 0xFFab6a4c);
-    public static final Tile LEFTBOTTOMMOUNTAINCAVE = new MountainPathTile(36, 0, 21, Colours.get(-1,1,333, 16), 0xFF555551);
-    public static final Tile RIGHTBOTTOMMOUNTAINCAVE = new MountainPathTile(37, 1, 21, Colours.get(-1,1,333, 16), 0xFF555552);
-    public static final Tile LEFTOPMOUNTAINCAVE = new MountainPathTile(38, 2, 21, Colours.get(-1,1,333,16), 0xFF555553);
-    public static final Tile RIGHTTOPMOUNTAINCAVE = new MountainPathTile(39, 3, 21, Colours.get(-1,1,333,16), 0xFF555554);
+    public static final Tile LEFTBOTTOMMOUNTAINCAVE = new MountainPathTile(36, 0, 21, Colours.get(-1,1,333, 16), 0xFF672321);
+    public static final Tile RIGHTBOTTOMMOUNTAINCAVE = new MountainPathTile(37, 1, 21, Colours.get(-1,1,333, 16), 0xFF672322);
+    public static final Tile LEFTOPMOUNTAINCAVE = new MountainPathTile(38, 2, 21, Colours.get(-1,1,333,16), 0xFF672323);
+    public static final Tile RIGHTTOPMOUNTAINCAVE = new MountainPathTile(39, 3, 23, Colours.get(-1,1,333,16), 0xFF672324);
+    public static final Tile LEFTBOTTOMFIELDCAVE = new FieldPathTile(40, 0, 23, Colours.get(-1,1,333, 16), 0xFF672325);
+    public static final Tile RIGHTBOTTOMMFIELDCAVE = new FieldPathTile(41, 1, 23, Colours.get(-1,1,333, 16), 0xFF672326);
+    public static final Tile LEFTOPFIELDCAVE = new FieldPathTile(42, 2, 23, Colours.get(-1,1,333,16), 0xFF672327);
+    public static final Tile RIGHTTOPFIELDCAVE = new FieldPathTile(43, 3, 23, Colours.get(-1,1,333,16), 0xFF672328);
+    public static final Tile LEFTBOTTOMSWAMPCAVE = new SwampPathTile(44, 0, 25, Colours.get(-1,1,333, 16), 0xFF672329);
+    public static final Tile RIGHTBOTTOMSWAMPCAVE = new SwampPathTile(45, 1, 25, Colours.get(-1,1,333, 16), 0xFF672330);
+    public static final Tile LEFTOPSWAMPCAVE = new SwampPathTile(46, 2, 25, Colours.get(-1,1,333,16), 0xFF672331);
+    public static final Tile RIGHTTOPSWAMPCAVE = new SwampPathTile(47, 3, 25, Colours.get(-1,1,333,16), 0xFF672332);
+
+
+
 
 
     protected byte id;
@@ -61,10 +72,12 @@ public abstract class Tile {
     protected boolean emitter;
     protected boolean forestPath;
     protected boolean mountainPath;
+    protected boolean fieldPath;
+    protected boolean swampPath;
     protected boolean door;
     private int levelColour;
 
-    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isForestPath, boolean isDoor, boolean isMountainPath, int levelColour) {
+    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isDoor, boolean isForestPath,  boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, int levelColour) {
         this.id = (byte) id;
         if (tiles[id] != null)
             throw new RuntimeException("Duplicate tile id on" + id);
@@ -72,6 +85,8 @@ public abstract class Tile {
         this.emitter = isEmitter;
         this.forestPath = isForestPath;
         this.mountainPath = isMountainPath;
+        this.fieldPath = isFieldPath;
+        this.swampPath = isSwampPath;
         this.door = isDoor;
         this.levelColour  = levelColour;
         tiles[id] = this;
@@ -97,6 +112,12 @@ public abstract class Tile {
     }
     public boolean isMountainPath() {
         return mountainPath;
+    }
+    public boolean isFieldPath() {
+        return fieldPath;
+    }
+    public boolean isSwampPath() {
+        return swampPath;
     }
 
     public boolean isDoor() {

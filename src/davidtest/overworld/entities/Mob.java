@@ -1,3 +1,4 @@
+
 package davidtest.overworld.entities;
 
 import davidtest.overworld.levels.Level;
@@ -92,6 +93,29 @@ public abstract class Mob extends Entity {
         Tile mountainPathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
         return !lastTile.equals(mountainPathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
                 && mountainPathTile.isMountainPath(); //solidPathTile is Solid
+        //if no difference is identified return false
+    }
+    protected boolean isFieldPathTile(int xa, int ya, int x, int y) {
+        if (level1 == null) {
+            return false;
+        }
+        //the solid path tiles
+        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
+        Tile FieldPathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(FieldPathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
+                && FieldPathTile.isFieldPath(); //solidPathTile is Solid
+        //if no difference is identified return false
+    }
+
+    protected boolean isSwampPathTile(int xa, int ya, int x, int y) {
+        if (level1 == null) {
+            return false;
+        }
+        //the solid path tiles
+        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
+        Tile SwampPathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(SwampPathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
+                && SwampPathTile.isSwampPath(); //solidPathTile is Solid
         //if no difference is identified return false
     }
 
