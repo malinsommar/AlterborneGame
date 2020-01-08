@@ -4,6 +4,8 @@ import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.util.Arrays;
 
@@ -13,7 +15,7 @@ public class ForestCon {
     //TODO gör en metod som skickar en owned potions array till mastermodel.
 
     ForestFightFrame fff = new ForestFightFrame();
-    AnimationsCon ac = new AnimationsCon();
+    //AnimationsCon ac = new AnimationsCon();
 
     //Get hp, block and damage from party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
@@ -28,6 +30,59 @@ public class ForestCon {
     private int currentEnergy;
     private int warriorEnergyInt=5, mageEnergyInt, rangerEnergyInt, healerEnergyInt;
 
+    //Animation variables
+    //player
+    public int warriorStartX = 170, warriorStartY = 210, warriorX = warriorStartX, warriorY = warriorStartY;
+    public int rangerStartX = 70, rangerStartY = 290, rangerX = rangerStartX, rangerY = rangerStartY;
+    public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
+    public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
+    //enemy
+    public int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
+    public int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
+    public int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
+    public int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
+
+    //spells/attack
+    public int swordIconX = 300, swordIconY = 300;
+    public int arrowX = 120, arrowY = 360, arrowStartX = arrowX;
+    public int blastX = 120, blastY = 360, blastStartX = arrowX;
+
+    public int flameStrikeY = -400;
+
+    public int warriorMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
+    public int bombMegaMath = 36;
+    public int upMegaMath = 1;
+    public int rightMegaMath = 1;
+    public int downMegaMath = 1;
+    public int leftMegaMath = 1;
+
+    public int pyroBlastX = 45;
+    public int pyroblastY = 150;
+    public int bombX = 250;
+    public int bombY = 300;
+    public int bombStartX = 250;
+    public int bombStartY = 300;
+
+    public int objXTest = 300;
+    public int objYTest = 300;
+    public int objXTestStart = 300;
+    public int objYTestStart = 300;
+    public int xmmXTest = 0;
+    public int xmmYTest = 20;
+
+
+    //Another timePast to avoid conflict when they run simultaneously.
+    public int timePastTakeDamage = 0;
+
+    public int target;
+    public int phase = 0;
+    public int timePast = 0;
+    public int healTarget = 0;
+    public boolean followup = false;
+    public boolean animationPlaying = false;
+    public boolean stealthed = false;
+
+    int[] wolfHp = {20, 20, 20, 20};
 
     boolean fightWon = false;
     boolean fightLost = false;
@@ -61,32 +116,16 @@ public class ForestCon {
         fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
         fff.endTurnButton.addActionListener(e-> startNewTurn());
         fff.skill1Button.addActionListener(e -> {
-            try {
-                skill1();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            skill1();
         });
         fff.skill2Button.addActionListener(e -> {
-            try {
-                skill2();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            skill2();
         });
         fff.skill3Button.addActionListener(e -> {
-            try {
-                skill3();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            skill3();
         });
         fff.skill4Button.addActionListener(e -> {
-            try {
-                skill4();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
+            skill4();
         });
         fff.returnButton.addActionListener(e-> spellMenuInactive());
 
@@ -192,106 +231,133 @@ public class ForestCon {
             turns=5;
         }
         //  ***ENEMIES TURN***
-        if (turns==5){ac.enemyTurnTimer.start();}
-    }
+        if (turns==5){
+                    fff.whosTurn.setText(" ");
+                    fff.playersHp.setText(" ");
+                    fff.energy.setText(" ");
+                    enemyTurnTimer.start();
+            for (int i = 0; i < 4; i++) {
+                wolfAttack();
+                partyDeath();
+            }
+                    turns = 0;
+                    startNewTurn();
+                }
+            }
 
-    private void skill1() throws InterruptedException {
-        if (turns == 1 && warriorEnergyInt>1 && fff.targetarrow.isVisible()){
+
+
+    private void skill1(){
+        if (turns == 1 && warriorEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
                 warriorEnergyInt=warriorEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fff.energy.setText("Energy: "+warriorEnergyInt);
-                ac.charge.start();
+                charge.start();
+                spellDamageSystem(6,"line");
                 mobDeath();
                 isFightOver();
         }
-        if (turns==2 && rangerEnergyInt>3 && fff.targetarrow.isVisible()){
+        if (turns==2 && rangerEnergyInt>3 && fff.targetarrow.isVisible() && !animationPlaying){
                 rangerEnergyInt=rangerEnergyInt-4;
                 currentEnergy=currentEnergy-4;
                 fff.energy.setText("Energy: "+rangerEnergyInt);
-                ac.volley.start();
+                volley.start();
+            if (stealthed){
+                spellDamageSystem(40,"single");
+                unstealth();
+            }
+            else {
+                spellDamageSystem(20, "single");
+            }
                 mobDeath();
                 isFightOver();
         }
-        if (turns==3 && mageEnergyInt>1 && fff.targetarrow.isVisible()){
+        if (turns==3 && mageEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
             mageEnergyInt=mageEnergyInt-2;
             currentEnergy=currentEnergy-2;
             fff.energy.setText("Energy: "+mageEnergyInt);
-            ac.fireBall.start();
+            fireBall.start();
+            spellDamageSystem(8,"single");
             mobDeath();
             isFightOver();
         }
-        if (turns==4 && healerEnergyInt>1) {
+        if (turns==4 && healerEnergyInt>1 && !animationPlaying) {
             healingTargetMenu(1);
         }
     }
 
-    private void skill2() throws InterruptedException {
-        if (turns == 1 && warriorEnergyInt>1){
+    private void skill2(){
+        if (turns == 1 && warriorEnergyInt>1 && !animationPlaying){
             warriorEnergyInt=warriorEnergyInt-2;
             currentEnergy=currentEnergy-2;
             fff.energy.setText("Energy: "+warriorEnergyInt);
-            ac.dunk.start();
+            dunk.start();
+            spellDamageSystem(3,"all");
             mobDeath();
             isFightOver();
         }
-        if (turns==2 && rangerEnergyInt>2){
+        if (turns==2 && rangerEnergyInt>2 && !animationPlaying){
             rangerEnergyInt=rangerEnergyInt-3;
             currentEnergy=currentEnergy-3;
             fff.energy.setText("Energy: "+rangerEnergyInt);
-            ac.bombthrow.start();
+            bombthrow.start();
+            spellDamageSystem(4,"all");
             mobDeath();
             isFightOver();
         }
         if (turns == 3){
 
         }
-        if (turns == 4 && healerEnergyInt>1){
+        if (turns == 4 && healerEnergyInt>1 && !animationPlaying){
             healingTargetMenu(2);
         }
     }
 
-    private void skill3() throws InterruptedException {
-        if (turns == 1){
-            ac.followup = true;
-            ac.shout.start();
+    private void skill3(){
+        if (turns == 1 && !animationPlaying){
+            followup = true;
+            shout.start();
         }
         if(turns == 2){
 
         }
-        if (turns==3 && mageEnergyInt>2){
+        if (turns==3 && mageEnergyInt>2 && !animationPlaying){
                 mageEnergyInt=mageEnergyInt-3;
                 currentEnergy=currentEnergy-3;
                 fff.energy.setText("Energy: "+mageEnergyInt);
-                ac.flameStrike.start();
+                flameStrike.start();
+                spellDamageSystem(5, "all");
                 mobDeath();
                 isFightOver();
         }
-        if (turns == 4 && healerEnergyInt>4){
+        if (turns == 4 && healerEnergyInt>4 && !animationPlaying){
             healerEnergyInt=healerEnergyInt-5;
             currentEnergy=currentEnergy-5;
             fff.energy.setText("Energy: "+healerEnergyInt);
-            ac.groupHealSpell.start();
+            groupHealSpell.start();
+            spellHealSystem(10, "all");
         }
     }
 
-    private void skill4() throws InterruptedException {
-        if (turns == 1){
-            ac.shout.start();
+    private void skill4(){
+        if (turns == 1 && !animationPlaying){
+            shout.start();
         }
-        if(turns == 2 && rangerEnergyInt>2){
+        if(turns == 2 && rangerEnergyInt>2 && !animationPlaying){
                 rangerEnergyInt=rangerEnergyInt-3;
                 currentEnergy=currentEnergy-3;
                 fff.energy.setText("Energy: "+rangerEnergyInt);
-                ac.stealth();
+                stealth();
         }
-        if (turns == 3 && mageEnergyInt>4 && fff.targetarrow.isVisible()){
-            ac.pyroBlastX = 90;
-            ac.pyroblastY = 300;
-            ac.followup = true;
+        if (turns == 3 && mageEnergyInt>4 && fff.targetarrow.isVisible() && !animationPlaying){
+            pyroBlastX = 90;
+            pyroblastY = 300;
+            followup = true;
                 mageEnergyInt=mageEnergyInt-5;
                 currentEnergy=currentEnergy-5;
                 fff.energy.setText("Energy: "+mageEnergyInt);
-            ac.pyroBlast.start();
+                pyroBlast.start();
+                spellDamageSystem(20,"single");
                 mobDeath();
                 isFightOver();
         }
@@ -346,7 +412,7 @@ public class ForestCon {
     private void blockPressed(){
 
         //If its warrior's turn and player has 2 or more energy.
-        if(turns==1 && warriorEnergyInt>1){
+        if(turns==1 && warriorEnergyInt>1 && !animationPlaying){
             warriorEnergyInt=warriorEnergyInt-2;
             currentEnergy=currentEnergy-2;
             warriorBlock+=5;
@@ -354,7 +420,7 @@ public class ForestCon {
             fff.block.setText("Block: "+warriorBlock);
         }
         //If its ranger's turn and player has 2 or more energy.
-        else if(turns==2 && rangerEnergyInt>1){
+        else if(turns==2 && rangerEnergyInt>1 && !animationPlaying){
             rangerEnergyInt=rangerEnergyInt-2;
             currentEnergy=currentEnergy-2;
             rangerBlock+=5;
@@ -362,7 +428,7 @@ public class ForestCon {
             fff.block.setText("Block: "+rangerBlock);
         }
         //If its mage's turn and player has 2 or more energy.
-        else if(turns==3 && mageEnergyInt>1){
+        else if(turns==3 && mageEnergyInt>1 && !animationPlaying){
             mageEnergyInt=mageEnergyInt-2;
             currentEnergy=currentEnergy-2;
             mageBlock+=5;
@@ -370,7 +436,7 @@ public class ForestCon {
             fff.block.setText("Block: "+mageBlock);
         }
         //If its healer's turn and player has 2 or more energy.
-        else if(turns==4 && healerEnergyInt>1){
+        else if(turns==4 && healerEnergyInt>1 && !animationPlaying){
             healerEnergyInt=healerEnergyInt-2;
             currentEnergy=currentEnergy-2;
             healerBlock+=5;
@@ -382,47 +448,57 @@ public class ForestCon {
     private void attackPressed() throws InterruptedException {
 
         //If its warrior's turn and player has 2 or more energy.
-        if(turns==1 && warriorEnergyInt>1 && fff.targetarrow.isVisible()){
+        if(turns==1 && warriorEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
             warriorEnergyInt=warriorEnergyInt-2; //Energy -2.
             currentEnergy=currentEnergy-2; // Update currentEnergy.
             fff.energy.setText("Energy: "+warriorEnergyInt); //Update energyLabel
-            ac.tackle.start(); //Warrior deals damage to a wolf.
+            tackle.start(); //Warrior deals damage to a wolf.
+            spellDamageSystem(warriorDamage,"single");
             mobDeath(); //Check if enemy died.
             isFightOver(); //Check if all enemies/party members are dead.
         }
         //If its ranger's turn and player has 2 or more energy.
-        else if(turns==2 && rangerEnergyInt>1 && fff.targetarrow.isVisible()){
+        else if(turns==2 && rangerEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
             rangerEnergyInt=rangerEnergyInt-2;
             currentEnergy=currentEnergy-2;
             fff.energy.setText("Energy: "+rangerEnergyInt);
-            ac.shoot.start();
+            shoot.start();
+            if (stealthed){
+                spellDamageSystem(rangerDamage * 2,"single");
+                unstealth();
+            }
+            else {
+                spellDamageSystem(rangerDamage, "single");
+            }
             mobDeath();
             isFightOver();
         }
         //If its mage's turn and player has 2 or more energy.
-        else if(turns==3 && mageEnergyInt>1 && fff.targetarrow.isVisible()){
+        else if(turns==3 && mageEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
             mageEnergyInt=mageEnergyInt-2;
             currentEnergy=currentEnergy-2;
             fff.energy.setText("Energy: "+mageEnergyInt);
-            ac.blast.start();
+            blast.start();
+            spellDamageSystem(mageDamage, "single");
             mobDeath();
             isFightOver();
         }
         //If its healer's turn and player has 2 or more energy.
-        else if(turns==4 && healerEnergyInt>1 && fff.targetarrow.isVisible()){
+        else if(turns==4 && healerEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
             healerEnergyInt=healerEnergyInt-2;
             currentEnergy=currentEnergy-2;
             fff.energy.setText("Energy: "+healerEnergyInt);
-            ac.healerAttack.start();
+            healerAttack.start();
+            spellDamageSystem(healerDamage,"single");
             mobDeath();
             isFightOver();
         }
     }
 
     //Checks if all of the enemies or party-members are dead.
-    private void isFightOver() throws InterruptedException {
+    private void isFightOver(){
         //If all of the wolves are dead. Open lootScreen.
-        if (ac.wolfHp[0] < 1 && ac.wolfHp[1] < 1 && ac.wolfHp[2] < 1 && ac.wolfHp[3] < 1) {
+        if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
             MusicPick.musicStop();
             fff.forestFightJFrame.dispose();
             fightWon = true;
@@ -441,18 +517,18 @@ public class ForestCon {
 
     //When the wolf attacks.
     public void wolfAttack() {
-        ac.target = (int) (Math.random() * 4); //Random target, 0-3.
+        target = (int) (Math.random() * 4); //Random target, 0-3.
         int wolfDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
-        ac.takeDamage.start();
+        takeDamage.start();
 
         //Loops until it reaches an alive party-member.
         while (true) {
 
             //Warrior, Target 2.
-            if (ac.target == 0) {
+            if (target == 0) {
                 //If warrior is dead, target=1.
                 if (warriorCurrentHp < 1) {
-                    ac.target=1;
+                    target=1;
                 }
                 //If warrior is alive.
                 if (warriorCurrentHp >0) {
@@ -463,10 +539,10 @@ public class ForestCon {
                 }
             }
             //Mage, Target 1.
-            if (ac.target == 1) {
+            if (target == 1) {
                 //If mage is dead, target=2.
                 if (mageCurrentHp < 1) {
-                    ac.target = 2;
+                    target = 2;
                 }
                 //If mage is alive.
                 if (mageCurrentHp >0) {
@@ -477,10 +553,10 @@ public class ForestCon {
                 }
             }
             //Ranger, target 2.
-            if (ac.target == 2) {
+            if (target == 2) {
                 //If ranger is dead, target=3.
                 if (rangerCurrentHp < 1) {
-                    ac.target = 3;
+                    target = 3;
                 }
                 //If ranger is alive.
                 if (rangerCurrentHp >0) {
@@ -491,10 +567,10 @@ public class ForestCon {
                 }
             }
             //Healer, target3.
-            if (ac.target == 3) {
+            if (target == 3) {
                 //If healer is dead, target=0.
                 if (healerCurrentHp < 1) {
-                    ac.target = 0;
+                    target = 0;
                 }
                 //If healer is alive.
                 if (healerCurrentHp >0) {
@@ -510,36 +586,36 @@ public class ForestCon {
     //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
     public void mobDeath(){
 
-        if(ac.wolfHp[0]<=0){
+        if(wolfHp[0]<=0){
             fff.wolf1Hp.setText("Wolf 1: 0");
             fff.wolf1.setVisible(false);
-            if (ac.target == 1) {
+            if (target == 1) {
                 fff.targetarrow.setVisible(false);
-                ac.target = 0;
+                target = 0;
             }
         }
-        if(ac.wolfHp[1]<=0){
+        if(wolfHp[1]<=0){
             fff.wolf2Hp.setText("Wolf 2: 0");
             fff.wolf2.setVisible(false);
-            if (ac.target == 2) {
+            if (target == 2) {
                 fff.targetarrow.setVisible(false);
-                ac.target = 0;
+                target = 0;
             }
         }
-        if(ac.wolfHp[2]<=0){
+        if(wolfHp[2]<=0){
             fff.wolf3Hp.setText("Wolf 3: 0");
             fff.wolf3.setVisible(false);
-            if (ac.target == 3) {
+            if (target == 3) {
                 fff.targetarrow.setVisible(false);
-                ac.target = 0;
+                target = 0;
             }
         }
-        if(ac.wolfHp[3]<=0){
+        if(wolfHp[3]<=0){
             fff.wolf4Hp.setText("Wolf 4: 0");
             fff.wolf4.setVisible(false);
-            if (ac.target == 4) {
+            if (target == 4) {
                 fff.targetarrow.setVisible(false);
-                ac.target = 0;
+                target = 0;
             }
         }
     }
@@ -622,6 +698,7 @@ public class ForestCon {
 
     public void setStartLabels(){
 
+
         fff.potion1Label = new JLabel("" + ownedPotions[0]);
         fff.potion2Label = new JLabel("" + ownedPotions[1]);
         fff.potion3Label = new JLabel("" + ownedPotions[2]);
@@ -635,15 +712,15 @@ public class ForestCon {
         fff.potion11Label = new JLabel("" + ownedPotions[10]);
         fff.potion12Label = new JLabel("" + ownedPotions[11]);
 
-        fff.wolf1Hp = new JLabel("Wolf 1: "+ ac.wolfHp[0]);
-        fff.wolf2Hp = new JLabel("Wolf 2: "+ ac.wolfHp[1]);
-        fff.wolf3Hp = new JLabel("Wolf 3: "+ ac.wolfHp[2]);
-        fff.wolf4Hp = new JLabel("Wolf 4: "+ ac.wolfHp[3]);
+        fff.wolf1Hp = new JLabel("Wolf 1: "+ wolfHp[0]);
+        fff.wolf2Hp = new JLabel("Wolf 2: "+ wolfHp[1]);
+        fff.wolf3Hp = new JLabel("Wolf 3: "+ wolfHp[2]);
+        fff.wolf4Hp = new JLabel("Wolf 4: "+ wolfHp[3]);
 
         fff.playersHp = new JLabel("Hp: "+warriorCurrentHp);
         fff.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp);
-        fff.player2Hp = new JLabel("Mage:    "+ mageCurrentHp);
-        fff.player3Hp = new JLabel("Ranger:  "+ rangerCurrentHp);
+        fff.player2Hp = new JLabel("Ranger:  "+ rangerCurrentHp);
+        fff.player3Hp = new JLabel("Mage:    "+ mageCurrentHp);
         fff.player4Hp = new JLabel("Healer:  "+ healerCurrentHp);
         fff.block = new JLabel("Block: "+warriorBlock);
     }
@@ -711,959 +788,6 @@ public class ForestCon {
             }
         });
     }
-
-    //ANIMATIONER OCH TIMERS
-/*
-    private Timer charge = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            if (phase == 0) {
-                MusicPick.musicStart("charge", "");
-                phase = 1;
-            }
-            else if (phase == 1) {
-                warriorX += 20;
-                fff.warrior.setLocation(warriorX, warriorY);
-                if (warriorX > 2000) {
-                    phase = 2;
-                }
-            }
-            else if (phase == 2) {
-                warriorX = warriorStartX;
-                warriorY = warriorStartY;
-                fff.warrior.setLocation(warriorX,warriorY);
-                phase = 0;
-                charge.stop();
-
-                try {
-                    spellDamageSystem(6,"line");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    });
-
-    private Timer volley = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            arrowX += 30;
-            fff.volley1.setLocation(arrowX, arrowY);
-            fff.volley2.setLocation(arrowX - 200, arrowY);
-            fff.volley3.setLocation(arrowX - 400, arrowY);
-            if (phase == 0) {
-                fff.volley1.setVisible(true);
-                MusicPick.musicStart("ding", "");
-                phase = 1;
-            }
-            else if (phase == 1 && arrowX > arrowStartX + 300) {
-                fff.volley2.setVisible(true);
-                MusicPick.musicStart("ding", "");
-                phase = 2;
-            }
-            else if (phase == 2 && arrowX > arrowStartX + 600) {
-                fff.volley3.setVisible(true);
-                MusicPick.musicStart("ding", "");
-                phase = 3;
-            }
-            else if (phase == 3 && arrowX > 1000) {
-                fff.volley1.setVisible(false);
-                phase = 4;
-            }
-            else if (phase == 4 && arrowX > 1200) {
-                fff.volley2.setVisible(false);
-                phase = 5;
-            }
-            else if (phase == 5 && arrowX > 1400) {
-                fff.volley3.setVisible(false);
-                phase = 6;
-            }
-            if (phase == 6) {
-                arrowX = 300;
-                fff.volley1.setVisible(true);
-                MusicPick.musicStart("ding", "");
-                phase = 7;
-            }
-            else if (phase == 7 && arrowX > arrowStartX + 300) {
-                fff.volley2.setVisible(true);
-                MusicPick.musicStart("ding", "");
-                phase = 8;
-            }
-            else if (phase == 8 && arrowX > arrowStartX + 600) {
-                fff.volley3.setVisible(true);
-                MusicPick.musicStart("ding", "");
-                phase = 9;
-            }
-            else if (phase == 9 && arrowX > 1000) {
-                fff.volley1.setVisible(false);
-                phase = 10;
-            }
-            else if (phase == 10 && arrowX > 1200) {
-                fff.volley2.setVisible(false);
-                phase = 11;
-            }
-            else if (phase == 11 && arrowX > 1400) {
-                fff.volley3.setVisible(false);
-                phase = 12;
-                arrowX = 300;
-            }
-            if (phase == 12) {
-                fff.volley1.setVisible(true);
-                MusicPick.musicStart("ding", "");
-                phase = 13;
-            }
-            else if (phase == 13 && arrowX > arrowStartX + 300) {
-                fff.volley2.setVisible(true);
-                MusicPick.musicStart("ding", "");
-                phase = 14;
-            }
-            else if (phase == 14 && arrowX > arrowStartX + 600) {
-                fff.volley3.setVisible(true);
-                MusicPick.musicStart("ding", "");
-                phase = 15;
-            }
-            else if (phase == 15 && arrowX > 1000) {
-                fff.volley1.setVisible(false);
-                phase = 16;
-            }
-            else if (phase == 16 && arrowX > 1200) {
-                fff.volley2.setVisible(false);
-                phase = 17;
-            }
-            else if (phase == 17 && arrowX > 1400) {
-                fff.volley3.setVisible(false);
-                phase = 18;
-            }
-            else if (phase == 18){
-                arrowX = 270;
-                phase = 0;
-                volley.stop();
-                if (stealth){
-                    try {
-                        spellDamageSystem(40,"single");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    unstealth();
-                }
-                else {
-                    try {
-                        spellDamageSystem(20, "single");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    });
-
-    private Timer flameStrike = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-
-            if (phase == 0) {
-                MusicPick.musicStart("magespell", "");
-                phase = 1;
-            }
-            else if (phase == 1){
-                mageY -= 3;
-                fff.mage.setLocation(mageX, mageY);
-                if (mageY < 50) {
-                    phase = 2;
-                }}
-            else if (phase == 2) {
-                if (mageY < 50) {
-                    mageY = 50;
-                    fff.mage.setLocation(mageX, mageY);
-                }
-                timePast++;
-                if (timePast < 100) {
-                    if (timePast % 2 == 1) {
-                        mageX += 6;
-                        fff.mage.setLocation(mageX, mageY);
-                        flameStrikeY += 13;
-                        fff.flame.setLocation(900, flameStrikeY);
-                    } else {
-                        mageX -= 6;
-                        fff.mage.setLocation(mageX, mageY);
-                    }
-                }
-                if (timePast == 102) {
-                    fff.mage.setLocation(mageX, mageY);
-                    fff.fireStorm.setVisible(true);
-                    flameStrikeY = -400;
-                    fff.flame.setLocation(700, flameStrikeY);
-                }
-                if (timePast > 130) {
-                    timePast = 0;
-                    phase = 3;
-                }
-            } else if (phase == 3) {
-                mageY += 3;
-                fff.mage.setLocation(mageX, mageY);
-                if (mageY > mageStartY) {
-                    mageX = mageStartX;
-                    mageY = mageStartY;
-                    fff.mage.setLocation(mageX, mageY);
-                    phase = 4;
-                }
-            } else if (phase == 4) {
-                timePast++;
-                if (timePast > 30) {
-                    timePast = 0;
-                    fff.fireStorm.setVisible(false);
-                    flameStrike.stop();
-                    phase = 0;
-                    try {
-                        spellDamageSystem(5, "all");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    });
-
-    private Timer enemyTurnTimer = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePast++;
-            fff.endTurnButton.setVisible(false);
-            fff.targetarrow.setVisible(false);
-            if (timePast < 50) {
-                if (wolfHp[0]<1)timePast = 140;
-                fff.whosTurn.setText("Wolf 1 turn");
-                fff.playersHp.setText("Hp: " + wolfHp[0]);
-                fff.energy.setText("  ");
-            }
-
-            else if (timePast == 50 && wolfHp[0] > 0) {
-                wolfAttack();
-                partyDeath();
-            } else if (timePast < 60) {
-                wolf1X -= 15;
-                fff.wolf1.setLocation(wolf1X, wolf1Y);
-            } else if (timePast < 70) {
-                wolf1X += 15;
-                fff.wolf1.setLocation(wolf1X, wolf1Y);
-            }
-
-            else if (timePast < 150) {
-                if (wolfHp[1]<1)timePast = 240;
-                fff.wolf1.setLocation(wolf1StartX, wolf1StartY);
-                fff.whosTurn.setText("Wolf 2 turn");
-                fff.playersHp.setText("Hp: " + wolfHp[1]);
-                fff.energy.setText("  ");
-            } else if (timePast == 150 && wolfHp[1] > 0) {
-                wolfAttack();
-                partyDeath();
-            } else if (timePast < 160) {
-                wolf2X -= 15;
-                fff.wolf2.setLocation(wolf2X, wolf2Y);
-            } else if (timePast < 170) {
-                wolf2X += 15;
-                fff.wolf2.setLocation(wolf2X, wolf2Y);
-            }
-
-            else if (timePast < 250) {
-                if (wolfHp[2]<1)timePast = 340;
-                fff.wolf2.setLocation(wolf2StartX, wolf2StartY);
-                fff.whosTurn.setText("Wolf 3 turn");
-                fff.playersHp.setText("Hp: " + wolfHp[2]);
-                fff.energy.setText("  ");
-            } else if (timePast == 250 && wolfHp[2] > 0) {
-                wolfAttack();
-                partyDeath();
-            } else if (timePast < 260) {
-                wolf3X -= 15;
-                fff.wolf3.setLocation(wolf3X, wolf3Y);
-            } else if (timePast < 270) {
-                wolf3X += 15;
-                fff.wolf3.setLocation(wolf3X, wolf3Y);
-            }
-
-            else if (timePast < 350) {
-                if (wolfHp[3]<1)timePast = 440;
-                fff.wolf3.setLocation(wolf3StartX, wolf3StartY);
-                fff.whosTurn.setText("Wolf 4 turn");
-                fff.playersHp.setText("Hp: " + wolfHp[3]);
-                fff.energy.setText("  ");
-            } else if (timePast == 350 && wolfHp[3] > 0) {
-                wolfAttack();
-                partyDeath();
-            } else if (timePast < 360) {
-                wolf4X -= 15;
-                fff.wolf4.setLocation(wolf4X, wolf4Y);
-            } else if (timePast < 370) {
-                wolf4X += 15;
-                fff.wolf4.setLocation(wolf4X, wolf4Y);
-            } else if (timePast < 450) {
-                fff.wolf4.setLocation(wolf4StartX, wolf4StartY);
-                enemyTurnTimer.stop();
-                turns = 0;
-                timePast = 0;
-                startNewTurn();
-                fff.endTurnButton.setVisible(true);
-            }
-        }
-    });
-
-    Timer shoot = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            if (phase == 0) {
-                fff.arrow.setVisible(true);
-                if (arrowX == 121) {
-                    MusicPick.musicStart("ding", "");
-                }
-                arrowX += 30;
-                fff.arrow.setLocation(arrowX, arrowY);
-                if (arrowX > 1000) {
-                    phase = 1;
-                }
-            } else if (phase == 1) {
-                fff.arrow.setVisible(false);
-                arrowX = arrowStartX;
-                fff.arrow.setLocation(arrowX, arrowY);
-                phase = 0;
-                shoot.stop();
-                if (stealthed){
-                    spellDamageSystem(rangerDamage * 2,"single");
-                    unstealth();
-                }
-                    else {
-                    spellDamageSystem(rangerDamage, "single");
-                }
-            }
-        }
-    });
-
-    private Timer tackle = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            if (phase == 0) {
-                if (warriorX == 100) MusicPick.musicStart("warriorattack", "");
-                warriorX += 15;
-                fff.warrior.setLocation(warriorX, warriorY);
-                if (warriorX > 200) {
-                    phase = 1;
-                }
-            } else if (phase == 1) {
-                warriorX -= 15;
-                fff.warrior.setLocation(warriorX, warriorY);
-                if (warriorX <= warriorStartX) {
-                    warriorX = warriorStartX;
-                    fff.warrior.setLocation(warriorX, warriorY);
-                    phase = 0;
-                    tackle.stop();
-                    spellDamageSystem(warriorDamage,"single");
-                }
-            }
-        }
-    });
-
-    private Timer takeDamage = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePastTakeDamage++;
-            if (timePastTakeDamage == 1) {
-                MusicPick.musicStart("warriorattacked", "");
-            } else if (timePastTakeDamage == 10) {
-                if (target == 0) fff.warrior.setVisible(false);
-                if (target == 1) fff.ranger.setVisible(false);
-                if (target == 2) fff.mage.setVisible(false);
-                if (target == 3) fff.healer.setVisible(false);
-            } else if (timePastTakeDamage == 20) {
-                if (target == 0) fff.warrior.setVisible(true);
-                if (target == 1) fff.ranger.setVisible(true);
-                if (target == 2) fff.mage.setVisible(true);
-                if (target == 3) fff.healer.setVisible(true);
-            } else if (timePastTakeDamage == 30) {
-                if (target == 0) fff.warrior.setVisible(false);
-                if (target == 1) fff.ranger.setVisible(false);
-                if (target == 2) fff.mage.setVisible(false);
-                if (target == 3) fff.healer.setVisible(false);
-            } else if (timePastTakeDamage == 40) {
-                if (target == 0) fff.warrior.setVisible(true);
-                if (target == 1) fff.ranger.setVisible(true);
-                if (target == 2) fff.mage.setVisible(true);
-                if (target == 3) fff.healer.setVisible(true);
-                takeDamage.stop();
-                timePastTakeDamage = 0;
-            }
-        }
-    });
-
-    private Timer dunk = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            if (phase == 0){
-                MusicPick.musicStart("charge", "");
-                phase = 1;
-            }
-            if (phase == 1) {
-                warriorMegaMath -=2;
-                warriorX += 20;
-                warriorY -= warriorMegaMath;
-                fff.warrior.setLocation(warriorX, warriorY);
-                if (warriorY > warriorStartY) {
-                    phase = 2;
-                }
-            } else if (phase == 2) {
-                timePast++;
-                if(timePast == 30) {
-                    warriorY = warriorStartY;
-                    warriorX = warriorStartX;
-                    fff.warrior.setLocation(warriorX, warriorY);
-                    timePast = 0;
-                    warriorMegaMath = 30;
-                    phase = 0;
-                    dunk.stop();
-                    try {
-                        spellDamageSystem(3,"all");
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    });
-
-    Timer blast = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            if (phase == 0) {
-                fff.blast.setVisible(true);
-                if (blastY == 121) {
-                    MusicPick.musicStart("fireball", "");
-                }
-                blastX += 30;
-                fff.blast.setLocation(blastX, blastY);
-                if (blastX > 1000) {
-                    phase = 1;
-                }
-            } else if (phase == 1) {
-                fff.blast.setVisible(false);
-                blastX = blastStartX;
-                fff.blast.setLocation(blastX, blastY);
-                phase = 0;
-                blast.stop();
-                spellDamageSystem(mageDamage, "single");
-
-            }
-        }
-    });
-
-    private Timer pyroBlast = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePast++;
-            if (timePast < 100) {
-                fff.smallPyroBlast.setVisible(true);
-            }
-            else if (timePast < 200) {
-                fff.smallPyroBlast.setVisible(false);
-                fff.mediumPyroBlast.setVisible(true);
-            }
-            else if (timePast < 350) {
-                fff.mediumPyroBlast.setVisible(false);
-                fff.bigPyroBlast.setVisible(true);
-            }
-            else if (timePast < 400 ){
-                pyroBlastX += 3;
-                pyroblastY -= 1;
-                fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else if (timePast < 460){
-                pyroBlastX += 3;
-                pyroblastY += 1;
-                fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else if (timePast < 530){
-                pyroBlastX += 3;
-                pyroblastY -= 1;
-                fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else if (timePast < 590){
-                pyroBlastX += 4;
-                pyroblastY += 1;
-                fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            }
-            else {
-                fff.bigPyroBlast.setVisible(false);
-                timePast = 0;
-                pyroBlastX = 45;
-                pyroblastY = 150;
-                fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                pyroBlast.stop();
-                try {
-                    spellDamageSystem(20,"single");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    });
-    private Timer shout = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-
-            if (phase == 0) {
-                MusicPick.musicStart("demoshout", " ");
-                phase = 1;
-            }
-            else if (phase == 1){
-                warriorY -= 5;
-                fff.warrior.setLocation(warriorX, warriorY);
-                if (warriorY < warriorStartY + 50) {
-                    phase = 2;
-                }}
-            else if (phase == 2) {
-                if (warriorY < 50) {
-                    warriorY = 50;
-                    fff.warrior.setLocation(warriorX, warriorY);
-                }
-                timePast++;
-                if (timePast < 50) {
-                    if (timePast % 2 == 1) {
-                        warriorX += 4;
-                        fff.warrior.setLocation(warriorX, warriorY);
-                    } else {
-                        warriorX -= 4;
-                        fff.warrior.setLocation(warriorX, warriorY);
-                    }
-                }
-                if (timePast > 50) {
-                    timePast = 0;
-                    phase = 3;
-                }
-            } else if (phase == 3) {
-                warriorY += 3;
-                fff.warrior.setLocation(warriorX, warriorY);
-                if (warriorY > warriorStartY) {
-                    warriorX = warriorStartX;
-                    warriorY = warriorStartY;
-                    fff.warrior.setLocation(warriorX, warriorY);
-                    phase = 4;
-                    phase = 0;
-                    mobDeath();
-                    shout.stop();
-                    if (followup){battlecry.start();
-                        followup = false;
-                    }
-                    else {
-                        demoralized.start();
-                        System.out.println("working");
-                    }
-                }
-            }
-        }
-    });
-    private Timer fireBall = new Timer(15, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePast++;
-            pyroBlastX += 16;
-            fff.smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
-            if (followup){MusicPick.musicStart("fireball", "");
-                followup = false;
-            }
-            if (phase == 0){
-                fff.smallPyroBlast.setVisible(true);
-                upMegaMath *=2;
-                pyroblastY -= upMegaMath;
-            }
-            if (timePast % 3 == 0){phase++;}
-            if (phase == 5) {
-                phase = 1;
-                rightMegaMath = 1;
-                downMegaMath = 1;
-                leftMegaMath = 1;
-            }
-            if (phase == 2) upMegaMath = 1;
-
-            if (phase == 1 || phase == 2) { //höger
-                rightMegaMath *=2;
-                pyroBlastX += rightMegaMath;
-            }
-            if (phase == 2 || phase == 3) { //ner
-                downMegaMath *=2;
-                pyroblastY += downMegaMath;
-            }
-            if (phase == 3 || phase == 4) { //vänster
-                leftMegaMath *=2;
-                pyroBlastX -= leftMegaMath;
-            }
-            if (phase == 4 || phase == 1) { //flyger uppåt
-                upMegaMath *=2;
-                pyroblastY -= upMegaMath;
-            }
-            if(timePast == 50) {
-                pyroblastY = 150;
-                pyroBlastX = 45;
-                fff.smallPyroBlast.setVisible(false);
-                timePast = 0;
-                upMegaMath = 1;
-                rightMegaMath = 1;
-                downMegaMath = 1;
-                leftMegaMath = 1;
-                phase = 0;
-                fireBall.stop();
-                fff.smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
-                try {
-                    spellDamageSystem(8,"single");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    });
-
-    private Timer battlecry = new Timer(20, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePast++;
-            fff.swordIcon.setLocation(swordIconX, swordIconY);
-            if (phase == 0) {
-                if (upMegaMath == 1) MusicPick.musicStart("demoshout", "");
-                fff.swordIcon.setVisible(true);
-                upMegaMath *= 2;
-                swordIconY -= upMegaMath;
-            }
-            if (timePast % 3 == 0) {
-                phase++;
-            }
-            if (phase == 5) {
-                phase = 1;
-                rightMegaMath = 1;
-                downMegaMath = 1;
-                leftMegaMath = 1;
-            }
-            if (phase == 2) upMegaMath = 1;
-
-            if (phase == 1 || phase == 2) { //höger
-                rightMegaMath += 5;
-                swordIconX += rightMegaMath;
-            }
-            if (phase == 2 || phase == 3) { //ner
-                downMegaMath += 5;
-                swordIconY += downMegaMath;
-            }
-            if (phase == 3 || phase == 4) { //vänster
-                leftMegaMath += 5;
-                swordIconX -= leftMegaMath;
-            }
-            if (phase == 4 || phase == 1) { //flyger uppåt
-                upMegaMath += 5;
-                swordIconY -= upMegaMath;
-            }
-            if (timePast == 50) {
-                swordIconX = 300;
-                swordIconY = 300;
-                fff.swordIcon.setVisible(false);
-                timePast = 0;
-                upMegaMath = 1;
-                rightMegaMath = 1;
-                downMegaMath = 1;
-                leftMegaMath = 1;
-                phase = 0;
-                battlecry.stop();
-            }
-        }
-    });
-    private Timer demoralized = new Timer(20, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePast++;
-            fff.demoSword1.setLocation(swordIconX + 550, swordIconY + 50);
-            fff.demoSword2.setLocation(swordIconX + 650, swordIconY + 100);
-            fff.demoSword3.setLocation(swordIconX + 750, swordIconY + 50);
-            fff.demoSword4.setLocation(swordIconX + 850, swordIconY + 100);
-
-
-            if (phase == 0) {
-                fff.demoSword1.setVisible(true);
-                fff.demoSword2.setVisible(true);
-                fff.demoSword3.setVisible(true);
-                fff.demoSword4.setVisible(true);
-                upMegaMath *= 2;
-                swordIconY -= upMegaMath;
-            }
-            if (timePast % 3 == 0) {
-                phase++;
-            }
-            if (phase == 5) {
-                phase = 1;
-                rightMegaMath = 1;
-                downMegaMath = 1;
-                leftMegaMath = 1;
-            }
-            if (phase == 2) upMegaMath = 1;
-
-            if (phase == 1 || phase == 2) { //höger
-                rightMegaMath += 5;
-                swordIconX += rightMegaMath;
-            }
-            if (phase == 2 || phase == 3) { //ner
-                downMegaMath += 5;
-                swordIconY += downMegaMath;
-            }
-            if (phase == 3 || phase == 4) { //vänster
-                leftMegaMath += 5;
-                swordIconX -= leftMegaMath;
-            }
-            if (phase == 4 || phase == 1) { //flyger uppåt
-                upMegaMath += 5;
-                swordIconY -= upMegaMath;
-            }
-            if (timePast == 50) {
-                swordIconX = 300;
-                swordIconY = 300;
-                fff.demoSword1.setVisible(false);
-                fff.demoSword2.setVisible(false);
-                fff.demoSword3.setVisible(false);
-                fff.demoSword4.setVisible(false);
-                timePast = 0;
-                upMegaMath = 1;
-                rightMegaMath = 1;
-                downMegaMath = 1;
-                leftMegaMath = 1;
-                phase = 0;
-                demoralized.stop();
-            }
-        }
-    });
-    private Timer bombthrow = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            if (phase == 0){
-                MusicPick.musicStart("ding", "");
-                phase = 1;
-                fff.bomb.setVisible(true);
-            }
-            if (phase == 1) {
-                bombMegaMath -=2;
-                bombX += 20;
-                bombY -= bombMegaMath;
-                fff.bomb.setLocation(bombX, bombY);
-                if (bombY > bombStartY) {
-                    phase = 2;
-                }
-            } else if (phase == 2) {
-                timePast++;
-                if(timePast == 30) {
-                    bombY = bombStartY;
-                    bombX = bombStartX;
-                    fff.bomb.setLocation(bombX, bombY);
-                    fff.bomb.setVisible(false);
-                    fff.explode.setVisible(true);
-                }
-                if(timePast == 60){
-                    bombMegaMath = 36;
-                    fff.bomb.setVisible(false);
-                    fff.explode.setVisible(false);
-                    timePast = 0;
-                    phase = 0;
-                    bombthrow.stop();
-                    if (stealth){
-                        try {
-                            spellDamageSystem(8,"all");
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        unstealth();
-                    }
-                    else {
-                        try {
-                            spellDamageSystem(4, "all");
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    //not used, don't remove
-    private Timer bombcircletest = new Timer(5, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            fff.bomb.setLocation(objXTest, objYTest);
-            timePast++;
-            if (phase == 0){
-                MusicPick.musicStart("ding", "");
-                phase = 1;
-                fff.bomb.setVisible(true);
-            }
-            if (phase == 1) {
-                xmmYTest -=1;
-                xmmXTest -=1;
-                objYTest -= xmmYTest;
-                objXTest -= xmmXTest;
-                if (xmmYTest <= 0) {
-                    phase = 2;
-                }
-
-            }
-            if (phase == 2){
-                xmmYTest -=1;
-                xmmXTest +=1;
-                objYTest -= xmmYTest;
-                objXTest -= xmmXTest;
-                if (xmmXTest >= 0) {
-                    phase = 3;
-                }
-            }
-            if (phase == 3){
-                xmmYTest +=1;
-                xmmXTest +=1;
-                objYTest -= xmmYTest;
-                objXTest -= xmmXTest;
-                if (xmmYTest >= 0) {
-                    phase = 4;
-                }
-            }
-            if (phase == 4){
-                xmmYTest +=1;
-                xmmXTest -=1;
-                objYTest -= xmmYTest;
-                objXTest -= xmmXTest;
-                if (xmmXTest <= 0) {
-                    phase = 1;
-                }
-            }
-
-            if(timePast > 300){
-                fff.bomb.setVisible(false);
-                timePast = 0;
-                phase = 0;
-                objXTest = objXTestStart;
-                objYTest = objYTestStart;
-                xmmXTest = 0;
-                xmmYTest = 20;
-                bombcircletest.stop();
-            }
-        }
-    });
-
-    private void stealth() {
-        if (!stealth) {
-            MusicPick.musicStart("stealth", "");
-            fff.ranger.setVisible(false);
-            fff.stealthranger.setVisible(true);
-            stealth = true;
-        }
-    }
-    private void unstealth(){
-        if (stealth){
-            MusicPick.musicStart("unstealth", "");
-            fff.ranger.setVisible(true);
-            fff.stealthranger.setVisible(false);
-            stealth = false;
-        }
-    }
-
-    private Timer holyLightSpell = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePast++;
-            if (phase == 0){
-                if (healTarget == 1)fff.holyLight.setLocation(warriorStartX -220, warriorStartY -500);
-                if (healTarget == 2)fff.holyLight.setLocation(rangerStartX -220, rangerStartY -450);
-                if (healTarget == 3)fff.holyLight.setLocation(mageStartX -220, mageStartY -450);
-                if (healTarget == 4)fff.holyLight.setLocation(healerStartX -220, healerStartY -500);
-            MusicPick.musicStart("holylight", "");
-            fff.holyLight.setVisible(true);
-            phase = 1;
-            }
-            if (timePast == 100){
-                timePast = 0;
-                fff.holyLight.setVisible(false);
-                holyLightSpell.stop();
-                phase = 0;
-                spellHealSystem(40, "single");
-            }
-        }
-    });
-
-    private Timer smallHolyLightSpell = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePast++;
-            if (phase == 0){
-                if (healTarget == 1)fff.smallHolyLight.setLocation(warriorStartX -225, warriorStartY -500);
-                if (healTarget == 2)fff.smallHolyLight.setLocation(rangerStartX -225, rangerStartY -500);
-                if (healTarget == 3)fff.smallHolyLight.setLocation(mageStartX -225, mageStartY -500);
-                if (healTarget == 4)fff.smallHolyLight.setLocation(healerStartX -225, healerStartY -500);
-                MusicPick.musicStart("holylight", "");
-                fff.smallHolyLight.setVisible(true);
-                phase = 1;
-            }
-            if (timePast == 100){
-                timePast = 0;
-                fff.smallHolyLight.setVisible(false);
-                smallHolyLightSpell.stop();
-                phase = 0;
-                spellHealSystem(20, "single");
-            }
-        }
-    });
-
-    private Timer groupHealSpell = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            timePast++;
-            if (phase == 0){
-                fff.groupHeal1.setLocation(warriorStartX + 75, warriorStartY - 500);
-                fff.groupHeal2.setLocation(rangerStartX + 75, rangerStartY - 500);
-                fff.groupHeal3.setLocation(mageStartX + 75, mageStartY - 500);
-                fff.groupHeal4.setLocation(healerStartX + 75, healerStartY - 500);
-                MusicPick.musicStart("groupheal", "");
-                fff.groupHeal1.setVisible(true);
-                fff.groupHeal2.setVisible(true);
-                fff.groupHeal3.setVisible(true);
-                fff.groupHeal4.setVisible(true);
-                phase = 1;
-            }
-            if (timePast > 500){
-                timePast = 0;
-                fff.groupHeal1.setVisible(false);
-                fff.groupHeal2.setVisible(false);
-                fff.groupHeal3.setVisible(false);
-                fff.groupHeal4.setVisible(false);
-                groupHealSpell.stop();
-                phase = 0;
-                spellHealSystem(10, "all");
-            }
-        }
-    });
-
-    private Timer healerAttack = new Timer(10, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            if (phase == 0) {
-                if (healerX == 100) MusicPick.musicStart("ding", "");
-                healerX += 15;
-                fff.healer.setLocation(healerX, healerY);
-                if (healerX > 200) {
-                    phase = 1;
-                }
-            } else if (phase == 1) {
-                healerX -= 15;
-                fff.healer.setLocation(healerX, healerY);
-                if (healerX <= healerStartX) {
-                    healerX = healerStartX;
-                    fff.healer.setLocation(healerX, healerY);
-                    phase = 0;
-                    tackle.stop();
-                    spellDamageSystem(healerDamage,"single");
-                }
-            }
-        }
-    });
-*/
-
 
     //Get the effect from potions.
     private void usePotion(int potion) {
@@ -2036,7 +1160,7 @@ public class ForestCon {
         fff.wolf1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ac.target = 1;
+                target = 1;
                 fff.targetarrow.setLocation(875, 250);
                 fff.targetarrow.setVisible(true);
             }
@@ -2044,7 +1168,7 @@ public class ForestCon {
         fff.wolf2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ac.target = 2;
+                target = 2;
                 fff.targetarrow.setLocation(1065, 250);
                 fff.targetarrow.setVisible(true);
             }
@@ -2052,7 +1176,7 @@ public class ForestCon {
         fff.wolf3.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ac.target = 3;
+                target = 3;
                 fff.targetarrow.setLocation(925, 325);
                 fff.targetarrow.setVisible(true);
             }
@@ -2060,7 +1184,7 @@ public class ForestCon {
         fff.wolf4.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ac.target = 4;
+                target = 4;
                 fff.targetarrow.setLocation(1100, 325);
                 fff.targetarrow.setVisible(true);
             }
@@ -2083,87 +1207,103 @@ public class ForestCon {
                 healerEnergyInt=healerEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fff.energy.setText("Energy: "+healerEnergyInt);
-                ac.healTarget = 1;
-                ac.holyLightSpell.start();}
+                healTarget = 1;
+                holyLightSpell.start();
+                spellHealSystem(40, "single");
+            }
 
             if (chosenSpell == 2 && healerEnergyInt > 1){
                 healerEnergyInt=healerEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fff.energy.setText("Energy: "+healerEnergyInt);
-                ac.healTarget = 1;
-                ac.smallHolyLightSpell.start();}
+                healTarget = 1;
+                smallHolyLightSpell.start();
+                spellHealSystem(20, "single");
+            }
         });
         fff.healRangerButton.addActionListener(e -> {
             if (chosenSpell == 1 && healerEnergyInt > 1){
                 healerEnergyInt=healerEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fff.energy.setText("Energy: "+healerEnergyInt);
-                ac.healTarget = 2;
-                ac.holyLightSpell.start();}
+                healTarget = 2;
+                holyLightSpell.start();
+                spellHealSystem(40, "single");
+            }
             if (chosenSpell == 2 && healerEnergyInt > 1){
                 healerEnergyInt=healerEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fff.energy.setText("Energy: "+healerEnergyInt);
-                ac.healTarget = 2;
-                ac.smallHolyLightSpell.start();}
+                healTarget = 2;
+                smallHolyLightSpell.start();
+                spellHealSystem(20, "single");
+            }
         });
         fff.healMageButton.addActionListener(e -> {
             if (chosenSpell == 1 && healerEnergyInt > 1){
                 healerEnergyInt=healerEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fff.energy.setText("Energy: "+healerEnergyInt);
-                ac.healTarget = 3;
-                ac.holyLightSpell.start();}
+                healTarget = 3;
+                holyLightSpell.start();
+                spellHealSystem(40, "single");
+            }
             if (chosenSpell == 2 && healerEnergyInt > 1){
                 healerEnergyInt=healerEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fff.energy.setText("Energy: "+healerEnergyInt);
-                ac.healTarget = 3;
-                ac.smallHolyLightSpell.start();}
+                healTarget = 3;
+                smallHolyLightSpell.start();
+                spellHealSystem(20, "single");
+            }
         });
         fff.healHealerButton.addActionListener(e -> {
             if (chosenSpell == 1 && healerEnergyInt > 1){
                 healerEnergyInt=healerEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fff.energy.setText("Energy: "+healerEnergyInt);
-                ac.healTarget = 4;
-                ac.holyLightSpell.start();}
+                healTarget = 4;
+                holyLightSpell.start();
+                spellHealSystem(40, "single");
+            }
             if (chosenSpell == 2 && healerEnergyInt > 1){
                 healerEnergyInt=healerEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fff.energy.setText("Energy: "+healerEnergyInt);
-                ac.healTarget = 4;
-                ac.smallHolyLightSpell.start();}
+                healTarget = 4;
+                smallHolyLightSpell.start();
+                spellHealSystem(20, "single");
+            }
         });
     }
 
 
     //called from spells to deal damage to enemies
     //damageTargets types: single, line, all
-    public void spellDamageSystem(int damage, String damageTargets) throws InterruptedException {
+    public void spellDamageSystem(int damage, String damageTargets){
         if (damageTargets.equals("single")){
-            ac.wolfHp[ac.target-1] -= damage;
+            wolfHp[target-1] -= damage;
         }
         if (damageTargets.equals("line")){
-            if (ac.target == 1 || ac.target == 2){
-                ac.wolfHp[0] -= damage;
-                ac.wolfHp[1] -= damage;
+            if (target == 1 || target == 2){
+                wolfHp[0] -= damage;
+                wolfHp[1] -= damage;
             }
-            if (ac.target == 3 || ac.target == 4){
-                ac.wolfHp[2] -= damage;
-                ac.wolfHp[3] -= damage;
+            if (target == 3 || target == 4){
+                wolfHp[2] -= damage;
+                wolfHp[3] -= damage;
             }
         }
         if (damageTargets.equals("all")){
-            ac.wolfHp[0] -= damage;
-            ac.wolfHp[1] -= damage;
-            ac.wolfHp[2] -= damage;
-            ac.wolfHp[3] -= damage;
+            wolfHp[0] -= damage;
+            wolfHp[1] -= damage;
+            wolfHp[2] -= damage;
+            wolfHp[3] -= damage;
         }
-        fff.wolf1Hp.setText("Wolf 1: " + ac.wolfHp[0]);
-        fff.wolf2Hp.setText("Wolf 2: " + ac.wolfHp[1]);
-        fff.wolf3Hp.setText("Wolf 3: " + ac.wolfHp[2]);
-        fff.wolf4Hp.setText("Wolf 4: " + ac.wolfHp[3]);
+        fff.wolf1Hp.setText("Wolf 1: " + wolfHp[0]);
+        fff.wolf2Hp.setText("Wolf 2: " + wolfHp[1]);
+        fff.wolf3Hp.setText("Wolf 3: " + wolfHp[2]);
+        fff.wolf4Hp.setText("Wolf 4: " + wolfHp[3]);
         mobDeath();
         isFightOver();
     }
@@ -2171,10 +1311,10 @@ public class ForestCon {
     //fixa denna
     public void spellHealSystem(int healing, String healingTargets){
         if (healingTargets.equals("single")){
-            if (ac.healTarget == 1) warriorCurrentHp += healing;
-            if (ac.healTarget == 2) healerCurrentHp += healing;
-            if (ac.healTarget == 3) rangerCurrentHp += healing;
-            if (ac.healTarget == 4) mageCurrentHp += healing;
+            if (healTarget == 1) warriorCurrentHp += healing;
+            if (healTarget == 2) rangerCurrentHp += healing;
+            if (healTarget == 3) mageCurrentHp += healing;
+            if (healTarget == 4) healerCurrentHp += healing;
         }
         if (healingTargets.equals("all")){
             warriorCurrentHp += healing;
@@ -2183,8 +1323,837 @@ public class ForestCon {
             mageCurrentHp += healing;
         }
         fff.player1Hp.setText("Warrior: " + warriorCurrentHp);
-        fff.player2Hp.setText("Ranger: " + healerCurrentHp);
-        fff.player3Hp.setText("Mage: " + rangerCurrentHp);
-        fff.player4Hp.setText("Healer: " + mageCurrentHp);
+        fff.player2Hp.setText("Ranger:  " + rangerCurrentHp);
+        fff.player3Hp.setText("Mage:    " + mageCurrentHp);
+        fff.player4Hp.setText("Healer:  " + healerCurrentHp);
     }
+
+
+    //warrior
+    public Timer tackle = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0) {
+                if (warriorX == 100) MusicPick.musicStart("warriorattack", "");
+                animationPlaying = true;
+                warriorX += 15;
+                fff.warrior.setLocation(warriorX, warriorY);
+                if (warriorX > 200) {
+                    phase = 1;
+                }
+            } else if (phase == 1) {
+                warriorX -= 15;
+                fff.warrior.setLocation(warriorX, warriorY);
+                if (warriorX <= warriorStartX) {
+                    warriorX = warriorStartX;
+                    fff.warrior.setLocation(warriorX, warriorY);
+                    phase = 0;
+                    tackle.stop();
+                    animationPlaying = false;
+                }
+            }
+        }
+    });
+
+    public Timer charge = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0) {
+                animationPlaying = true;
+                MusicPick.musicStart("charge", "");
+                phase = 1;
+            }
+            else if (phase == 1) {
+                warriorX += 20;
+                fff.warrior.setLocation(warriorX, warriorY);
+                if (warriorX > 2000) {
+                    phase = 2;
+                }
+            }
+            else if (phase == 2) {
+                warriorX = warriorStartX;
+                warriorY = warriorStartY;
+                fff.warrior.setLocation(warriorX,warriorY);
+                phase = 0;
+                charge.stop();
+                animationPlaying = false;
+            }
+        }
+    });
+
+    public Timer dunk = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0){
+                animationPlaying = true;
+                MusicPick.musicStart("charge", "");
+                phase = 1;
+            }
+            if (phase == 1) {
+                warriorMegaMath -=2;
+                warriorX += 20;
+                warriorY -= warriorMegaMath;
+                fff.warrior.setLocation(warriorX, warriorY);
+                if (warriorY > warriorStartY) {
+                    phase = 2;
+                }
+            } else if (phase == 2) {
+                timePast++;
+                if(timePast == 30) {
+                    warriorY = warriorStartY;
+                    warriorX = warriorStartX;
+                    fff.warrior.setLocation(warriorX, warriorY);
+                    timePast = 0;
+                    warriorMegaMath = 30;
+                    phase = 0;
+                    dunk.stop();
+                    animationPlaying = false;
+
+                }
+            }
+        }
+    });
+
+    public Timer shout = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+
+            if (phase == 0) {
+                MusicPick.musicStart("demoshout", " ");
+                phase = 1;
+                animationPlaying = true;
+            }
+            else if (phase == 1){
+                warriorY -= 5;
+                fff.warrior.setLocation(warriorX, warriorY);
+                if (warriorY < warriorStartY + 50) {
+                    phase = 2;
+                }}
+            else if (phase == 2) {
+                if (warriorY < 50) {
+                    warriorY = 50;
+                    fff.warrior.setLocation(warriorX, warriorY);
+                }
+                timePast++;
+                if (timePast < 50) {
+                    if (timePast % 2 == 1) {
+                        warriorX += 4;
+                        fff.warrior.setLocation(warriorX, warriorY);
+                    } else {
+                        warriorX -= 4;
+                        fff.warrior.setLocation(warriorX, warriorY);
+                    }
+                }
+                if (timePast > 50) {
+                    timePast = 0;
+                    phase = 3;
+                }
+            } else if (phase == 3) {
+                warriorY += 3;
+                fff.warrior.setLocation(warriorX, warriorY);
+                if (warriorY > warriorStartY) {
+                    warriorX = warriorStartX;
+                    warriorY = warriorStartY;
+                    fff.warrior.setLocation(warriorX, warriorY);
+                    phase = 0;
+                    shout.stop();
+                    if (followup){battlecry.start();
+                        followup = false;
+                    }
+                    else {
+                        demoralized.start();
+                        System.out.println("working");
+                    }
+                }
+            }
+        }
+    });
+
+    public Timer battlecry = new Timer(20, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            fff.swordIcon.setLocation(swordIconX, swordIconY);
+            if (phase == 0) {
+                if (upMegaMath == 1) MusicPick.musicStart("demoshout", "");
+                fff.swordIcon.setVisible(true);
+                upMegaMath *= 2;
+                swordIconY -= upMegaMath;
+            }
+            if (timePast % 3 == 0) {
+                phase++;
+            }
+            if (phase == 5) {
+                phase = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+            }
+            if (phase == 2) upMegaMath = 1;
+
+            if (phase == 1 || phase == 2) { //höger
+                rightMegaMath += 5;
+                swordIconX += rightMegaMath;
+            }
+            if (phase == 2 || phase == 3) { //ner
+                downMegaMath += 5;
+                swordIconY += downMegaMath;
+            }
+            if (phase == 3 || phase == 4) { //vänster
+                leftMegaMath += 5;
+                swordIconX -= leftMegaMath;
+            }
+            if (phase == 4 || phase == 1) { //flyger uppåt
+                upMegaMath += 5;
+                swordIconY -= upMegaMath;
+            }
+            if (timePast == 50) {
+                swordIconX = 300;
+                swordIconY = 300;
+                fff.swordIcon.setVisible(false);
+                timePast = 0;
+                upMegaMath = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+                phase = 0;
+                animationPlaying = true;
+                battlecry.stop();
+            }
+        }
+    });
+
+    public Timer demoralized = new Timer(20, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            fff.demoSword1.setLocation(swordIconX + 550, swordIconY + 50);
+            fff.demoSword2.setLocation(swordIconX + 650, swordIconY + 100);
+            fff.demoSword3.setLocation(swordIconX + 750, swordIconY + 50);
+            fff.demoSword4.setLocation(swordIconX + 850, swordIconY + 100);
+
+
+            if (phase == 0) {
+                fff.demoSword1.setVisible(true);
+                fff.demoSword2.setVisible(true);
+                fff.demoSword3.setVisible(true);
+                fff.demoSword4.setVisible(true);
+                upMegaMath *= 2;
+                swordIconY -= upMegaMath;
+            }
+            if (timePast % 3 == 0) {
+                phase++;
+            }
+            if (phase == 5) {
+                phase = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+            }
+            if (phase == 2) upMegaMath = 1;
+
+            if (phase == 1 || phase == 2) { //höger
+                rightMegaMath += 5;
+                swordIconX += rightMegaMath;
+            }
+            if (phase == 2 || phase == 3) { //ner
+                downMegaMath += 5;
+                swordIconY += downMegaMath;
+            }
+            if (phase == 3 || phase == 4) { //vänster
+                leftMegaMath += 5;
+                swordIconX -= leftMegaMath;
+            }
+            if (phase == 4 || phase == 1) { //flyger uppåt
+                upMegaMath += 5;
+                swordIconY -= upMegaMath;
+            }
+            if (timePast == 50) {
+                swordIconX = 300;
+                swordIconY = 300;
+                fff.demoSword1.setVisible(false);
+                fff.demoSword2.setVisible(false);
+                fff.demoSword3.setVisible(false);
+                fff.demoSword4.setVisible(false);
+                timePast = 0;
+                upMegaMath = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+                phase = 0;
+                animationPlaying = true;
+                demoralized.stop();
+            }
+        }
+    });
+
+    //ranger
+
+    Timer shoot = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0) {
+                fff.arrow.setVisible(true);
+                if (arrowX == 121) {
+                    animationPlaying = true;
+                    MusicPick.musicStart("ding", "");
+                }
+                arrowX += 30;
+                fff.arrow.setLocation(arrowX, arrowY);
+                if (arrowX > 1000) {
+                    phase = 1;
+                }
+            } else if (phase == 1) {
+                fff.arrow.setVisible(false);
+                arrowX = arrowStartX;
+                fff.arrow.setLocation(arrowX, arrowY);
+                phase = 0;
+                shoot.stop();
+            }
+        }
+    });
+
+    public Timer volley = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            arrowX += 30;
+            fff.volley1.setLocation(arrowX, arrowY);
+            fff.volley2.setLocation(arrowX - 200, arrowY);
+            fff.volley3.setLocation(arrowX - 400, arrowY);
+            if (phase == 0) {
+                fff.volley1.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 1;
+            }
+            else if (phase == 1 && arrowX > arrowStartX + 300) {
+                fff.volley2.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 2;
+            }
+            else if (phase == 2 && arrowX > arrowStartX + 600) {
+                fff.volley3.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 3;
+            }
+            else if (phase == 3 && arrowX > 1000) {
+                fff.volley1.setVisible(false);
+                phase = 4;
+            }
+            else if (phase == 4 && arrowX > 1200) {
+                fff.volley2.setVisible(false);
+                phase = 5;
+            }
+            else if (phase == 5 && arrowX > 1400) {
+                fff.volley3.setVisible(false);
+                phase = 6;
+            }
+            if (phase == 6) {
+                arrowX = 300;
+                fff.volley1.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 7;
+            }
+            else if (phase == 7 && arrowX > arrowStartX + 300) {
+                fff.volley2.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 8;
+            }
+            else if (phase == 8 && arrowX > arrowStartX + 600) {
+                fff.volley3.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 9;
+            }
+            else if (phase == 9 && arrowX > 1000) {
+                fff.volley1.setVisible(false);
+                phase = 10;
+            }
+            else if (phase == 10 && arrowX > 1200) {
+                fff.volley2.setVisible(false);
+                phase = 11;
+            }
+            else if (phase == 11 && arrowX > 1400) {
+                fff.volley3.setVisible(false);
+                phase = 12;
+                arrowX = 300;
+            }
+            if (phase == 12) {
+                fff.volley1.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 13;
+            }
+            else if (phase == 13 && arrowX > arrowStartX + 300) {
+                fff.volley2.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 14;
+            }
+            else if (phase == 14 && arrowX > arrowStartX + 600) {
+                fff.volley3.setVisible(true);
+                MusicPick.musicStart("ding", "");
+                phase = 15;
+            }
+            else if (phase == 15 && arrowX > 1000) {
+                fff.volley1.setVisible(false);
+                phase = 16;
+            }
+            else if (phase == 16 && arrowX > 1200) {
+                fff.volley2.setVisible(false);
+                phase = 17;
+            }
+            else if (phase == 17 && arrowX > 1400) {
+                fff.volley3.setVisible(false);
+                phase = 18;
+            }
+            else if (phase == 18){
+                arrowX = 270;
+                phase = 0;
+                animationPlaying = false;
+                volley.stop();
+            }
+        }
+    });
+
+    public void stealth() {
+        if (!stealthed) {
+            MusicPick.musicStart("stealth", "");
+            fff.ranger.setVisible(false);
+            fff.stealthranger.setVisible(true);
+            stealthed = true;
+        }
+    }
+    public void unstealth(){
+        if (stealthed){
+            MusicPick.musicStart("unstealth", "");
+            fff.ranger.setVisible(true);
+            fff.stealthranger.setVisible(false);
+            stealthed = false;
+        }
+    }
+
+    public Timer bombthrow = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0){
+                animationPlaying = true;
+                MusicPick.musicStart("ding", "");
+                phase = 1;
+                fff.bomb.setVisible(true);
+            }
+            if (phase == 1) {
+                bombMegaMath -=2;
+                bombX += 20;
+                bombY -= bombMegaMath;
+                fff.bomb.setLocation(bombX, bombY);
+                if (bombY > bombStartY) {
+                    phase = 2;
+                }
+            } else if (phase == 2) {
+                timePast++;
+                if(timePast == 30) {
+                    bombY = bombStartY;
+                    bombX = bombStartX;
+                    fff.bomb.setLocation(bombX, bombY);
+                    fff.bomb.setVisible(false);
+                    fff.explode.setVisible(true);
+                }
+                if(timePast == 60){
+                    bombMegaMath = 36;
+                    fff.bomb.setVisible(false);
+                    fff.explode.setVisible(false);
+                    timePast = 0;
+                    phase = 0;
+                    bombthrow.stop();
+                    animationPlaying = false;
+                }
+            }
+        }
+    });
+
+
+    //mage
+    Timer blast = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0) {
+                animationPlaying = true;
+                fff.blast.setVisible(true);
+                if (blastY == 121) {
+                    MusicPick.musicStart("fireball", "");
+                }
+                blastX += 30;
+                fff.blast.setLocation(blastX, blastY);
+                if (blastX > 1000) {
+                    phase = 1;
+                }
+            } else if (phase == 1) {
+                fff.blast.setVisible(false);
+                blastX = blastStartX;
+                fff.blast.setLocation(blastX, blastY);
+                phase = 0;
+                blast.stop();
+                animationPlaying = false;
+            }
+        }
+    });
+
+    public Timer pyroBlast = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            if (timePast < 100) {
+                animationPlaying = true;
+                fff.smallPyroBlast.setVisible(true);
+            }
+            else if (timePast < 200) {
+                fff.smallPyroBlast.setVisible(false);
+                fff.mediumPyroBlast.setVisible(true);
+            }
+            else if (timePast < 350) {
+                fff.mediumPyroBlast.setVisible(false);
+                fff.bigPyroBlast.setVisible(true);
+            }
+            else if (timePast < 400 ){
+                pyroBlastX += 3;
+                pyroblastY -= 1;
+                fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            }
+            else if (timePast < 460){
+                pyroBlastX += 3;
+                pyroblastY += 1;
+                fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            }
+            else if (timePast < 530){
+                pyroBlastX += 3;
+                pyroblastY -= 1;
+                fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            }
+            else if (timePast < 590){
+                pyroBlastX += 4;
+                pyroblastY += 1;
+                fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            }
+            else {
+                fff.bigPyroBlast.setVisible(false);
+                timePast = 0;
+                pyroBlastX = 45;
+                pyroblastY = 150;
+                fff.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                pyroBlast.stop();
+                animationPlaying = false;
+            }
+        }
+    });
+
+    public Timer flameStrike = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+
+            if (phase == 0) {
+                animationPlaying = true;
+                MusicPick.musicStart("magespell", "");
+                phase = 1;
+            }
+            else if (phase == 1){
+                mageY -= 3;
+                fff.mage.setLocation(mageX, mageY);
+                if (mageY < 50) {
+                    phase = 2;
+                }}
+            else if (phase == 2) {
+                if (mageY < 50) {
+                    mageY = 50;
+                    fff.mage.setLocation(mageX, mageY);
+                }
+                timePast++;
+                if (timePast < 100) {
+                    if (timePast % 2 == 1) {
+                        mageX += 6;
+                        fff.mage.setLocation(mageX, mageY);
+                        flameStrikeY += 13;
+                        fff.flame.setLocation(900, flameStrikeY);
+                    } else {
+                        mageX -= 6;
+                        fff.mage.setLocation(mageX, mageY);
+                    }
+                }
+                if (timePast == 102) {
+                    fff.mage.setLocation(mageX, mageY);
+                    fff.fireStorm.setVisible(true);
+                    flameStrikeY = -400;
+                    fff.flame.setLocation(700, flameStrikeY);
+                }
+                if (timePast > 130) {
+                    timePast = 0;
+                    phase = 3;
+                }
+            } else if (phase == 3) {
+                mageY += 3;
+                fff.mage.setLocation(mageX, mageY);
+                if (mageY > mageStartY) {
+                    mageX = mageStartX;
+                    mageY = mageStartY;
+                    fff.mage.setLocation(mageX, mageY);
+                    phase = 4;
+                }
+            } else if (phase == 4) {
+                timePast++;
+                if (timePast > 30) {
+                    timePast = 0;
+                    fff.fireStorm.setVisible(false);
+                    flameStrike.stop();
+                    phase = 0;
+                    animationPlaying = false;
+                }
+            }
+        }
+    });
+
+
+    public Timer fireBall = new Timer(15, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            pyroBlastX += 16;
+            fff.smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            animationPlaying = true;
+            if (followup){MusicPick.musicStart("fireball", "");
+                followup = false;
+            }
+            if (phase == 0){
+                fff.smallPyroBlast.setVisible(true);
+                upMegaMath *=2;
+                pyroblastY -= upMegaMath;
+            }
+            if (timePast % 3 == 0){phase++;}
+            if (phase == 5) {
+                phase = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+            }
+            if (phase == 2) upMegaMath = 1;
+
+            if (phase == 1 || phase == 2) { //höger
+                rightMegaMath *=2;
+                pyroBlastX += rightMegaMath;
+            }
+            if (phase == 2 || phase == 3) { //ner
+                downMegaMath *=2;
+                pyroblastY += downMegaMath;
+            }
+            if (phase == 3 || phase == 4) { //vänster
+                leftMegaMath *=2;
+                pyroBlastX -= leftMegaMath;
+            }
+            if (phase == 4 || phase == 1) { //flyger uppåt
+                upMegaMath *=2;
+                pyroblastY -= upMegaMath;
+            }
+            if(timePast == 50) {
+                pyroblastY = 150;
+                pyroBlastX = 45;
+                fff.smallPyroBlast.setVisible(false);
+                timePast = 0;
+                upMegaMath = 1;
+                rightMegaMath = 1;
+                downMegaMath = 1;
+                leftMegaMath = 1;
+                phase = 0;
+                fireBall.stop();
+                animationPlaying = false;
+                fff.smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
+            }
+        }
+    });
+
+    //healer
+    public Timer holyLightSpell = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            if (phase == 0){
+                animationPlaying = true;
+                if (healTarget == 1)fff.holyLight.setLocation(warriorStartX -220, warriorStartY -500);
+                if (healTarget == 2)fff.holyLight.setLocation(rangerStartX -220, rangerStartY -450);
+                if (healTarget == 3)fff.holyLight.setLocation(mageStartX -220, mageStartY -450);
+                if (healTarget == 4)fff.holyLight.setLocation(healerStartX -220, healerStartY -500);
+                MusicPick.musicStart("holylight", "");
+                fff.holyLight.setVisible(true);
+                phase = 1;
+            }
+            if (timePast == 100){
+                timePast = 0;
+                fff.holyLight.setVisible(false);
+                holyLightSpell.stop();
+                phase = 0;
+                animationPlaying = false;
+            }
+        }
+    });
+
+    public Timer smallHolyLightSpell = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            if (phase == 0){
+                animationPlaying = true;
+                if (healTarget == 1)fff.smallHolyLight.setLocation(warriorStartX -225, warriorStartY -500);
+                if (healTarget == 2)fff.smallHolyLight.setLocation(rangerStartX -225, rangerStartY -500);
+                if (healTarget == 3)fff.smallHolyLight.setLocation(mageStartX -225, mageStartY -500);
+                if (healTarget == 4)fff.smallHolyLight.setLocation(healerStartX -225, healerStartY -500);
+                MusicPick.musicStart("holylight", "");
+                fff.smallHolyLight.setVisible(true);
+                phase = 1;
+            }
+            if (timePast > 100){
+                timePast = 0;
+                fff.smallHolyLight.setVisible(false);
+                smallHolyLightSpell.stop();
+                phase = 0;
+                animationPlaying = false;
+            }
+        }
+    });
+
+    public Timer groupHealSpell = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            if (phase == 0){
+                animationPlaying = true;
+                fff.groupHeal1.setLocation(warriorStartX + 75, warriorStartY - 500);
+                fff.groupHeal2.setLocation(rangerStartX + 75, rangerStartY - 500);
+                fff.groupHeal3.setLocation(mageStartX + 75, mageStartY - 500);
+                fff.groupHeal4.setLocation(healerStartX + 75, healerStartY - 500);
+                MusicPick.musicStart("groupheal", "");
+                fff.groupHeal1.setVisible(true);
+                fff.groupHeal2.setVisible(true);
+                fff.groupHeal3.setVisible(true);
+                fff.groupHeal4.setVisible(true);
+                phase = 1;
+            }
+            if (timePast > 500){
+                timePast = 0;
+                fff.groupHeal1.setVisible(false);
+                fff.groupHeal2.setVisible(false);
+                fff.groupHeal3.setVisible(false);
+                fff.groupHeal4.setVisible(false);
+                groupHealSpell.stop();
+                phase = 0;
+                animationPlaying = false;
+            }
+        }
+    });
+
+    public Timer healerAttack = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0) {
+                animationPlaying = true;
+                if (healerX == 100) MusicPick.musicStart("ding", "");
+                healerX += 15;
+                fff.healer.setLocation(healerX, healerY);
+                if (healerX > 200) {
+                    phase = 1;
+                }
+            } else if (phase == 1) {
+                healerX -= 15;
+                fff.healer.setLocation(healerX, healerY);
+                if (healerX <= healerStartX) {
+                    healerX = healerStartX;
+                    fff.healer.setLocation(healerX, healerY);
+                    phase = 0;
+                    healerAttack.stop();
+                    animationPlaying = false;
+                }
+            }
+        }
+    });
+
+    //enemy
+    public Timer enemyTurnTimer = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePast++;
+            animationPlaying = true;
+            if (timePast < 50) {
+            }
+            else if (timePast < 60) {
+                wolf1X -= 15;
+                fff.wolf1.setLocation(wolf1X, wolf1Y);
+            }
+            else if (timePast < 70) {
+                wolf1X += 15;
+                fff.wolf1.setLocation(wolf1X, wolf1Y);
+            }
+            else if (timePast < 150) {
+                fff.wolf1.setLocation(wolf1StartX, wolf1StartY);
+            }
+            else if (timePast < 160) {
+                wolf2X -= 15;
+                fff.wolf2.setLocation(wolf2X, wolf2Y);
+            }
+            else if (timePast < 170) {
+                wolf2X += 15;
+                fff.wolf2.setLocation(wolf2X, wolf2Y);
+            }
+            else if (timePast < 250) {
+                fff.wolf2.setLocation(wolf2StartX, wolf2StartY);
+            }
+            else if (timePast < 260) {
+                wolf3X -= 15;
+                fff.wolf3.setLocation(wolf3X, wolf3Y);
+            }
+            else if (timePast < 270) {
+                wolf3X += 15;
+                fff.wolf3.setLocation(wolf3X, wolf3Y);
+            }
+            else if (timePast < 350) {
+                fff.wolf3.setLocation(wolf3StartX, wolf3StartY);
+            }
+            else if (timePast < 360) {
+                wolf4X -= 15;
+                fff.wolf4.setLocation(wolf4X, wolf4Y);
+            } else if (timePast < 370) {
+                wolf4X += 15;
+                fff.wolf4.setLocation(wolf4X, wolf4Y);
+            } else if (timePast < 450) {
+                fff.wolf4.setLocation(wolf4StartX, wolf4StartY);
+                enemyTurnTimer.stop();
+                timePast = 0;
+                animationPlaying = false;
+            }
+        }
+    });
+
+    public Timer takeDamage = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            timePastTakeDamage++;
+            if (timePastTakeDamage == 1) {
+                MusicPick.musicStart("warriorattacked", "");
+            } else if (timePastTakeDamage == 10) {
+                if (target == 0) fff.warrior.setVisible(false);
+                if (target == 1) fff.ranger.setVisible(false);
+                if (target == 2) fff.mage.setVisible(false);
+                if (target == 3) fff.healer.setVisible(false);
+            } else if (timePastTakeDamage == 20) {
+                if (target == 0) fff.warrior.setVisible(true);
+                if (target == 1) fff.ranger.setVisible(true);
+                if (target == 2) fff.mage.setVisible(true);
+                if (target == 3) fff.healer.setVisible(true);
+            } else if (timePastTakeDamage == 30) {
+                if (target == 0) fff.warrior.setVisible(false);
+                if (target == 1) fff.ranger.setVisible(false);
+                if (target == 2) fff.mage.setVisible(false);
+                if (target == 3) fff.healer.setVisible(false);
+            } else if (timePastTakeDamage == 40) {
+                if (target == 0) fff.warrior.setVisible(true);
+                if (target == 1) fff.ranger.setVisible(true);
+                if (target == 2) fff.mage.setVisible(true);
+                if (target == 3) fff.healer.setVisible(true);
+                takeDamage.stop();
+                timePastTakeDamage = 0;
+            }
+        }
+    });
 }
