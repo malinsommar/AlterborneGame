@@ -44,10 +44,12 @@ public class FightModel {
     }
 
     public void startFieldFight(){
+        /*
         fieldCon.getInventory(ownedPotions);
         getStats();
         fieldCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
         fieldCon.startFight();
+         */
     }
 
     public void fightWon(int whatFight){
