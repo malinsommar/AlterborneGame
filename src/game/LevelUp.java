@@ -18,9 +18,9 @@ public class LevelUp {
     private Ranger r = new Ranger();
 
     Font pixelMplus;
-
     public int xp;
     public int level = 1;
+
 
     //This method checks party xp and level party up. Use this method after every fight.
     public void levelSystem(){
