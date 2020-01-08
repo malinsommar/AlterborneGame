@@ -26,7 +26,11 @@ public class WorldModel {
          }
          if (overWorldController.Entrance[0]==5) {
              FightModel fightModel = new FightModel();
-             fightModel.startFieldFight();
+             //fightModel.startSwampFight();
+         }
+         if (overWorldController.Entrance[0]==6) {
+             FightModel fightModel = new FightModel();
+             //fightModel.startCastleFight();
          }
     }
 

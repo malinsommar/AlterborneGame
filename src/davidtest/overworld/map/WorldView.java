@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-public class WorldFrame extends Canvas {
+public class WorldView extends Canvas {
     private static final long serialVersionUID = 1L;
     public static final int WIDTH = 160;
     public static final int HEIGHT = WIDTH / 12 * 9;
@@ -29,7 +29,7 @@ public class WorldFrame extends Canvas {
 
     public JFrame frame;
 
-     public WorldFrame() {
+     public WorldView() {
         setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setPreferredSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -42,7 +42,7 @@ public class WorldFrame extends Canvas {
         frame.add(this, BorderLayout.CENTER);//Center Canvas within the JFrame
         frame.pack(); //Sets frames above or at preferred size
          input = new InputHandler(this); //call input-object
-         screen = new Screen(WorldFrame.WIDTH, WorldFrame.HEIGHT, new SpriteSheet("/resources/spriteSheet/Sprite_sheet.png"));//call spriteSheet-object
+         screen = new Screen(WorldView.WIDTH, WorldView.HEIGHT, new SpriteSheet("/resources/spriteSheet/Sprite_sheet.png"));//call spriteSheet-object
          level1 = new Level("/resources/maps/Map.png");//call map-object
          player = new Player(level1, 230, 235, input); //call Player-object and position it on map
 

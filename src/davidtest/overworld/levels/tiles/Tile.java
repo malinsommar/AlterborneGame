@@ -36,7 +36,7 @@ public abstract class Tile {
     public static final Tile RIGHTTOPCASTLE = new SolidTile(22, 1, 11, Colours.get(-1,1,333,-1), 0xFF785555);
     public static final Tile LEFTCASTLE = new SolidTile(23, 3, 11, Colours.get(-1,1,333,-1), 0xFF785556);
     public static final Tile RIGHTCASTLE = new SolidTile(24, 4, 11, Colours.get(-1,1,333,-1), 0xFF785557);
-    public static final Tile MIDDLECASTLE = new SolidTile(25, 2, 11, Colours.get(-1,1,333,-1), 0xFF785558);
+    public static final Tile MIDDLECASTLE = new CastlePathTile(25, 2, 11, Colours.get(-1,1,333,-1), 0xFF785558);
     public static final Tile FIRE = new AnimatedSolidTile(26, new int[][] {{ 0, 13}, { 1, 13},{2,13}},
             Colours.get(220, 200, 1, 332), 0xFFed8100, 800);
     public static final Tile SHEEPBODY = new SolidTile(27, 0, 15, Colours.get(-1,334,333,-1), 0xFF7a8b51);
@@ -74,10 +74,11 @@ public abstract class Tile {
     protected boolean mountainPath;
     protected boolean fieldPath;
     protected boolean swampPath;
+    protected boolean castlePath;
     protected boolean door;
     private int levelColour;
 
-    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isDoor, boolean isForestPath,  boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, int levelColour) {
+    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isDoor, boolean isForestPath,  boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCastlePath, int levelColour) {
         this.id = (byte) id;
         if (tiles[id] != null)
             throw new RuntimeException("Duplicate tile id on" + id);
@@ -87,6 +88,7 @@ public abstract class Tile {
         this.mountainPath = isMountainPath;
         this.fieldPath = isFieldPath;
         this.swampPath = isSwampPath;
+        this.castlePath = isCastlePath;
         this.door = isDoor;
         this.levelColour  = levelColour;
         tiles[id] = this;
@@ -119,7 +121,8 @@ public abstract class Tile {
     public boolean isSwampPath() {
         return swampPath;
     }
-
+    public boolean isCastlePath() { return castlePath;
+    }
     public boolean isDoor() {
         return door;
     }

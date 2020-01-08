@@ -7,16 +7,16 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class WorldController extends Canvas implements Runnable {
-    private WorldFrame owf = new WorldFrame();
+    private WorldView owf = new WorldView();
     int[] Entrance = new int[1];
 
     //int-variables to handle Model-execution
     private int ForestEntrance = 1;
     private int ShopEntrance = 1;
-    private int ForestBossEntrance = 1;
     private int MountainEntrance = 1;
     private int FieldEntrance = 1;
     private int SwampEntrance = 1;
+    private int CastleEntrance = 1;
 
 
     WorldController() throws InterruptedException {
@@ -38,8 +38,12 @@ public class WorldController extends Canvas implements Runnable {
             if(SwampEntrance == 1) {
                 EnterSwamp();
             }
+            if(CastleEntrance == 1) {
+                EnterCastle();
+            }
         }
     }
+
     public synchronized void start() {
         running = true;//set the state of running to true
         new Thread(this).start(); //start thread
@@ -150,7 +154,7 @@ public class WorldController extends Canvas implements Runnable {
             for (int y = 0; y < owf.screen.height; y++) {
                 for (int x = 0; x < owf.screen.width; x++) {
                     int colourCode = owf.screen.pixels[x + y * owf.screen.width];
-                    if (colourCode < 255) owf.pixels[x + y * WorldFrame.WIDTH] = owf.colours[colourCode];
+                    if (colourCode < 255) owf.pixels[x + y * WorldView.WIDTH] = owf.colours[colourCode];
                 }
             }
 
@@ -189,6 +193,13 @@ public class WorldController extends Canvas implements Runnable {
             SwampEntrance++;
             Entrance[0] = 5;
 
+        }
+    }
+
+    private void EnterCastle() {
+        if (owf.player.hasEnteredCastle()) {
+            CastleEntrance++;
+            Entrance[0] = 6;
         }
     }
 

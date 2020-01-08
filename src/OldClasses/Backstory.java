@@ -1,6 +1,6 @@
 package OldClasses;
 
-import davidtest.overworld.map.WorldFrame;
+import davidtest.overworld.map.WorldView;
 import game.MusicPick;
 
 import javax.swing.ImageIcon;
@@ -18,7 +18,7 @@ public class Backstory extends JFrame {
     Font pixelMplus;
 
     private JLabel warrior, mage, healer,ranger;
-    WorldFrame overWorld = new WorldFrame();
+    WorldView overWorld = new WorldView();
 
     public Backstory() {
 

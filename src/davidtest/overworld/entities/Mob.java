@@ -119,6 +119,18 @@ public abstract class Mob extends Entity {
         //if no difference is identified return false
     }
 
+    protected boolean isCastlePathTile(int xa, int ya, int x, int y) {
+        if (level1 == null) {
+            return false;
+        }
+        //the solid path tiles
+        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
+        Tile CastlePathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(CastlePathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
+                && CastlePathTile.isCastlePath(); //solidPathTile is Solid
+        //if no difference is identified return false
+    }
+
 
 
     public String getName() {
