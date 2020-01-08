@@ -35,7 +35,6 @@ public class ForestFightFrame {
     public JLabel volley2 = new JLabel(new ImageIcon("arrow.png"));
     public JLabel volley3 = new JLabel(new ImageIcon("arrow.png"));
     public JLabel flame = new JLabel(new ImageIcon("flame.gif"));
-    public JLabel fireStorm = new JLabel(new ImageIcon("bigfire.gif"));
     public JLabel mediumPyroBlast = new JLabel(new ImageIcon("mediumflame.gif"));
     public JLabel smallPyroBlast = new JLabel(new ImageIcon("miniflame.gif"));
     public JLabel bigPyroBlast = new JLabel(new ImageIcon("flame.gif"));
@@ -117,7 +116,6 @@ public class ForestFightFrame {
         forestFightJFrame.add(volley2);
         forestFightJFrame.add(volley3);
         forestFightJFrame.add(blast);
-        forestFightJFrame.add(fireStorm);
         forestFightJFrame.add(flame);
         forestFightJFrame.add(smallPyroBlast);
         forestFightJFrame.add(mediumPyroBlast);
@@ -173,11 +171,6 @@ public class ForestFightFrame {
         blast.setSize(blastSize.width, blastSize.height);
         blast.setLocation(100, 121);
         blast.setVisible(false);
-
-        Dimension fireSize = fireStorm.getPreferredSize();
-        fireStorm.setSize(fireSize.width, fireSize.height);
-        fireStorm.setLocation(800, 300);
-        fireStorm.setVisible(false);
 
         Dimension flameSize = flame.getPreferredSize();
         flame.setSize(flameSize.width, flameSize.height);
@@ -299,7 +292,7 @@ public class ForestFightFrame {
         skill2Button.setFocusPainted(false);//Remove border around text in button
 
         //button 3
-        skill3Button = new JButton("error skill 3            ");
+        skill3Button = new JButton("error skill 3                ");
         skill3Button.setSize(200, 70);
         skill3Button.setLocation(1050, 630);
         skill3Button.setFont(pixelMplus.deriveFont(30f));

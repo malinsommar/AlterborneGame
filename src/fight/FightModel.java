@@ -9,9 +9,10 @@ import party.Warrior;
 public class FightModel {
 
     private ForestCon forestCon = new ForestCon();
-    private ForestCon caveCon = new ForestCon();
+    private CaveController caveCon = new CaveController();
     private FieldController fieldCon = new FieldController();
     private Inventory inv = new Inventory();
+    CaveView cv = new CaveView();
 
     private Warrior w = new Warrior();
     private Mage m = new Mage();
@@ -43,10 +44,12 @@ public class FightModel {
     }
 
     public void startFieldFight(){
+        /*
         fieldCon.getInventory(ownedPotions);
         getStats();
         fieldCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
         fieldCon.startFight();
+         */
     }
 
     public void fightWon(int whatFight){

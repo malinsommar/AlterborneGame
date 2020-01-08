@@ -9,8 +9,6 @@ public class LootController {
 
     private LootFrame lf = new LootFrame();
 
-
-
     int textDelay = 0, whatLoot, xpInt, goldInt;
 
     private String warriorWeaponName, mageWeaponName, rangerWeaponName, healerWeaponName;
@@ -40,8 +38,6 @@ public class LootController {
 
     public int[] status = new int[1];
 
-
-
     //This method starts LootFrame and implements the methods needed for LootScreen.
     public void startLootScreen(int fight) throws InterruptedException {
 
@@ -50,20 +46,7 @@ public class LootController {
         hover();
 
         textDelayTimer.start();
-
         lf.equipButton.addActionListener(e -> equipLoot());
-        LootModel lm = new LootModel();  //TODO this does not follow MVC
-        lf.continueButton.addActionListener(e -> {
-            try {
-                while (status[0] == 0) {
-                    status[0] = 1;
-                    lm.addLoot();
-                    lf.lootScreenJFrame.dispose();
-                }
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        });
     }
 
     //Method that collects info from model about gold, xp, weapons, armor etc.

@@ -10,6 +10,7 @@ public class HubController {
     private int exitCount = 1;
     private int newRunCount = 1;
     private int startCount = 1;
+    private int tutorialCount = 1;
 
 
     public void test() {
@@ -19,19 +20,21 @@ public class HubController {
         while (choice[0] <= 0) {
                 hf.newRunButton.addActionListener(e -> {
                     if (newRunCount == 1) {
-                        System.out.println("new run");
                         newRunButtonClick();
                     }
                 });
             hf.startButton.addActionListener(e -> {
                 if (startCount == 1) {
-                    System.out.println("start");
                     startGameClick();
+                }
+            });
+            hf.tutorialButton.addActionListener(e -> {
+                if (startCount == 1) {
+                    tutorialButtonClick();
                 }
             });
                 hf.exitButton.addActionListener(e -> {
                     if (exitCount == 1) {
-                        System.out.println("exit");
                         exitButtonClick();
                     }
                 });
@@ -52,9 +55,16 @@ public class HubController {
     }
 
     //Call this method when exitButton is clicked in hubPanel.
+    private void tutorialButtonClick(){
+        tutorialCount++;
+        choice[0] = 2;
+        hf.hubJFrame.dispose();
+    }
+
+    //Call this method when exitButton is clicked in hubPanel.
     private void exitButtonClick(){
         exitCount++;
-        choice[0] = 2;
+        choice[0] = 3;
         hf.hubJFrame.dispose();
     }
 

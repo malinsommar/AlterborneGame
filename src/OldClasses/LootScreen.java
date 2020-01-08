@@ -1,7 +1,7 @@
 package OldClasses;
 
 import game.Inventory;
-import game.LevelUp;
+import game.LevelUpController;
 import game.MusicPick;
 import party.Healer;
 import party.Mage;
@@ -22,7 +22,7 @@ public class LootScreen extends JFrame {
     private Mage m = new Mage();
     private Ranger r = new Ranger();
     private Inventory i = new Inventory();
-    private LevelUp lu = new LevelUp();
+    private LevelUpController lu = new LevelUpController();
 
     private Font pixelMplus;
 
