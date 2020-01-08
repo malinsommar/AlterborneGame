@@ -85,4 +85,9 @@ public class FightModel {
         rangerStats[1]=r.combinedBlock;
         rangerStats[2]=r.combinedDamage;
     }
+
+    public static void main(String[] args) {
+        FightModel fightModel = new FightModel();
+        fightModel.startCaveFight();
+    }
 }
