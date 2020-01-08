@@ -1,17 +1,16 @@
 package fight;
 
-import game.LoseScreen;
 import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 
-public class CaveController {
-    
-    CaveView cv = new CaveView();
-    AnimationsCon ac = new AnimationsCon();
+public class CastleController {
 
+    AnimationsCon ac = new AnimationsCon(); 
+    CastleView cv = new CastleView();
+    
     //Get hp, block and damage from party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
     private int warriorDamage, mageDamage, healerDamage, rangerDamage;
@@ -28,7 +27,7 @@ public class CaveController {
 
     private int[] ownedPotions = new int[12];
 
-    int[] goblinHp = {30,30,30,30};
+    int[] skeletonHp = {30,30,30,30};
 
     public void startFight(){
 
@@ -37,7 +36,7 @@ public class CaveController {
         currentEnergy = 5;
 
         setStartLabels();
-        cv.caveFightFrame();
+        cv.fieldFightFrame();
         hoverEffect();
         targetSystem();
 
@@ -160,7 +159,7 @@ public class CaveController {
 
     public void targetSystem(){
 
-        cv.goblin1.addMouseListener(new MouseAdapter() {
+        cv.skeleton1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ac.target = 1;
@@ -168,7 +167,7 @@ public class CaveController {
                 cv.targetarrow.setVisible(true);
             }
         });
-        cv.goblin2.addMouseListener(new MouseAdapter() {
+        cv.skeleton2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ac.target = 2;
@@ -176,7 +175,7 @@ public class CaveController {
                 cv.targetarrow.setVisible(true);
             }
         });
-        cv.goblin3.addMouseListener(new MouseAdapter() {
+        cv.skeleton3.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ac.target = 3;
@@ -184,7 +183,7 @@ public class CaveController {
                 cv.targetarrow.setVisible(true);
             }
         });
-        cv.goblin4.addMouseListener(new MouseAdapter() {
+        cv.skeleton4.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ac.target = 4;
@@ -193,7 +192,7 @@ public class CaveController {
             }
         });
     }
-    
+
     private void skill1(){
         if (turns == 1 && warriorEnergyInt>1 && cv.targetarrow.isVisible()){
             warriorEnergyInt=warriorEnergyInt-2;
@@ -494,19 +493,17 @@ public class CaveController {
     //Checks if all of the enemies or party-members are dead.
     private void isFightOver() {
         //If all of the wolves are dead. Open lootScreen.
-        if (goblinHp[0] < 1 && goblinHp[1] < 1 && goblinHp[2] < 1 && goblinHp[3] < 1) {
+        if (skeletonHp[0] < 1 && skeletonHp[1] < 1 && skeletonHp[2] < 1 && skeletonHp[3] < 1) {
             MusicPick.musicStop();
-            cv.caveFightJFrame.dispose();
+            cv.fieldFightJFrame.dispose();
             //TODO This does not follow MVC
             FightModel fm = new FightModel();
             fm.fightWon(2);
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
-            cv.caveFightJFrame.dispose();
-            //TODO this does not follow mvc
-            LoseScreen ls = new LoseScreen();
-            ls.loseScreen();
+            cv.fieldFightJFrame.dispose();
+            //Death screen,
         }
         //If none of these are true, nothing happens and the fight goes on.
     }
@@ -526,10 +523,10 @@ public class CaveController {
         cv.potion11Label = new JLabel("" + ownedPotions[10]);
         cv.potion12Label = new JLabel("" + ownedPotions[11]);
 
-        cv.goblin1 = new JLabel("Goblin 1: "+ goblinHp[0]);
-        cv.goblin2 = new JLabel("Goblin 2: "+ goblinHp[1]);
-        cv.goblin3Hp = new JLabel("Goblin 3: "+ goblinHp[2]);
-        cv.goblin4Hp = new JLabel("Goblin 4: "+ goblinHp[3]);
+        cv.skeleton1 = new JLabel("Skeleton 1: "+ skeletonHp[0]);
+        cv.skeleton2 = new JLabel("Skeleton 2: "+ skeletonHp[1]);
+        cv.skeleton3Hp = new JLabel("Skeleton 3: "+ skeletonHp[2]);
+        cv.skeleton4Hp = new JLabel("Skeleton 4: "+ skeletonHp[3]);
 
         cv.playersHp = new JLabel("Hp: "+warriorCurrentHp);
         cv.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp);
@@ -539,10 +536,10 @@ public class CaveController {
         cv.block = new JLabel("Block: "+warriorBlock);
     }
 
-    //When the goblin attacks.
-    private void goblinAttack() {
+    //When the skeleton attacks.
+    private void skeletonAttack() {
         ac.target = (int) (Math.random() * 4); //Random target, 0-3.
-        int goblinDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
+        int skeletonDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
         ac.takeDamage.start();
 
         //Loops until it reaches an alive party-member.
@@ -556,8 +553,8 @@ public class CaveController {
                 }
                 //If warrior is alive.
                 if (warriorCurrentHp >0) {
-                    goblinDamage=goblinDamage-warriorBlock; //Warrior take damage equal to goblin damage.
-                    warriorCurrentHp = warriorCurrentHp - goblinDamage; //Update warrior hp.
+                    skeletonDamage=skeletonDamage-warriorBlock; //Warrior take damage equal to skeleton damage.
+                    warriorCurrentHp = warriorCurrentHp - skeletonDamage; //Update warrior hp.
                     cv.player1Hp.setText("Warrior: "+warriorCurrentHp); //Update hp Label.
                     break;
                 }
@@ -570,8 +567,8 @@ public class CaveController {
                 }
                 //If mage is alive.
                 if (mageCurrentHp >0) {
-                    goblinDamage=goblinDamage-mageBlock;
-                    mageCurrentHp = mageCurrentHp - goblinDamage;
+                    skeletonDamage=skeletonDamage-mageBlock;
+                    mageCurrentHp = mageCurrentHp - skeletonDamage;
                     cv.player2Hp.setText("Mage:    "+mageCurrentHp);
                     break;
                 }
@@ -584,8 +581,8 @@ public class CaveController {
                 }
                 //If ranger is alive.
                 if (rangerCurrentHp >0) {
-                    goblinDamage=goblinDamage-rangerBlock;
-                    rangerCurrentHp = rangerCurrentHp - goblinDamage;
+                    skeletonDamage=skeletonDamage-rangerBlock;
+                    rangerCurrentHp = rangerCurrentHp - skeletonDamage;
                     cv.player3Hp.setText("Ranger:  "+rangerCurrentHp);
                     break;
                 }
@@ -598,8 +595,8 @@ public class CaveController {
                 }
                 //If healer is alive.
                 if (healerCurrentHp >0) {
-                    goblinDamage=goblinDamage-healerBlock;
-                    healerCurrentHp = healerCurrentHp - goblinDamage;
+                    skeletonDamage=skeletonDamage-healerBlock;
+                    healerCurrentHp = healerCurrentHp - skeletonDamage;
                     cv.player4Hp.setText("Healer:   "+healerCurrentHp);
                     break;
                 }
@@ -610,24 +607,24 @@ public class CaveController {
     //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void mobDeath(){
 
-        if(goblinHp[0]<=0){
-            cv.goblin1Hp.setText("Goblin 1: 0");
-            cv.goblin1.setVisible(false);
+        if(skeletonHp[0]<=0){
+            cv.skeleton1Hp.setText("Skeleton 1: 0");
+            cv.skeleton1.setVisible(false);
             if (ac.target == 1) {cv.targetarrow.setVisible(false);}
         }
-        if(goblinHp[1]<=0){
-            cv.goblin2Hp.setText("Goblin 2: 0");
-            cv.goblin2.setVisible(false);
+        if(skeletonHp[1]<=0){
+            cv.skeleton2Hp.setText("Skeleton 2: 0");
+            cv.skeleton2.setVisible(false);
             if (ac.target == 2) {cv.targetarrow.setVisible(false);}
         }
-        if(goblinHp[2]<=0){
-            cv.goblin3Hp.setText("Goblin 3: 0");
-            cv.goblin3.setVisible(false);
+        if(skeletonHp[2]<=0){
+            cv.skeleton3Hp.setText("Skeleton 3: 0");
+            cv.skeleton3.setVisible(false);
             if (ac.target == 3) {cv.targetarrow.setVisible(false);}
         }
-        if(goblinHp[3]<=0){
-            cv.goblin4Hp.setText("Goblin 4: 0");
-            cv.goblin4.setVisible(false);
+        if(skeletonHp[3]<=0){
+            cv.skeleton4Hp.setText("Skeleton 4: 0");
+            cv.skeleton4.setVisible(false);
             if (ac.target == 4) {cv.targetarrow.setVisible(false);}
         }
     }

@@ -7,7 +7,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class FieldView {
+public class CastleView {
 
     JFrame fieldFightJFrame = new JFrame();
     Potions potions = new Potions();
@@ -25,8 +25,8 @@ public class FieldView {
     //Create Labels
     public JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr ,potion1Label,potion2Label,potion3Label,potion4Label,potion5Label,potion6Label,potion7Label,potion8Label,potion9Label,potion10Label,potion11Label,potion12Label;
     public JLabel whosTurn, energy, block;
-    public JLabel scarecrow1, scarecrow2, scarecrow3, scarecrow4;
-    public JLabel scarecrow1Hp, scarecrow2Hp, scarecrow3Hp, scarecrow4Hp;
+    public JLabel skeleton1, skeleton2, skeleton3, skeleton4;
+    public JLabel skeleton1Hp, skeleton2Hp, skeleton3Hp, skeleton4Hp;
     public JLabel warrior, mage, healer, ranger;
     public JLabel playersHp, player1Hp, player2Hp, player3Hp, player4Hp;
 
@@ -75,7 +75,7 @@ public class FieldView {
         importButtons();
         importLabels();
         importPartyGif();
-        importScarecrowGif();
+        importSkeletonGif();
         spellMenuStartup();
         animationStuff();
         healingTarget();
@@ -92,10 +92,10 @@ public class FieldView {
         fieldFightJFrame.add(skillButton);
         fieldFightJFrame.add(endTurnButton);
 
-        fieldFightJFrame.add(scarecrow1);
-        fieldFightJFrame.add(scarecrow4);
-        fieldFightJFrame.add(scarecrow1);
-        fieldFightJFrame.add(scarecrow2);
+        fieldFightJFrame.add(skeleton1);
+        fieldFightJFrame.add(skeleton4);
+        fieldFightJFrame.add(skeleton1);
+        fieldFightJFrame.add(skeleton2);
 
         fieldFightJFrame.add(ranger);
         fieldFightJFrame.add(warrior);
@@ -103,10 +103,10 @@ public class FieldView {
         fieldFightJFrame.add(healer);
 
         fieldFightJFrame.add(playersHp);
-        fieldFightJFrame.add(scarecrow1Hp);
-        fieldFightJFrame.add(scarecrow2Hp);
-        fieldFightJFrame.add(scarecrow3Hp);
-        fieldFightJFrame.add(scarecrow4Hp);
+        fieldFightJFrame.add(skeleton1Hp);
+        fieldFightJFrame.add(skeleton2Hp);
+        fieldFightJFrame.add(skeleton3Hp);
+        fieldFightJFrame.add(skeleton4Hp);
         fieldFightJFrame.add(player1Hp);
         fieldFightJFrame.add(player2Hp);
         fieldFightJFrame.add(player3Hp);
@@ -608,25 +608,25 @@ public class FieldView {
         Dimension playersHpSize = playersHp.getPreferredSize();
         playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
 
-        scarecrow1Hp.setFont(pixelMplus.deriveFont(30f));
-        scarecrow1Hp.setForeground(Color.black);
-        Dimension wolf1HpSize = scarecrow1Hp.getPreferredSize();
-        scarecrow1Hp.setBounds(660, 560, wolf1HpSize.width, wolf1HpSize.height);
+        skeleton1Hp.setFont(pixelMplus.deriveFont(30f));
+        skeleton1Hp.setForeground(Color.black);
+        Dimension wolf1HpSize = skeleton1Hp.getPreferredSize();
+        skeleton1Hp.setBounds(660, 560, wolf1HpSize.width, wolf1HpSize.height);
 
-        scarecrow2Hp.setFont(pixelMplus.deriveFont(30f));
-        scarecrow2Hp.setForeground(Color.black);
-        Dimension wolf2HpSize = scarecrow2Hp.getPreferredSize();
-        scarecrow2Hp.setBounds(660, 595, wolf2HpSize.width, wolf2HpSize.height);
+        skeleton2Hp.setFont(pixelMplus.deriveFont(30f));
+        skeleton2Hp.setForeground(Color.black);
+        Dimension wolf2HpSize = skeleton2Hp.getPreferredSize();
+        skeleton2Hp.setBounds(660, 595, wolf2HpSize.width, wolf2HpSize.height);
 
-        scarecrow3Hp.setFont(pixelMplus.deriveFont(30f));
-        scarecrow3Hp.setForeground(Color.black);
-        Dimension wolf3HpSize = scarecrow3Hp.getPreferredSize();
-        scarecrow3Hp.setBounds(660, 630, wolf3HpSize.width, wolf3HpSize.height);
+        skeleton3Hp.setFont(pixelMplus.deriveFont(30f));
+        skeleton3Hp.setForeground(Color.black);
+        Dimension wolf3HpSize = skeleton3Hp.getPreferredSize();
+        skeleton3Hp.setBounds(660, 630, wolf3HpSize.width, wolf3HpSize.height);
 
-        scarecrow4Hp.setFont(pixelMplus.deriveFont(30f));
-        scarecrow4Hp.setForeground(Color.black);
-        Dimension wolf4HpSize = scarecrow4Hp.getPreferredSize();
-        scarecrow4Hp.setBounds(660, 665, wolf4HpSize.width, wolf4HpSize.height);
+        skeleton4Hp.setFont(pixelMplus.deriveFont(30f));
+        skeleton4Hp.setForeground(Color.black);
+        Dimension wolf4HpSize = skeleton4Hp.getPreferredSize();
+        skeleton4Hp.setBounds(660, 665, wolf4HpSize.width, wolf4HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
@@ -741,24 +741,24 @@ public class FieldView {
         mage.setBounds(-110, 290, mageSize.width, mageSize.height);
     }
 
-    //Get scarecrow gif.
-    private void importScarecrowGif(){
-        scarecrow1 = new JLabel();
-        scarecrow1.setIcon(new ImageIcon("scarecrow.gif"));
-        Dimension wolfSize = scarecrow1.getPreferredSize();
-        scarecrow1.setBounds(850, 320, wolfSize.width, wolfSize.height);
+    //Get skeleton gif.
+    private void importSkeletonGif(){
+        skeleton1 = new JLabel();
+        skeleton1.setIcon(new ImageIcon("skeleton.gif"));
+        Dimension wolfSize = skeleton1.getPreferredSize();
+        skeleton1.setBounds(850, 320, wolfSize.width, wolfSize.height);
 
-        scarecrow2 = new JLabel();
-        scarecrow2.setIcon(new ImageIcon("scarecrow.gif"));
-        scarecrow2.setBounds(1030, 320, wolfSize.width, wolfSize.height);
+        skeleton2 = new JLabel();
+        skeleton2.setIcon(new ImageIcon("skeleton.gif"));
+        skeleton2.setBounds(1030, 320, wolfSize.width, wolfSize.height);
 
-        scarecrow3 = new JLabel();
-        scarecrow3.setIcon(new ImageIcon("scarecrow.gif"));
-        scarecrow3.setBounds(900, 400, wolfSize.width, wolfSize.height);
+        skeleton3 = new JLabel();
+        skeleton3.setIcon(new ImageIcon("skeleton.gif"));
+        skeleton3.setBounds(900, 400, wolfSize.width, wolfSize.height);
 
-        scarecrow4 = new JLabel();
-        scarecrow4.setIcon(new ImageIcon("scarecrow.gif"));
-        scarecrow4.setBounds(1080, 400, wolfSize.width, wolfSize.height);
+        skeleton4 = new JLabel();
+        skeleton4.setIcon(new ImageIcon("Skeleton.gif"));
+        skeleton4.setBounds(1080, 400, wolfSize.width, wolfSize.height);
     }
 
     private void importFont() {

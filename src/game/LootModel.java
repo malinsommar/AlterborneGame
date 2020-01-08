@@ -9,13 +9,14 @@ import party.Warrior;
 public class LootModel {
 
     private LootController lc = new LootController();
-    private LevelUp lu = new LevelUp();
+    private LevelUpController lu = new LevelUpController();
     private Inventory inv = new Inventory();
     private Mage m = new Mage();
     private Warrior w = new Warrior();
     private Ranger r = new Ranger();
     private Healer h = new Healer();
     private MasterModel mm = new MasterModel();
+    LootFrame lf = new LootFrame();
 
     private int currentXp = lu.xp;
     private int currentGold = inv.gold;
@@ -44,6 +45,15 @@ public class LootModel {
     public void startLootController(int whatFight) throws InterruptedException {
         getEquipment();
         lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
+
+        lf.continueButton.addActionListener(e -> lf.lootScreenJFrame.dispose());
+        lf.continueButton.addActionListener(e -> {
+            try {
+                addLoot();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         lc.startLootScreen(whatFight);
     }
