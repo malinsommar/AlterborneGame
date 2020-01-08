@@ -5,7 +5,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class HubFrames extends JPanel {
+public class HubView extends JPanel {
 
     public JFrame hubJFrame = new JFrame();
     public JPanel hubPanel = new JPanel();

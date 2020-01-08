@@ -1,6 +1,6 @@
 package davidtest.overworld.map.Functionality;
 
-import davidtest.overworld.map.WorldFrame;
+import davidtest.overworld.map.WorldView;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class InputHandler implements KeyListener {
 
-    public InputHandler(WorldFrame game) {
+    public InputHandler(WorldView game) {
         game.addKeyListener(this); //calls the InputHandler whenever a key is pressed
     }
 

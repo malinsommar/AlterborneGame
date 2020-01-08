@@ -15,7 +15,7 @@ public class LoseScreen extends JFrame {
     JButton countinueButton;
     Font pixelMplus;
     TextField name;
-    String userName;
+    public String userName;
     private int textDelay = 0;
 
     public void loseScreen() {
@@ -24,6 +24,7 @@ public class LoseScreen extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         importFont();
+
 
         died = new JLabel("You Died");
         died.setForeground(Color.black);

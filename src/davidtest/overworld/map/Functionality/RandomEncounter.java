@@ -7,7 +7,7 @@ public class RandomEncounter {
     public int randomNr;
 
     public RandomEncounter() {
-        getRandom(100, 1);
+        getRandom(1000, 1);
     }
     private void getRandom(int max, int min) {
         randomNr = (int) (Math.random() * ((max - min) + 1));

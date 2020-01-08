@@ -15,7 +15,6 @@ public class ForestCon {
     //TODO gör en metod som skickar en owned potions array till mastermodel.
 
     ForestFightFrame fff = new ForestFightFrame();
-    //AnimationsCon ac = new AnimationsCon();
 
     //Get hp, block and damage from party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
@@ -230,13 +229,19 @@ public class ForestCon {
                     fff.whosTurn.setText(" ");
                     fff.playersHp.setText(" ");
                     fff.energy.setText(" ");
+                    fff.block.setText(" ");
                     enemyTurnTimer.start();
-            for (int i = 0; i < 4; i++) {
-                wolfAttack();
-                partyDeath();
-            }
-                    startNewTurn();
                 }
+            }
+
+            private void enemyDamage(){
+                for (int i = 0; i < 4; i++) {
+                    if (wolfHp[i] > 0) {
+                        wolfAttack();
+                        partyDeath();
+                    }
+                }
+                isFightOver();
             }
 
 
@@ -319,7 +324,6 @@ public class ForestCon {
                 stealth();
         }
         if (turns == 3 && mageEnergyInt>4 && fff.targetarrow.isVisible() && !animationPlaying){
-            pyroBlastX = 90;
             followup = true;
                 mageEnergyInt=mageEnergyInt-5;
                 currentEnergy=currentEnergy-5;
@@ -1856,6 +1860,7 @@ public class ForestCon {
                     fff.mage.setLocation(mageX, mageY);
                     flameStrikeY = -400;
                     fff.flame.setLocation(700, flameStrikeY);
+                    spellDamageSystem(5, "all");
                 }
                 if (timePast > 130) {
                     timePast = 0;
@@ -1875,7 +1880,6 @@ public class ForestCon {
                 if (timePast > 30) {
                     timePast = 0;
                     flameStrike.stop();
-                    spellDamageSystem(5, "all");
                     phase = 0;
                     animationPlaying = false;
                 }
@@ -2049,7 +2053,7 @@ public class ForestCon {
     });
 
     //enemy
-    public Timer enemyTurnTimer = new Timer(10, new ActionListener() {
+    public Timer enemyTurnTimer = new Timer(7, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePast++;
@@ -2146,8 +2150,11 @@ public class ForestCon {
                 rangerattacked = false;
                 mageattacked = false;
                 healerattacked = false;
+                animationPlaying = false;
                 takeDamage.stop();
                 timePastTakeDamage = 0;
+                enemyDamage();
+                startNewTurn();
             }
         }
     });
