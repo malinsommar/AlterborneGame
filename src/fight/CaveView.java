@@ -67,7 +67,7 @@ public class CaveView {
         caveFightJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         caveFightJFrame.setUndecorated(true);
 
-        ImageIcon background = new ImageIcon("cave.jpg");
+        ImageIcon background = new ImageIcon("cave.png");
         caveFightJFrame.setContentPane(new JLabel(background));
 
         importFont();
@@ -611,42 +611,42 @@ public class CaveView {
         goblin1Hp.setFont(pixelMplus.deriveFont(30f));
         goblin1Hp.setForeground(Color.black);
         Dimension wolf1HpSize = goblin1Hp.getPreferredSize();
-        goblin1Hp.setBounds(660, 560, wolf1HpSize.width, wolf1HpSize.height);
+        goblin1Hp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
 
         goblin2Hp.setFont(pixelMplus.deriveFont(30f));
         goblin2Hp.setForeground(Color.black);
         Dimension wolf2HpSize = goblin2Hp.getPreferredSize();
-        goblin2Hp.setBounds(660, 595, wolf2HpSize.width, wolf2HpSize.height);
+        goblin2Hp.setBounds(640, 595, wolf2HpSize.width, wolf2HpSize.height);
 
         goblin3Hp.setFont(pixelMplus.deriveFont(30f));
         goblin3Hp.setForeground(Color.black);
         Dimension wolf3HpSize = goblin3Hp.getPreferredSize();
-        goblin3Hp.setBounds(660, 630, wolf3HpSize.width, wolf3HpSize.height);
+        goblin3Hp.setBounds(640, 630, wolf3HpSize.width, wolf3HpSize.height);
 
         goblin4Hp.setFont(pixelMplus.deriveFont(30f));
         goblin4Hp.setForeground(Color.black);
         Dimension wolf4HpSize = goblin4Hp.getPreferredSize();
-        goblin4Hp.setBounds(660, 665, wolf4HpSize.width, wolf4HpSize.height);
+        goblin4Hp.setBounds(640, 665, wolf4HpSize.width, wolf4HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
         Dimension player1HpSize = player1Hp.getPreferredSize();
-        player1Hp.setBounds(430, 560, player1HpSize.width, player1HpSize.height);
+        player1Hp.setBounds(410, 560, player1HpSize.width, player1HpSize.height);
 
         player2Hp.setFont(pixelMplus.deriveFont(30f));
         player2Hp.setForeground(Color.black);
         Dimension player2HpSize = player1Hp.getPreferredSize();
-        player2Hp.setBounds(430, 595, player2HpSize.width, player2HpSize.height);
+        player2Hp.setBounds(410, 595, player2HpSize.width, player2HpSize.height);
 
         player3Hp.setFont(pixelMplus.deriveFont(30f));
         player3Hp.setForeground(Color.black);
         Dimension player3HpSize = player3Hp.getPreferredSize();
-        player3Hp.setBounds(430, 630, player3HpSize.width, player3HpSize.height);
+        player3Hp.setBounds(410, 630, player3HpSize.width, player3HpSize.height);
 
         player4Hp.setFont(pixelMplus.deriveFont(30f));
         player4Hp.setForeground(Color.black);
         Dimension player4HpSize = player4Hp.getPreferredSize();
-        player4Hp.setBounds(430, 665, player4HpSize.width, player4HpSize.height);
+        player4Hp.setBounds(410, 665, player4HpSize.width, player4HpSize.height);
 
         energy = new JLabel("Energy: 5");
         energy.setFont(pixelMplus.deriveFont(30f));
@@ -746,19 +746,19 @@ public class CaveView {
         goblin1 = new JLabel();
         goblin1.setIcon(new ImageIcon("goblinGif.gif"));
         Dimension goblinSize = goblin1.getPreferredSize();
-        goblin1.setBounds(850, 320, goblinSize.width, goblinSize.height);
+        goblin1.setBounds(750, 210, goblinSize.width+50, goblinSize.height);
 
         goblin2 = new JLabel();
         goblin2.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin2.setBounds(1030, 320, goblinSize.width, goblinSize.height);
+        goblin2.setBounds(930, 210, goblinSize.width+50, goblinSize.height);
 
         goblin3 = new JLabel();
         goblin3.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin3.setBounds(900, 400, goblinSize.width, goblinSize.height);
+        goblin3.setBounds(820, 280, goblinSize.width+50, goblinSize.height);
 
         goblin4 = new JLabel();
         goblin4.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin4.setBounds(1080, 400, goblinSize.width, goblinSize.height);
+        goblin4.setBounds(1000, 280, goblinSize.width+50, goblinSize.height);
     }
 
     private void importFont() {
