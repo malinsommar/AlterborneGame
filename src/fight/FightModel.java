@@ -1,9 +1,6 @@
 package fight;
 
-import game.Inventory;
-import game.LootModel;
-import game.LoseScreen;
-import game.MasterModel;
+import game.*;
 import party.Healer;
 import party.Mage;
 import party.Ranger;
