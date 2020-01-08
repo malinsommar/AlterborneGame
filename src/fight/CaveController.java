@@ -1,5 +1,6 @@
 package fight;
 
+import game.LoseScreen;
 import game.MusicPick;
 
 import javax.swing.*;
@@ -553,7 +554,9 @@ public class CaveController {
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             cv.caveFightJFrame.dispose();
-            //Death screen,
+            //TODO this does not follow mvc
+            LoseScreen ls = new LoseScreen();
+            ls.loseScreen();
         }
         //If none of these are true, nothing happens and the fight goes on.
     }
@@ -573,8 +576,8 @@ public class CaveController {
         cv.potion11Label = new JLabel("" + ownedPotions[10]);
         cv.potion12Label = new JLabel("" + ownedPotions[11]);
 
-        cv.goblin1 = new JLabel("Goblin 1: "+ goblinHp[0]);
-        cv.goblin2 = new JLabel("Goblin 2: "+ goblinHp[1]);
+        cv.goblin1Hp = new JLabel("Goblin 1: "+ goblinHp[0]);
+        cv.goblin2Hp = new JLabel("Goblin 2: "+ goblinHp[1]);
         cv.goblin3Hp = new JLabel("Goblin 3: "+ goblinHp[2]);
         cv.goblin4Hp = new JLabel("Goblin 4: "+ goblinHp[3]);
 

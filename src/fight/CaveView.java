@@ -92,7 +92,7 @@ public class CaveView {
         caveFightJFrame.add(skillButton);
         caveFightJFrame.add(endTurnButton);
 
-        caveFightJFrame.add(goblin1);
+        caveFightJFrame.add(goblin3);
         caveFightJFrame.add(goblin4);
         caveFightJFrame.add(goblin1);
         caveFightJFrame.add(goblin2);
@@ -745,20 +745,20 @@ public class CaveView {
     private void importGoblinGif(){
         goblin1 = new JLabel();
         goblin1.setIcon(new ImageIcon("goblinGif.gif"));
-        Dimension wolfSize = goblin1.getPreferredSize();
-        goblin1.setBounds(850, 320, wolfSize.width, wolfSize.height);
+        Dimension goblinSize = goblin1.getPreferredSize();
+        goblin1.setBounds(850, 320, goblinSize.width, goblinSize.height);
 
         goblin2 = new JLabel();
         goblin2.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin2.setBounds(1030, 320, wolfSize.width, wolfSize.height);
+        goblin2.setBounds(1030, 320, goblinSize.width, goblinSize.height);
 
         goblin3 = new JLabel();
         goblin3.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin3.setBounds(900, 400, wolfSize.width, wolfSize.height);
+        goblin3.setBounds(900, 400, goblinSize.width, goblinSize.height);
 
         goblin4 = new JLabel();
         goblin4.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin4.setBounds(1080, 400, wolfSize.width, wolfSize.height);
+        goblin4.setBounds(1080, 400, goblinSize.width, goblinSize.height);
     }
 
     private void importFont() {

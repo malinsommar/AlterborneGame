@@ -18,6 +18,10 @@ public class Player extends Mob {
     protected boolean isSwampSwimming = false;//assign the isSwampSwimming value as natively false
     public boolean isOnForestPath = false; // if player is on tile to enter forest-combat
     public boolean isOnMountainPath = false; // if player is on tile to enter mountain-combat
+    public boolean isOnFieldPath = false; // if player is on tile to enter Field-combat
+    public boolean isOnSwampPath = false; // if player is on tile to enter Swamp-combat
+
+
 
     public boolean EnterShop = false;
     private int tickCount = 0; //counts the ticks since the last update
@@ -177,6 +181,12 @@ public class Player extends Mob {
             if (isMountainPathTile(xa,ya,x,yMin)) {
                 isOnMountainPath = true;
             }
+            if (isFieldPathTile(xa,ya,x,yMin)) {
+                isOnFieldPath = true;
+            }
+            if (isSwampPathTile(xa,ya,x,yMin)) {
+                isOnSwampPath = true;
+            }
         }
         for (int x = xMin; x < xMax; x++) {
             if (isSolidTile(xa, ya, x, yMax)) {
@@ -206,6 +216,14 @@ public class Player extends Mob {
 
     public boolean hasEnteredMountain() {
         return isOnMountainPath;
+    }
+
+    public boolean hasEnteredField() {
+        return isOnFieldPath;
+    }
+
+    public boolean hasEnteredSwamp() {
+        return isOnSwampPath;
     }
 
 }

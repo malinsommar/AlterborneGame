@@ -744,20 +744,20 @@ public class FieldView {
     //Get scarecrow gif.
     private void importScarecrowGif(){
         scarecrow1 = new JLabel();
-        scarecrow1.setIcon(new ImageIcon("scarecrowGif.gif"));
+        scarecrow1.setIcon(new ImageIcon("scarecrow.gif"));
         Dimension wolfSize = scarecrow1.getPreferredSize();
         scarecrow1.setBounds(850, 320, wolfSize.width, wolfSize.height);
 
         scarecrow2 = new JLabel();
-        scarecrow2.setIcon(new ImageIcon("scarecrowGif.gif"));
+        scarecrow2.setIcon(new ImageIcon("scarecrow.gif"));
         scarecrow2.setBounds(1030, 320, wolfSize.width, wolfSize.height);
 
         scarecrow3 = new JLabel();
-        scarecrow3.setIcon(new ImageIcon("scarecrowGif.gif"));
+        scarecrow3.setIcon(new ImageIcon("scarecrow.gif"));
         scarecrow3.setBounds(900, 400, wolfSize.width, wolfSize.height);
 
         scarecrow4 = new JLabel();
-        scarecrow4.setIcon(new ImageIcon("scarecrowGif.gif"));
+        scarecrow4.setIcon(new ImageIcon("scarecrow.gif"));
         scarecrow4.setBounds(1080, 400, wolfSize.width, wolfSize.height);
     }
 

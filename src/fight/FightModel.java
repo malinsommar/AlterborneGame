@@ -1,9 +1,6 @@
 package fight;
 
-import game.Inventory;
-import game.LootModel;
-import game.LoseScreen;
-import game.MasterModel;
+import game.*;
 import party.Healer;
 import party.Mage;
 import party.Ranger;
@@ -12,9 +9,10 @@ import party.Warrior;
 public class FightModel {
 
     private ForestCon forestCon = new ForestCon();
-    private ForestCon caveCon = new ForestCon();
+    private CaveController caveCon = new CaveController();
     private FieldController fieldCon = new FieldController();
     private Inventory inv = new Inventory();
+    CaveView cv = new CaveView();
 
     private Warrior w = new Warrior();
     private Mage m = new Mage();
@@ -84,5 +82,10 @@ public class FightModel {
         rangerStats[0]=r.hp;
         rangerStats[1]=r.combinedBlock;
         rangerStats[2]=r.combinedDamage;
+    }
+
+    public static void main(String[] args) {
+        FightModel fightModel = new FightModel();
+        fightModel.startCaveFight();
     }
 }

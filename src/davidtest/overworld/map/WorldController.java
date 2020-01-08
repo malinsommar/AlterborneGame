@@ -15,6 +15,9 @@ public class WorldController extends Canvas implements Runnable {
     private int ShopEntrance = 1;
     private int ForestBossEntrance = 1;
     private int MountainEntrance = 1;
+    private int FieldEntrance = 1;
+    private int SwampEntrance = 1;
+
 
     WorldController() throws InterruptedException {
         start();//start the program
@@ -29,9 +32,14 @@ public class WorldController extends Canvas implements Runnable {
             if (MountainEntrance == 1) {
                 EnterMountain();
             }
+            if (FieldEntrance == 1) {
+                EnterField();
+            }
+            if(SwampEntrance == 1) {
+                EnterSwamp();
+            }
         }
     }
-
     public synchronized void start() {
         running = true;//set the state of running to true
         new Thread(this).start(); //start thread
@@ -170,4 +178,19 @@ public class WorldController extends Canvas implements Runnable {
             Entrance[0] = 3;
         }
     }
+    public void EnterField() {
+        if (owf.player.hasEnteredField()) {
+            FieldEntrance++;
+            Entrance[0] = 4;
+        }
     }
+    private void EnterSwamp() {
+        if (owf.player.hasEnteredSwamp()) {
+            SwampEntrance++;
+            Entrance[0] = 5;
+
+        }
+    }
+
+
+}
