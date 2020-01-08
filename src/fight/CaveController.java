@@ -526,8 +526,8 @@ public class CaveController {
         cv.potion11Label = new JLabel("" + ownedPotions[10]);
         cv.potion12Label = new JLabel("" + ownedPotions[11]);
 
-        cv.goblin1 = new JLabel("Goblin 1: "+ goblinHp[0]);
-        cv.goblin2 = new JLabel("Goblin 2: "+ goblinHp[1]);
+        cv.goblin1Hp = new JLabel("Goblin 1: "+ goblinHp[0]);
+        cv.goblin2Hp = new JLabel("Goblin 2: "+ goblinHp[1]);
         cv.goblin3Hp = new JLabel("Goblin 3: "+ goblinHp[2]);
         cv.goblin4Hp = new JLabel("Goblin 4: "+ goblinHp[3]);
 

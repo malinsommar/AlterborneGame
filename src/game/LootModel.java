@@ -15,7 +15,7 @@ public class LootModel {
     private Warrior w = new Warrior();
     private Ranger r = new Ranger();
     private Healer h = new Healer();
-    private MasterModel mm = new MasterModel();
+    private LevelUpController luv = new LevelUpController();
     LootFrame lf = new LootFrame();
 
     private int currentXp = lu.xp;
@@ -188,6 +188,7 @@ public class LootModel {
             inv.ownedMajorBlockPotion++;
         }
         if (lc.status[0] == 1) {
+            luv.didPlayerLevelUp();
             startOverWorld();
         }
     }

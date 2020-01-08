@@ -6,7 +6,6 @@ public class MasterModel {
 
     private HubController hubController = new HubController();
     private TutorialController tc = new TutorialController();
-    private LevelUpController lc = new LevelUpController();
 
     //Get user input from ConHub to start game of exit game.
     public void startGame() throws InterruptedException {
