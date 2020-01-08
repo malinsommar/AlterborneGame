@@ -6,9 +6,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 
-public class CastleController {
-
-    AnimationsCon ac = new AnimationsCon(); 
+public class CastleController {}
+/*
     CastleView cv = new CastleView();
     
     //Get hp, block and damage from party
@@ -1134,4 +1133,4 @@ public class CastleController {
             }
         });
     }
-}
+}*/

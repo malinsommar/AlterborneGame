@@ -15,6 +15,7 @@ public class LoseScreen extends JFrame {
     JButton countinueButton;
     Font pixelMplus;
     TextField name;
+    String userName;
     private int textDelay = 0;
 
     public void loseScreen() {
@@ -50,6 +51,8 @@ public class LoseScreen extends JFrame {
 
         name = new TextField();
         name.setBounds(530,460,200,30);
+
+        userName = name.getName();
 
         countinueButton = new JButton("Fade away");
         countinueButton.setSize(300, 100);

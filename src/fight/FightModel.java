@@ -33,7 +33,6 @@ public class FightModel {
         getStats();
         forestCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
         forestCon.startFight();
-
     }
 
     public void startCaveFight(){
@@ -44,10 +43,10 @@ public class FightModel {
     }
 
     public void startFieldFight(){
-        fieldCon.getInventory(ownedPotions);
+       /* fieldCon.getInventory(ownedPotions);
         getStats();
         fieldCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
-        fieldCon.startFight();
+        fieldCon.startFight();*/
     }
 
     public void fightWon(int whatFight){
@@ -83,9 +82,4 @@ public class FightModel {
         rangerStats[1]=r.combinedBlock;
         rangerStats[2]=r.combinedDamage;
     }
-
-    public static void main(String[] args) {
-        FightModel fightModel = new FightModel();
-        fightModel.startCaveFight();
     }
-}
