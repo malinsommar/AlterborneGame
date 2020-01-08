@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 
 public class CastleController {
-
+/*
     AnimationsCon ac = new AnimationsCon(); 
     CastleView cv = new CastleView();
     
@@ -1134,4 +1134,6 @@ public class CastleController {
             }
         });
     }
+
+ */
 }

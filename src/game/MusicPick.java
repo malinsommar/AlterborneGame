@@ -21,9 +21,8 @@ public class MusicPick {
                 musicClip = (Clip) AudioSystem.getLine(new DataLine.Info(Clip.class, audioIn.getFormat()));
                 musicClip.open(audioIn);
                 FloatControl gainControl = (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
-                gainControl.setValue(-30.0f); //ändrar volym
+                gainControl.setValue(-40.0f); //change volume
                 musicClip.start();
-                //ljudeffecter fuckar upp denna
                 //clip.loop(Clip.LOOP_CONTINUOUSLY);
                 first = false;
             }
@@ -34,10 +33,11 @@ public class MusicPick {
                 soundClip = (Clip) AudioSystem.getLine(new DataLine.Info(Clip.class, audioIn.getFormat()));
                 soundClip.open(audioIn);
                 FloatControl gainControl = (FloatControl) soundClip.getControl(FloatControl.Type.MASTER_GAIN);
-                gainControl.setValue(-30.0f); //ändrar volym
+                if (soundType.equals("lowvol")){ //used for sounds with low volume
+                    gainControl.setValue(+10.0f);
+                }
+                else{gainControl.setValue(-30.0f);}
                 soundClip.start();
-                //ljudeffecter fuckar upp denna
-                //clip.loop(Clip.LOOP_CONTINUOUSLY);
             }
 
         } catch (Exception e) {

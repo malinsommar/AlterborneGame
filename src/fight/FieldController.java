@@ -7,8 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 
 public class FieldController {
-    
-        AnimationsCon ac = new AnimationsCon();
+    /*
         FieldView fv = new FieldView();
 
         //Get hp, block and damage from party
@@ -154,7 +153,7 @@ public class FieldController {
                 turns=5;
             }
             //  ***ENEMIES TURN***
-            if (turns==5){ac.enemyTurnTimer.start();}
+            if (turns==5){enemyTurnTimer.start();}
         }
 
         public void targetSystem(){
@@ -162,7 +161,7 @@ public class FieldController {
             fv.scarecrow1.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    ac.target = 1;
+                    target = 1;
                     fv.targetarrow.setLocation(875, 250);
                     fv.targetarrow.setVisible(true);
                 }
@@ -170,7 +169,7 @@ public class FieldController {
             fv.scarecrow2.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    ac.target = 2;
+                    target = 2;
                     fv.targetarrow.setLocation(1065, 250);
                     fv.targetarrow.setVisible(true);
                 }
@@ -178,7 +177,7 @@ public class FieldController {
             fv.scarecrow3.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    ac.target = 3;
+                    target = 3;
                     fv.targetarrow.setLocation(925, 325);
                     fv.targetarrow.setVisible(true);
                 }
@@ -186,7 +185,7 @@ public class FieldController {
             fv.scarecrow4.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    ac.target = 4;
+                    target = 4;
                     fv.targetarrow.setLocation(1100, 325);
                     fv.targetarrow.setVisible(true);
                 }
@@ -198,7 +197,7 @@ public class FieldController {
                 warriorEnergyInt=warriorEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fv.energy.setText("Energy: "+warriorEnergyInt);
-                ac.charge.start();
+                charge.start();
                 mobDeath();
                 isFightOver();
             }
@@ -206,18 +205,18 @@ public class FieldController {
                 rangerEnergyInt=rangerEnergyInt-4;
                 currentEnergy=currentEnergy-4;
                 fv.energy.setText("Energy: "+rangerEnergyInt);
-                ac.volley.start();
+                volley.start();
                 mobDeath();
                 isFightOver();
             }
             if (turns==3 && mageEnergyInt>1 && fv.targetarrow.isVisible()){
-                ac.pyroBlastX = 90;
-                ac.pyroblastY = 300;
-                ac.followup = true;
+                pyroBlastX = 90;
+                pyroblastY = 300;
+                followup = true;
                 mageEnergyInt=mageEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fv.energy.setText("Energy: "+mageEnergyInt);
-                ac.fireBall.start();
+                fireBall.start();
                 mobDeath();
                 isFightOver();
             }
@@ -231,7 +230,7 @@ public class FieldController {
                 warriorEnergyInt=warriorEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fv.energy.setText("Energy: "+warriorEnergyInt);
-                ac.dunk.start();
+                dunk.start();
                 mobDeath();
                 isFightOver();
             }
@@ -239,7 +238,7 @@ public class FieldController {
                 rangerEnergyInt=rangerEnergyInt-3;
                 currentEnergy=currentEnergy-3;
                 fv.energy.setText("Energy: "+rangerEnergyInt);
-                ac.bombthrow.start();
+                bombthrow.start();
                 mobDeath();
                 isFightOver();
             }
@@ -253,8 +252,8 @@ public class FieldController {
 
         private void skill3(){
             if (turns == 1){
-                ac.followup = true;
-                ac.shout.start();
+                followup = true;
+                shout.start();
             }
             if(turns == 2){
 
@@ -263,7 +262,7 @@ public class FieldController {
                 mageEnergyInt=mageEnergyInt-3;
                 currentEnergy=currentEnergy-3;
                 fv.energy.setText("Energy: "+mageEnergyInt);
-                ac.flameStrike.start();
+                flameStrike.start();
                 mobDeath();
                 isFightOver();
             }
@@ -271,28 +270,28 @@ public class FieldController {
                 healerEnergyInt=healerEnergyInt-5;
                 currentEnergy=currentEnergy-5;
                 fv.energy.setText("Energy: "+healerEnergyInt);
-                ac.groupHealSpell.start();
+                groupHealSpell.start();
             }
         }
 
         private void skill4(){
             if (turns == 1){
-                ac.shout.start();
+                shout.start();
             }
             if(turns == 2 && rangerEnergyInt>2){
                 rangerEnergyInt=rangerEnergyInt-3;
                 currentEnergy=currentEnergy-3;
                 fv.energy.setText("Energy: "+rangerEnergyInt);
-                ac.stealth();
+                stealth();
             }
             if (turns == 3 && mageEnergyInt>4 && fv.targetarrow.isVisible()){
-                ac.pyroBlastX = 90;
-                ac.pyroblastY = 300;
-                ac.followup = true;
+                pyroBlastX = 90;
+                pyroblastY = 300;
+                followup = true;
                 mageEnergyInt=mageEnergyInt-5;
                 currentEnergy=currentEnergy-5;
                 fv.energy.setText("Energy: "+mageEnergyInt);
-                ac.pyroBlast.start();
+                pyroBlast.start();
                 mobDeath();
                 isFightOver();
             }
@@ -317,57 +316,57 @@ public class FieldController {
                     healerEnergyInt=healerEnergyInt-2;
                     currentEnergy=currentEnergy-2;
                     fv.energy.setText("Energy: "+healerEnergyInt);
-                    ac.healTarget = 1;
-                    ac.holyLightSpell.start();}
+                    healTarget = 1;
+                    holyLightSpell.start();}
 
                 if (chosenSpell == 2 && healerEnergyInt > 1){
                     healerEnergyInt=healerEnergyInt-2;
                     currentEnergy=currentEnergy-2;
                     fv.energy.setText("Energy: "+healerEnergyInt);
-                    ac.healTarget = 1;
-                    ac.smallHolyLightSpell.start();}
+                    healTarget = 1;
+                    smallHolyLightSpell.start();}
             });
             fv.healRangerButton.addActionListener(e -> {
                 if (chosenSpell == 1 && healerEnergyInt > 1){
                     healerEnergyInt=healerEnergyInt-2;
                     currentEnergy=currentEnergy-2;
                     fv.energy.setText("Energy: "+healerEnergyInt);
-                    ac.healTarget = 2;
-                    ac.holyLightSpell.start();}
+                    healTarget = 2;
+                    holyLightSpell.start();}
                 if (chosenSpell == 2 && healerEnergyInt > 1){
                     healerEnergyInt=healerEnergyInt-2;
                     currentEnergy=currentEnergy-2;
                     fv.energy.setText("Energy: "+healerEnergyInt);
-                    ac.healTarget = 2;
-                    ac.smallHolyLightSpell.start();}
+                    healTarget = 2;
+                    smallHolyLightSpell.start();}
             });
             fv.healMageButton.addActionListener(e -> {
                 if (chosenSpell == 1 && healerEnergyInt > 1){
                     healerEnergyInt=healerEnergyInt-2;
                     currentEnergy=currentEnergy-2;
                     fv.energy.setText("Energy: "+healerEnergyInt);
-                    ac.healTarget = 3;
-                    ac.holyLightSpell.start();}
+                    healTarget = 3;
+                    holyLightSpell.start();}
                 if (chosenSpell == 2 && healerEnergyInt > 1){
                     healerEnergyInt=healerEnergyInt-2;
                     currentEnergy=currentEnergy-2;
                     fv.energy.setText("Energy: "+healerEnergyInt);
-                    ac.healTarget = 3;
-                    ac.smallHolyLightSpell.start();}
+                    healTarget = 3;
+                    smallHolyLightSpell.start();}
             });
             fv.healHealerButton.addActionListener(e -> {
                 if (chosenSpell == 1 && healerEnergyInt > 1){
                     healerEnergyInt=healerEnergyInt-2;
                     currentEnergy=currentEnergy-2;
                     fv.energy.setText("Energy: "+healerEnergyInt);
-                    ac.healTarget = 4;
-                    ac.holyLightSpell.start();}
+                    healTarget = 4;
+                    holyLightSpell.start();}
                 if (chosenSpell == 2 && healerEnergyInt > 1){
                     healerEnergyInt=healerEnergyInt-2;
                     currentEnergy=currentEnergy-2;
                     fv.energy.setText("Energy: "+healerEnergyInt);
-                    ac.healTarget = 4;
-                    ac.smallHolyLightSpell.start();}
+                    healTarget = 4;
+                    smallHolyLightSpell.start();}
             });
         }
 
@@ -457,7 +456,7 @@ public class FieldController {
                 warriorEnergyInt=warriorEnergyInt-2; //Energy -2.
                 currentEnergy=currentEnergy-2; // Update currentEnergy.
                 fv.energy.setText("Energy: "+warriorEnergyInt); //Update energyLabel
-                ac.tackle.start(); //Warrior deals damage to a wolf.
+                tackle.start(); //Warrior deals damage to a wolf.
                 mobDeath(); //Check if enemy died.
                 isFightOver(); //Check if all enemies/party members are dead.
             }
@@ -466,7 +465,7 @@ public class FieldController {
                 rangerEnergyInt=rangerEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fv.energy.setText("Energy: "+rangerEnergyInt);
-                ac.shoot.start();
+                shoot.start();
                 mobDeath();
                 isFightOver();
             }
@@ -475,7 +474,7 @@ public class FieldController {
                 mageEnergyInt=mageEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fv.energy.setText("Energy: "+mageEnergyInt);
-                ac.blast.start();
+                blast.start();
                 mobDeath();
                 isFightOver();
             }
@@ -484,7 +483,7 @@ public class FieldController {
                 healerEnergyInt=healerEnergyInt-2;
                 currentEnergy=currentEnergy-2;
                 fv.energy.setText("Energy: "+healerEnergyInt);
-                ac.healerAttack.start();
+                healerAttack.start();
                 mobDeath();
                 isFightOver();
             }
@@ -538,18 +537,18 @@ public class FieldController {
 
         //When the scarecrow attacks.
         private void scarecrowAttack() {
-            ac.target = (int) (Math.random() * 4); //Random target, 0-3.
+            target = (int) (Math.random() * 4); //Random target, 0-3.
             int scarecrowDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
-            ac.takeDamage.start();
+            takeDamage.start();
 
             //Loops until it reaches an alive party-member.
             while (true) {
 
                 //Warrior, Target 2.
-                if (ac.target == 0) {
+                if (target == 0) {
                     //If warrior is dead, target=1.
                     if (warriorCurrentHp < 1) {
-                        ac.target=1;
+                        target=1;
                     }
                     //If warrior is alive.
                     if (warriorCurrentHp >0) {
@@ -560,10 +559,10 @@ public class FieldController {
                     }
                 }
                 //Mage, Target 1.
-                if (ac.target == 1) {
+                if (target == 1) {
                     //If mage is dead, target=2.
                     if (mageCurrentHp < 1) {
-                        ac.target = 2;
+                        target = 2;
                     }
                     //If mage is alive.
                     if (mageCurrentHp >0) {
@@ -574,10 +573,10 @@ public class FieldController {
                     }
                 }
                 //Ranger, target 2.
-                if (ac.target == 2) {
+                if (target == 2) {
                     //If ranger is dead, target=3.
                     if (rangerCurrentHp < 1) {
-                        ac.target = 3;
+                        target = 3;
                     }
                     //If ranger is alive.
                     if (rangerCurrentHp >0) {
@@ -588,10 +587,10 @@ public class FieldController {
                     }
                 }
                 //Healer, target3.
-                if (ac.target == 3) {
+                if (target == 3) {
                     //If healer is dead, target=0.
                     if (healerCurrentHp < 1) {
-                        ac.target = 0;
+                        target = 0;
                     }
                     //If healer is alive.
                     if (healerCurrentHp >0) {
@@ -610,22 +609,22 @@ public class FieldController {
             if(scarecrowHp[0]<=0){
                 fv.scarecrow1Hp.setText("Scarecrow 1: 0");
                 fv.scarecrow1.setVisible(false);
-                if (ac.target == 1) {fv.targetarrow.setVisible(false);}
+                if (target == 1) {fv.targetarrow.setVisible(false);}
             }
             if(scarecrowHp[1]<=0){
                 fv.scarecrow2Hp.setText("Scarecrow 2: 0");
                 fv.scarecrow2.setVisible(false);
-                if (ac.target == 2) {fv.targetarrow.setVisible(false);}
+                if (target == 2) {fv.targetarrow.setVisible(false);}
             }
             if(scarecrowHp[2]<=0){
                 fv.scarecrow3Hp.setText("Scarecrow 3: 0");
                 fv.scarecrow3.setVisible(false);
-                if (ac.target == 3) {fv.targetarrow.setVisible(false);}
+                if (target == 3) {fv.targetarrow.setVisible(false);}
             }
             if(scarecrowHp[3]<=0){
                 fv.scarecrow4Hp.setText("Scarecrow 4: 0");
                 fv.scarecrow4.setVisible(false);
-                if (ac.target == 4) {fv.targetarrow.setVisible(false);}
+                if (target == 4) {fv.targetarrow.setVisible(false);}
             }
         }
 
@@ -1134,4 +1133,5 @@ public class FieldController {
                 }
             });
         }
+     */
     }
