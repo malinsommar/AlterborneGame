@@ -7,7 +7,7 @@ import party.Ranger;
 import party.Warrior;
 
 public class FightModel {
-
+/*
     private ForestCon forestCon = new ForestCon();
     private CaveController caveCon = new CaveController();
     private FieldController fieldCon = new FieldController();
@@ -48,8 +48,8 @@ public class FightModel {
         fieldCon.getInventory(ownedPotions);
         getStats();
         fieldCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
-        fieldCon.startFight();
-         */
+        fieldCon.startFight();*/
+         /*
     }
 
     public void fightWon(int whatFight){
@@ -85,4 +85,5 @@ public class FightModel {
         rangerStats[1]=r.combinedBlock;
         rangerStats[2]=r.combinedDamage;
     }
+    */
 }

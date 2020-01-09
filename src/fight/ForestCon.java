@@ -1,5 +1,6 @@
 package fight;
 
+import game.MasterModel;
 import game.MusicPick;
 
 import javax.swing.*;
@@ -98,13 +99,7 @@ public class ForestCon {
         targetSystem();
 
         //ActionListeners
-        fff.attackButton.addActionListener(e -> {
-            try {
-                attackPressed();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        });
+        fff.attackButton.addActionListener(e -> {attackPressed();});
         fff.blockButton.addActionListener(e -> blockPressed());
         fff.itemButton.addActionListener(e -> fff.itemPressed());
         fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
@@ -414,7 +409,7 @@ public class ForestCon {
         }
     }
     //When you press the "attack button".
-    private void attackPressed() throws InterruptedException {
+    private void attackPressed() {
 
         //If its warrior's turn and player has 2 or more energy.
         if(turns==1 && warriorEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
@@ -452,10 +447,8 @@ public class ForestCon {
         if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
             MusicPick.musicStop();
             fff.forestFightJFrame.dispose();
-            fightWon = true;
-            //TODO This does not follow MVC
-            FightModel fm = new FightModel();
-            fm.fightWon(1);
+
+
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
@@ -675,11 +668,11 @@ public class ForestCon {
         fff.wolf3Hp = new JLabel("Wolf 3: "+ wolfHp[2]);
         fff.wolf4Hp = new JLabel("Wolf 4: "+ wolfHp[3]);
 
-        fff.playersHp = new JLabel("Hp: "+warriorCurrentHp);
-        fff.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp);
-        fff.player2Hp = new JLabel("Ranger:  "+ rangerCurrentHp);
-        fff.player3Hp = new JLabel("Mage:    "+ mageCurrentHp);
-        fff.player4Hp = new JLabel("Healer:  "+ healerCurrentHp);
+        fff.playersHp = new JLabel("Hp: "+warriorCurrentHp+"   ");
+        fff.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp+"   ");
+        fff.player2Hp = new JLabel("Ranger:  "+ rangerCurrentHp+"   ");
+        fff.player3Hp = new JLabel("Mage:    "+ mageCurrentHp+"   ");
+        fff.player4Hp = new JLabel("Healer:  "+ healerCurrentHp+"   ");
         fff.block = new JLabel("Block: "+warriorBlock);
     }
 

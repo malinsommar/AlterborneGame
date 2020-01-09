@@ -1,7 +1,8 @@
 package party;
 
-public class Warrior {
+import game.MasterModel;
 
+public class Warrior {
     public String warriorRareWeaponName = "Iron sword",warriorEpicWeaponName = "Tempered steel blade",warriorLegendaryWeaponName = "Sword of a thousand truths",warriorRareArmorName = "Shiny Armor",warriorEpicArmorName = "Hardened Armor",warriorLegendaryArmorName = "Royal Enchanted Armor";
     public int warriorRareWeaponDamage = 8,warriorEpicWeaponDamage = 15,warriorLegendaryWeaponDamage = 27,warriorRareArmorBlock = 6,warriorEpicArmorBlock = 10,warriorLegendaryArmorBlock,mageRareArmorDamage = 20;
 

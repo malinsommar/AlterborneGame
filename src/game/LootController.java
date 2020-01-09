@@ -47,16 +47,6 @@ public class LootController {
         textDelayTimer.start();
         lf.equipButton.addActionListener(e -> equipLoot());
 
-        //TODO goes against MVC
-        LootModel lm = new LootModel();
-        lf.continueButton.addActionListener(e -> {
-            try {
-                lm.addLoot();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        });
-
     }
 
     //Method that collects info from model about gold, xp, weapons, armor etc.
