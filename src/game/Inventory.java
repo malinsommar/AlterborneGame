@@ -2,19 +2,19 @@ package game;
 
 public class Inventory {
 
-    public int gold = 20;
+    public int gold;
 
     public int minorHealingPotion = 10, lesserHealingPotion = 30, majorHealingPotion = 60;
-    public int ownedMinorHealingPotion = 1, ownedLesserHealingPotion = 0, ownedMajorHealingPotion = 0;
+    public int ownedMinorHealingPotion, ownedLesserHealingPotion, ownedMajorHealingPotion;
 
     public int minorBlockPotion = 5, lesserBlockPotion = 20, majorBlockPotion = 50;
-    public int ownedMinorBlockPotion = 1, ownedLesserBlockPotion = 0, ownedMajorBlockPotion = 0;
+    public int ownedMinorBlockPotion, ownedLesserBlockPotion, ownedMajorBlockPotion;
 
-    public int minorEnergyPotion = 3, lesserEnergyPotion = 5, majorEnergyPotion = 10;
-    public int ownedMinorEnergyPotion = 1, ownedLesserEnergyPotion = 0, ownedMajorEnergyPotion = 0;
+    public int minorEnergyPotion, lesserEnergyPotion, majorEnergyPotion = 10;
+    public int ownedMinorEnergyPotion, ownedLesserEnergyPotion, ownedMajorEnergyPotion;
 
     public int minorStrengthPotion = 5, lesserStrengthPotion = 10, majorStrengthPotion = 20;
-    public int ownedMinorStrengthPotion = 1, ownedLesserStrengthPotion = 0, ownedMajorStrengthPotion = 0;
+    public int ownedMinorStrengthPotion, ownedLesserStrengthPotion, ownedMajorStrengthPotion;
 
 
     public void addPotion(int potion) {

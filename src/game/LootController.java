@@ -39,14 +39,24 @@ public class LootController {
     public int[] status = new int[1];
 
     //This method starts LootFrame and implements the methods needed for LootScreen.
-    public void startLootScreen(int fight) throws InterruptedException {
+    public void startLootScreen(int fight){
 
         lf.lootScreenFrame();
         generateLoot(fight);
         hover();
-
         textDelayTimer.start();
         lf.equipButton.addActionListener(e -> equipLoot());
+
+        //TODO goes against MVC
+        LootModel lm = new LootModel();
+        lf.continueButton.addActionListener(e -> {
+            try {
+                lm.addLoot();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+
     }
 
     //Method that collects info from model about gold, xp, weapons, armor etc.

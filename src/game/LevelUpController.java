@@ -9,30 +9,31 @@ import javax.swing.*;
 
 public class LevelUpController {
 
+    //TODO this goes againt MVC. But it is by far the simplest way.
     private Mage m = new Mage();
     private Healer h = new Healer();
     private Warrior w = new Warrior();
     private Ranger r = new Ranger();
     LevelUpView luv = new LevelUpView();
 
-    public int xp = 17;
-    public int level = 1;
+    public int xp;
+    public int level;
 
-    int wHp = 5;
-    int wD = 2;
-    int wB = 2;
+    int wHp;
+    int wD;
+    int wB;
 
-    int rHp = 3;
-    int rD = 4;
-    int rB = 2;
+    int rHp;
+    int rD;
+    int rB;
 
-    int mHp = 2;
-    int mD = 6;
-    int mB = 1;
+    int mHp;
+    int mD;
+    int mB;
 
-    int hHp = 5;
-    int hD = 2;
-    int hB = 3;
+    int hHp;
+    int hD;
+    int hB;
 
     //This method checks party xp and level party up. Use this method after every fight.
     public void didPlayerLevelUp(){
@@ -43,7 +44,7 @@ public class LevelUpController {
             setLabels();
             luv.levelUpFrame();
         }
-        else if (xp>40 && level == 2){
+        if (xp>40 && level == 2){
             level = 3;
             levelUpStats();
             luv.levelUpFrame();

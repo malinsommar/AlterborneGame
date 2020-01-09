@@ -42,7 +42,6 @@ public class HubController {
                 if (choice[0] > 0) {
                 break;
                  }
-
         }
     }
 

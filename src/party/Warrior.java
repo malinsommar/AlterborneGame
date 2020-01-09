@@ -11,9 +11,9 @@ public class Warrior {
     public String currentArmorName = "Rusty Armor";
     public int currentArmorBlock = 3;
 
-    public int hp = 150;
-    public int block = 3;
-    public int damage = 5;
+    public int hp;
+    public int block;
+    public int damage;
 
     public int combinedBlock = block + currentArmorBlock;
     public int combinedDamage = damage + currentWeaponDamage;
