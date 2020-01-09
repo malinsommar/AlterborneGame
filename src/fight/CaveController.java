@@ -81,7 +81,7 @@ public class CaveController {
 
     public void startFight() {
 
-        MusicPick.musicStart("forest1", "music");
+        MusicPick.musicStart("danceknights", "music");
 
         currentEnergy = 5;
 
