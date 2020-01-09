@@ -1,16 +1,16 @@
 package highscore;
 
-import game.LevelUp;
+import OldClasses.LevelUp;
+import game.LevelUpController;
 import game.LoseScreen;
 
 import java.sql.*;
-import java.util.Scanner;
 
 public class Highscore {
     private static final String USERNAME = "Alterborne";
     private static final String PASSWORD = "YEET";
     private static final String CONNECTION = "jdbc:mysql://localhost:3306/alterborne";
-    private static LevelUp lvl = new LevelUp();
+    private static LevelUpController lvl = new LevelUpController();
     private static LoseScreen lose = new LoseScreen();
     static String name = lose.userName; //new Scanner(System.in).next();
     static int xp = lvl.xp;

@@ -1,6 +1,7 @@
 package davidtest.overworld.map;
 
 import fight.FightModel;
+import game.MasterModel;
 import game.ShopModel;
 
 public class WorldModel {
@@ -13,23 +14,24 @@ public class WorldModel {
             shopModel.startShopController();
         }
          if(overWorldController.Entrance[0]==2){
-             FightModel fightModel = new FightModel();
-             fightModel.startForestFight();
+             MasterModel masterModel = new MasterModel();
+             masterModel.startForestFight();
+
          }
          if(overWorldController.Entrance[0]==3){
-             FightModel fightModel = new FightModel();
-             fightModel.startCaveFight();
+             MasterModel masterModel = new MasterModel();
+             masterModel.startCaveFight();
          }
          if(overWorldController.Entrance[0]==4){
-             FightModel fightModel = new FightModel();
-             fightModel.startFieldFight();
+             MasterModel masterModel = new MasterModel();
+             masterModel.startFieldFight();
          }
          if (overWorldController.Entrance[0]==5) {
-             FightModel fightModel = new FightModel();
+             MasterModel masterModel = new MasterModel();
              //fightModel.startSwampFight();
          }
          if (overWorldController.Entrance[0]==6) {
-             FightModel fightModel = new FightModel();
+             MasterModel masterModel = new MasterModel();
              //fightModel.startCastleFight();
          }
     }

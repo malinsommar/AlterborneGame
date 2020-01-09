@@ -12,9 +12,9 @@ public class Healer {
     public int currentArmorBlock = 5;
     public int currentArmorDamage = 0;
 
-    public int hp = 100;
-    public int block = 0;
-    public int damage = 0;
+    public int hp;
+    public int block;
+    public int damage;
 
     public int combinedBlock = block + currentArmorBlock;
     public int combinedDamage = damage + currentWeaponDamage;

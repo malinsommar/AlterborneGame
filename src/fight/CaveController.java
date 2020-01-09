@@ -81,7 +81,7 @@ public class CaveController {
 
     public void startFight() {
 
-        MusicPick.musicStart("forest1", "music");
+        MusicPick.musicStart("danceknights", "music");
 
         currentEnergy = 5;
 
@@ -554,9 +554,9 @@ public class CaveController {
         if (goblinHp[0] < 1 && goblinHp[1] < 1 && goblinHp[2] < 1 && goblinHp[3] < 1) {
             MusicPick.musicStop();
             cv.caveFightJFrame.dispose();
-            //TODO This does not follow MVC
+            /*//TODO This does not follow MVC
             FightModel fm = new FightModel();
-            fm.fightWon(2);
+            fm.fightWon(2);*/
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {

@@ -1,4 +1,4 @@
-package game;
+package OldClasses;
 
 import party.Healer;
 import party.Mage;
@@ -18,7 +18,7 @@ public class LevelUp {
     private Ranger r = new Ranger();
 
     Font pixelMplus;
-    public int xp;
+    public int xp = 10;
     public int level = 1;
 
 

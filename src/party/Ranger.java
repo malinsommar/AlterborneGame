@@ -11,9 +11,9 @@ public class Ranger {
     public String currentArmorName = "Broken leather armor";
     public int currentArmorBlock = 0;
 
-    public int hp = 70;
-    public int block = 0;
-    public int damage = 0;
+    public int hp;
+    public int block;
+    public int damage;
 
     public int combinedBlock = block + currentArmorBlock;
     public int combinedDamage = damage + currentWeaponDamage;
