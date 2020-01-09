@@ -46,26 +46,25 @@ public class LootModel {
         getEquipment();
         lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
 
-        lf.continueButton.addActionListener(e -> lf.lootScreenJFrame.dispose());
-        lf.continueButton.addActionListener(e -> {
-            try {
-                addLoot();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        });
-
         lc.startLootScreen(whatFight);
-    }
+        }
+
+        public void startLevel(){
+            luv.didPlayerLevelUp();
+            System.out.println("xp:: "+lu.xp);
+        }
 
     //This method saves gold, xp and weapon/armor that player got from lootController.
     public void addLoot() throws InterruptedException {
 
         inv.gold = lc.goldInt;
         lu.xp = lc.xpInt;
+        System.out.println("hey"+lu.xp+"  dd "+lc.xpInt);
+
+        startLevel();
+        System.out.println("xp:: "+lu.xp);
 
         if(lc.playerWantsLoot){
-
             //Armor & Weapons
             if (lc.whatLoot == 1){
                 w.warriorRareArmor();
@@ -187,10 +186,7 @@ public class LootModel {
         else if (lc.whatLoot == 36){
             inv.ownedMajorBlockPotion++;
         }
-        if (lc.status[0] == 1) {
-            luv.didPlayerLevelUp();
-            startOverWorld();
-        }
+        luv.didPlayerLevelUp();
     }
 
     private void startOverWorld() throws InterruptedException {
