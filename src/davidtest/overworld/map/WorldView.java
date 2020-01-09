@@ -24,7 +24,6 @@ public class WorldView extends Canvas {
     public Screen screen;
     public Level level1;
     public Player player;
-    InputHandler input;
 
 
     public JFrame frame;
@@ -41,10 +40,10 @@ public class WorldView extends Canvas {
         frame.setLayout(new BorderLayout());
         frame.add(this, BorderLayout.CENTER);//Center Canvas within the JFrame
         frame.pack(); //Sets frames above or at preferred size
-         input = new InputHandler(this); //call input-object
-         screen = new Screen(WorldView.WIDTH, WorldView.HEIGHT, new SpriteSheet("/resources/spriteSheet/Sprite_sheet.png"));//call spriteSheet-object
+         InputHandler input = new InputHandler(this); //call input-object
+         screen = new Screen(WorldView.WIDTH, WorldView.HEIGHT, new SpriteSheet("/resources/spriteSheet/Sprite_sheet.png"));//call spriteSheet-object within the frames height and width
          level1 = new Level("/resources/maps/Map.png");//call map-object
-         player = new Player(level1, 230, 235, input); //call Player-object and position it on map
+         player = new Player(level1, 230, 235, input); //call Player-object and position it on map. Assign the input class to player
 
          level1.addEntity(player); //add player onto the screen
 

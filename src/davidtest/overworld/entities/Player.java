@@ -20,7 +20,7 @@ public class Player extends Mob {
     private boolean isOnFieldPath = false; // if player is on tile to enter Field-combat
     private boolean isOnSwampPath = false; // if player is on tile to enter Swamp-combat
     private boolean isOnCastlePath = false; // if player is on tile to enter Castle-combat
-    private boolean EnterShop = false;  // if player is on tile to enter Castle-combat
+    private boolean EnterShop = false;  // if player is on tile to enter Shop
 
 
     private int tickCount = 0; //counts the ticks since the last update

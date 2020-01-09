@@ -17,8 +17,8 @@ public class Screen {
     public int xOffset = 0;
     public int yOffset = 0;
 
-    public int width;
-    public int height;
+    public int width; //screen width
+    public int height; //screen height
 
     public SpriteSheet sheet; //move the sheet to make it local with the screen. That way there can be multiple screens
 
@@ -30,10 +30,12 @@ public class Screen {
 
         pixels = new int[width * height];
     }
-    //render the tiles and colours
+    //render the tiles and colours depending on
     public void render(int xPos, int yPos, int tile, int colour, int mirrorDir, int scale) {
+        //control the position of the SpriteSheet within the frame
         xPos -= xOffset;
         yPos -= yOffset;
+
 
         boolean mirrorX = (mirrorDir & BIT_MIRROR_X) > 0;
         boolean mirrorY = (mirrorDir & BIT_MIRROR_Y) > 0;
