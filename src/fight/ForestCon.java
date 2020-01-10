@@ -79,8 +79,8 @@ public class ForestCon {
 
     int[] wolfHp = {20, 20, 20, 20};
 
-    boolean fightWon = false;
-    boolean fightLost = false;
+    public boolean fightWon = false;
+    public boolean fightLost = false;
 
     private int[] ownedPotions = new int[12];
 
@@ -98,43 +98,45 @@ public class ForestCon {
         hoverEffect();
         targetSystem();
 
-        //ActionListeners
-        fff.attackButton.addActionListener(e -> {attackPressed();});
-        fff.blockButton.addActionListener(e -> blockPressed());
-        fff.itemButton.addActionListener(e -> fff.itemPressed());
-        fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
-        fff.endTurnButton.addActionListener(e-> startNewTurn());
-        fff.skill1Button.addActionListener(e -> {
-            skill1();
-        });
-        fff.skill2Button.addActionListener(e -> {
-            skill2();
-        });
-        fff.skill3Button.addActionListener(e -> {
-            skill3();
-        });
-        fff.skill4Button.addActionListener(e -> {
-            skill4();
-        });
-        fff.returnButton.addActionListener(e-> spellMenuInactive());
+            //ActionListeners
+            fff.attackButton.addActionListener(e -> {
+                attackPressed();
+            });
+            fff.blockButton.addActionListener(e -> blockPressed());
+            fff.itemButton.addActionListener(e -> fff.itemPressed());
+            fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
+            fff.endTurnButton.addActionListener(e -> startNewTurn());
+            fff.skill1Button.addActionListener(e -> {
+                skill1();
+            });
+            fff.skill2Button.addActionListener(e -> {
+                skill2();
+            });
+            fff.skill3Button.addActionListener(e -> {
+                skill3();
+            });
+            fff.skill4Button.addActionListener(e -> {
+                skill4();
+            });
+            fff.returnButton.addActionListener(e -> spellMenuInactive());
 
-        //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
-        fff.potion1.addActionListener(e->usePotion(1));
-        fff.potion2.addActionListener(e->usePotion(2));
-        fff.potion3.addActionListener(e->usePotion(3));
-        fff.potion4.addActionListener(e->usePotion(4));
-        fff.potion5.addActionListener(e->usePotion(5));
-        fff.potion6.addActionListener(e->usePotion(6));
-        fff.potion7.addActionListener(e->usePotion(7));
-        fff.potion8.addActionListener(e->usePotion(8));
-        fff.potion9.addActionListener(e->usePotion(9));
-        fff.potion10.addActionListener(e->usePotion(10));
-        fff.potion11.addActionListener(e->usePotion(11));
-        fff.potion12.addActionListener(e->usePotion(12));
+            //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
+            fff.potion1.addActionListener(e -> usePotion(1));
+            fff.potion2.addActionListener(e -> usePotion(2));
+            fff.potion3.addActionListener(e -> usePotion(3));
+            fff.potion4.addActionListener(e -> usePotion(4));
+            fff.potion5.addActionListener(e -> usePotion(5));
+            fff.potion6.addActionListener(e -> usePotion(6));
+            fff.potion7.addActionListener(e -> usePotion(7));
+            fff.potion8.addActionListener(e -> usePotion(8));
+            fff.potion9.addActionListener(e -> usePotion(9));
+            fff.potion10.addActionListener(e -> usePotion(10));
+            fff.potion11.addActionListener(e -> usePotion(11));
+            fff.potion12.addActionListener(e -> usePotion(12));
 
-        //Dispose the item frame.
-        fff.exitInventory.addActionListener(e->fff.inventory.dispose());
-    }
+            //Dispose the item frame.
+            fff.exitInventory.addActionListener(e -> fff.inventory.dispose());
+        }
 
     //When you press "end turn" button.
     public void startNewTurn(){
@@ -447,13 +449,12 @@ public class ForestCon {
         if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
             MusicPick.musicStop();
             fff.forestFightJFrame.dispose();
-
+            fightWon = true;
 
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             fff.forestFightJFrame.dispose();
-            fightLost = true;
             //Death screen,
         }
         //If none of these are true, nothing happens and the fight goes on.

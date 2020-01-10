@@ -1,5 +1,6 @@
 package game;
 
+import OldClasses.Inventory;
 import davidtest.overworld.map.WorldModel;
 import fight.CaveController;
 import fight.CaveView;
@@ -25,8 +26,8 @@ public class MasterModel {
 
     private ForestCon forestCon = new ForestCon();
     private CaveController caveCon = new CaveController();
-    //private FieldController fieldCon = new FieldController();
-    //CaveView cv = new CaveView();
+    private FieldController fieldCon = new FieldController();
+    private CaveView cv = new CaveView();
 
     private int[] warriorStats = new int[3];
     private int[] mageStats = new int[3];
@@ -34,13 +35,38 @@ public class MasterModel {
     private int[] rangerStats = new int[3];
 
     //Array that keeps track of how many potions you own, use this to . 1-3 = Healing potions. 4-6 = block potions. 7-9 = energy potions. 10-12 = str potions.
-    private int[] ownedPotions = {inv.ownedMinorHealingPotion,inv.ownedLesserHealingPotion,inv.ownedMajorHealingPotion,inv.ownedMinorBlockPotion,inv.ownedLesserBlockPotion,inv.ownedMajorBlockPotion,inv.ownedMinorEnergyPotion,inv.ownedLesserEnergyPotion,inv.ownedMajorEnergyPotion,inv.ownedMinorStrengthPotion,inv.ownedLesserStrengthPotion,inv.ownedMajorStrengthPotion};
+    private int[] ownedPotions = new int[12];
+
+    private int currentXp;
+    private int currentLevel;
+    private int currentGold;
+
+    //1=warrior, 2=mage, 3=ranger, 4=healer.
+    private String[] armorNames = new String[4];
+    private String[] weaponNames = new String[4];
+    private int[] weaponDamage = new int[4];
+    private int[] armorBlock = new int[4];
+
+    //1=mage, 2=healer.
+    private int[] currentArmorDamage = new int[6];
+
+    //1 2 = warrior, 3 4 = mage, 5 6 = ranger, 7 8 = healer.
+    private String[] rareWeaponArmorNames = new String[8];
+    private String[] epicWeaponArmorNames = new String[8];
+    private String[] legendaryWeaponArmorNames = new String[8];
+
+    //1 2 3 = warrior, 4 5 6 = mage, 7 8 9 = ranger, 10 11 12= healer.
+    private int[] rareWeaponArmorDamageBlock = new int[18];
+    private int[] epicWeaponArmorDamageBlock = new int[18];
+    private int[] legendaryWeaponArmorDamageBlock = new int[18];
+    private int[] armorDamage= new int[6];
+    
 
     //TODO i fights, lägg till funktion som tar bort använda potions
 
     //Get user input from ConHub to start game of exit game.
     public void startGame() throws InterruptedException {
-
+        
         setStartNumbers();
 
         hubController.test();
@@ -75,25 +101,25 @@ public class MasterModel {
         h.damage = 0;
         h.block = 1;
         
-        luc.level = 1;
+        currentXp = 0;
+        currentLevel = 1;
+        currentGold = 20;
 
-        inv.gold = 20;
+        ownedPotions[0] = 1;
+        ownedPotions[1] = 0;
+        ownedPotions[2] = 0;
 
-        inv.ownedMinorHealingPotion = 1;
-        inv.ownedLesserHealingPotion = 0;
-        inv.ownedMajorHealingPotion = 0;
+        ownedPotions[3] = 1;
+        ownedPotions[4] = 0;
+        ownedPotions[5] = 0;
 
-        inv.ownedMinorBlockPotion = 1;
-        inv.ownedLesserBlockPotion = 0;
-        inv.ownedMajorBlockPotion = 0;
+        ownedPotions[6] = 1;
+        ownedPotions[7] = 0;
+        ownedPotions[8] = 0;
 
-        inv.ownedMinorEnergyPotion = 1;
-        inv.ownedLesserEnergyPotion = 0;
-        inv.ownedMajorEnergyPotion = 0;
-
-        inv.ownedMinorStrengthPotion = 1;
-        inv.ownedLesserStrengthPotion = 0;
-        inv.ownedMajorStrengthPotion = 0;
+        ownedPotions[9] = 1;
+        ownedPotions[10] = 0;
+        ownedPotions[11] = 0;
 
         luc.wHp = 5;
         luc.wD = 2;
@@ -110,18 +136,25 @@ public class MasterModel {
         luc.hHp = 5;
         luc.hD = 2;
         luc.hB = 3;
-
     }
-
-    //FightModel things
+    //Fight methods starts here
 
     //This method imports all stats that the battle will need and start ForestFightController.
-    public void startForestFight(){
+    public void startForestFight() throws InterruptedException {
         forestCon.getInventory(ownedPotions);
         getStats();
         forestCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
+
         forestCon.startFight();
 
+    while (!forestCon.fightWon || !forestCon.fightLost) {
+        if (forestCon.fightWon) {
+            startLootController(1);
+        }
+        else if (forestCon.fightLost){
+            //losescreen
+        }
+    }
     }
 
     public void startCaveFight(){
@@ -176,29 +209,6 @@ public class MasterModel {
 
    //Here starts lootFrame stuff
 
-   private int currentXp = luc.xp;
-    private int currentGold = inv.gold;
-
-    //1=warrior, 2=mage, 3=ranger, 4=healer.
-    private String[] armorNames = new String[4];
-    private String[] weaponNames = new String[4];
-    private int[] weaponDamage = new int[4];
-    private int[] armorBlock = new int[4];
-
-    //1=mage, 2=healer.
-    private int[] currentArmorDamage = new int[6];
-
-    //1 2 = warrior, 3 4 = mage, 5 6 = ranger, 7 8 = healer.
-    private String[] rareWeaponArmorNames = new String[8];
-    private String[] epicWeaponArmorNames = new String[8];
-    private String[] legendaryWeaponArmorNames = new String[8];
-
-    //1 2 3 = warrior, 4 5 6 = mage, 7 8 9 = ranger, 10 11 12= healer.
-    private int[] rareWeaponArmorDamageBlock = new int[18];
-    private int[] epicWeaponArmorDamageBlock = new int[18];
-    private int[] legendaryWeaponArmorDamageBlock = new int[18];
-    private int[] armorDamage= new int[6];
-
     //This method sends away all information lootController is going to need and starts it.
     public void startLootController(int whatFight) throws InterruptedException {
         getEquipment();
@@ -217,18 +227,16 @@ public class MasterModel {
 
     public void startLevel(){
         luc.didPlayerLevelUp();
-        System.out.println("xp:: "+luc.xp);
+        System.out.println("xp: "+luc.xp);
     }
 
     //This method saves gold, xp and weapon/armor that player got from lootController.
     public void addLoot() throws InterruptedException {
 
-        inv.gold = lc.goldInt;
-        luc.xp = lc.xpInt;
-        System.out.println("hey"+luc.xp+"  dd "+lc.xpInt);
+        currentGold = lc.goldInt;
+        currentXp = lc.xpInt;
 
         startLevel();
-        System.out.println("xp:: "+luc.xp);
 
         if(lc.playerWantsLoot){
             //Armor & Weapons
@@ -314,43 +322,43 @@ public class MasterModel {
         }
         //Potions
         if (lc.whatLoot == 25){
-            inv.ownedMinorHealingPotion++;
+            ownedPotions[0]++;
         }
         else if (lc.whatLoot == 26){
-            inv.ownedLesserHealingPotion++;
+            ownedPotions[1]++;
         }
         else if (lc.whatLoot == 27){
-            inv.ownedMajorHealingPotion++;
+            ownedPotions[2]++;
         }
 
         else if (lc.whatLoot == 28){
-            inv.ownedMinorEnergyPotion++;
+            ownedPotions[7]++;
         }
         else if (lc.whatLoot == 29){
-            inv.ownedLesserEnergyPotion++;
+            ownedPotions[8]++;
         }
         else if (lc.whatLoot == 30){
-            inv.ownedMajorEnergyPotion++;
+            ownedPotions[9]++;
         }
 
         else if (lc.whatLoot == 31){
-            inv.ownedMinorStrengthPotion++;
+            ownedPotions[10]++;
         }
         else if (lc.whatLoot == 32){
-            inv.ownedLesserStrengthPotion++;
+            ownedPotions[11]++;
         }
         else if (lc.whatLoot == 33){
-            inv.ownedMajorStrengthPotion++;
+            ownedPotions[12]++;
         }
 
         else if (lc.whatLoot == 34){
-            inv.ownedMinorBlockPotion++;
+            ownedPotions[4]++;
         }
         else if (lc.whatLoot == 35){
-            inv.ownedLesserBlockPotion++;
+            ownedPotions[5]++;
         }
         else if (lc.whatLoot == 36){
-            inv.ownedMajorBlockPotion++;
+            ownedPotions[6]++;
         }
         luc.didPlayerLevelUp();
     }

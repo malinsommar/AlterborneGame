@@ -1,7 +1,7 @@
-package game;
+package OldClasses;
 
 public class Inventory {
-
+/*
     public int gold;
 
     public int minorHealingPotion = 10, lesserHealingPotion = 30, majorHealingPotion = 60;
@@ -15,5 +15,5 @@ public class Inventory {
 
     public int minorStrengthPotion = 5, lesserStrengthPotion = 10, majorStrengthPotion = 20;
     public int ownedMinorStrengthPotion, ownedLesserStrengthPotion, ownedMajorStrengthPotion;
-
+*/
 }
