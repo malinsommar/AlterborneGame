@@ -92,16 +92,6 @@ public class CaveView {
         caveFightJFrame.add(skillButton);
         caveFightJFrame.add(endTurnButton);
 
-        caveFightJFrame.add(goblin3);
-        caveFightJFrame.add(goblin4);
-        caveFightJFrame.add(goblin1);
-        caveFightJFrame.add(goblin2);
-
-        caveFightJFrame.add(ranger);
-        caveFightJFrame.add(warrior);
-        caveFightJFrame.add(mage);
-        caveFightJFrame.add(healer);
-
         caveFightJFrame.add(playersHp);
         caveFightJFrame.add(goblin1Hp);
         caveFightJFrame.add(goblin2Hp);
@@ -148,6 +138,17 @@ public class CaveView {
         caveFightJFrame.add(groupHeal2);
         caveFightJFrame.add(groupHeal3);
         caveFightJFrame.add(groupHeal4);
+
+        //enemies
+        caveFightJFrame.add(goblin3);
+        caveFightJFrame.add(goblin4);
+        caveFightJFrame.add(goblin1);
+        caveFightJFrame.add(goblin2);
+        //player
+        caveFightJFrame.add(ranger);
+        caveFightJFrame.add(warrior);
+        caveFightJFrame.add(mage);
+        caveFightJFrame.add(healer);
 
         caveFightJFrame.setVisible(true);
     }
@@ -744,21 +745,21 @@ public class CaveView {
     //Get goblin gif.
     private void importGoblinGif(){
         goblin1 = new JLabel();
-        goblin1.setIcon(new ImageIcon("goblinGif.gif"));
+        goblin1.setIcon(new ImageIcon("goblintrue.gif"));
         Dimension goblinSize = goblin1.getPreferredSize();
-        goblin1.setBounds(750, 210, goblinSize.width+50, goblinSize.height);
+        goblin1.setBounds(850, 300, goblinSize.width+50, goblinSize.height);
 
         goblin2 = new JLabel();
-        goblin2.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin2.setBounds(930, 210, goblinSize.width+50, goblinSize.height);
+        goblin2.setIcon(new ImageIcon("goblintrue.gif"));
+        goblin2.setBounds(1030, 300, goblinSize.width+50, goblinSize.height);
 
         goblin3 = new JLabel();
-        goblin3.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin3.setBounds(820, 280, goblinSize.width+50, goblinSize.height);
+        goblin3.setIcon(new ImageIcon("goblintrue.gif"));
+        goblin3.setBounds(920, 370, goblinSize.width+50, goblinSize.height);
 
         goblin4 = new JLabel();
-        goblin4.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin4.setBounds(1000, 280, goblinSize.width+50, goblinSize.height);
+        goblin4.setIcon(new ImageIcon("goblintrue.gif"));
+        goblin4.setBounds(1100, 370, goblinSize.width+50, goblinSize.height);
     }
 
     private void importFont() {

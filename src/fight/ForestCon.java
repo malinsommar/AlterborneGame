@@ -77,7 +77,7 @@ public class ForestCon {
     private boolean animationPlaying = false;
     private boolean stealthed = false;
 
-    int[] wolfHp = {20, 20, 20, 20};
+    int[] wolfHp = {20,20,20,20};
 
     public boolean fightWon = false;
     public boolean fightLost = false;
@@ -455,7 +455,7 @@ public class ForestCon {
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             fff.forestFightJFrame.dispose();
-            //Death screen,
+            fightLost = true;
         }
         //If none of these are true, nothing happens and the fight goes on.
     }
@@ -2118,6 +2118,15 @@ public class ForestCon {
         public void actionPerformed(ActionEvent ae) {
             timePastTakeDamage++;
             if (timePastTakeDamage == 1) {
+
+
+                System.out.println("takeDamage started succesfully");
+                System.out.println("warrior was attacked " + warriorattacked);
+                System.out.println("ranged was attacked " + rangerattacked);
+                System.out.println("mage was attacked " + mageattacked);
+                System.out.println("healer was attacked " + healerattacked);
+
+
                 MusicPick.musicStart("warriorattacked", "");
             } else if (timePastTakeDamage == 10) {
                 if (warriorattacked) fff.warrior.setVisible(false);
@@ -2139,7 +2148,7 @@ public class ForestCon {
                 if (rangerattacked) fff.ranger.setVisible(true);
                 if (mageattacked) fff.mage.setVisible(true);
                 if (healerattacked) fff.healer.setVisible(true);
-
+            } else if (timePastTakeDamage > 45) {
                 warriorattacked = false;
                 rangerattacked = false;
                 mageattacked = false;
