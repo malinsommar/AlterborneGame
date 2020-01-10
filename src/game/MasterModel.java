@@ -88,17 +88,17 @@ public class MasterModel {
     
     public void setStartNumbers(){
 
-        warriorStats[0] = 130;
-        warriorStats[1] = 3;
-        warriorStats[2] = 2;
+        warriorStats[0] = 130; //hp
+        warriorStats[1] = 3; //block
+        warriorStats[2] = 2; //damage
 
         rangerStats[0] = 80;
         rangerStats[1] = 0;
         rangerStats[2] = 3;
 
         mageStats[0] = 70;
-        mageStats[0] = 0;
-        mageStats[0] = 4;
+        mageStats[1] = 0;
+        mageStats[2] = 4;
 
         healerStats[0] = 100;
         healerStats[1] = 1;
