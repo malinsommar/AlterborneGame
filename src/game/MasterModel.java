@@ -150,10 +150,10 @@ public class MasterModel {
         forestCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
         forestCon.startFight();
 
-        loop1();
+        fightLoop1();
     }
 
-    public void loop1() throws InterruptedException {
+    public void fightLoop1() throws InterruptedException {
         int loops = 0;
         System.out.println("loop1");
         while (!forestCon.fightWon || !forestCon.fightLost) {
@@ -173,10 +173,10 @@ public class MasterModel {
             }
             loops++;
         }
-        loop2();
+        fightLoop2();
     }
 
-    public void loop2() throws InterruptedException {
+    public void fightLoop2() throws InterruptedException {
         int loops = 0;
         System.out.println("loop2");
 
@@ -194,11 +194,11 @@ public class MasterModel {
                 break;
             }
             else if (loops == 100000){
-                loop1();
+                fightLoop1();
             }
             loops++;
         }
-        loop1();
+        fightLoop1();
     }
 
     public void startCaveFight(){
@@ -208,12 +208,7 @@ public class MasterModel {
     }
 
     public void startFieldFight(){
-        /*
-        fieldCon.getInventory(ownedPotions);
-        getStats();
-        fieldCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
-        fieldCon.startFight();
-         */
+
     }
 
   /*  public void startWorldModel() throws InterruptedException {
@@ -232,22 +227,91 @@ public class MasterModel {
 
         lc.startLootScreen(whatFight);
 
-        lf.continueButton.addActionListener(e-> {
-            try {
-                addLoot();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        });
+        lootLoop1();
     }
 
-    public void startLevelUp(){
-        luc.didPlayerLevelUp(currentXp, currentLevel,warriorLevelUpStats,rangerLevelUpStats,mageLevelUpStats,healerLevelUpStats,warriorStats,rangerStats,mageStats,healerStats);
+    public void lootLoop1() throws InterruptedException {
+        int loops = 0;
+        System.out.println("loop1");
 
-        while (true) {
-            if (luc.done) {
+        while (!lc.done) {
+            System.out.println("running loop 1");
+
+            if (lc.done) {
+                System.out.println("loot ready, start loot");
+                addLoot();
                 break;
             }
+            else if (loops == 100000){
+                break;
+            }
+            loops++;
+        }
+        lootLoop2();
+    }
+
+    public void lootLoop2() throws InterruptedException {
+
+        int loops = 0;
+        System.out.println("loop2");
+
+        while (!lc.done) {
+            System.out.println("running loop 2");
+
+            if (lc.done) {
+                System.out.println("loot ready, start loot");
+                addLoot();
+                break;
+            }
+            else if (loops == 100000){
+                break;
+            }
+            loops++;
+        }
+        lootLoop1();
+    }
+
+    public void startLevelUp() throws InterruptedException {
+        luc.didPlayerLevelUp(currentXp, currentLevel,warriorLevelUpStats,rangerLevelUpStats,mageLevelUpStats,healerLevelUpStats,warriorStats,rangerStats,mageStats,healerStats);
+
+        levelUpLoop1();
+    }
+
+    public void levelUpLoop1() throws InterruptedException {
+
+        int loops = 0;
+        System.out.println("loop1");
+
+        while (!luc.done) {
+            System.out.println("running loop 1");
+
+            if (luc.done) {
+                System.out.println("xp ready");
+                break;
+            }
+            else if (loops == 100000){
+                levelUpLoop2();
+            }
+            loops++;
+        }
+    }
+
+    public void levelUpLoop2() throws InterruptedException {
+
+        int loops = 0;
+        System.out.println("loop1");
+
+        while (!lc.done) {
+            System.out.println("running loop 1");
+
+            if (lc.done) {
+                System.out.println("loot ready, start loot");
+                break;
+            }
+            else if (loops == 100000){
+                levelUpLoop1();
+            }
+            loops++;
         }
     }
 
@@ -255,8 +319,7 @@ public class MasterModel {
     public void addLoot() throws InterruptedException {
 
         currentGold = lc.goldInt;
-        currentXp = lc.xpInt;
-
+        currentXp = lc.xpInt+6;
         startLevelUp();
 
         if(lc.playerWantsLoot){
@@ -270,7 +333,6 @@ public class MasterModel {
             else if (lc.whatLoot == 3){
                 w.warriorLegendaryArmor();
             }
-
             else if (lc.whatLoot == 4){
                 w.warriorRareWeapon();
             }
@@ -280,7 +342,6 @@ public class MasterModel {
             else if (lc.whatLoot == 6){
                 w.warriorLegendaryWeapon();
             }
-
             else if (lc.whatLoot == 7){
                 m.mageRareArmor();
             }
@@ -290,7 +351,6 @@ public class MasterModel {
             else if (lc.whatLoot == 9){
                 m.mageLegendaryArmor();
             }
-
             else if (lc.whatLoot == 10){
                 m.mageRareWeapon();
             }
@@ -300,7 +360,6 @@ public class MasterModel {
             else if (lc.whatLoot == 12){
                 m.mageLegendaryWeapon();
             }
-
             else if (lc.whatLoot == 13){
                 r.rangerRareArmor();
             }
@@ -310,7 +369,6 @@ public class MasterModel {
             else if (lc.whatLoot == 15){
                 r.rangerLegendaryArmor();
             }
-
             else if (lc.whatLoot == 16){
                 r.rangerRareWeapon();
             }
@@ -330,7 +388,6 @@ public class MasterModel {
             else if (lc.whatLoot == 21){
                 h.healerLegendaryArmor();
             }
-
             else if (lc.whatLoot == 22){
                 h.healerRareWeapon();
             }
@@ -381,6 +438,7 @@ public class MasterModel {
         else if (lc.whatLoot == 36){
             ownedPotions[6]++;
         }
+        startForestFight();
     }
 
     //Collects information about armor, weapons etc.

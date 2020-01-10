@@ -35,8 +35,7 @@ public class LootController {
 
     private boolean showEquipButton = false;
     boolean playerWantsLoot = false;
-
-    public int[] status = new int[1];
+    boolean done = false;
 
     //This method starts LootFrame and implements the methods needed for LootScreen.
     public void startLootScreen(int fight){
@@ -46,6 +45,7 @@ public class LootController {
         hover();
         textDelayTimer.start();
         lf.equipButton.addActionListener(e -> equipLoot());
+        lf.continueButton.addActionListener(e-> done = true);
 
     }
 

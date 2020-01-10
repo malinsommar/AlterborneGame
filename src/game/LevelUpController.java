@@ -105,9 +105,7 @@ public class LevelUpController {
             levelUpStats();
             luv.levelUpFrame();
         }
-
         luv.continueButton.addActionListener(e -> done = true);
-
     }
 
     public void setLabels(){
@@ -126,7 +124,7 @@ public class LevelUpController {
             luv.mageDamage = new JLabel("Damage: "+(mageDamage-mD/2)+" -> "+mageDamage+"   ");
             luv.mageBlock = new JLabel("Block: "+(mageBlock-mB/2)+" -> "+mageBlock+"   ");
 
-            luv.healerHp = new JLabel("Hp: "+(healerHp-hHp/2)+" -> "+mageHp+"   ");
+            luv.healerHp = new JLabel("Hp: "+(healerHp-hHp/2)+" -> "+healerHp+"   ");
             luv.healerDamage = new JLabel("Damage: "+(healerDamage-hD/2)+" -> "+healerDamage+"   ");
             luv.healerBlock = new JLabel("Block: "+(healerBlock-hB/2)+" -> "+healerBlock+"   ");
         }

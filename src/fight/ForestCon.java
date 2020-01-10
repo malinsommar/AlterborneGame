@@ -77,7 +77,7 @@ public class ForestCon {
     private boolean animationPlaying = false;
     private boolean stealthed = false;
 
-    int[] wolfHp = {20,20,20,20};
+    int[] wolfHp = new int[4];
 
     public boolean fightWon = false;
     public boolean fightLost = false;
@@ -90,6 +90,11 @@ public class ForestCon {
     public void startFight(){
 
         MusicPick.musicStart("forest1","music");
+
+        wolfHp[0] = 1;
+        wolfHp[1] = 1;
+        wolfHp[2] = 1;
+        wolfHp[3] = 1;
 
         currentEnergy = 5;
 
