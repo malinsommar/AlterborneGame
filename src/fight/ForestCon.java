@@ -77,7 +77,7 @@ public class ForestCon {
     private boolean animationPlaying = false;
     private boolean stealthed = false;
 
-    int[] wolfHp = {20, 20, 20, 20};
+    int[] wolfHp = {20,20,20,20};
 
     public boolean fightWon = false;
     public boolean fightLost = false;
@@ -455,7 +455,7 @@ public class ForestCon {
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             fff.forestFightJFrame.dispose();
-            //Death screen,
+            fightLost = true;
         }
         //If none of these are true, nothing happens and the fight goes on.
     }
