@@ -1,5 +1,6 @@
 package game;
 
+import OldClasses.Inventory;
 import davidtest.overworld.map.WorldModel;
 import party.Healer;
 import party.Mage;
@@ -9,26 +10,28 @@ import party.Warrior;
 public class ShopModel {
 
     private ShopController sc = new ShopController();
-    private Inventory inv = new Inventory();
     private Warrior w = new Warrior();
     private Healer h = new Healer();
     private Ranger r = new Ranger();
     private Mage m = new Mage();
 
-    private int currentGold=inv.gold;
+    private int currentGold;
 
-    public void startShopController() throws InterruptedException {
+    public void startShopController(int getGold) throws InterruptedException {
 
+        getGold = currentGold;
         sc.startShopView(currentGold);
 
         if (sc.choice[0] == 1) {
-            System.out.println("open World");
             startWorldModel();
         }
     }
+
+    //TODO mastermodel ska få alla värden
+
     public void addBoughtItems(){
 
-        inv.gold = sc.currentGold;
+        currentGold = sc.currentGold;
 
         //Armor & Weapons
         if (sc.whatLoot == 1){
@@ -104,7 +107,8 @@ public class ShopModel {
             h.healerLegendaryWeapon();
         }
 
-        //Potions
+
+   /*     //Potions
         if (sc.whatLoot == 25){
             inv.ownedMinorHealingPotion++;
         }
@@ -141,6 +145,8 @@ public class ShopModel {
         else if (sc.whatLoot == 36){
             inv.ownedMajorBlockPotion++;
         }
+
+    */
     }
     public void startWorldModel() throws InterruptedException {
         System.out.println("start new World");

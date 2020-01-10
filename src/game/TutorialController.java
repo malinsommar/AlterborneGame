@@ -1,7 +1,5 @@
 package game;
 
-import fight.FightModel;
-
 import javax.swing.*;
 
 public class TutorialController {
