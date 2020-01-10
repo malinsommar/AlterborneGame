@@ -216,12 +216,12 @@ public class MasterModel {
          */
     }
 
-    public void startWorldModel() throws InterruptedException {
+  /*  public void startWorldModel() throws InterruptedException {
         WorldModel worldModel = new WorldModel();
         if (worldModel.HandleOverWorld() == 1) {
             startForestFight();
         }
-    }
+    }*/
 
    //Here starts lootFrame stuff
 
