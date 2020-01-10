@@ -4,33 +4,29 @@ import game.MasterModel;
 import game.ShopModel;
 
 public class WorldModel {
-    WorldController overWorldController = new WorldController();
+    private WorldController overWorldController = new WorldController();
 
      public WorldModel() throws InterruptedException {
      }
      public int HandleOverWorld() throws InterruptedException{
          if (overWorldController.Entrance[0] == 1) {
              ShopModel shopModel = new ShopModel();
-             shopModel.startShopController();
+             shopModel.startShopController(1);
          }
          if (overWorldController.Entrance[0] == 2) {
              return 1;
          }
          if (overWorldController.Entrance[0] == 3) {
-             MasterModel masterModel = new MasterModel();
-             masterModel.startCaveFight();
+             return 2;
          }
          if (overWorldController.Entrance[0] == 4) {
-             MasterModel masterModel = new MasterModel();
-             masterModel.startFieldFight();
+             return 3;
          }
          if (overWorldController.Entrance[0] == 5) {
-             MasterModel masterModel = new MasterModel();
-             //fightModel.startSwampFight();
+             return 4;
          }
          if (overWorldController.Entrance[0] == 6) {
-             MasterModel masterModel = new MasterModel();
-             //fightModel.startCastleFight();
+             return 5;
          }
          return 0;
      }

@@ -72,8 +72,8 @@ public class MasterModel {
         hubController.test();
 
         if (hubController.choice[0] == 1) {
-            //startWorldModel();
-            startForestFight();
+            startWorldModel();
+            //startForestFight();
             //startCaveFight();
         }
         else if (hubController.choice[0] == 2) {
@@ -208,6 +208,15 @@ public class MasterModel {
         WorldModel worldModel = new WorldModel();
         if (worldModel.HandleOverWorld() == 1) {
             startForestFight();
+        }
+        if (worldModel.HandleOverWorld() == 2) {
+            startCaveFight();
+        }
+        if (worldModel.HandleOverWorld() == 3) {
+            startFieldFight();
+        }
+        if (worldModel.HandleOverWorld() == 4) {
+            //startSwampFight();
         }
     }
 

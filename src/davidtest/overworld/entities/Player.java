@@ -67,8 +67,8 @@ public class Player extends Mob {
             if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 3) {
                 isSwimming = true;
                 RandomEncounter randomEncounter = new RandomEncounter();
+                System.out.println(randomEncounter.randomNr);
                 if (randomEncounter.randomNr == 69) {
-                    isSwimming = true;
                     isOnForestPath = true;
                 }
             }
@@ -90,11 +90,10 @@ public class Player extends Mob {
             }
 
             if (level1.getTile( this.x + x >> 4,this.y >> 3).getId() ==5) {
-                RandomEncounter randomEncounter = new RandomEncounter();
+                /*RandomEncounter randomEncounter = new RandomEncounter();
                 if (randomEncounter.randomNr == 1) {
-                    System.out.println(randomEncounter.randomNr);
                     //isOnForestPath = true;
-                }
+                }*/
             }
             else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() !=5) {
                 //isOnForestPath = false;
@@ -118,13 +117,12 @@ public class Player extends Mob {
         if (movingDir == 1) {
             //moves to the second 8x8 sprite
             xTile += 2;
-            //moves to the third(?) 8x8 sprite
+            //moves to the third 8x8 sprite
         } else if (movingDir > 1) {
             xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
             flipTop = (movingDir - 1) % 2;
         }
-        //assign size to character
-        int scale = 1;
+        int scale = 1; //assign scale to character
         int modifier = 8 * scale;
         int xOffset = x - modifier / 2;
         int yOffset = y - modifier / 2 - 4;

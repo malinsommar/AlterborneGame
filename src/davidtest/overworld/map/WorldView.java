@@ -39,7 +39,7 @@ public class WorldView extends Canvas {
         frame = new JFrame(NAME); //create JFrame object
         //frame.setUndecorated(true); //hide borders
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit the game when pressing the exit button
-        frame.setLayout(new BorderLayout()); //
+        frame.setLayout(new BorderLayout()); //assign canvas to frame
         frame.add(this, BorderLayout.CENTER);//Center Canvas/the game within the JFrame
         frame.pack(); //Sets the size of the content so its either the above or preferred size for them
          InputHandler input = new InputHandler(this); //call input-object
