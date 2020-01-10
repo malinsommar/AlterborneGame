@@ -129,9 +129,9 @@ public class WorldController extends Canvas implements Runnable {
 
     //Updates the logic of the game within all the active classes within the period of time assigned within the method
     private synchronized void tick() throws InterruptedException {
-        owf.level1.tick();
-        if (Entrance[0] > 0) {
-            owf.frame.dispose();
+        owf.level.tick(); //updates the screen with every tick. Without it, image will be completely frozen
+        if (Entrance[0] > 0) { //if the Entrance array is assigned anything other than zero: call whatever is inside the braces
+            owf.frame.dispose(); //dispose the OverWorld-frame
         }
             //FIXME thread delay/pause
             // - start Malin work
@@ -151,10 +151,10 @@ public class WorldController extends Canvas implements Runnable {
             int yOffset = owf.player.y - (owf.screen.height / 2);
 
             //render the map into the game
-            owf.level1.renderTiles(owf.screen, xOffset, yOffset);
+            owf.level.renderTiles(owf.screen, xOffset, yOffset);
 
             //render the available mobs into to game
-            owf.level1.renderEntities(owf.screen);
+            owf.level.renderEntities(owf.screen);
 
             for (int y = 0; y < owf.screen.height; y++) {
                 for (int x = 0; x < owf.screen.width; x++) {
@@ -163,9 +163,9 @@ public class WorldController extends Canvas implements Runnable {
                 }
             }
 
-            Graphics g = bs.getDrawGraphics(); //a graphic-object. without it the screen would just stay white 
+            Graphics g = bs.getDrawGraphics(); //a graphic-object. without it the screen would just stay white
             g.drawImage(owf.image, 0, 0, owf.getWidth(), owf.getHeight(), null); //draws the image on the screen
-            g.dispose(); //free up space
+            g.dispose(); //free up space when the object is no longer needed
             bs.show();//show in JFrame
         }
     public synchronized void EnterShop() {
