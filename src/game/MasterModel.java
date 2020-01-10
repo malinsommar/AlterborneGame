@@ -46,8 +46,8 @@ public class MasterModel {
         hubController.test();
 
         if (hubController.choice[0] == 1) {
-           // startWorldModel();
-            startForestFight();
+            startWorldModel();
+            //startForestFight();
         }
         else if (hubController.choice[0] == 2) {
             tc.startTutorial();
@@ -171,7 +171,10 @@ public class MasterModel {
     }
 
     public void startWorldModel() throws InterruptedException {
-        new WorldModel();
+        WorldModel worldModel = new WorldModel();
+        if (worldModel.HandleOverWorld() == 1) {
+            startForestFight();
+        }
     }
 
    //Here starts lootFrame stuff

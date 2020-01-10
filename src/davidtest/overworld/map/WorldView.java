@@ -19,11 +19,11 @@ public class WorldView extends Canvas {
     private static final String NAME = "AlterBorne"; //header
 
     BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB); //Overlay the frame with the image
-    int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+    int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData(); //assign data to the pixel variable
 
     int[] colours = new int[6 * 6 * 6];
     public Screen screen;
-    Level level1;
+    Level level;
     public Player player;
 
 
@@ -44,10 +44,10 @@ public class WorldView extends Canvas {
         frame.pack(); //Sets the size of the content so its either the above or preferred size for them
          InputHandler input = new InputHandler(this); //call input-object
          screen = new Screen(WorldView.WIDTH, WorldView.HEIGHT, new SpriteSheet("/resources/spriteSheet/Sprite_sheet.png"));//call spriteSheet-object within the frames height and width
-         level1 = new Level("/resources/maps/Map.png");//call map-object
-         player = new Player(level1, 230, 235, input); //call Player-object and position it on map. Assign the input class to player
+         level = new Level("/resources/maps/Map.png");//call map-object
+         player = new Player(level, 230, 235, input); //call Player-object and position it on map. Assign the input class to player
 
-         level1.addEntity(player); //add player onto the screen
+         level.addEntity(player); //add player onto the screen
 
 
          //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
