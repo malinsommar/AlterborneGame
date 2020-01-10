@@ -36,10 +36,10 @@ public class CaveController {
     public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
     public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
 
-    public int goblin1X = 750, goblin1Y = 210, goblin1StartX = goblin1X, goblin1StartY = goblin1Y;
-    public int goblin2X = 930, goblin2Y = 210, goblin2StartX = goblin2X, goblin2StartY = goblin2Y;
-    public int goblin3X = 820, goblin3Y = 280, goblin3StartX = goblin3X, goblin3StartY = goblin3Y;
-    public int goblin4X = 1000, goblin4Y = 280, goblin4StartX = goblin4X, goblin4StartY = goblin4Y;
+    public int goblin1X = 850, goblin1Y = 300, goblin1StartX = goblin1X, goblin1StartY = goblin1Y;
+    public int goblin2X = 1030, goblin2Y = 300, goblin2StartX = goblin2X, goblin2StartY = goblin2Y;
+    public int goblin3X = 920, goblin3Y = 370, goblin3StartX = goblin3X, goblin3StartY = goblin3Y;
+    public int goblin4X = 1100, goblin4Y = 370, goblin4StartX = goblin4X, goblin4StartY = goblin4Y;
 
     //spells/attack
     public int swordIconX = 300, swordIconY = 300;
@@ -91,22 +91,26 @@ public class CaveController {
         targetSystem();
 
         //ActionListeners
-        cv.attackButton.addActionListener(e -> attackPressed());
+        cv.attackButton.addActionListener(e -> {
+            if (!animationPlaying) attackPressed();
+        });
         cv.blockButton.addActionListener(e -> blockPressed());
         cv.itemButton.addActionListener(e -> cv.itemPressed());
         cv.skillButton.addActionListener(e -> spellMenuActive()); //for now
-        cv.endTurnButton.addActionListener(e -> startNewTurn());
+        cv.endTurnButton.addActionListener(e -> {
+                    if (!animationPlaying) startNewTurn();
+                });
         cv.skill1Button.addActionListener(e -> {
-            skill1();
+            if (!animationPlaying) skill1();
         });
         cv.skill2Button.addActionListener(e -> {
-            skill2();
+            if (!animationPlaying) skill2();
         });
         cv.skill3Button.addActionListener(e -> {
-            skill3();
+            if (!animationPlaying) skill3();
         });
         cv.skill4Button.addActionListener(e -> {
-            skill4();
+            if (!animationPlaying) skill4();
         });
         cv.returnButton.addActionListener(e -> spellMenuInactive());
 
@@ -225,6 +229,7 @@ public class CaveController {
     private void enemyDamage(){
         for (int i = 0; i < 4; i++) {
             if (goblinHp[i] > 0) {
+                System.out.println("enemy " + i + " attacked ");
                 goblinAttack();
                 partyDeath();
             }
@@ -238,7 +243,7 @@ public class CaveController {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 1;
-                cv.targetarrow.setLocation(875, 250);
+                cv.targetarrow.setLocation(850, 225);
                 cv.targetarrow.setVisible(true);
             }
         });
@@ -246,7 +251,7 @@ public class CaveController {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 2;
-                cv.targetarrow.setLocation(1065, 250);
+                cv.targetarrow.setLocation(1025, 225);
                 cv.targetarrow.setVisible(true);
             }
         });
@@ -254,7 +259,7 @@ public class CaveController {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 3;
-                cv.targetarrow.setLocation(925, 325);
+                cv.targetarrow.setLocation(925, 300);
                 cv.targetarrow.setVisible(true);
             }
         });
@@ -262,7 +267,7 @@ public class CaveController {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 4;
-                cv.targetarrow.setLocation(1100, 325);
+                cv.targetarrow.setLocation(1100, 300);
                 cv.targetarrow.setVisible(true);
             }
         });
@@ -601,7 +606,6 @@ public class CaveController {
     private void goblinAttack() {
         target = (int) (Math.random() * 4); //Random target, 0-3.
         int goblinDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
-        takeDamage.start();
 
         //Loops until it reaches an alive party-member.
         while (true) {
@@ -1233,10 +1237,10 @@ public class CaveController {
             goblinHp[2] -= damage;
             goblinHp[3] -= damage;
         }
-        cv.goblin1Hp.setText("goblin 1: " + goblinHp[0]);
-        cv.goblin2Hp.setText("goblin 2: " + goblinHp[1]);
-        cv.goblin3Hp.setText("goblin 3: " + goblinHp[2]);
-        cv.goblin4Hp.setText("goblin 4: " + goblinHp[3]);
+        cv.goblin1Hp.setText("Goblin 1: " + goblinHp[0]);
+        cv.goblin2Hp.setText("Goblin 2: " + goblinHp[1]);
+        cv.goblin3Hp.setText("Goblin 3: " + goblinHp[2]);
+        cv.goblin4Hp.setText("Goblin 4: " + goblinHp[3]);
         mobDeath();
         isFightOver();
     }
@@ -2050,7 +2054,6 @@ public class CaveController {
             } else if (timePast == 380) {
                 cv.goblin4.setLocation(goblin4StartX, goblin4StartY);
                 enemyTurnTimer.stop();
-                timePast = 0;
                 cv.endTurnButton.setVisible(true);
                 animationPlaying = false;
                 takeDamage.start();

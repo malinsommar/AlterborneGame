@@ -37,11 +37,10 @@ public class HubView extends JPanel {
 
         MusicPick.musicStart("mainmenu","music");
 
-        ImageIcon icon = new ImageIcon("/bakgrundMountain.png");
+        ImageIcon icon = new ImageIcon("backgroundmountain.png");
         JLabel backgroundImage = new JLabel();
         backgroundImage.setIcon(icon);
         backgroundImage.setBounds(1,-200,1920,1080);
-        hubPanel.add(backgroundImage);
 
         importFont();
         importHubButtonsLabels();
@@ -67,6 +66,7 @@ public class HubView extends JPanel {
         BackStoryPanel.add(backStory4);
         BackStoryPanel.add(yourParty);
 
+        hubPanel.add(backgroundImage);
         hubJFrame.setVisible(true);
     }
 
@@ -130,10 +130,10 @@ public class HubView extends JPanel {
         Dimension healerSize = healer.getPreferredSize();
 
         //Set bounds (location and size)
-        warrior.setBounds(140, 350, warriorSize.width, warriorSize.height);
-        ranger.setBounds(340, 350, rangerSize.width, rangerSize.height);
-        mage.setBounds(540, 350, mageSize.width, mageSize.height);
-        healer.setBounds(740, 350, healerSize.width, healerSize.height);
+        warrior.setBounds(120, 350, warriorSize.width, warriorSize.height);
+        ranger.setBounds(320, 350, rangerSize.width, rangerSize.height);
+        mage.setBounds(520, 350, mageSize.width, mageSize.height);
+        healer.setBounds(720, 350, healerSize.width, healerSize.height);
     }
 
     private void importBackstoryButtonsLabels(){
@@ -163,18 +163,18 @@ public class HubView extends JPanel {
         backStory3.setFont((pixelMplus.deriveFont(30f)));
         backStory3.setForeground(Color.white);
         Dimension size3 = backStory.getPreferredSize();
-        backStory3.setBounds(90, 140, size3.width, size3.height);
+        backStory3.setBounds(150, 140, size3.width, size3.height);
 
         backStory4 = new JLabel("Gave their lives for glory. Only 4 survived.");
         backStory4.setFont((pixelMplus.deriveFont(30f)));
         backStory4.setForeground(Color.white);
-        backStory4.setBounds(210, 175, size3.width, size3.height);
+        backStory4.setBounds(290, 175, size3.width, size3.height);
 
-        yourParty = new JLabel("This is your party.");
+        yourParty = new JLabel("This is your party");
         yourParty.setFont((pixelMplus.deriveFont(100f)));
         yourParty.setForeground(Color.white);
         Dimension size4 = yourParty.getPreferredSize();
-        yourParty.setBounds(210, 220, size4.width, size4.height);
+        yourParty.setBounds(200, 220, size4.width, size4.height);
 
         startButton.addMouseListener(new java.awt.event.MouseAdapter() {
             //Change button color while hovering

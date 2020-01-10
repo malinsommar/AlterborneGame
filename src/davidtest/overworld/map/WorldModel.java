@@ -10,7 +10,7 @@ public class WorldModel {
 
         if (overWorldController.Entrance[0]==1) {
             ShopModel shopModel = new ShopModel();
-            shopModel.startShopController();
+            //shopModel.startShopController();
         }
          if(overWorldController.Entrance[0]==2){
              MasterModel masterModel = new MasterModel();
@@ -33,9 +33,5 @@ public class WorldModel {
              MasterModel masterModel = new MasterModel();
              //fightModel.startCastleFight();
          }
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        new WorldModel();
     }
 }
