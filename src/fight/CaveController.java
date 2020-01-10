@@ -23,7 +23,7 @@ public class CaveController {
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
 
     //Create int's
-    int timePast = 0;
+    private int timePast = 0;
     private int turns = 1;
     private int currentEnergy;
     private int warriorEnergyInt = 5, mageEnergyInt, rangerEnergyInt, healerEnergyInt;
@@ -36,10 +36,10 @@ public class CaveController {
     public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
     public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
 
-    public int goblin1X = 850, goblin1Y = 320, goblin1StartX = goblin1X, goblin1StartY = goblin1Y;
-    public int goblin2X = 1030, goblin2Y = 320, goblin2StartX = goblin2X, goblin2StartY = goblin2Y;
-    public int goblin3X = 900, goblin3Y = 400, goblin3StartX = goblin3X, goblin3StartY = goblin3Y;
-    public int goblin4X = 1080, goblin4Y = 400, goblin4StartX = goblin4X, goblin4StartY = goblin4Y;
+    public int goblin1X = 750, goblin1Y = 210, goblin1StartX = goblin1X, goblin1StartY = goblin1Y;
+    public int goblin2X = 930, goblin2Y = 210, goblin2StartX = goblin2X, goblin2StartY = goblin2Y;
+    public int goblin3X = 820, goblin3Y = 280, goblin3StartX = goblin3X, goblin3StartY = goblin3Y;
+    public int goblin4X = 1000, goblin4Y = 280, goblin4StartX = goblin4X, goblin4StartY = goblin4Y;
 
     //spells/attack
     public int swordIconX = 300, swordIconY = 300;
@@ -81,7 +81,7 @@ public class CaveController {
 
     public void startFight() {
 
-        MusicPick.musicStart("danceknights", "music");
+        MusicPick.musicStart("danceknigths", "music");
 
         currentEnergy = 5;
 
@@ -218,6 +218,7 @@ public class CaveController {
             cv.energy.setText(" ");
             cv.block.setText(" ");
             enemyTurnTimer.start();
+            turns = 0;
         }
     }
 
@@ -2002,7 +2003,7 @@ public class CaveController {
     });
 
     //enemy
-    public Timer enemyTurnTimer = new Timer(7, new ActionListener() {
+    private Timer enemyTurnTimer = new Timer(7, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePast++;
@@ -2046,19 +2047,18 @@ public class CaveController {
             } else if (timePast < 370) {
                 goblin4X += 15;
                 cv.goblin4.setLocation(goblin4X, goblin4Y);
-            } else if (timePast < 450) {
+            } else if (timePast == 380) {
                 cv.goblin4.setLocation(goblin4StartX, goblin4StartY);
                 enemyTurnTimer.stop();
                 timePast = 0;
                 cv.endTurnButton.setVisible(true);
-                turns = 0;
                 animationPlaying = false;
                 takeDamage.start();
             }
         }
     });
 
-    public Timer takeDamage = new Timer(10, new ActionListener() {
+    private Timer takeDamage = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePastTakeDamage++;

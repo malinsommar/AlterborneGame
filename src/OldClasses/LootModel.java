@@ -1,13 +1,7 @@
-package game;
-
-import davidtest.overworld.map.WorldModel;
-import party.Healer;
-import party.Mage;
-import party.Ranger;
-import party.Warrior;
+package OldClasses;
 
 public class LootModel {
-
+/*
     private LootController lc = new LootController();
     private LevelUpController lu = new LevelUpController();
     private Inventory inv = new Inventory();
@@ -278,5 +272,5 @@ public class LootModel {
         armorDamage[3] = h.healerRareArmorDamage;
         armorDamage[4] = h.healerEpicArmorDamage;
         armorDamage[5] = h.healerLegendaryArmorDamage;
-    }
+    }*/
 }

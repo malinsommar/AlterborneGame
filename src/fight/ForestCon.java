@@ -26,7 +26,7 @@ public class ForestCon {
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
 
     //Create int's
-    public int turns = 1;
+    private int turns = 1;
     private int currentEnergy;
     private int warriorEnergyInt=5, mageEnergyInt, rangerEnergyInt, healerEnergyInt;
 
@@ -37,10 +37,10 @@ public class ForestCon {
     public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
     public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
     //enemy
-    public int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
-    public int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
-    public int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
-    public int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
+    private int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
+    private int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
+    private int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
+    private int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
 
     //spells/attack
     public int swordIconX = 300, swordIconY = 300;
@@ -69,18 +69,18 @@ public class ForestCon {
     //Another timePast to avoid conflict when they run simultaneously.
     public int timePastTakeDamage = 0;
 
-    public int target;
-    public int phase = 0;
-    public int timePast = 0;
-    public int healTarget = 0;
-    public boolean followup = false;
-    public boolean animationPlaying = false;
-    public boolean stealthed = false;
+    private int target;
+    private int phase = 0;
+    private int timePast = 0;
+    private int healTarget = 0;
+    private boolean followup = false;
+    private boolean animationPlaying = false;
+    private boolean stealthed = false;
 
     int[] wolfHp = {20, 20, 20, 20};
 
-    boolean fightWon = false;
-    boolean fightLost = false;
+    public boolean fightWon = false;
+    public boolean fightLost = false;
 
     private int[] ownedPotions = new int[12];
 
@@ -98,43 +98,45 @@ public class ForestCon {
         hoverEffect();
         targetSystem();
 
-        //ActionListeners
-        fff.attackButton.addActionListener(e -> {attackPressed();});
-        fff.blockButton.addActionListener(e -> blockPressed());
-        fff.itemButton.addActionListener(e -> fff.itemPressed());
-        fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
-        fff.endTurnButton.addActionListener(e-> startNewTurn());
-        fff.skill1Button.addActionListener(e -> {
-            skill1();
-        });
-        fff.skill2Button.addActionListener(e -> {
-            skill2();
-        });
-        fff.skill3Button.addActionListener(e -> {
-            skill3();
-        });
-        fff.skill4Button.addActionListener(e -> {
-            skill4();
-        });
-        fff.returnButton.addActionListener(e-> spellMenuInactive());
+            //ActionListeners
+            fff.attackButton.addActionListener(e -> {
+                attackPressed();
+            });
+            fff.blockButton.addActionListener(e -> blockPressed());
+            fff.itemButton.addActionListener(e -> fff.itemPressed());
+            fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
+            fff.endTurnButton.addActionListener(e -> startNewTurn());
+            fff.skill1Button.addActionListener(e -> {
+                skill1();
+            });
+            fff.skill2Button.addActionListener(e -> {
+                skill2();
+            });
+            fff.skill3Button.addActionListener(e -> {
+                skill3();
+            });
+            fff.skill4Button.addActionListener(e -> {
+                skill4();
+            });
+            fff.returnButton.addActionListener(e -> spellMenuInactive());
 
-        //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
-        fff.potion1.addActionListener(e->usePotion(1));
-        fff.potion2.addActionListener(e->usePotion(2));
-        fff.potion3.addActionListener(e->usePotion(3));
-        fff.potion4.addActionListener(e->usePotion(4));
-        fff.potion5.addActionListener(e->usePotion(5));
-        fff.potion6.addActionListener(e->usePotion(6));
-        fff.potion7.addActionListener(e->usePotion(7));
-        fff.potion8.addActionListener(e->usePotion(8));
-        fff.potion9.addActionListener(e->usePotion(9));
-        fff.potion10.addActionListener(e->usePotion(10));
-        fff.potion11.addActionListener(e->usePotion(11));
-        fff.potion12.addActionListener(e->usePotion(12));
+            //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
+            fff.potion1.addActionListener(e -> usePotion(1));
+            fff.potion2.addActionListener(e -> usePotion(2));
+            fff.potion3.addActionListener(e -> usePotion(3));
+            fff.potion4.addActionListener(e -> usePotion(4));
+            fff.potion5.addActionListener(e -> usePotion(5));
+            fff.potion6.addActionListener(e -> usePotion(6));
+            fff.potion7.addActionListener(e -> usePotion(7));
+            fff.potion8.addActionListener(e -> usePotion(8));
+            fff.potion9.addActionListener(e -> usePotion(9));
+            fff.potion10.addActionListener(e -> usePotion(10));
+            fff.potion11.addActionListener(e -> usePotion(11));
+            fff.potion12.addActionListener(e -> usePotion(12));
 
-        //Dispose the item frame.
-        fff.exitInventory.addActionListener(e->fff.inventory.dispose());
-    }
+            //Dispose the item frame.
+            fff.exitInventory.addActionListener(e -> fff.inventory.dispose());
+        }
 
     //When you press "end turn" button.
     public void startNewTurn(){
@@ -447,13 +449,12 @@ public class ForestCon {
         if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
             MusicPick.musicStop();
             fff.forestFightJFrame.dispose();
-
+            fightWon = true;
 
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             fff.forestFightJFrame.dispose();
-            fightLost = true;
             //Death screen,
         }
         //If none of these are true, nothing happens and the fight goes on.
@@ -2046,7 +2047,7 @@ public class ForestCon {
     });
 
     //enemy
-    public Timer enemyTurnTimer = new Timer(7, new ActionListener() {
+    private Timer enemyTurnTimer = new Timer(7, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePast++;
@@ -2112,7 +2113,7 @@ public class ForestCon {
         }
     });
 
-    public Timer takeDamage = new Timer(10, new ActionListener() {
+    private Timer takeDamage = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePastTakeDamage++;

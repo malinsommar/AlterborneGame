@@ -1,4 +1,4 @@
-package OldClasses;
+/*package OldClasses;
 
 import game.*;
 import imports.Potions;
@@ -2366,3 +2366,5 @@ public class ForestFight extends JFrame {
         }
     });
 }
+
+ */

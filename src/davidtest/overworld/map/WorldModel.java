@@ -1,6 +1,5 @@
 package davidtest.overworld.map;
 
-import fight.FightModel;
 import game.MasterModel;
 import game.ShopModel;
 
