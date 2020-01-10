@@ -46,8 +46,9 @@ public class MasterModel {
         hubController.test();
 
         if (hubController.choice[0] == 1) {
-           // startWorldModel();
+            //startWorldModel();
             startForestFight();
+            //startCaveFight();
         }
         else if (hubController.choice[0] == 2) {
             tc.startTutorial();

@@ -26,7 +26,7 @@ public class ForestCon {
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
 
     //Create int's
-    public int turns = 1;
+    private int turns = 1;
     private int currentEnergy;
     private int warriorEnergyInt=5, mageEnergyInt, rangerEnergyInt, healerEnergyInt;
 
@@ -37,10 +37,10 @@ public class ForestCon {
     public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
     public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
     //enemy
-    public int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
-    public int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
-    public int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
-    public int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
+    private int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
+    private int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
+    private int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
+    private int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
 
     //spells/attack
     public int swordIconX = 300, swordIconY = 300;
@@ -69,13 +69,13 @@ public class ForestCon {
     //Another timePast to avoid conflict when they run simultaneously.
     public int timePastTakeDamage = 0;
 
-    public int target;
-    public int phase = 0;
-    public int timePast = 0;
-    public int healTarget = 0;
-    public boolean followup = false;
-    public boolean animationPlaying = false;
-    public boolean stealthed = false;
+    private int target;
+    private int phase = 0;
+    private int timePast = 0;
+    private int healTarget = 0;
+    private boolean followup = false;
+    private boolean animationPlaying = false;
+    private boolean stealthed = false;
 
     int[] wolfHp = {20, 20, 20, 20};
 
@@ -2046,7 +2046,7 @@ public class ForestCon {
     });
 
     //enemy
-    public Timer enemyTurnTimer = new Timer(7, new ActionListener() {
+    private Timer enemyTurnTimer = new Timer(7, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePast++;
@@ -2112,7 +2112,7 @@ public class ForestCon {
         }
     });
 
-    public Timer takeDamage = new Timer(10, new ActionListener() {
+    private Timer takeDamage = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePastTakeDamage++;
