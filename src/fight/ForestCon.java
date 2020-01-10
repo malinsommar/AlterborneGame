@@ -103,9 +103,14 @@ public class ForestCon {
                 attackPressed();
             });
             fff.blockButton.addActionListener(e -> blockPressed());
-            fff.itemButton.addActionListener(e -> fff.itemPressed());
+            fff.itemButton.addActionListener(e -> {
+                    fff.itemPressed();
+                    itemMenuActivate();
+                });
             fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
-            fff.endTurnButton.addActionListener(e -> startNewTurn());
+            fff.endTurnButton.addActionListener(e -> {
+                        if (!animationPlaying) startNewTurn();
+                    });
             fff.skill1Button.addActionListener(e -> {
                 skill1();
             });
@@ -133,9 +138,6 @@ public class ForestCon {
             fff.potion10.addActionListener(e -> usePotion(10));
             fff.potion11.addActionListener(e -> usePotion(11));
             fff.potion12.addActionListener(e -> usePotion(12));
-
-            //Dispose the item frame.
-            fff.exitInventory.addActionListener(e -> fff.inventory.dispose());
         }
 
     //When you press "end turn" button.
@@ -328,8 +330,12 @@ public class ForestCon {
                 pyroBlast.start();
         }
         if (turns == 4){
-
         }
+    }
+
+    private void itemMenuActivate(){
+        fff.endTurnButton.setVisible(false);
+        fff.returnButton.setVisible(true);
     }
 
     private void spellMenuActive(){
@@ -495,7 +501,7 @@ public class ForestCon {
                 if (mageCurrentHp >0) {
                     wolfDamage=wolfDamage-mageBlock;
                     mageCurrentHp = mageCurrentHp - wolfDamage;
-                    fff.player2Hp.setText("Mage:    "+mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+mageCurrentHp);
                     mageattacked = true;
                     break;
                 }
@@ -511,7 +517,7 @@ public class ForestCon {
                 if (rangerCurrentHp >0) {
                     wolfDamage=wolfDamage-rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - wolfDamage;
-                    fff.player3Hp.setText("Ranger:  "+rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+rangerCurrentHp);
                     rangerattacked = true;
                     break;
                 }
@@ -582,12 +588,12 @@ public class ForestCon {
         }
         if(mageCurrentHp<=0){
             mageCurrentHp = 0;
-            fff.player2Hp.setText("Mage:    "+mageCurrentHp);
+            fff.player3Hp.setText("Mage:    "+mageCurrentHp);
             fff.mage.setVisible(false);
         }
         if(rangerCurrentHp<=0){
             rangerCurrentHp = 0;
-            fff.player3Hp.setText("Ranger:  "+rangerCurrentHp);
+            fff.player2Hp.setText("Ranger:  "+rangerCurrentHp);
             fff.ranger.setVisible(false);
         }
         if(healerCurrentHp<=0){
@@ -2006,7 +2012,7 @@ public class ForestCon {
                 fff.groupHeal4.setVisible(true);
                 phase = 1;
             }
-            if (timePast > 500){
+            if (timePast > 400){
                 timePast = 0;
                 fff.groupHeal1.setVisible(false);
                 fff.groupHeal2.setVisible(false);
@@ -2053,6 +2059,7 @@ public class ForestCon {
             timePast++;
             animationPlaying = true;
             fff.endTurnButton.setVisible(false);
+            fff.targetarrow.setVisible(false);
             if (timePast < 50) {
                 if (wolfHp[0] < 1) timePast += 100;
             }
