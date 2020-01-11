@@ -22,7 +22,6 @@ public class LevelUpView {
         importFont();
         importLabels();
 
-       // levelFrame.add(lvUp);
         levelFrame.add(whatLevel);
         levelFrame.add(warriorHp);
         levelFrame.add(warriorDamage);

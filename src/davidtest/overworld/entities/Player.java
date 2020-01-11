@@ -12,18 +12,17 @@ public class Player extends Mob {
 
     private InputHandler input;
     private int colour = Colours.get(-1, 111, 111, 332); //Assign colour for character which will be calculated within the Colours-class
-    private int scale = 1; //assign size to character
-    protected boolean isSwimming = false; //assign the isSwimming value as natively false
+    private boolean isSwimming = false; //assign the isSwimming value as natively false
 
-    protected boolean isSwampSwimming = false;//assign the isSwampSwimming value as natively false
-    public boolean isOnForestPath = false; // if player is on tile to enter forest-combat
-    public boolean isOnMountainPath = false; // if player is on tile to enter mountain-combat
-    public boolean isOnFieldPath = false; // if player is on tile to enter Field-combat
-    public boolean isOnSwampPath = false; // if player is on tile to enter Swamp-combat
+    private boolean isSwampSwimming = false;//assign the isSwampSwimming value as natively false
+    private boolean isOnForestPath = false; // if player is on tile to enter forest-combat
+    private boolean isOnMountainPath = false; // if player is on tile to enter mountain-combat
+    private boolean isOnFieldPath = false; // if player is on tile to enter Field-combat
+    private boolean isOnSwampPath = false; // if player is on tile to enter Swamp-combat
+    private boolean isOnCastlePath = false; // if player is on tile to enter Castle-combat
+    private boolean EnterShop = false;  // if player is on tile to enter Shop
 
 
-
-    public boolean EnterShop = false;
     private int tickCount = 0; //counts the ticks since the last update
     private String username;
 
@@ -67,6 +66,11 @@ public class Player extends Mob {
             //identify if player is swimming
             if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 3) {
                 isSwimming = true;
+                RandomEncounter randomEncounter = new RandomEncounter();
+                System.out.println(randomEncounter.randomNr);
+                if (randomEncounter.randomNr == 69) {
+                    isOnForestPath = true;
+                }
             }
             //identify if player is not swimming
             else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() != 3) {
@@ -75,6 +79,10 @@ public class Player extends Mob {
 
             if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 8) {
                 isSwampSwimming = true;
+                RandomEncounter randomEncounter = new RandomEncounter();
+                if (randomEncounter.randomNr == 5) {
+                    isOnForestPath = true;
+                }
             }
             //identify if player is not swimming
             else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() != 8) {
@@ -82,11 +90,10 @@ public class Player extends Mob {
             }
 
             if (level1.getTile( this.x + x >> 4,this.y >> 3).getId() ==5) {
-                RandomEncounter randomEncounter = new RandomEncounter();
+                /*RandomEncounter randomEncounter = new RandomEncounter();
                 if (randomEncounter.randomNr == 1) {
-                    System.out.println(randomEncounter.randomNr);
                     //isOnForestPath = true;
-                }
+                }*/
             }
             else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() !=5) {
                 //isOnForestPath = false;
@@ -110,11 +117,12 @@ public class Player extends Mob {
         if (movingDir == 1) {
             //moves to the second 8x8 sprite
             xTile += 2;
-            //moves to the third(?) 8x8 sprite
+            //moves to the third 8x8 sprite
         } else if (movingDir > 1) {
             xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
             flipTop = (movingDir - 1) % 2;
         }
+        int scale = 1; //assign scale to character
         int modifier = 8 * scale;
         int xOffset = x - modifier / 2;
         int yOffset = y - modifier / 2 - 4;
@@ -187,6 +195,9 @@ public class Player extends Mob {
             if (isSwampPathTile(xa,ya,x,yMin)) {
                 isOnSwampPath = true;
             }
+            if (isCastlePathTile(xa,ya,x,yMin)) {
+                isOnCastlePath = true;
+            }
         }
         for (int x = xMin; x < xMax; x++) {
             if (isSolidTile(xa, ya, x, yMax)) {
@@ -224,6 +235,10 @@ public class Player extends Mob {
 
     public boolean hasEnteredSwamp() {
         return isOnSwampPath;
+    }
+
+    public boolean hasEnteredCastle() {
+        return  isOnCastlePath;
     }
 
 }

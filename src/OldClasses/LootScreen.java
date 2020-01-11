@@ -1,6 +1,5 @@
 package OldClasses;
 
-import game.Inventory;
 import game.LevelUpController;
 import game.MusicPick;
 import party.Healer;
@@ -16,7 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class LootScreen extends JFrame {
-
+/*
     private Warrior w = new Warrior();
     private Healer h = new Healer();
     private Mage m = new Mage();
@@ -431,4 +430,6 @@ public class LootScreen extends JFrame {
         } catch (IOException | FontFormatException ignored) {
         }
     }
+    */
+
 }

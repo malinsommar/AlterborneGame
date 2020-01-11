@@ -1,5 +1,6 @@
 package fight;
 
+import game.MasterModel;
 import game.MusicPick;
 
 import javax.swing.*;
@@ -15,7 +16,6 @@ public class ForestCon {
     //TODO gör en metod som skickar en owned potions array till mastermodel.
 
     ForestFightFrame fff = new ForestFightFrame();
-    
 
     //Get hp, block and damage from party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
@@ -26,7 +26,7 @@ public class ForestCon {
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
 
     //Create int's
-    public int turns = 1;
+    private int turns = 1;
     private int currentEnergy;
     private int warriorEnergyInt=5, mageEnergyInt, rangerEnergyInt, healerEnergyInt;
 
@@ -37,10 +37,10 @@ public class ForestCon {
     public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
     public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
     //enemy
-    public int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
-    public int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
-    public int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
-    public int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
+    private int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
+    private int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
+    private int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
+    private int wolf4X = 1080, wolf4Y = 400, wolf4StartX = wolf4X, wolf4StartY = wolf4Y;
 
     //spells/attack
     public int swordIconX = 300, swordIconY = 300;
@@ -69,18 +69,18 @@ public class ForestCon {
     //Another timePast to avoid conflict when they run simultaneously.
     public int timePastTakeDamage = 0;
 
-    public int target;
-    public int phase = 0;
-    public int timePast = 0;
-    public int healTarget = 0;
-    public boolean followup = false;
-    public boolean animationPlaying = false;
-    public boolean stealthed = false;
+    private int target;
+    private int phase = 0;
+    private int timePast = 0;
+    private int healTarget = 0;
+    private boolean followup = false;
+    private boolean animationPlaying = false;
+    private boolean stealthed = false;
 
-    int[] wolfHp = {20, 20, 20, 20};
+    int[] wolfHp = {20,20,20,20};
 
-    boolean fightWon = false;
-    boolean fightLost = false;
+    public boolean fightWon = false;
+    public boolean fightLost = false;
 
     private int[] ownedPotions = new int[12];
 
@@ -98,49 +98,47 @@ public class ForestCon {
         hoverEffect();
         targetSystem();
 
-        //ActionListeners
-        fff.attackButton.addActionListener(e -> {
-            try {
+            //ActionListeners
+            fff.attackButton.addActionListener(e -> {
                 attackPressed();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        });
-        fff.blockButton.addActionListener(e -> blockPressed());
-        fff.itemButton.addActionListener(e -> fff.itemPressed());
-        fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
-        fff.endTurnButton.addActionListener(e-> startNewTurn());
-        fff.skill1Button.addActionListener(e -> {
-            skill1();
-        });
-        fff.skill2Button.addActionListener(e -> {
-            skill2();
-        });
-        fff.skill3Button.addActionListener(e -> {
-            skill3();
-        });
-        fff.skill4Button.addActionListener(e -> {
-            skill4();
-        });
-        fff.returnButton.addActionListener(e-> spellMenuInactive());
+            });
+            fff.blockButton.addActionListener(e -> blockPressed());
+            fff.itemButton.addActionListener(e -> {
+                    fff.itemPressed();
+                    itemMenuActivate();
+                });
+            fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
+            fff.endTurnButton.addActionListener(e -> {
+                        if (!animationPlaying) startNewTurn();
+                    });
+            fff.skill1Button.addActionListener(e -> {
+                skill1();
+            });
+            fff.skill2Button.addActionListener(e -> {
+                skill2();
+            });
+            fff.skill3Button.addActionListener(e -> {
+                skill3();
+            });
+            fff.skill4Button.addActionListener(e -> {
+                skill4();
+            });
+            fff.returnButton.addActionListener(e -> spellMenuInactive());
 
-        //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
-        fff.potion1.addActionListener(e->usePotion(1));
-        fff.potion2.addActionListener(e->usePotion(2));
-        fff.potion3.addActionListener(e->usePotion(3));
-        fff.potion4.addActionListener(e->usePotion(4));
-        fff.potion5.addActionListener(e->usePotion(5));
-        fff.potion6.addActionListener(e->usePotion(6));
-        fff.potion7.addActionListener(e->usePotion(7));
-        fff.potion8.addActionListener(e->usePotion(8));
-        fff.potion9.addActionListener(e->usePotion(9));
-        fff.potion10.addActionListener(e->usePotion(10));
-        fff.potion11.addActionListener(e->usePotion(11));
-        fff.potion12.addActionListener(e->usePotion(12));
-
-        //Dispose the item frame.
-        fff.exitInventory.addActionListener(e->fff.inventory.dispose());
-    }
+            //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
+            fff.potion1.addActionListener(e -> usePotion(1));
+            fff.potion2.addActionListener(e -> usePotion(2));
+            fff.potion3.addActionListener(e -> usePotion(3));
+            fff.potion4.addActionListener(e -> usePotion(4));
+            fff.potion5.addActionListener(e -> usePotion(5));
+            fff.potion6.addActionListener(e -> usePotion(6));
+            fff.potion7.addActionListener(e -> usePotion(7));
+            fff.potion8.addActionListener(e -> usePotion(8));
+            fff.potion9.addActionListener(e -> usePotion(9));
+            fff.potion10.addActionListener(e -> usePotion(10));
+            fff.potion11.addActionListener(e -> usePotion(11));
+            fff.potion12.addActionListener(e -> usePotion(12));
+        }
 
     //When you press "end turn" button.
     public void startNewTurn(){
@@ -325,7 +323,6 @@ public class ForestCon {
                 stealth();
         }
         if (turns == 3 && mageEnergyInt>4 && fff.targetarrow.isVisible() && !animationPlaying){
-            pyroBlastX = 90;
             followup = true;
                 mageEnergyInt=mageEnergyInt-5;
                 currentEnergy=currentEnergy-5;
@@ -333,8 +330,12 @@ public class ForestCon {
                 pyroBlast.start();
         }
         if (turns == 4){
-
         }
+    }
+
+    private void itemMenuActivate(){
+        fff.endTurnButton.setVisible(false);
+        fff.returnButton.setVisible(true);
     }
 
     private void spellMenuActive(){
@@ -416,7 +417,7 @@ public class ForestCon {
         }
     }
     //When you press the "attack button".
-    private void attackPressed() throws InterruptedException {
+    private void attackPressed() {
 
         //If its warrior's turn and player has 2 or more energy.
         if(turns==1 && warriorEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
@@ -455,15 +456,12 @@ public class ForestCon {
             MusicPick.musicStop();
             fff.forestFightJFrame.dispose();
             fightWon = true;
-            //TODO This does not follow MVC
-            FightModel fm = new FightModel();
-            fm.fightWon(1);
+
         }
         //In the whole party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             fff.forestFightJFrame.dispose();
             fightLost = true;
-            //Death screen,
         }
         //If none of these are true, nothing happens and the fight goes on.
     }
@@ -503,7 +501,7 @@ public class ForestCon {
                 if (mageCurrentHp >0) {
                     wolfDamage=wolfDamage-mageBlock;
                     mageCurrentHp = mageCurrentHp - wolfDamage;
-                    fff.player2Hp.setText("Mage:    "+mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+mageCurrentHp);
                     mageattacked = true;
                     break;
                 }
@@ -519,7 +517,7 @@ public class ForestCon {
                 if (rangerCurrentHp >0) {
                     wolfDamage=wolfDamage-rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - wolfDamage;
-                    fff.player3Hp.setText("Ranger:  "+rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+rangerCurrentHp);
                     rangerattacked = true;
                     break;
                 }
@@ -590,12 +588,12 @@ public class ForestCon {
         }
         if(mageCurrentHp<=0){
             mageCurrentHp = 0;
-            fff.player2Hp.setText("Mage:    "+mageCurrentHp);
+            fff.player3Hp.setText("Mage:    "+mageCurrentHp);
             fff.mage.setVisible(false);
         }
         if(rangerCurrentHp<=0){
             rangerCurrentHp = 0;
-            fff.player3Hp.setText("Ranger:  "+rangerCurrentHp);
+            fff.player2Hp.setText("Ranger:  "+rangerCurrentHp);
             fff.ranger.setVisible(false);
         }
         if(healerCurrentHp<=0){
@@ -677,11 +675,11 @@ public class ForestCon {
         fff.wolf3Hp = new JLabel("Wolf 3: "+ wolfHp[2]);
         fff.wolf4Hp = new JLabel("Wolf 4: "+ wolfHp[3]);
 
-        fff.playersHp = new JLabel("Hp: "+warriorCurrentHp);
-        fff.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp);
-        fff.player2Hp = new JLabel("Ranger:  "+ rangerCurrentHp);
-        fff.player3Hp = new JLabel("Mage:    "+ mageCurrentHp);
-        fff.player4Hp = new JLabel("Healer:  "+ healerCurrentHp);
+        fff.playersHp = new JLabel("Hp: "+warriorCurrentHp+"   ");
+        fff.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp+"   ");
+        fff.player2Hp = new JLabel("Ranger:  "+ rangerCurrentHp+"   ");
+        fff.player3Hp = new JLabel("Mage:    "+ mageCurrentHp+"   ");
+        fff.player4Hp = new JLabel("Healer:  "+ healerCurrentHp+"   ");
         fff.block = new JLabel("Block: "+warriorBlock);
     }
 
@@ -2014,7 +2012,7 @@ public class ForestCon {
                 fff.groupHeal4.setVisible(true);
                 phase = 1;
             }
-            if (timePast > 500){
+            if (timePast > 400){
                 timePast = 0;
                 fff.groupHeal1.setVisible(false);
                 fff.groupHeal2.setVisible(false);
@@ -2055,12 +2053,13 @@ public class ForestCon {
     });
 
     //enemy
-    public Timer enemyTurnTimer = new Timer(7, new ActionListener() {
+    private Timer enemyTurnTimer = new Timer(7, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePast++;
             animationPlaying = true;
             fff.endTurnButton.setVisible(false);
+            fff.targetarrow.setVisible(false);
             if (timePast < 50) {
                 if (wolfHp[0] < 1) timePast += 100;
             }
@@ -2121,11 +2120,20 @@ public class ForestCon {
         }
     });
 
-    public Timer takeDamage = new Timer(10, new ActionListener() {
+    private Timer takeDamage = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
             timePastTakeDamage++;
             if (timePastTakeDamage == 1) {
+
+
+                System.out.println("takeDamage started succesfully");
+                System.out.println("warrior was attacked " + warriorattacked);
+                System.out.println("ranged was attacked " + rangerattacked);
+                System.out.println("mage was attacked " + mageattacked);
+                System.out.println("healer was attacked " + healerattacked);
+
+
                 MusicPick.musicStart("warriorattacked", "");
             } else if (timePastTakeDamage == 10) {
                 if (warriorattacked) fff.warrior.setVisible(false);
@@ -2147,7 +2155,7 @@ public class ForestCon {
                 if (rangerattacked) fff.ranger.setVisible(true);
                 if (mageattacked) fff.mage.setVisible(true);
                 if (healerattacked) fff.healer.setVisible(true);
-
+            } else if (timePastTakeDamage > 45) {
                 warriorattacked = false;
                 rangerattacked = false;
                 mageattacked = false;

@@ -2,7 +2,7 @@ package game;
 
 public class HubController {
 
-    private HubFrames hf = new HubFrames();
+    private HubView hf = new HubView();
 
     //Need to use int array instead or regular int for ActionListeners to be able to change them.
     int[] choice = new int[1];
@@ -42,7 +42,6 @@ public class HubController {
                 if (choice[0] > 0) {
                 break;
                  }
-
         }
     }
 

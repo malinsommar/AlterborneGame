@@ -1,41 +1,63 @@
 package game;
 
-import party.Healer;
-import party.Mage;
-import party.Ranger;
-import party.Warrior;
-
 import javax.swing.*;
 
 public class LevelUpController {
 
-    private Mage m = new Mage();
-    private Healer h = new Healer();
-    private Warrior w = new Warrior();
-    private Ranger r = new Ranger();
     LevelUpView luv = new LevelUpView();
 
-    public int xp = 17;
-    public int level = 1;
+    public int xp;
+    public int level;
 
-    int wHp = 5;
-    int wD = 2;
-    int wB = 2;
+    private int wHp, wB, wD;
+    private int rHp, rB, rD;
+    private int mHp, mB, mD;
+    private int hHp, hB, hD;
 
-    int rHp = 3;
-    int rD = 4;
-    int rB = 2;
+    private int warriorHp, warriorBlock, warriorDamage;
+    private int rangerHp, rangerBlock, rangerDamage;
+    private int mageHp, mageBlock, mageDamage;
+    private int healerHp, healerBlock, healerDamage;
 
-    int mHp = 2;
-    int mD = 6;
-    int mB = 1;
-
-    int hHp = 5;
-    int hD = 2;
-    int hB = 3;
+    boolean done = false;
 
     //This method checks party xp and level party up. Use this method after every fight.
-    public void didPlayerLevelUp(){
+    public void didPlayerLevelUp(int getXp, int getLevel, int[] wUp, int[] rUp, int[] mUp, int[] hUp, int[] wStat, int[] rStat, int[] mStat, int[] hStat){
+
+        xp = getXp;
+        level = getLevel;
+        
+        wHp = wUp[0];
+        wB = wUp[1];
+        wD = wUp[2];
+
+        warriorHp = wStat[0];
+        warriorBlock = wStat[1];
+        warriorDamage = wStat[2];
+
+        rHp = rUp[0];
+        rB = rUp[1];
+        rD = rUp[2];
+
+        rangerHp = rStat[0];
+        rangerBlock = rStat[1];
+        rangerDamage = rStat[2];
+
+        mHp = mUp[0];
+        mB = mUp[1];
+        mD = mUp[2];
+
+        mageHp = mStat[0];
+        mageBlock = mStat[1];
+        mageDamage = mStat[2];
+
+        hHp = hUp[0];
+        hB = hUp[1];
+        hD = hUp[2];
+
+        healerHp = hStat[0];
+        healerBlock = hStat[1];
+        healerDamage = hStat[2];
 
         if (xp>15 && level == 1){
             level = 2;
@@ -43,7 +65,7 @@ public class LevelUpController {
             setLabels();
             luv.levelUpFrame();
         }
-        else if (xp>40 && level == 2){
+        if (xp>40 && level == 2){
             level = 3;
             levelUpStats();
             luv.levelUpFrame();
@@ -83,58 +105,62 @@ public class LevelUpController {
             levelUpStats();
             luv.levelUpFrame();
         }
+
+        luv.continueButton.addActionListener(e -> done = true);
+
     }
 
     public void setLabels(){
-        luv.whatLevel = new JLabel("Level "+level+"     ");
 
-            luv.warriorHp = new JLabel("Hp: "+(w.hp-wHp/2)+" -> "+w.hp+"   ");
-            luv.warriorDamage = new JLabel("Damage: "+(w.damage-wD/2)+" -> "+w.damage+"   ");
-            luv.warriorBlock = new JLabel("Block: "+(w.block-wB/2)+" -> "+w.block+"   ");
+            luv.whatLevel = new JLabel("Level "+level+"     ");
 
-            luv.rangerHp = new JLabel("Hp: "+(r.hp-rHp/2)+" -> "+r.hp+"   ");
-            luv.rangerDamage = new JLabel("Damage: "+(r.damage-rD/2)+" -> "+r.damage+"   ");
-            luv.rangerBlock = new JLabel("Block: "+(r.block-(rB/2))+" -> "+r.block+"   ");
+            luv.warriorHp = new JLabel("Hp: "+(warriorHp-wHp/2)+" -> "+warriorHp+"   ");
+            luv.warriorDamage = new JLabel("Damage: "+(warriorDamage-wD/2)+" -> "+warriorDamage+"   ");
+            luv.warriorBlock = new JLabel("Block: "+(warriorBlock-wB/2)+" -> "+warriorBlock+"   ");
 
-            luv.mageHp = new JLabel("Hp: "+(m.hp-mHp/2)+" -> "+m.hp+"   ");
-            luv.mageDamage = new JLabel("Damage: "+(m.damage-mD/2)+" -> "+m.damage+"   ");
-            luv.mageBlock = new JLabel("Block: "+(m.block-mB/2)+" -> "+m.block+"   ");
+            luv.rangerHp = new JLabel("Hp: "+(rangerHp-rHp/2)+" -> "+rangerHp+"   ");
+            luv.rangerDamage = new JLabel("Damage: "+(rangerDamage-rD/2)+" -> "+rangerDamage+"   ");
+            luv.rangerBlock = new JLabel("Block: "+(rangerBlock-(rB/2))+" -> "+rangerBlock+"   ");
 
-            luv.healerHp = new JLabel("Hp: "+(h.hp-hHp/2)+" -> "+m.hp+"   ");
-            luv.healerDamage = new JLabel("Damage: "+(h.damage-hD/2)+" -> "+h.damage+"   ");
-            luv.healerBlock = new JLabel("Block: "+(h.block-hB/2)+" -> "+h.block+"   ");
+            luv.mageHp = new JLabel("Hp: "+(mageHp-mHp/2)+" -> "+mageHp+"   ");
+            luv.mageDamage = new JLabel("Damage: "+(mageDamage-mD/2)+" -> "+mageDamage+"   ");
+            luv.mageBlock = new JLabel("Block: "+(mageBlock-mB/2)+" -> "+mageBlock+"   ");
+
+            luv.healerHp = new JLabel("Hp: "+(healerHp-hHp/2)+" -> "+mageHp+"   ");
+            luv.healerDamage = new JLabel("Damage: "+(healerDamage-hD/2)+" -> "+healerDamage+"   ");
+            luv.healerBlock = new JLabel("Block: "+(healerBlock-hB/2)+" -> "+healerBlock+"   ");
         }
 
     //When player level up, this method adds bonuses to stats.
     public void levelUpStats(){
 
-        w.hp += wHp;
-        w.damage += wD;
-        w.block += wB;
+        warriorHp += wHp;
+        warriorDamage += wD;
+        warriorBlock += wB;
 
         wHp += wHp;
         wD += wD;
         wB += wB;
 
-        r.hp += rHp;
-        r.damage += rD;
-        r.block += rB;
+        rangerHp += rHp;
+        rangerDamage += rD;
+        rangerBlock += rB;
 
         rHp += rHp;
         rD += rD;
         rB += rB;
 
-        m.hp += mHp;
-        m.damage += mD;
-        m.block += mB;
+        mageHp += mHp;
+        mageDamage += mD;
+        mageBlock += mB;
 
         mHp += mHp;
         mD += mD;
         mB += mB;
 
-        h.hp += hHp;
-        h.damage += hD;
-        h.block += hB;
+        healerHp += hHp;
+        healerDamage += hD;
+        healerBlock += hB;
 
         hHp += hHp;
         hD += hD;

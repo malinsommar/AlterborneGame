@@ -6,17 +6,19 @@ import game.MusicPick;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
+//Canvas is a basic graphic component in java used for drawing within the frame
+//Runnable is used to automatically call the "run" method, which is necessary for the thread to work
 public class WorldController extends Canvas implements Runnable {
-    private WorldFrame owf = new WorldFrame();
+    private WorldView owf = new WorldView();
     int[] Entrance = new int[1];
 
     //int-variables to handle Model-execution
     private int ForestEntrance = 1;
     private int ShopEntrance = 1;
-    private int ForestBossEntrance = 1;
     private int MountainEntrance = 1;
     private int FieldEntrance = 1;
     private int SwampEntrance = 1;
+    private int CastleEntrance = 1;
 
 
     WorldController() throws InterruptedException {
@@ -38,11 +40,15 @@ public class WorldController extends Canvas implements Runnable {
             if(SwampEntrance == 1) {
                 EnterSwamp();
             }
+            if(CastleEntrance == 1) {
+                EnterCastle();
+            }
         }
     }
+
     public synchronized void start() {
         running = true;//set the state of running to true
-        new Thread(this).start(); //start thread
+        new Thread(this).start(); //start thread. Threads are used to run multiple functionality at once
     }
 
     private boolean running = false; //if program ends up outside start, set programs running state
@@ -77,15 +83,16 @@ public class WorldController extends Canvas implements Runnable {
         int frames = 0; //a variable for the current fps
 
         long lastTimer = System.currentTimeMillis(); //a variable for when to reset the data
-        double delta = 0; //a variable of how many nano-seconds have gone by so far. Once it has hit 1 second, 1 will be subtracted
+        double delta = 0; //a variable of how many nano-seconds have gone by so far.
 
         init(); //calls the screen-render before the game-loop starts
 
+        //while Thread is active everything within these braces will run
         while (running) {
             long now = System.nanoTime(); //The current time that will be checked against lastTime
             delta += (now - lastTime) / nsPerTick; //subtract the current time with the last time and then divide the result with how many nanoseconds there are within a tick
             lastTime = now; //repeats the method by giving 'lastTime' the same value as 'now'
-            boolean shouldRender = true;
+            boolean shouldRender = false;
 
             while (delta >= 1) {
                 ticks++; //adds 1 to the ticks-value
@@ -95,6 +102,7 @@ public class WorldController extends Canvas implements Runnable {
                     e.printStackTrace();
                 }
                 delta -= 1; // subtract the value of delta by 1 and repeats the update-loop endlessly
+                shouldRender = true;
             }
 
             try {
@@ -104,9 +112,10 @@ public class WorldController extends Canvas implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            frames++; //Adds to the frames by one
-            render(); //calls render method
-
+            if (shouldRender) {
+                frames++; //Adds to the frames by one
+                render(); //calls render method
+            }
             if (System.currentTimeMillis() - lastTimer > 1000) //If current time in milliseconds minus the time for the last update is greater than a thousand (one second): update.
             {
                 lastTimer += 1000; //gives lastTimer the value of one second
@@ -118,12 +127,11 @@ public class WorldController extends Canvas implements Runnable {
         }
     }
 
-    //Updates the logic of the game within all the active classes
+    //Updates the logic of the game within all the active classes within the period of time assigned within the method
     private synchronized void tick() throws InterruptedException {
-        tickCount++; //adds to the tick-count by one. continuing the loop of updating every class
-        owf.level1.tick();
-        if (Entrance[0] > 0) {
-            owf.frame.dispose();
+        owf.level.tick(); //updates the screen with every tick. Without it, image will be completely frozen
+        if (Entrance[0] > 0) { //if the Entrance array is assigned anything other than zero: call whatever is inside the braces
+            owf.frame.dispose(); //dispose the OverWorld-frame
         }
             //FIXME thread delay/pause
             // - start Malin work
@@ -133,6 +141,7 @@ public class WorldController extends Canvas implements Runnable {
         private void render () //prints out what the logic in the tick-function has stated should be printed out
         {
             BufferStrategy bs = owf.getBufferStrategy(); //an Object to organize the data in the canvas
+            //if a bufferStrategy hasn't been created: make one
             if (bs == null) {
                 owf.createBufferStrategy(3); //reducing tearing in the image. Higher value would require higher processing-power
                 return;
@@ -142,37 +151,37 @@ public class WorldController extends Canvas implements Runnable {
             int yOffset = owf.player.y - (owf.screen.height / 2);
 
             //render the map into the game
-            owf.level1.renderTiles(owf.screen, xOffset, yOffset);
+            owf.level.renderTiles(owf.screen, xOffset, yOffset);
 
             //render the available mobs into to game
-            owf.level1.renderEntities(owf.screen);
+            owf.level.renderEntities(owf.screen);
 
             for (int y = 0; y < owf.screen.height; y++) {
                 for (int x = 0; x < owf.screen.width; x++) {
                     int colourCode = owf.screen.pixels[x + y * owf.screen.width];
-                    if (colourCode < 255) owf.pixels[x + y * WorldFrame.WIDTH] = owf.colours[colourCode];
+                    if (colourCode < 255) owf.pixels[x + y * WorldView.WIDTH] = owf.colours[colourCode];
                 }
             }
 
-            Graphics g = bs.getDrawGraphics(); //a graphic-object
+            Graphics g = bs.getDrawGraphics(); //a graphic-object. without it the screen would just stay white
             g.drawImage(owf.image, 0, 0, owf.getWidth(), owf.getHeight(), null); //draws the image on the screen
-            g.dispose(); //free up space
+            g.dispose(); //free up space when the object is no longer needed
             bs.show();//show in JFrame
         }
-    public synchronized void EnterShop() throws InterruptedException {
+    public synchronized void EnterShop() {
         if (owf.player.hasEnteredShop()) {
             ShopEntrance++;
             Entrance[0] = 1;
         }
     }
-    public synchronized void EnterForest() throws InterruptedException {
+    public synchronized void EnterForest() {
         if (owf.player.hasEnteredForest()) {
                 ForestEntrance++;
                 Entrance[0] = 2;
             }
         }
 
-    public synchronized void EnterMountain() throws InterruptedException {
+    public synchronized void EnterMountain() {
         if (owf.player.hasEnteredMountain()) {
             MountainEntrance++;
             Entrance[0] = 3;
@@ -189,6 +198,13 @@ public class WorldController extends Canvas implements Runnable {
             SwampEntrance++;
             Entrance[0] = 5;
 
+        }
+    }
+
+    private void EnterCastle() {
+        if (owf.player.hasEnteredCastle()) {
+            CastleEntrance++;
+            Entrance[0] = 6;
         }
     }
 
