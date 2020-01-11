@@ -1,5 +1,7 @@
 package davidtest.overworld.map;
 
+import davidtest.overworld.gfx.Colours;
+import davidtest.overworld.gfx.Fonts;
 import davidtest.overworld.map.Functionality.MouseClickSimulated;
 import game.MusicPick;
 
@@ -147,8 +149,8 @@ public class WorldController extends Canvas implements Runnable {
                 return;
             }
 
-            int xOffset = owf.player.x - (owf.screen.width / 2);
-            int yOffset = owf.player.y - (owf.screen.height / 2);
+            int xOffset = owf.player.x - (owf.screen.width / 2); //Players position in accordance with the screens width
+            int yOffset = owf.player.y - (owf.screen.height / 2);  //Players position in accordance with the screens height
 
             //render the map into the game
             owf.level.renderTiles(owf.screen, xOffset, yOffset);
@@ -156,10 +158,17 @@ public class WorldController extends Canvas implements Runnable {
             //render the available mobs into to game
             owf.level.renderEntities(owf.screen);
 
+            Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("lvl", owf.screen, 332, 230, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("1-5", owf.screen, 332, 255, Colours.get(000, -1, -1, 555), 1);
+
+
+            //render the colours on the tiles within the screens width and height
             for (int y = 0; y < owf.screen.height; y++) {
                 for (int x = 0; x < owf.screen.width; x++) {
                     int colourCode = owf.screen.pixels[x + y * owf.screen.width];
-                    if (colourCode < 255) owf.pixels[x + y * WorldView.WIDTH] = owf.colours[colourCode];
+                    if (colourCode < 255)//check so the colour is within the 255 parameter
+                        owf.pixels[x + y * WorldView.WIDTH] = owf.colours[colourCode];
                 }
             }
 

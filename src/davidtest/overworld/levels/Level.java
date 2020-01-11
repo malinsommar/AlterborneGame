@@ -96,8 +96,8 @@ public class Level {
         if (yOffset > ((height << 3) - screen.height)) yOffset = ((height << 3) - screen.height);
 
         screen.setOffset(xOffset, yOffset);
-/*a loop that goes through all the tiles render on the screen. the base-value of y and x needs to be 0, otherwise
- parts of the screen will be blacked out. as Long as they are less than height/width(or 64) the value will be add up*/
+
+//a loop that goes through all the tiles render on the screen. as Long as they are less than height/width(or 64) the value will be add up
         for(int y = (yOffset >> 3); y < (yOffset + screen.height >> 3) + 1; y++) {
             for (int x = (xOffset >> 3); x < (xOffset + screen.width >> 3) + 1; x++) {
                 getTile(x,y).render(screen,this,x << 3, y << 3);
