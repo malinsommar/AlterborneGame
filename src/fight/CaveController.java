@@ -5,11 +5,13 @@ import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
+import java.awt.event.*;
+import java.util.EventListener;
 
-public class CaveController {
+import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+
+public class CaveController{
+
 
     CaveView cv = new CaveView();
 
@@ -77,7 +79,7 @@ public class CaveController {
 
     private int[] ownedPotions = new int[12];
 
-    int[] goblinHp = {30, 30, 30, 30};
+    private int[] goblinHp = {30, 30, 30, 30};
 
     public void startFight() {
 
@@ -95,8 +97,13 @@ public class CaveController {
             if (!animationPlaying) attackPressed();
         });
         cv.blockButton.addActionListener(e -> blockPressed());
-        cv.itemButton.addActionListener(e -> cv.itemPressed());
-        cv.skillButton.addActionListener(e -> spellMenuActive()); //for now
+        cv.itemButton.addActionListener(e -> {
+            cv.itemPressed();
+            itemMenuActivate();
+        });
+        cv.skillButton.addActionListener(e ->{
+            if (!animationPlaying) spellMenuActive();
+        }); //for now
         cv.endTurnButton.addActionListener(e -> {
                     if (!animationPlaying) startNewTurn();
                 });
@@ -113,6 +120,7 @@ public class CaveController {
             if (!animationPlaying) skill4();
         });
         cv.returnButton.addActionListener(e -> spellMenuInactive());
+        cv.returnButton.addActionListener(e -> cv.inventory.dispose());
 
         //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
         cv.potion1.addActionListener(e -> usePotion(1));
@@ -129,7 +137,8 @@ public class CaveController {
         cv.potion12.addActionListener(e -> usePotion(12));
 
         //Dispose the item frame.
-        cv.exitInventory.addActionListener(e -> cv.inventory.dispose());
+        //cv.returnButton.addActionListener(e -> cv.inventory.dispose());
+
     }
 
     //When you press "end turn" button.
@@ -229,7 +238,6 @@ public class CaveController {
     private void enemyDamage(){
         for (int i = 0; i < 4; i++) {
             if (goblinHp[i] > 0) {
-                System.out.println("enemy " + i + " attacked ");
                 goblinAttack();
                 partyDeath();
             }
@@ -441,6 +449,11 @@ public class CaveController {
         });
     }
 
+    private void itemMenuActivate(){
+        cv.endTurnButton.setVisible(false);
+        cv.returnButton.setVisible(true);
+    }
+
     private void spellMenuActive() {
         cv.attackButton.setVisible(false);
         cv.blockButton.setVisible(false);
@@ -618,6 +631,7 @@ public class CaveController {
                 }
                 //If warrior is alive.
                 if (warriorCurrentHp > 0) {
+                    warriorattacked = true;
                     goblinDamage = goblinDamage - warriorBlock; //Warrior take damage equal to goblin damage.
                     warriorCurrentHp = warriorCurrentHp - goblinDamage; //Update warrior hp.
                     cv.player1Hp.setText("Warrior: " + warriorCurrentHp); //Update hp Label.
@@ -625,13 +639,14 @@ public class CaveController {
                 }
             }
             //Mage, Target 1.
-            if (target == 1) {
+            if (target == 2) {
                 //If mage is dead, target=2.
                 if (mageCurrentHp < 1) {
                     target = 2;
                 }
                 //If mage is alive.
                 if (mageCurrentHp > 0) {
+                    mageattacked = true;
                     goblinDamage = goblinDamage - mageBlock;
                     mageCurrentHp = mageCurrentHp - goblinDamage;
                     cv.player2Hp.setText("Mage:    " + mageCurrentHp);
@@ -639,13 +654,14 @@ public class CaveController {
                 }
             }
             //Ranger, target 2.
-            if (target == 2) {
+            if (target == 1) {
                 //If ranger is dead, target=3.
                 if (rangerCurrentHp < 1) {
                     target = 3;
                 }
                 //If ranger is alive.
                 if (rangerCurrentHp > 0) {
+                    rangerattacked = true;
                     goblinDamage = goblinDamage - rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - goblinDamage;
                     cv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
@@ -660,6 +676,7 @@ public class CaveController {
                 }
                 //If healer is alive.
                 if (healerCurrentHp > 0) {
+                    healerattacked = true;
                     goblinDamage = goblinDamage - healerBlock;
                     healerCurrentHp = healerCurrentHp - goblinDamage;
                     cv.player4Hp.setText("Healer:   " + healerCurrentHp);
@@ -1399,7 +1416,6 @@ public class CaveController {
                         followup = false;
                     } else {
                         demoralized.start();
-                        System.out.println("working");
                     }
                 }
             }
@@ -1966,7 +1982,7 @@ public class CaveController {
                 cv.groupHeal4.setVisible(true);
                 phase = 1;
             }
-            if (timePast > 500) {
+            if (timePast > 400) {
                 timePast = 0;
                 cv.groupHeal1.setVisible(false);
                 cv.groupHeal2.setVisible(false);
@@ -2053,6 +2069,8 @@ public class CaveController {
                 cv.goblin4.setLocation(goblin4X, goblin4Y);
             } else if (timePast == 380) {
                 cv.goblin4.setLocation(goblin4StartX, goblin4StartY);
+
+                timePast = 0;
                 enemyTurnTimer.stop();
                 cv.endTurnButton.setVisible(true);
                 animationPlaying = false;
