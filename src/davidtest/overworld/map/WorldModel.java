@@ -7,6 +7,7 @@ public class WorldModel {
     private WorldController overWorldController = new WorldController();
 
      public WorldModel() throws InterruptedException {
+         HandleOverWorld();
      }
      public int HandleOverWorld() throws InterruptedException{
          if (overWorldController.Entrance[0] == 1) {

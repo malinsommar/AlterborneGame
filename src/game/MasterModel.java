@@ -21,11 +21,10 @@ public class MasterModel {
     private Mage m = new Mage();
     private Ranger r = new Ranger();
     private LevelUpController luc = new LevelUpController();
-    private Inventory inv = new Inventory();
     private LootController lc = new LootController();
-
     private ForestCon forestCon = new ForestCon();
     private CaveController caveCon = new CaveController();
+    private LoseScreen loseScreen = new LoseScreen();
     private FieldController fieldCon = new FieldController();
     private CaveView cv = new CaveView();
 
@@ -33,6 +32,11 @@ public class MasterModel {
     private int[] mageStats = new int[3];
     private int[] healerStats = new int[3];
     private int[] rangerStats = new int[3];
+
+    private int[] warriorLevelUpStats = new int[3];
+    private int[] mageLevelUpStats = new int[3];
+    private int[] healerLevelUpStats = new int[3];
+    private int[] rangerLevelUpStats = new int[3];
 
     //Array that keeps track of how many potions you own, use this to . 1-3 = Healing potions. 4-6 = block potions. 7-9 = energy potions. 10-12 = str potions.
     private int[] ownedPotions = new int[12];
@@ -60,15 +64,13 @@ public class MasterModel {
     private int[] epicWeaponArmorDamageBlock = new int[18];
     private int[] legendaryWeaponArmorDamageBlock = new int[18];
     private int[] armorDamage= new int[6];
-    
 
     //TODO i fights, lägg till funktion som tar bort använda potions
 
     //Get user input from ConHub to start game of exit game.
     public void startGame() throws InterruptedException {
-        
-        setStartNumbers();
 
+        setStartNumbers();
         hubController.test();
 
         if (hubController.choice[0] == 1) {
@@ -83,25 +85,43 @@ public class MasterModel {
             System.exit(0);
         }
     }
-    
+
+
+    public void startWorldModel() throws InterruptedException {
+        WorldModel worldModel = new WorldModel();
+        if (worldModel.HandleOverWorld() == 1) {
+            startForestFight();
+        }
+        if (worldModel.HandleOverWorld() == 2) {
+            startCaveFight();
+        }
+        if (worldModel.HandleOverWorld() == 3) {
+            startFieldFight();
+        }
+        if (worldModel.HandleOverWorld() == 4) {
+            //startSwampFight();
+        }
+    }
+
+
     public void setStartNumbers(){
 
-        w.hp = 130;
-        w.damage = 2;
-        w.block = 3;
+        warriorStats[0] = 130; //hp
+        warriorStats[1] = 3; //block
+        warriorStats[2] = 2; //damage
 
-        r.hp = 80;
-        r.damage = 3;
-        r.block = 0;
+        rangerStats[0] = 80;
+        rangerStats[1] = 0;
+        rangerStats[2] = 3;
 
-        m.hp = 70;
-        m.damage = 4;
-        m.block = 0;
+        mageStats[0] = 70;
+        mageStats[1] = 0;
+        mageStats[2] = 4;
 
-        h.hp = 100;
-        h.damage = 0;
-        h.block = 1;
-        
+        healerStats[0] = 100;
+        healerStats[1] = 1;
+        healerStats[2] = 0;
+
         currentXp = 0;
         currentLevel = 1;
         currentGold = 20;
@@ -122,45 +142,86 @@ public class MasterModel {
         ownedPotions[10] = 0;
         ownedPotions[11] = 0;
 
-        luc.wHp = 5;
-        luc.wD = 2;
-        luc.wB = 2;
+        //0 = HP, 1 = block, 2 = damage
+        warriorLevelUpStats[0] = 5;
+        warriorLevelUpStats[1] = 2;
+        warriorLevelUpStats[2] = 2;
 
-        luc.rHp = 3;
-        luc.rD = 4;
-        luc.rB = 2;
+        rangerLevelUpStats[0] = 3;
+        rangerLevelUpStats[1] = 4;
+        rangerLevelUpStats[2] = 2;
 
-        luc.mHp = 2;
-        luc.mD = 6;
-        luc.mB = 1;
+        mageLevelUpStats[0] = 2;
+        mageLevelUpStats[1] = 6;
+        mageLevelUpStats[2] = 1;
 
-        luc.hHp = 5;
-        luc.hD = 2;
-        luc.hB = 3;
+        healerLevelUpStats[0] = 5;
+        healerLevelUpStats[1] = 2;
+        healerLevelUpStats[2] = 3;
     }
     //Fight methods starts here
+
 
     //This method imports all stats that the battle will need and start ForestFightController.
     public void startForestFight() throws InterruptedException {
         forestCon.getInventory(ownedPotions);
-        getStats();
         forestCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
-
         forestCon.startFight();
 
-    while (!forestCon.fightWon || !forestCon.fightLost) {
-        if (forestCon.fightWon) {
-            startLootController(1);
-        }
-        else if (forestCon.fightLost){
-            //losescreen
-        }
+        loop1();
     }
+
+    public void loop1() throws InterruptedException {
+        int loops = 0;
+        System.out.println("loop1");
+        while (!forestCon.fightWon || !forestCon.fightLost) {
+            System.out.println("run 1");
+            if (forestCon.fightWon) {
+                System.out.println("fightWon");
+                startLootController(1);
+                break;
+            }
+            else if (forestCon.fightLost){
+                System.out.println("fightLost");
+                loseScreen.loseScreen();
+                break;
+            }
+            else if (loops == 100000){
+                break;
+            }
+            loops++;
+        }
+        loop2();
     }
+
+    public void loop2() throws InterruptedException {
+        int loops = 0;
+        System.out.println("loop2");
+
+        while (!forestCon.fightWon || !forestCon.fightLost) {
+            System.out.println("run 2");
+
+            if (forestCon.fightWon) {
+                System.out.println("fightWon");
+                startLootController(1);
+                break;
+            }
+            else if (forestCon.fightLost){
+                System.out.println("fightLost");
+                loseScreen.loseScreen();
+                break;
+            }
+            else if (loops == 100000){
+                loop1();
+            }
+            loops++;
+        }
+        loop1();
+    }
+
 
     public void startCaveFight(){
         caveCon.getInventory(ownedPotions);
-        getStats();
         caveCon.getPlayerStats(warriorStats,mageStats,healerStats,rangerStats);
         caveCon.startFight();
     }
@@ -174,51 +235,12 @@ public class MasterModel {
          */
     }
 
-    public void fightWon(int whatFight) throws InterruptedException {
-        startLootController(whatFight);
-        }
-
-
-    public void fightLost(){
-        LoseScreen ls = new LoseScreen();
-        ls.loseScreen();
-    }
-
-    //This method get stats from party-member classes.
-    private void getStats(){
-
-        warriorStats[0]=w.hp;
-        warriorStats[1]=w.combinedBlock;
-        warriorStats[2]=w.combinedDamage;
-
-        mageStats[0]=m.hp;
-        mageStats[1]=m.combinedBlock;
-        mageStats[2]=m.combinedDamage;
-
-        healerStats[0]=h.hp;
-        healerStats[1]=h.combinedBlock;
-        healerStats[2]=h.combinedDamage;
-
-        rangerStats[0]=r.hp;
-        rangerStats[1]=r.combinedBlock;
-        rangerStats[2]=r.combinedDamage;
-    }
-
-    public void startWorldModel() throws InterruptedException {
+  /*  public void startWorldModel() throws InterruptedException {
         WorldModel worldModel = new WorldModel();
         if (worldModel.HandleOverWorld() == 1) {
             startForestFight();
         }
-        if (worldModel.HandleOverWorld() == 2) {
-            startCaveFight();
-        }
-        if (worldModel.HandleOverWorld() == 3) {
-            startFieldFight();
-        }
-        if (worldModel.HandleOverWorld() == 4) {
-            //startSwampFight();
-        }
-    }
+    }*/
 
    //Here starts lootFrame stuff
 
@@ -238,9 +260,14 @@ public class MasterModel {
         });
     }
 
-    public void startLevel(){
-        luc.didPlayerLevelUp();
-        System.out.println("xp: "+luc.xp);
+    public void startLevelUp(){
+        luc.didPlayerLevelUp(currentXp, currentLevel,warriorLevelUpStats,rangerLevelUpStats,mageLevelUpStats,healerLevelUpStats,warriorStats,rangerStats,mageStats,healerStats);
+
+        while (true) {
+            if (luc.done) {
+                break;
+            }
+        }
     }
 
     //This method saves gold, xp and weapon/armor that player got from lootController.
@@ -249,7 +276,7 @@ public class MasterModel {
         currentGold = lc.goldInt;
         currentXp = lc.xpInt;
 
-        startLevel();
+        startLevelUp();
 
         if(lc.playerWantsLoot){
             //Armor & Weapons
@@ -373,7 +400,6 @@ public class MasterModel {
         else if (lc.whatLoot == 36){
             ownedPotions[6]++;
         }
-        luc.didPlayerLevelUp();
     }
 
     //Collects information about armor, weapons etc.
