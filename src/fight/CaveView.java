@@ -18,7 +18,7 @@ public class CaveView {
 
     //Create buttons
     public JButton attackButton, blockButton, itemButton, skillButton, endTurnButton;
-    public JButton exitInventory, potion1, potion2, potion3, potion4, potion5, potion6, potion7, potion8, potion9, potion10, potion11, potion12;
+    public JButton potion1, potion2, potion3, potion4, potion5, potion6, potion7, potion8, potion9, potion10, potion11, potion12;
     public JButton skill1Button, skill2Button, skill3Button, skill4Button, returnButton; //spells
     public JButton healWarriorButton, healRangerButton, healMageButton, healHealerButton; //healing target button
 
@@ -92,16 +92,6 @@ public class CaveView {
         caveFightJFrame.add(skillButton);
         caveFightJFrame.add(endTurnButton);
 
-        caveFightJFrame.add(goblin3);
-        caveFightJFrame.add(goblin4);
-        caveFightJFrame.add(goblin1);
-        caveFightJFrame.add(goblin2);
-
-        caveFightJFrame.add(ranger);
-        caveFightJFrame.add(warrior);
-        caveFightJFrame.add(mage);
-        caveFightJFrame.add(healer);
-
         caveFightJFrame.add(playersHp);
         caveFightJFrame.add(goblin1Hp);
         caveFightJFrame.add(goblin2Hp);
@@ -148,6 +138,17 @@ public class CaveView {
         caveFightJFrame.add(groupHeal2);
         caveFightJFrame.add(groupHeal3);
         caveFightJFrame.add(groupHeal4);
+
+        //enemies
+        caveFightJFrame.add(goblin3);
+        caveFightJFrame.add(goblin4);
+        caveFightJFrame.add(goblin1);
+        caveFightJFrame.add(goblin2);
+        //player
+        caveFightJFrame.add(ranger);
+        caveFightJFrame.add(warrior);
+        caveFightJFrame.add(mage);
+        caveFightJFrame.add(healer);
 
         caveFightJFrame.setVisible(true);
     }
@@ -387,7 +388,6 @@ public class CaveView {
         inventory.setContentPane(new JLabel(backgroundInventory));
 
         //Add all labels//buttons.
-        inventory.add(exitInventory);
         inventory.add(potion1);
         inventory.add(potion2);
         inventory.add(potion3);
@@ -422,94 +422,87 @@ public class CaveView {
     }
 
     private void getInventory() {
-        //Exit button
-        exitInventory = new JButton("Exit inventory");
-        exitInventory.setBounds(1010, 60, 250, 80);
-        exitInventory.setFont(pixelMplus.deriveFont(30f));
-        exitInventory.setBackground(Color.white);
-        exitInventory.setBorder(null); //Remove border around button
-        exitInventory.setFocusPainted(false);//Remove border around text in button
 
         //Minor Health Potion
         potion1 = new JButton(potions.minorHealthGif);
-        potion1.setBounds(50, 60, 41, 62);
+        potion1.setBounds(200, 60, 41, 62);
         potion1.setBackground(Color.white);
         potion1.setBorder(null);
         potion1.setFocusPainted(false);
 
         //Lesser Health Potion
         potion2 = new JButton(potions.lesserHealthGif);
-        potion2.setBounds(100, 60, 46, 62);
+        potion2.setBounds(250, 60, 46, 62);
         potion2.setBackground(Color.white);
         potion2.setBorder(null);
         potion2.setFocusPainted(false);
 
         //Major Health Potion
         potion3 = new JButton(potions.majorHealthGif);
-        potion3.setBounds(160, 60, 55, 64);
+        potion3.setBounds(310, 60, 55, 64);
         potion3.setBackground(Color.white);
         potion3.setBorder(null);
         potion3.setFocusPainted(false);
 
         //Minor Block Potion
         potion4 = new JButton(potions.minorBlockGif);
-        potion4.setBounds(300, 60, 42, 63);
+        potion4.setBounds(450, 60, 42, 63);
         potion4.setBackground(Color.white);
         potion4.setBorder(null);
         potion4.setFocusPainted(false);
 
         //Lesser Block Potion
         potion5 = new JButton(potions.lesserBlockGif);
-        potion5.setBounds(350, 60, 47, 63);
+        potion5.setBounds(500, 60, 47, 63);
         potion5.setBackground(Color.white);
         potion5.setBorder(null);
         potion5.setFocusPainted(false);
 
         //Major Block Potion
         potion6 = new JButton(potions.majorBlockGif);
-        potion6.setBounds(410, 60, 59, 64);
+        potion6.setBounds(560, 60, 59, 64);
         potion6.setBackground(Color.white);
         potion6.setBorder(null);
         potion6.setFocusPainted(false);
 
         //Minor Energy Potion
         potion7 = new JButton(potions.minorEnergyGif);
-        potion7.setBounds(550, 60, 40, 63);
+        potion7.setBounds(700, 60, 40, 63);
         potion7.setBackground(Color.white);
         potion7.setBorder(null);
         potion7.setFocusPainted(false);
 
         //Lesser Energy Potion
         potion8 = new JButton(potions.lesserEnergyGif);
-        potion8.setBounds(600, 60, 46, 63);
+        potion8.setBounds(750, 60, 46, 63);
         potion8.setBackground(Color.white);
         potion8.setBorder(null);
         potion8.setFocusPainted(false);
 
         //Major Energy Potion
         potion9 = new JButton(potions.majorEnergyGif);
-        potion9.setBounds(660, 60, 59, 64);
+        potion9.setBounds(810, 60, 59, 64);
         potion9.setBackground(Color.white);
         potion9.setBorder(null);
         potion9.setFocusPainted(false);
 
         //Minor Strength Potion
         potion10 = new JButton(potions.minorStrGif);
-        potion10.setBounds(800, 60, 38, 63);
+        potion10.setBounds(950, 60, 38, 63);
         potion10.setBackground(Color.white);
         potion10.setBorder(null);
         potion10.setFocusPainted(false);
 
         //Lesser Energy Potion
         potion11 = new JButton(potions.lesserStrGif);
-        potion11.setBounds(850, 60, 42, 63);
+        potion11.setBounds(1000, 60, 42, 63);
         potion11.setBackground(Color.white);
         potion11.setBorder(null);
         potion11.setFocusPainted(false);
 
         //Major Energy Potion
         potion12 = new JButton(potions.majorStrGif);
-        potion12.setBounds(900, 60, 53, 64);
+        potion12.setBounds(1050, 60, 53, 64);
         potion12.setBackground(Color.white);
         potion12.setBorder(null);
         potion12.setFocusPainted(false);
@@ -519,86 +512,86 @@ public class CaveView {
         inventoryHealth.setFont(pixelMplus.deriveFont(30f));
         inventoryHealth.setForeground(Color.black);
         Dimension inventoryHealthSize = inventoryHealth.getPreferredSize();
-        inventoryHealth.setBounds(90, 25, inventoryHealthSize.width, inventoryHealthSize.height);
+        inventoryHealth.setBounds(240, 25, inventoryHealthSize.width, inventoryHealthSize.height);
 
         inventoryStr = new JLabel("Strength");
         inventoryStr.setFont(pixelMplus.deriveFont(30f));
         inventoryStr.setForeground(Color.black);
         Dimension inventoryStrSize = inventoryStr.getPreferredSize();
-        inventoryStr.setBounds(815, 25, inventoryStrSize.width, inventoryStrSize.height);
+        inventoryStr.setBounds(965, 25, inventoryStrSize.width, inventoryStrSize.height);
 
         inventoryEnergy = new JLabel("Energy");
         inventoryEnergy.setFont(pixelMplus.deriveFont(30f));
         inventoryEnergy.setForeground(Color.black);
         Dimension inventoryEnergySize = inventoryEnergy.getPreferredSize();
-        inventoryEnergy.setBounds(590, 25, inventoryEnergySize.width, inventoryEnergySize.height);
+        inventoryEnergy.setBounds(740, 25, inventoryEnergySize.width, inventoryEnergySize.height);
 
         inventoryBlock = new JLabel("Block");
         inventoryBlock.setFont(pixelMplus.deriveFont(30f));
         inventoryBlock.setForeground(Color.black);
         Dimension inventoryBlockSize = inventoryBlock.getPreferredSize();
-        inventoryBlock.setBounds(345, 25, inventoryBlockSize.width, inventoryBlockSize.height);
+        inventoryBlock.setBounds(495, 25, inventoryBlockSize.width, inventoryBlockSize.height);
 
         //Potion owned
         potion1Label.setFont(pixelMplus.deriveFont(30f));
         potion1Label.setForeground(Color.black);
         Dimension potion1LabelSize = potion1Label.getPreferredSize();
-        potion1Label.setBounds(60, 125, potion1LabelSize.width, potion1LabelSize.height);
+        potion1Label.setBounds(210, 125, potion1LabelSize.width, potion1LabelSize.height);
 
         potion2Label.setFont(pixelMplus.deriveFont(30f));
         potion2Label.setForeground(Color.black);
         Dimension potion2LabelSize = potion2Label.getPreferredSize();
-        potion2Label.setBounds(115, 125, potion2LabelSize.width, potion2LabelSize.height);
+        potion2Label.setBounds(265, 125, potion2LabelSize.width, potion2LabelSize.height);
 
         potion3Label.setFont(pixelMplus.deriveFont(30f));
         potion3Label.setForeground(Color.black);
         Dimension potion3LabelSize = potion3Label.getPreferredSize();
-        potion3Label.setBounds(180, 125, potion3LabelSize.width, potion3LabelSize.height);
+        potion3Label.setBounds(330, 125, potion3LabelSize.width, potion3LabelSize.height);
 
         potion4Label.setFont(pixelMplus.deriveFont(30f));
         potion4Label.setForeground(Color.black);
         Dimension potion4LabelSize = potion4Label.getPreferredSize();
-        potion4Label.setBounds(317, 125, potion4LabelSize.width, potion4LabelSize.height);
+        potion4Label.setBounds(470, 125, potion4LabelSize.width, potion4LabelSize.height);
 
         potion5Label.setFont(pixelMplus.deriveFont(30f));
         potion5Label.setForeground(Color.black);
         Dimension potion5LabelSize = potion5Label.getPreferredSize();
-        potion5Label.setBounds(370, 125, potion5LabelSize.width, potion5LabelSize.height);
+        potion5Label.setBounds(520, 125, potion5LabelSize.width, potion5LabelSize.height);
 
         potion6Label.setFont(pixelMplus.deriveFont(30f));
         potion6Label.setForeground(Color.black);
         Dimension potion6LabelSize = potion6Label.getPreferredSize();
-        potion6Label.setBounds(430, 125, potion6LabelSize.width, potion6LabelSize.height);
+        potion6Label.setBounds(580, 125, potion6LabelSize.width, potion6LabelSize.height);
 
         potion7Label.setFont(pixelMplus.deriveFont(30f));
         potion7Label.setForeground(Color.black);
         Dimension potion7LabelSize = potion7Label.getPreferredSize();
-        potion7Label.setBounds(557, 125, potion7LabelSize.width, potion7LabelSize.height);
+        potion7Label.setBounds(707, 125, potion7LabelSize.width, potion7LabelSize.height);
 
         potion8Label.setFont(pixelMplus.deriveFont(30f));
         potion8Label.setForeground(Color.black);
         Dimension potion8LabelSize = potion8Label.getPreferredSize();
-        potion8Label.setBounds(617, 125, potion8LabelSize.width, potion8LabelSize.height);
+        potion8Label.setBounds(767, 125, potion8LabelSize.width, potion8LabelSize.height);
 
         potion9Label.setFont(pixelMplus.deriveFont(30f));
         potion9Label.setForeground(Color.black);
         Dimension potion9LabelSize = potion9Label.getPreferredSize();
-        potion9Label.setBounds(680, 125, potion9LabelSize.width, potion9LabelSize.height);
+        potion9Label.setBounds(830, 125, potion9LabelSize.width, potion9LabelSize.height);
 
         potion10Label.setFont(pixelMplus.deriveFont(30f));
         potion10Label.setForeground(Color.black);
         Dimension potion10LabelSize = potion10Label.getPreferredSize();
-        potion10Label.setBounds(817, 125, potion10LabelSize.width, potion10LabelSize.height);
+        potion10Label.setBounds(967, 125, potion10LabelSize.width, potion10LabelSize.height);
 
         potion11Label.setFont(pixelMplus.deriveFont(30f));
         potion11Label.setForeground(Color.black);
         Dimension potion11LabelSize = potion11Label.getPreferredSize();
-        potion11Label.setBounds(863, 125, potion11LabelSize.width, potion11LabelSize.height);
+        potion11Label.setBounds(1013, 125, potion11LabelSize.width, potion11LabelSize.height);
 
         potion12Label.setFont(pixelMplus.deriveFont(30f));
         potion12Label.setForeground(Color.black);
         Dimension potion12LabelSize = potion12Label.getPreferredSize();
-        potion12Label.setBounds(920, 125, potion12LabelSize.width, potion12LabelSize.height);
+        potion12Label.setBounds(1070, 125, potion12LabelSize.width, potion12LabelSize.height);
     }
 
     //Set al "stats" for labels.
@@ -744,21 +737,21 @@ public class CaveView {
     //Get goblin gif.
     private void importGoblinGif(){
         goblin1 = new JLabel();
-        goblin1.setIcon(new ImageIcon("goblinGif.gif"));
+        goblin1.setIcon(new ImageIcon("goblintrue.gif"));
         Dimension goblinSize = goblin1.getPreferredSize();
-        goblin1.setBounds(750, 210, goblinSize.width+50, goblinSize.height);
+        goblin1.setBounds(850, 300, goblinSize.width+50, goblinSize.height);
 
         goblin2 = new JLabel();
-        goblin2.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin2.setBounds(930, 210, goblinSize.width+50, goblinSize.height);
+        goblin2.setIcon(new ImageIcon("goblintrue.gif"));
+        goblin2.setBounds(1030, 300, goblinSize.width+50, goblinSize.height);
 
         goblin3 = new JLabel();
-        goblin3.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin3.setBounds(820, 280, goblinSize.width+50, goblinSize.height);
+        goblin3.setIcon(new ImageIcon("goblintrue.gif"));
+        goblin3.setBounds(920, 370, goblinSize.width+50, goblinSize.height);
 
         goblin4 = new JLabel();
-        goblin4.setIcon(new ImageIcon("goblinGif.gif"));
-        goblin4.setBounds(1000, 280, goblinSize.width+50, goblinSize.height);
+        goblin4.setIcon(new ImageIcon("goblintrue.gif"));
+        goblin4.setBounds(1100, 370, goblinSize.width+50, goblinSize.height);
     }
 
     private void importFont() {

@@ -11,7 +11,6 @@ public abstract class Mob extends Entity {
     protected int numSteps = 0;
     protected boolean isMoving;
     protected int movingDir = 1; //assign the direction the mob is facing
-    protected int scale = 1; //size of the mob
 
     public Mob(Level level1, String name, int x, int y, int speed) {
         super(level1);

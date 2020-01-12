@@ -7,7 +7,7 @@ public class RandomEncounter {
     public int randomNr;
 
     public RandomEncounter() {
-        getRandom(1000, 1);
+        getRandom(10000, 1);
     }
     private void getRandom(int max, int min) {
         randomNr = (int) (Math.random() * ((max - min) + 1));
@@ -26,6 +26,6 @@ public class RandomEncounter {
                     System.out.println("number " + randomNr);
                 }
                 }
-        }; delay.scheduleAtFixedRate(task,1500, 1000);
+        }; delay.scheduleAtFixedRate(task,15000, 1000);
     }
 }

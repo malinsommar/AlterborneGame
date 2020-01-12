@@ -1,39 +1,36 @@
 package davidtest.overworld.map;
 
 import game.MasterModel;
-import game.ShopController;
+import game.ShopModel;
 
 public class WorldModel {
+    private WorldController overWorldController = new WorldController();
 
      public WorldModel() throws InterruptedException {
-        WorldController overWorldController = new WorldController();
-
-        if (overWorldController.Entrance[0]==1) {
-            ShopController sc = new ShopController();
-            //sc.startShopController();
-        }
-         if(overWorldController.Entrance[0]==2){
-             MasterModel masterModel = new MasterModel();
-             masterModel.startForestFight();
-
+         HandleOverWorld();
+     }
+     public int HandleOverWorld() throws InterruptedException{
+         if (overWorldController.Entrance[0] == 1) {
+             ShopModel shopModel = new ShopModel();
+             shopModel.startShopController(1);
          }
-         if(overWorldController.Entrance[0]==3){
-             MasterModel masterModel = new MasterModel();
-             masterModel.startCaveFight();
+         if (overWorldController.Entrance[0] == 2) {
+             return 1;
          }
-         if(overWorldController.Entrance[0]==4){
-             MasterModel masterModel = new MasterModel();
-             masterModel.startFieldFight();
+         if (overWorldController.Entrance[0] == 3) {
+             return 2;
          }
-         if (overWorldController.Entrance[0]==5) {
-             MasterModel masterModel = new MasterModel();
-             //fightModel.startSwampFight();
+         if (overWorldController.Entrance[0] == 4) {
+             return 3;
          }
-         if (overWorldController.Entrance[0]==6) {
-             MasterModel masterModel = new MasterModel();
-             //fightModel.startCastleFight();
+         if (overWorldController.Entrance[0] == 5) {
+             return 4;
          }
-    }
+         if (overWorldController.Entrance[0] == 6) {
+             return 5;
+         }
+         return 0;
+     }
 
     public static void main(String[] args) throws InterruptedException {
         new WorldModel();

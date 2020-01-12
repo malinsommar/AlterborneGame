@@ -46,7 +46,7 @@ public abstract class Tile {
     public static final Tile SHEEPHEADLEFT = new AnimatedSolidTile(30, new int[][] {{ 4, 15}, { 5, 15},},
             Colours.get(176, 334, 333, 1), 0xFF7a8b54, 1900);
     public static final Tile SHEEPBODYLEFT = new SolidTile(31, 6, 15, Colours.get(-1,334,333,-1), 0xFF7a8b55);
-    public static final Tile FORESTCHEST = new SolidTile(32, 0, 17, Colours.get(16,210,178,332), 0xFFab6a1c);
+    public static final Tile FORESTCHEST = new ChestTile(32, new int[][] {{0,17},{0, 19},}, Colours.get(16,210,178,332), 0xFFab6a1c);
     public static final Tile FIELDCHEST = new SolidTile(33, 1, 17, Colours.get(176,210,178,332), 0xFFab6a2c);
     public static final Tile MOUNTAINCHEST = new SolidTile(34, 2, 17, Colours.get(333,210,178,332), 0xFFab6a3c);
     public static final Tile SWAMPCHEST = new SolidTile(35, 3, 17, Colours.get(18,210,178,332), 0xFFab6a4c);
@@ -68,17 +68,18 @@ public abstract class Tile {
 
 
     protected byte id;
-    protected boolean solid;
-    protected boolean emitter;
-    protected boolean forestPath;
-    protected boolean mountainPath;
-    protected boolean fieldPath;
-    protected boolean swampPath;
-    protected boolean castlePath;
-    protected boolean door;
+    boolean solid;
+    private boolean emitter;
+    boolean forestPath;
+    boolean mountainPath;
+    boolean fieldPath;
+    boolean swampPath;
+    boolean castlePath;
+    boolean door;
+    boolean chest;
     private int levelColour;
 
-    public Tile (int id, boolean isSolid, boolean isEmitter, boolean isDoor, boolean isForestPath,  boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCastlePath, int levelColour) {
+    Tile(int id, boolean isSolid, boolean isEmitter, boolean isDoor, boolean isForestPath, boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCastlePath, boolean isChestTile, int levelColour) {
         this.id = (byte) id;
         if (tiles[id] != null)
             throw new RuntimeException("Duplicate tile id on" + id);
@@ -90,6 +91,7 @@ public abstract class Tile {
         this.swampPath = isSwampPath;
         this.castlePath = isCastlePath;
         this.door = isDoor;
+        this.chest = isChestTile;
         this.levelColour  = levelColour;
         tiles[id] = this;
     }
@@ -127,6 +129,7 @@ public abstract class Tile {
         return door;
     }
 
+    public boolean isChest() {return chest;}
     public abstract void tick();
 
     public abstract void render(Screen screen, Level level, int x, int y);
