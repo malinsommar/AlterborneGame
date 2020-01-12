@@ -14,7 +14,7 @@ import java.awt.image.BufferStrategy;
 //Runnable is used to automatically call the "run" method, which is necessary for the thread to work
 public class WorldController extends Canvas implements Runnable {
     private WorldView owf = new WorldView();
-    int[] Entrance = new int[1];
+    public  int[] Entrance = new int[1];
 
     //int-variables to handle Model-execution
     private int ForestEntrance = 1;
@@ -25,7 +25,7 @@ public class WorldController extends Canvas implements Runnable {
     private int CastleEntrance = 1;
 
 
-    WorldController() throws InterruptedException {
+    public void startWorldController() throws InterruptedException {
         start();//start the program
         new MouseClickSimulated();
         while (Entrance[0] <= 0) {

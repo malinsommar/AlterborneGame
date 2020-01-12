@@ -1,12 +1,9 @@
 package game;
 
+import davidtest.overworld.map.WorldController;
 import fight.CaveController;
 import fight.FieldController;
 import fight.ForestCon;
-import OldClasses.party.Healer;
-import OldClasses.party.Mage;
-import OldClasses.party.Ranger;
-import OldClasses.party.Warrior;
 
 public class MasterModel {
 
@@ -19,6 +16,7 @@ public class MasterModel {
     private LoseScreen loseScreen = new LoseScreen();
     private FieldController fieldCon = new FieldController();
     private ShopController sc = new ShopController();
+    private WorldController overWorldCon = new WorldController();
 
     private int[] warriorStats = new int[3];
     private int[] mageStats = new int[3];
@@ -116,6 +114,7 @@ public class MasterModel {
     private int[] legendaryWeaponArmorDamageBlock = new int[18];
     private int[] armorDamage = new int[6];
 
+
     //Get user input from ConHub to start game of exit game.
     void startGame() throws InterruptedException {
 
@@ -123,15 +122,35 @@ public class MasterModel {
         hubController.test();
 
         if (hubController.choice[0] == 1) {
-            //startWorldModel();
-            startForestFight();
+            overWorldCon.startWorldController();
+            overWorldPaths();
+            //startForestFight();
         } else if (hubController.choice[0] == 2) {
             tc.startTutorial();
         } else if (hubController.choice[0] == 3) {
             System.exit(0);
         }
     }
-
+    public void overWorldPaths() throws InterruptedException {
+        if (overWorldCon.Entrance[0] == 1) {
+            startShop();
+        }
+        if (overWorldCon.Entrance[0] == 2) {
+            startForestFight();
+        }
+        if (overWorldCon.Entrance[0] == 3) {
+            startCaveFight();
+        }
+        if (overWorldCon.Entrance[0] == 4) {
+            startFieldFight();
+        }
+        if (overWorldCon.Entrance[0] == 5) {
+            //startSwampFight
+        }
+        if (overWorldCon.Entrance[0] == 6) {
+            //startCastleFight
+        }
+    }
     private void setStartNumbers() {
 
         warriorStats[0] = 130;
