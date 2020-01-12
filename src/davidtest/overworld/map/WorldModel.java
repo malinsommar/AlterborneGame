@@ -6,6 +6,7 @@ import davidtest.overworld.map.WorldController;
         private WorldController overWorldController = new WorldController();
 
         public WorldModel() throws InterruptedException {
+            overWorldController.startWorldController();
             HandleOverWorld();
         }
         public int HandleOverWorld() throws InterruptedException{

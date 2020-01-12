@@ -20,6 +20,7 @@ public class ShopController {
         sv.startShopFrame();
         hoverEffect();
 
+        sv.goldLabel.setText("Gold: "+currentGold);
 
         //When you press one of the armors/weapons --> buyEquipment()
         sv.warriorArmor1.addActionListener(e -> buyEquipment(1));
@@ -64,6 +65,7 @@ public class ShopController {
         sv.potion11.addActionListener(e -> buyPotion(11));
         sv.potion12.addActionListener(e -> buyPotion(12));
 
+        sv.Exit.addActionListener(e->sv.shopFrame.dispose());
         sv.Exit.addActionListener(e->done = true);
     }
 
