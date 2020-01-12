@@ -1,6 +1,7 @@
 package game;
 
 import davidtest.overworld.map.WorldController;
+import davidtest.overworld.map.WorldModel;
 import fight.CaveController;
 import fight.FieldController;
 import fight.ForestCon;
@@ -16,7 +17,6 @@ public class MasterModel {
     private LoseScreen loseScreen = new LoseScreen();
     private FieldController fieldCon = new FieldController();
     private ShopController sc = new ShopController();
-    private WorldController overWorldCon = new WorldController();
 
 
     private int[] warriorStats = new int[3];
@@ -39,9 +39,6 @@ public class MasterModel {
     private String currentWarriorArmorName = "Rusty Armor";
     private int currentWarriorArmorBlock = 3;
 
-    private int combinedWarriorBlock = warriorStats[1] + currentWarriorArmorBlock;
-    private int combinedWarriorDamage = warriorStats[2] + currentWarriorWeaponDamage;
-
     //Ranger weapon/armor things
 
     private String rangerRareWeaponName = "Elven bow", rangerEpicWeaponName = "Dragonslayer's bow", rangerLegendaryWeaponName = "Bullseye bow", rangerRareArmorName = "Fine leather armor", rangerEpicArmorName = "Elven leather armor", rangerLegendaryArmorName = "Demonskin armor";
@@ -52,10 +49,6 @@ public class MasterModel {
 
     private String currentRangerArmorName = "Broken leather armor";
     private int currentRangerArmorBlock = 0;
-
-
-    private int combinedRangerBlock = rangerStats[1] + currentRangerArmorBlock;
-    private int combinedRangerDamage = rangerStats[2] + currentRangerWeaponDamage;
 
     //Mage weapon/armor stuff
 
@@ -69,9 +62,6 @@ public class MasterModel {
     private int currentMageArmorBlock = 0;
     private int currentMageArmorDamage = 0;
 
-    private int combinedBlock = mageStats[1] + currentMageArmorBlock;
-    private int combinedDamage = mageStats[2] + currentMageWeaponDamage + currentMageArmorDamage;
-
     //Healer weapon/armor stuff
 
     private String healerRareWeaponName = "Stick of truth", healerEpicWeaponName = "Cleric's blessed walking stick", healerLegendaryWeaponName = "Root of the world tree", healerRareArmorName = "Priests robe", healerEpicArmorName = "Clerics armor", healerLegendaryArmorName = "Plate armor of Parl'ont the crusader";
@@ -83,9 +73,6 @@ public class MasterModel {
     private String currentHealerArmorName = "Cloth scraps";
     private int currentHealerArmorBlock = 5;
     private int currentHealerArmorDamage = 0;
-
-    private int combinedHealerBlock = healerStats[1] + currentHealerArmorBlock;
-    private int combinedHealerDamage = healerStats[2] + currentHealerWeaponDamage;
 
     //Array that keeps track of how many potions you own, use this to . 1-3 = Healing potions. 4-6 = block potions. 7-9 = energy potions. 10-12 = str potions.
     private int[] ownedPotions = new int[12];
@@ -122,8 +109,7 @@ public class MasterModel {
         hubController.test();
 
         if (hubController.choice[0] == 1) {
-            overWorldCon.startWorldController();
-            //startForestFight();
+            startWorldModel();
         } else if (hubController.choice[0] == 2) {
             tc.startTutorial();
         } else if (hubController.choice[0] == 3) {
@@ -131,26 +117,28 @@ public class MasterModel {
         }
     }
 
-    private void overWorldPaths() throws InterruptedException {
-        if (overWorldCon.Entrance[0] == 1) {
+    public void startWorldModel() throws InterruptedException {
+        WorldModel worldModel = new WorldModel();
+        if (worldModel.HandleOverWorld() == 1) {
             startShop();
         }
-        if (overWorldCon.Entrance[0] == 2) {
+        if (worldModel.HandleOverWorld() == 2) {
             startForestFight();
         }
-        if (overWorldCon.Entrance[0] == 3) {
+        if (worldModel.HandleOverWorld() == 3) {
             startCaveFight();
         }
-        if (overWorldCon.Entrance[0] == 4) {
+        if (worldModel.HandleOverWorld() == 4) {
             startFieldFight();
         }
-        if (overWorldCon.Entrance[0] == 5) {
-            //startSwampFight
+        if (worldModel.HandleOverWorld() == 5) {
+            //startSwampFight();
         }
-        if (overWorldCon.Entrance[0] == 6) {
+        if (worldModel.HandleOverWorld() == 6) {
             //startCastleFight
         }
     }
+
     private void setStartNumbers() {
 
         warriorStats[0] = 130;
@@ -363,7 +351,7 @@ public class MasterModel {
         } else if (lc.whatLoot == 36) {
             ownedPotions[6]++;
         }
-        startForestFight();
+        startWorldModel();
     }
 
     //Collects information about armor, weapons etc.
@@ -718,7 +706,7 @@ public class MasterModel {
         }
     }
     
-    private void shopLoop1(){
+    private void shopLoop1() throws InterruptedException {
         int loops = 0;
         boolean broken = false;
         System.out.println("ShopLoop1");
@@ -745,9 +733,11 @@ public class MasterModel {
         if (!broken) {
             shopLoop2();
         }
+        sc.done = false;
+        startWorldModel();
     }
 
-    private void shopLoop2(){
+    private void shopLoop2() throws InterruptedException {
         int loops = 0;
         boolean broken = false;
         System.out.println("ShopLoop2");
@@ -773,6 +763,8 @@ public class MasterModel {
         if (!broken) {
             shopLoop1();
         }
+        sc.done = false;
+        startWorldModel();
     }
 
     private void lootLoop1() throws InterruptedException {
@@ -796,6 +788,7 @@ public class MasterModel {
         if (!broken) {
             lootLoop2();
         }
+        lc.done = false;
     }
 
     private void lootLoop2() throws InterruptedException {
@@ -820,6 +813,7 @@ public class MasterModel {
         if (!broken) {
             lootLoop1();
         }
+        lc.done = false;
     }
 
     //Equip weapon/armors
