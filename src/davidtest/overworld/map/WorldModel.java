@@ -6,9 +6,11 @@ import davidtest.overworld.map.WorldController;
         private WorldController overWorldController = new WorldController();
 
         public WorldModel() throws InterruptedException {
+            overWorldController.startWorldController();
             HandleOverWorld();
         }
         public int HandleOverWorld() throws InterruptedException{
+
             if (overWorldController.Entrance[0] == 1) {
                 return 1;
             }
@@ -30,4 +32,7 @@ import davidtest.overworld.map.WorldController;
             return 0;
         }
 
+        public static void main(String[] args) throws InterruptedException {
+            new WorldModel();
+        }
     }
