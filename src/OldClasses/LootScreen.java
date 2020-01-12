@@ -1,18 +1,6 @@
 package OldClasses;
 
-import game.LevelUpController;
-import game.MusicPick;
-import party.Healer;
-import party.Mage;
-import party.Ranger;
-import party.Warrior;
-
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
 public class LootScreen extends JFrame {
 /*
@@ -244,7 +232,7 @@ public class LootScreen extends JFrame {
         }
     }
 
-    //Method is called when equipButton is pressed. Changes the party-members armor/weapon and updates currentWeapon labels.
+    //Method is called when equipButton is pressed. Changes the OldClasses.party-members armor/weapon and updates currentWeapon labels.
     private void equipLoot(){
         if (whatLoot==1) {
             w.warriorRareArmor();

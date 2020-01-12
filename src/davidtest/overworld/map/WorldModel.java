@@ -1,7 +1,7 @@
 package davidtest.overworld.map;
 
 import game.MasterModel;
-import game.ShopModel;
+import game.ShopController;
 
 public class WorldModel {
 
@@ -9,8 +9,8 @@ public class WorldModel {
         WorldController overWorldController = new WorldController();
 
         if (overWorldController.Entrance[0]==1) {
-            ShopModel shopModel = new ShopModel();
-            //shopModel.startShopController();
+            ShopController sc = new ShopController();
+            //sc.startShopController();
         }
          if(overWorldController.Entrance[0]==2){
              MasterModel masterModel = new MasterModel();

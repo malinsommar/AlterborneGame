@@ -56,7 +56,7 @@ public class TutorialController {
             tv.text1.setLocation(485,20);
             tv.text1.setFont(tv.pixelMplus.deriveFont(18f));
 
-            tv.text2.setText("To your left you can see your party's hp.");
+            tv.text2.setText("To your left you can see your OldClasses.party's hp.");
             tv.text2.setLocation(460,55);
             tv.text2.setFont(tv.pixelMplus.deriveFont(17f));
 

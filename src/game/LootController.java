@@ -45,6 +45,7 @@ public class LootController {
         hover();
         textDelayTimer.start();
         lf.equipButton.addActionListener(e -> equipLoot());
+        lf.continueButton.addActionListener(e-> lf.lootScreenJFrame.dispose());
         lf.continueButton.addActionListener(e-> done = true);
 
     }
@@ -623,7 +624,7 @@ public class LootController {
         lf.hideLabels();
     }
 
-    //Method is called when equipButton is pressed. Changes the party-members armor/weapon and updates currentWeapon labels.
+    //Method is called when equipButton is pressed. Changes the OldClasses.party-members armor/weapon and updates currentWeapon labels.
     private void equipLoot(){
         //Warrior
         if (whatLoot==1) {

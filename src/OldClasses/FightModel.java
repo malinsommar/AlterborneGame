@@ -1,11 +1,5 @@
 package OldClasses;
 
-import game.*;
-import party.Healer;
-import party.Mage;
-import party.Ranger;
-import party.Warrior;
-
 public class FightModel {
 /*
     private ForestCon forestCon = new ForestCon();
@@ -66,7 +60,7 @@ public class FightModel {
         ls.loseScreen();
     }
 
-    //This method get stats from party-member classes.
+    //This method get stats from OldClasses.party-member classes.
     private void getStats(){
 
         warriorStats[0]=w.hp;

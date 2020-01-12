@@ -1,9 +1,7 @@
-package party;
-
-import game.MasterModel;
+package OldClasses.party;
 
 public class Warrior {
-    public String warriorRareWeaponName = "Iron sword",warriorEpicWeaponName = "Tempered steel blade",warriorLegendaryWeaponName = "Sword of a thousand truths",warriorRareArmorName = "Shiny Armor",warriorEpicArmorName = "Hardened Armor",warriorLegendaryArmorName = "Royal Enchanted Armor";
+/*    public String warriorRareWeaponName = "Iron sword",warriorEpicWeaponName = "Tempered steel blade",warriorLegendaryWeaponName = "Sword of a thousand truths",warriorRareArmorName = "Shiny Armor",warriorEpicArmorName = "Hardened Armor",warriorLegendaryArmorName = "Royal Enchanted Armor";
     public int warriorRareWeaponDamage = 8,warriorEpicWeaponDamage = 15,warriorLegendaryWeaponDamage = 27,warriorRareArmorBlock = 6,warriorEpicArmorBlock = 10,warriorLegendaryArmorBlock,mageRareArmorDamage = 20;
 
     public String currentWeaponName = "Wooden Sword";
@@ -12,13 +10,9 @@ public class Warrior {
     public String currentArmorName = "Rusty Armor";
     public int currentArmorBlock = 3;
 
-    public int hp;
-    public int block;
-    public int damage;
-
     public int combinedBlock = block + currentArmorBlock;
-    public int combinedDamage = damage + currentWeaponDamage;
-
+    public int combinedDamage = damage + currentWeaponDamage;*/
+/*
     public void warriorRareWeapon(){
         currentWeaponName = warriorRareWeaponName;
         currentWeaponDamage = warriorRareWeaponDamage;
@@ -42,5 +36,5 @@ public class Warrior {
     public void warriorLegendaryArmor(){
         currentArmorName = warriorLegendaryArmorName;
         currentArmorBlock = warriorLegendaryArmorBlock;
-    }
+    }*/
 }

@@ -1,8 +1,8 @@
-package party;
+package OldClasses.party;
 
 public class Healer {
 
-    public String healerRareWeaponName = "Stick of truth", healerEpicWeaponName = "Cleric's blessed walking stick", healerLegendaryWeaponName = "Root of the world tree", healerRareArmorName = "Priests robe", healerEpicArmorName = "Clerics armor", healerLegendaryArmorName = "Plate armor of Parl'ont the crusader";
+  /*  public String healerRareWeaponName = "Stick of truth", healerEpicWeaponName = "Cleric's blessed walking stick", healerLegendaryWeaponName = "Root of the world tree", healerRareArmorName = "Priests robe", healerEpicArmorName = "Clerics armor", healerLegendaryArmorName = "Plate armor of Parl'ont the crusader";
     public int healerRareWeaponDamage = 7, healerEpicWeaponDamage = 13, healerLegendaryWeaponDamage = 23, healerRareArmorBlock = 2, healerEpicArmorBlock = 8, healerLegendaryArmorBlock = 13, healerRareArmorDamage = 3, healerEpicArmorDamage = 7, healerLegendaryArmorDamage = 15;
 
     public String currentWeaponName = "Wooden staff";
@@ -47,5 +47,5 @@ public class Healer {
         currentArmorName = healerLegendaryArmorName;
         currentArmorBlock = healerLegendaryArmorBlock;
         currentArmorDamage = healerLegendaryArmorDamage;
-    }
+    }*/
 }

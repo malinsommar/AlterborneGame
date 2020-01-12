@@ -170,7 +170,7 @@ public class HubView extends JPanel {
         backStory4.setForeground(Color.white);
         backStory4.setBounds(210, 175, size3.width, size3.height);
 
-        yourParty = new JLabel("This is your party.");
+        yourParty = new JLabel("This is your OldClasses.party.");
         yourParty.setFont((pixelMplus.deriveFont(100f)));
         yourParty.setForeground(Color.white);
         Dimension size4 = yourParty.getPreferredSize();
