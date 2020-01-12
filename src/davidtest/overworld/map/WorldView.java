@@ -55,9 +55,5 @@ public class WorldView extends Canvas {
         frame.setLocationRelativeTo(null);//center the frame on the screen
         frame.setVisible(true); //show frame
     }
-
-    public static void main(String[] args) throws InterruptedException {
-        new WorldModel();
-    }
 }
 

@@ -26,6 +26,7 @@ public class MasterModel {
     private CaveController caveCon = new CaveController();
     private LoseScreen loseScreen = new LoseScreen();
     private FieldController fieldCon = new FieldController();
+    private ShopController shopCon = new ShopController();
     private CaveView cv = new CaveView();
 
     private int[] warriorStats = new int[3];
@@ -74,7 +75,7 @@ public class MasterModel {
         hubController.test();
 
         if (hubController.choice[0] == 1) {
-            startWorldModel();
+            OverWorldPaths();
             //startForestFight();
             //startCaveFight();
         }
@@ -87,21 +88,25 @@ public class MasterModel {
     }
 
 
-    public void startWorldModel() throws InterruptedException {
+    public void OverWorldPaths() throws InterruptedException {
         WorldModel worldModel = new WorldModel();
         if (worldModel.HandleOverWorld() == 1) {
-            startForestFight();
+            shopCon.startShopView(0);
         }
         if (worldModel.HandleOverWorld() == 2) {
-            startCaveFight();
+            startForestFight();
         }
         if (worldModel.HandleOverWorld() == 3) {
-            startFieldFight();
+            startCaveFight();
         }
         if (worldModel.HandleOverWorld() == 4) {
-            //startSwampFight();
+            // startFieldFight();
+        }
+        if (worldModel.HandleOverWorld() == 5){
+           // startSwampFight();
         }
     }
+
 
 
     public void setStartNumbers(){

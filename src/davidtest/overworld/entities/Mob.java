@@ -61,6 +61,8 @@ public abstract class Mob extends Entity {
                 && solidTile.isSolid(); //solidTile is Solid
         //if no difference is identified return false
     }
+
+    //Compare if tiles are a form of Path-Tile. Otherwise same as with the solid-path method
     protected boolean isDoorTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
@@ -68,66 +70,68 @@ public abstract class Mob extends Entity {
         //the solid path tiles
         Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
         Tile doorTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(doorTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
-                && doorTile.isDoor(); //solidPathTile is Solid
-        //if no difference is identified return false
+        return !lastTile.equals(doorTile)
+                && doorTile.isDoor();
+
     }
+
     protected boolean isForestPathTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
         }
-        //the solid path tiles
         Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
         Tile forestPathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(forestPathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
-                && forestPathTile.isForestPath(); //solidPathTile is Solid
-        //if no difference is identified return false
+        return !lastTile.equals(forestPathTile)
+                && forestPathTile.isForestPath();
+
     }
     protected boolean isMountainPathTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
         }
-        //the solid path tiles
         Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
         Tile mountainPathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(mountainPathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
-                && mountainPathTile.isMountainPath(); //solidPathTile is Solid
-        //if no difference is identified return false
+        return !lastTile.equals(mountainPathTile)
+                && mountainPathTile.isMountainPath();
     }
     protected boolean isFieldPathTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
         }
-        //the solid path tiles
         Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
         Tile FieldPathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(FieldPathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
-                && FieldPathTile.isFieldPath(); //solidPathTile is Solid
-        //if no difference is identified return false
+        return !lastTile.equals(FieldPathTile)
+                && FieldPathTile.isFieldPath();
     }
 
     protected boolean isSwampPathTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
         }
-        //the solid path tiles
         Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
         Tile SwampPathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(SwampPathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
-                && SwampPathTile.isSwampPath(); //solidPathTile is Solid
-        //if no difference is identified return false
+        return !lastTile.equals(SwampPathTile)
+                && SwampPathTile.isSwampPath();
     }
 
     protected boolean isCastlePathTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
         }
-        //the solid path tiles
         Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
         Tile CastlePathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(CastlePathTile) //If the tile player spawns on is an IsSolid tile won't be solid immediately
-                && CastlePathTile.isCastlePath(); //solidPathTile is Solid
-        //if no difference is identified return false
+        return !lastTile.equals(CastlePathTile)
+                && CastlePathTile.isCastlePath();
+    }
+
+    protected boolean isChestTile(int xa, int ya, int x, int y) {
+        if (level1 == null) {
+            return false;
+        }
+        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
+        Tile ChestTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(ChestTile)
+                && ChestTile.isChest();
     }
 
 
