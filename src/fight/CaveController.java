@@ -16,7 +16,7 @@ public class CaveController{
     CaveView cv = new CaveView();
 
 
-    //Get hp, block and damage from party
+    //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
     private int warriorDamage, mageDamage, healerDamage, rangerDamage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
@@ -567,7 +567,7 @@ public class CaveController{
         }
     }
 
-    //Checks if all of the enemies or party-members are dead.
+    //Checks if all of the enemies or OldClasses.party-members are dead.
     private void isFightOver() {
         //If all of the wolves are dead. Open lootScreen.
         if (goblinHp[0] < 1 && goblinHp[1] < 1 && goblinHp[2] < 1 && goblinHp[3] < 1) {
@@ -577,7 +577,7 @@ public class CaveController{
             FightModel fm = new FightModel();
             fm.fightWon(2);*/
         }
-        //In the whole party is dead, game is over. Send to loseScreen.
+        //In the whole OldClasses.party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             cv.caveFightJFrame.dispose();
             //TODO this does not follow mvc
@@ -620,7 +620,7 @@ public class CaveController{
         target = (int) (Math.random() * 4); //Random target, 0-3.
         int goblinDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
 
-        //Loops until it reaches an alive party-member.
+        //Loops until it reaches an alive OldClasses.party-member.
         while (true) {
 
             //Warrior, Target 2.
@@ -719,7 +719,7 @@ public class CaveController{
         }
     }
 
-    //Checks if any party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
+    //Checks if any OldClasses.party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void partyDeath() {
 
         if (warriorCurrentHp <= 0) {

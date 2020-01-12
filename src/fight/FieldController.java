@@ -10,7 +10,7 @@ public class FieldController {
     /*
         FieldView fv = new FieldView();
 
-        //Get hp, block and damage from party
+        //Get hp, block and damage from OldClasses.party
         private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
         private int warriorDamage, mageDamage, healerDamage, rangerDamage;
         private int warriorBlock, mageBlock, healerBlock, rangerBlock;
@@ -458,7 +458,7 @@ public class FieldController {
                 fv.energy.setText("Energy: "+warriorEnergyInt); //Update energyLabel
                 tackle.start(); //Warrior deals damage to a wolf.
                 mobDeath(); //Check if enemy died.
-                isFightOver(); //Check if all enemies/party members are dead.
+                isFightOver(); //Check if all enemies/OldClasses.party members are dead.
             }
             //If its ranger's turn and player has 2 or more energy.
             else if(turns==2 && rangerEnergyInt>1 && fv.targetarrow.isVisible()){
@@ -489,7 +489,7 @@ public class FieldController {
             }
         }
 
-        //Checks if all of the enemies or party-members are dead.
+        //Checks if all of the enemies or OldClasses.party-members are dead.
         private void isFightOver() {
             //If all of the wolves are dead. Open lootScreen.
             if (scarecrowHp[0] < 1 && scarecrowHp[1] < 1 && scarecrowHp[2] < 1 && scarecrowHp[3] < 1) {
@@ -499,7 +499,7 @@ public class FieldController {
                 FightModel fm = new FightModel();
                 fm.fightWon(2);
             }
-            //In the whole party is dead, game is over. Send to loseScreen.
+            //In the whole OldClasses.party is dead, game is over. Send to loseScreen.
             if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
                 fv.fieldFightJFrame.dispose();
                 //Death screen,
@@ -541,7 +541,7 @@ public class FieldController {
             int scarecrowDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
             takeDamage.start();
 
-            //Loops until it reaches an alive party-member.
+            //Loops until it reaches an alive OldClasses.party-member.
             while (true) {
 
                 //Warrior, Target 2.
@@ -628,7 +628,7 @@ public class FieldController {
             }
         }
 
-        //Checks if any party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
+        //Checks if any OldClasses.party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
         private void partyDeath(){
 
             if(warriorCurrentHp<=0){

@@ -1,9 +1,9 @@
 package OldClasses;
 
-import party.Healer;
-import party.Mage;
-import party.Ranger;
-import party.Warrior;
+import OldClasses.party.Healer;
+import OldClasses.party.Mage;
+import OldClasses.party.Ranger;
+import OldClasses.party.Warrior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class LevelUp {
-
+/*
     private Mage m = new Mage();
     private Healer h = new Healer();
     private Warrior w = new Warrior();
@@ -22,7 +22,7 @@ public class LevelUp {
     public int level = 1;
 
 
-    //This method checks party xp and level party up. Use this method after every fight.
+    //This method checks OldClasses.party xp and level OldClasses.party up. Use this method after every fight.
     public void levelSystem(){
 
         if (xp>15 && level == 1){
@@ -136,5 +136,5 @@ public class LevelUp {
         } catch (IOException | FontFormatException ignored) {
         }
     }
-
+*/
 }

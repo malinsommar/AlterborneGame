@@ -2,10 +2,10 @@
 
 import game.*;
 import imports.Potions;
-import party.Healer;
-import party.Mage;
-import party.Ranger;
-import party.Warrior;
+import OldClasses.party.Healer;
+import OldClasses.party.Mage;
+import OldClasses.party.Ranger;
+import OldClasses.party.Warrior;
 
 import javax.swing.*;
 import java.awt.*;
@@ -46,7 +46,7 @@ public class ForestFight extends JFrame {
     private int warriorEnergyInt = 5, mageEnergyInt, rangerEnergyInt, healerEnergyInt;
     private int wolf1Int, wolf2Int, wolf3Int, wolf4Int;
 
-    //Get hp, block and damage from party
+    //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp = w.hp, mageCurrentHp = m.hp, healerCurrentHp = h.hp, rangerCurrentHp = r.hp;
     private int warriorDamage = w.combinedDamage, mageDamage = m.combinedDamage, healerDamage = h.combinedDamage, rangerDamage = r.combinedDamage;
     private int warriorBlock = w.combinedBlock, mageBlock = m.combinedBlock, healerBlock = h.combinedBlock, rangerBlock = r.combinedBlock;
@@ -794,14 +794,14 @@ public class ForestFight extends JFrame {
         }
     }
 
-    //Checks if all of the enemies or party-members are dead.
+    //Checks if all of the enemies or OldClasses.party-members are dead.
     public void fightIsOver() {
         //All of the wolves are dead. Victory!
             System.out.println("wolfs are dead");
             startLootScreen = true;
         //MusicPick.musicStop();
     }
-            //The whole party is dead. Game over!
+            //The whole OldClasses.party is dead. Game over!
     public void isFightLost() {
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             new LoseScreen();
@@ -816,7 +816,7 @@ public class ForestFight extends JFrame {
         int wolfDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
         takeDamage.start();
 
-        //Loops until it reaches an alive party-member.
+        //Loops until it reaches an alive OldClasses.party-member.
         while (true) {
 
             //Warrior, Target 2.
@@ -901,7 +901,7 @@ public class ForestFight extends JFrame {
         }
     }
 
-    //Checks if any party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
+    //Checks if any OldClasses.party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void partyDeath() {
 
         if (warriorCurrentHp <= 0) {
@@ -1678,7 +1678,7 @@ public class ForestFight extends JFrame {
         endTurnButton.setFocusPainted(false);//Remove border around text in button
     }
 
-    //Get all party-gif's.
+    //Get all OldClasses.party-gif's.
     private void importPartyGif() {
         warrior = new JLabel();
         warrior.setIcon(new ImageIcon("warrior.gif"));

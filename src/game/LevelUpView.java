@@ -39,12 +39,22 @@ public class LevelUpView {
         levelFrame.add(ranger);
         levelFrame.add(mage);
         levelFrame.add(healer);
+        levelFrame.add(continueButton);
 
         levelFrame.setUndecorated(true);
         levelFrame.setVisible(true);
     }
 
     public void importLabels(){
+
+        continueButton = new JButton("X");
+        continueButton.setSize(50, 50);
+        continueButton.setLocation(440, 10);
+        continueButton.setForeground(Color.red);
+        continueButton.setFont(pixelMplus.deriveFont(35f));
+        continueButton.setBackground(Color.white);
+        continueButton.setBorder(null);
+        continueButton.setFocusPainted(false);
 
         whatLevel.setForeground(Color.black);
         whatLevel.setFont((pixelMplus.deriveFont(35f)));
@@ -134,17 +144,6 @@ public class LevelUpView {
         healerBlock.setFont((pixelMplus.deriveFont(25f)));
         Dimension healerBlockSize = healerBlock.getPreferredSize();
         healerBlock.setBounds(260, 330, healerBlockSize.width, healerBlockSize.height);
-
-
-        //Button
-        continueButton = new JButton("Continue");
-        continueButton.setSize(300, 100);
-        continueButton.setLocation(100, 280);
-        continueButton.setForeground(Color.white);
-        continueButton.setFont(pixelMplus.deriveFont(30f));
-        continueButton.setBackground(Color.gray);
-        continueButton.setBorder(null);
-        continueButton.setFocusPainted(false);
     }
 
     private void importFont() {
