@@ -18,6 +18,7 @@ public class MasterModel {
     private ShopController sc = new ShopController();
     private WorldController overWorldCon = new WorldController();
 
+
     private int[] warriorStats = new int[3];
     private int[] mageStats = new int[3];
     private int[] healerStats = new int[3];
@@ -131,7 +132,8 @@ public class MasterModel {
             System.exit(0);
         }
     }
-    public void overWorldPaths() throws InterruptedException {
+
+    private void overWorldPaths() throws InterruptedException {
         if (overWorldCon.Entrance[0] == 1) {
             startShop();
         }

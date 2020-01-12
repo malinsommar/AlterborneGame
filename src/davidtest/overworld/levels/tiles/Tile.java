@@ -65,7 +65,6 @@ public abstract class Tile {
 
 
 
-
     protected byte id;
     boolean solid;
     private boolean emitter;
