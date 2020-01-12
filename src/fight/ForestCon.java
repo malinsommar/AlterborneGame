@@ -17,7 +17,7 @@ public class ForestCon {
 
     ForestFightFrame fff = new ForestFightFrame();
 
-    //Get hp, block and damage from party
+    //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
     public int warriorDamage, mageDamage, healerDamage, rangerDamage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
@@ -77,12 +77,12 @@ public class ForestCon {
     private boolean animationPlaying = false;
     private boolean stealthed = false;
 
-    int[] wolfHp = {20,20,20,20};
+    int[] wolfHp = new int[4];
 
     public boolean fightWon = false;
     public boolean fightLost = false;
 
-    private int[] ownedPotions = new int[12];
+    public int[] ownedPotions = new int[12];
 
     public int[] status = new int[1];
     public int battleWon = 1;
@@ -90,6 +90,11 @@ public class ForestCon {
     public void startFight(){
 
         MusicPick.musicStart("forest1","music");
+
+        wolfHp[0] = 1;
+        wolfHp[1] = 1;
+        wolfHp[2] = 1;
+        wolfHp[3] = 1;
 
         currentEnergy = 5;
 
@@ -449,7 +454,7 @@ public class ForestCon {
         }
     }
 
-    //Checks if all of the enemies or party-members are dead.
+    //Checks if all of the enemies or OldClasses.party-members are dead.
     private void isFightOver(){
         //If all of the wolves are dead. Open lootScreen.
         if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
@@ -458,7 +463,7 @@ public class ForestCon {
             fightWon = true;
 
         }
-        //In the whole party is dead, game is over. Send to loseScreen.
+        //In the whole OldClasses.party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             fff.forestFightJFrame.dispose();
             fightLost = true;
@@ -471,7 +476,7 @@ public class ForestCon {
         target = (int) (Math.random() * 4); //Random target, 0-3.
         int wolfDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
 
-        //Loops until it reaches an alive party-member.
+        //Loops until it reaches an alive OldClasses.party-member.
         while (true) {
 
             //Warrior, Target 2.
@@ -580,7 +585,7 @@ public class ForestCon {
         }
     }
 
-    //Checks if any party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
+    //Checks if any OldClasses.party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     public void partyDeath(){
 
         if(warriorCurrentHp<=0){

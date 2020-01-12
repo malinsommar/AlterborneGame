@@ -79,7 +79,7 @@ public class Backstory extends JFrame {
         backStory4.setForeground(Color.white);
         backStory4.setBounds(200, 175, size3.width, size3.height);
 
-        yourParty = new JLabel("This is your party.");
+        yourParty = new JLabel("This is your OldClasses.party.");
         yourParty.setFont((pixelMplus.deriveFont(100f)));
         yourParty.setForeground(Color.white);
         Dimension size4 = yourParty.getPreferredSize();

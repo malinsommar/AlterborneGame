@@ -14,14 +14,15 @@ public class LevelUpController {
     private int mHp, mB, mD;
     private int hHp, hB, hD;
 
-    private int warriorHp, warriorBlock, warriorDamage;
-    private int rangerHp, rangerBlock, rangerDamage;
-    private int mageHp, mageBlock, mageDamage;
-    private int healerHp, healerBlock, healerDamage;
+    public int warriorHp, warriorBlock, warriorDamage;
+    public int rangerHp, rangerBlock, rangerDamage;
+    public int mageHp, mageBlock, mageDamage;
+    public int healerHp, healerBlock, healerDamage;
 
     boolean done = false;
+    boolean playerNotLevelUp = false;
 
-    //This method checks party xp and level party up. Use this method after every fight.
+    //This method checks OldClasses.party xp and level OldClasses.party up. Use this method after every fight.
     public void didPlayerLevelUp(int getXp, int getLevel, int[] wUp, int[] rUp, int[] mUp, int[] hUp, int[] wStat, int[] rStat, int[] mStat, int[] hStat){
 
         xp = getXp;
@@ -64,50 +65,59 @@ public class LevelUpController {
             levelUpStats();
             setLabels();
             luv.levelUpFrame();
+            luv.continueButton.addActionListener(e -> done = true);
         }
         if (xp>40 && level == 2){
             level = 3;
             levelUpStats();
             luv.levelUpFrame();
+            luv.continueButton.addActionListener(e -> done = true);
         }
         else if (xp>80 && level == 3){
             level = 4;
             levelUpStats();
             luv.levelUpFrame();
+            luv.continueButton.addActionListener(e -> done = true);
         }
         else if(xp>160 && level == 4){
             level = 5;
             levelUpStats();
             luv.levelUpFrame();
+            luv.continueButton.addActionListener(e -> done = true);
         }
         else if(xp>300 && level == 5){
             level = 6;
             levelUpStats();
             luv.levelUpFrame();
+            luv.continueButton.addActionListener(e -> done = true);
         }
         else if(xp>500 && level == 6){
             level = 7;
             levelUpStats();
             luv.levelUpFrame();
+            luv.continueButton.addActionListener(e -> done = true);
         }
         else if(xp>1000 && level == 7){
             level = 8;
             levelUpStats();
             luv.levelUpFrame();
+            luv.continueButton.addActionListener(e -> done = true);
         }
         else if(xp>2000 && level == 8){
             level = 9;
             levelUpStats();
             luv.levelUpFrame();
+            luv.continueButton.addActionListener(e -> done = true);
         }
         else if(xp>4000 && level == 9){
             level = 10;
             levelUpStats();
             luv.levelUpFrame();
+            luv.continueButton.addActionListener(e -> done = true);
         }
-
-        luv.continueButton.addActionListener(e -> done = true);
-
+        else{
+            playerNotLevelUp = true;
+        }
     }
 
     public void setLabels(){
@@ -126,7 +136,7 @@ public class LevelUpController {
             luv.mageDamage = new JLabel("Damage: "+(mageDamage-mD/2)+" -> "+mageDamage+"   ");
             luv.mageBlock = new JLabel("Block: "+(mageBlock-mB/2)+" -> "+mageBlock+"   ");
 
-            luv.healerHp = new JLabel("Hp: "+(healerHp-hHp/2)+" -> "+mageHp+"   ");
+            luv.healerHp = new JLabel("Hp: "+(healerHp-hHp/2)+" -> "+healerHp+"   ");
             luv.healerDamage = new JLabel("Damage: "+(healerDamage-hD/2)+" -> "+healerDamage+"   ");
             luv.healerBlock = new JLabel("Block: "+(healerBlock-hB/2)+" -> "+healerBlock+"   ");
         }

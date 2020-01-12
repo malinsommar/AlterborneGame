@@ -1,7 +1,9 @@
 package davidtest.overworld.map;
 
+import com.mysql.cj.x.protobuf.MysqlxCursor;
 import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Fonts;
+import davidtest.overworld.levels.tiles.ChestTile;
 import davidtest.overworld.map.Functionality.MouseClickSimulated;
 import game.MusicPick;
 
@@ -12,7 +14,7 @@ import java.awt.image.BufferStrategy;
 //Runnable is used to automatically call the "run" method, which is necessary for the thread to work
 public class WorldController extends Canvas implements Runnable {
     private WorldView owf = new WorldView();
-    int[] Entrance = new int[1];
+    public  int[] Entrance = new int[1];
 
     //int-variables to handle Model-execution
     private int ForestEntrance = 1;
@@ -23,7 +25,7 @@ public class WorldController extends Canvas implements Runnable {
     private int CastleEntrance = 1;
 
 
-    WorldController() throws InterruptedException {
+    public void startWorldController() throws InterruptedException {
         start();//start the program
         new MouseClickSimulated();
         while (Entrance[0] <= 0) {
@@ -158,9 +160,12 @@ public class WorldController extends Canvas implements Runnable {
             //render the available mobs into to game
             owf.level.renderEntities(owf.screen);
 
+            //render sign into the game
             Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("lvl", owf.screen, 332, 230, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Forest", owf.screen, 320, 230, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("1-5", owf.screen, 332, 255, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Final Boss", owf.screen, 130, 8, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("???", owf.screen, 160, 50, Colours.get(000, -1, -1, 555), 1);
 
 
             //render the colours on the tiles within the screens width and height
@@ -216,6 +221,4 @@ public class WorldController extends Canvas implements Runnable {
             Entrance[0] = 6;
         }
     }
-
-
-}
+    }
