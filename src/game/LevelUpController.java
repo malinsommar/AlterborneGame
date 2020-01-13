@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class LevelUpController {
 
-    LevelUpView luv = new LevelUpView();
+    LevelUpView luv;
 
     public int xp;
     public int level;
@@ -24,6 +24,9 @@ public class LevelUpController {
 
     //This method checks OldClasses.party xp and level OldClasses.party up. Use this method after every fight.
     public void didPlayerLevelUp(int getXp, int getLevel, int[] wUp, int[] rUp, int[] mUp, int[] hUp, int[] wStat, int[] rStat, int[] mStat, int[] hStat){
+        luv = new LevelUpView();
+
+        done = false;
 
         xp = getXp;
         level = getLevel;
