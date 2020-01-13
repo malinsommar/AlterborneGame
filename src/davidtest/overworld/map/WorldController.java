@@ -163,15 +163,15 @@ public class WorldController extends Canvas implements Runnable {
 
             //render sign into the game
             Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Forest", owf.screen, 400, 440, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("1-3", owf.screen, 412, 465, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Cave", owf.screen, 18, 280, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("3-5", owf.screen, 18, 302, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Field", owf.screen, 45, 450, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("5-8", owf.screen, 45, 472, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Swamp", owf.screen, 450, 103, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("8-12", owf.screen, 450, 128, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Final Boss", owf.screen, 130, 8, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Forest", owf.screen, 320, 258, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("1-3", owf.screen, 332, 280, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Cave", owf.screen, 16, 280, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("3-5", owf.screen, 19, 302, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Field", owf.screen, 43, 450, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("5-8", owf.screen, 52, 472, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Swamp", owf.screen, 452, 103, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("8-12", owf.screen, 456, 128, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Castle", owf.screen, 147, 8, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("???", owf.screen, 160, 50, Colours.get(000, -1, -1, 555), 1);
 
 
