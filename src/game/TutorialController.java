@@ -6,6 +6,7 @@ public class TutorialController {
 
     TutorialView tv = new TutorialView();
     int pics = 1;
+    public boolean done = false;
 
     ImageIcon bild1 = new ImageIcon("turn.png");
     ImageIcon bild2 = new ImageIcon("hp.png");
@@ -13,7 +14,6 @@ public class TutorialController {
     ImageIcon bild4 = new ImageIcon("block.png");
     ImageIcon bild5 = new ImageIcon("spells.png");
     ImageIcon bild6 = new ImageIcon("item.png");
-    //ImageIcon bild7 = new ImageIcon("skill.png");
     ImageIcon bild7 = new ImageIcon("potion.png");
     ImageIcon bild8 = new ImageIcon("endturn.png");
     ImageIcon bild9 = new ImageIcon("fight.png");
@@ -56,7 +56,7 @@ public class TutorialController {
             tv.text1.setLocation(485,20);
             tv.text1.setFont(tv.pixelMplus.deriveFont(18f));
 
-            tv.text2.setText("To your left you can see your OldClasses.party's hp.");
+            tv.text2.setText("To your left you can see your party's hp.");
             tv.text2.setLocation(460,55);
             tv.text2.setFont(tv.pixelMplus.deriveFont(17f));
 
@@ -162,7 +162,9 @@ public class TutorialController {
             tv.text3.setText("                  ");
         }
         else if (pics == 10){
-            //länka tillbaka till huvudmenyn
+            done = true;
+            pics = 1;
+            tv.tutorialJFrame.dispose();
         }
         pics++;
     }

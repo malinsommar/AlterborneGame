@@ -84,9 +84,6 @@ public class ForestCon {
 
     public int[] ownedPotions = new int[12];
 
-    public int[] status = new int[1];
-    public int battleWon = 1;
-
     public void startFight(){
 
         MusicPick.musicStart("forest1","music");
@@ -97,6 +94,7 @@ public class ForestCon {
         wolfHp[3] = 1;
 
         currentEnergy = 5;
+        warriorEnergyInt = 5;
 
         setStartLabels();
         fff.forestFightFrame();

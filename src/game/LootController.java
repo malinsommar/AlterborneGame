@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 
 public class LootController {
 
-    private LootFrame lf = new LootFrame();
+    private LootFrame lf;
 
-    int textDelay = 0, whatLoot, xpInt, goldInt;
+    int textDelay, whatLoot, xpInt, goldInt;
 
     private String warriorWeaponName, mageWeaponName, rangerWeaponName, healerWeaponName;
     private String warriorArmorName, mageArmorName,rangerArmorName, healerArmorName;
@@ -39,6 +39,10 @@ public class LootController {
 
     //This method starts LootFrame and implements the methods needed for LootScreen.
     public void startLootScreen(int fight){
+
+        textDelay = 0;
+
+        lf = new LootFrame();
 
         lf.lootScreenFrame();
         generateLoot(fight);
@@ -757,18 +761,17 @@ public class LootController {
         @Override
         public void actionPerformed(ActionEvent ae) {
             textDelay++;
-            if (textDelay == 2){
+            if (textDelay == 1){
                 MusicPick.musicStart("ding","");
                 lf.lootScreenJFrame.add(lf.xp);
                 System.out.println(xpInt);
             }
-            else if(textDelay == 3){
+            else if(textDelay == 2){
                 MusicPick.musicStart("ding","");
                 lf.lootScreenJFrame.add(lf.gold);
                 System.out.println(goldInt);
             }
-            //TODO fixa lootscreen
-            else if(textDelay == 4){
+            else if(textDelay == 3){
                 MusicPick.musicStart("ding","");
                 lf.lootScreenJFrame.add(lf.item);
                 if(showEquipButton){

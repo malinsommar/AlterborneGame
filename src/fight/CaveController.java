@@ -76,6 +76,8 @@ public class CaveController{
     public boolean animationPlaying = false;
     public boolean stealthed = false;
 
+    public boolean fightWon = false;
+    public boolean fightLost = false;
 
     private int[] ownedPotions = new int[12];
 
@@ -573,16 +575,13 @@ public class CaveController{
         if (goblinHp[0] < 1 && goblinHp[1] < 1 && goblinHp[2] < 1 && goblinHp[3] < 1) {
             MusicPick.musicStop();
             cv.caveFightJFrame.dispose();
-            /*//TODO This does not follow MVC
-            FightModel fm = new FightModel();
-            fm.fightWon(2);*/
+            fightWon = true;
+
         }
         //In the whole OldClasses.party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             cv.caveFightJFrame.dispose();
-            //TODO this does not follow mvc
-            LoseScreen ls = new LoseScreen();
-            ls.loseScreen();
+            fightLost = true;
         }
         //If none of these are true, nothing happens and the fight goes on.
     }

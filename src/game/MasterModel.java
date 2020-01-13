@@ -1,6 +1,5 @@
 package game;
 
-import davidtest.overworld.map.WorldController;
 import davidtest.overworld.map.WorldModel;
 import fight.CaveController;
 import fight.FieldController;
@@ -35,7 +34,7 @@ public class MasterModel {
     private int warriorRareWeaponDamage = 8, warriorEpicWeaponDamage = 15, warriorLegendaryWeaponDamage = 27, warriorRareArmorBlock = 6, warriorEpicArmorBlock = 10, warriorLegendaryArmorBlock;
 
     private String currentWarriorWeaponName = "Wooden Sword";
-    private int currentWarriorWeaponDamage = 5;
+    private int currentWarriorWeaponDamage = 3;
 
     private String currentWarriorArmorName = "Rusty Armor";
     private int currentWarriorArmorBlock = 3;
@@ -113,6 +112,7 @@ public class MasterModel {
             startWorldModel();
         } else if (hubController.choice[0] == 2) {
             tc.startTutorial();
+            tutorialLoop1();
         } else if (hubController.choice[0] == 3) {
             System.exit(0);
         }
@@ -123,19 +123,19 @@ public class MasterModel {
         if (worldModel.HandleOverWorld() == 1) {
             startShop();
         }
-        if (worldModel.HandleOverWorld() == 2) {
+        else if (worldModel.HandleOverWorld() == 2) {
             startForestFight();
         }
-        if (worldModel.HandleOverWorld() == 3) {
+        else if (worldModel.HandleOverWorld() == 3) {
             startCaveFight();
         }
-        if (worldModel.HandleOverWorld() == 4) {
+        else if (worldModel.HandleOverWorld() == 4) {
             startFieldFight();
         }
-        if (worldModel.HandleOverWorld() == 5) {
+        else if (worldModel.HandleOverWorld() == 5) {
             //startSwampFight();
         }
-        if (worldModel.HandleOverWorld() == 6) {
+        else if (worldModel.HandleOverWorld() == 6) {
             //startCastleFight
         }
     }
@@ -208,10 +208,12 @@ public class MasterModel {
         forestFightLoop1();
     }
 
-    public void startCaveFight() {
+    public void startCaveFight() throws InterruptedException {
         caveCon.getInventory(ownedPotions);
         caveCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
         caveCon.startFight();
+
+        caveFightLoop1();
     }
 
     public void startFieldFight() {
@@ -244,27 +246,96 @@ public class MasterModel {
     }
 
     private void startLevelUp() throws InterruptedException {
-        luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
-        levelUpLoop1();
+
+        if (currentXp>15 && currentLevel == 1){
+            currentLevel = 2;
+            levelUpStats();
+            luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
+            levelUpLoop1();
+        }
+        if (currentXp>40 && currentLevel == 2){
+            currentLevel = 3;
+            levelUpStats();
+            luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
+            levelUpLoop1();
+        }
+        else if (currentXp>80 && currentLevel == 3){
+            currentLevel = 4;
+            levelUpStats();
+            luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
+            levelUpLoop1();
+        }
+        else if(currentXp>160 && currentLevel == 4){
+            currentLevel = 5;
+            levelUpStats();
+            luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
+            levelUpLoop1();
+        }
+        else if(currentXp>300 && currentLevel == 5){
+            currentLevel = 6;
+            levelUpStats();
+            luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
+            levelUpLoop1();
+        }
+        else if(currentXp>500 && currentLevel == 6){
+            currentLevel = 7;
+            levelUpStats();
+            luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
+            levelUpLoop1();
+        }
+        else if(currentXp>1000 && currentLevel == 7){
+            currentLevel = 8;
+            levelUpStats();
+            luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
+            levelUpLoop1();
+        }
+        else if(currentXp>2000 && currentLevel == 8){
+            currentLevel = 9;
+            levelUpStats();
+            luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
+            levelUpLoop1();
+        }
+        else if(currentXp>4000 && currentLevel == 9){
+            currentLevel = 10;
+            levelUpStats();
+            luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
+            levelUpLoop1();
+        }
     }
     
     private void levelUpStats(){
 
-        warriorStats[0] = luc.warriorHp;
-        warriorStats[1] = luc.warriorBlock;
-        warriorStats[2] = luc.warriorDamage;
+        warriorStats[0] += warriorLevelUpStats[0];
+        warriorStats[1] += warriorLevelUpStats[1];
+        warriorStats[2] += warriorLevelUpStats[2];
+        
+        warriorLevelUpStats[0] += warriorLevelUpStats[0];
+        warriorLevelUpStats[1] += warriorLevelUpStats[1];
+        warriorLevelUpStats[2] += warriorLevelUpStats[2];
 
-        mageStats[0] = luc.mageHp;
-        mageStats[1] = luc.mageBlock;
-        mageStats[2] = luc.mageDamage;
+        mageStats[0] += mageLevelUpStats[0];
+        mageStats[1] += mageLevelUpStats[1];
+        mageStats[2] += mageLevelUpStats[2];
 
-        rangerStats[0] = luc.rangerHp;
-        rangerStats[1] = luc.rangerBlock;
-        rangerStats[2] = luc.rangerDamage;
+        mageLevelUpStats[0] += mageLevelUpStats[0];
+        mageLevelUpStats[1] += mageLevelUpStats[1];
+        mageLevelUpStats[2] += mageLevelUpStats[2];
 
-        healerStats[0] = luc.healerHp;
-        healerStats[1] = luc.healerBlock;
-        healerStats[2] = luc.healerDamage;
+        rangerStats[0] += rangerLevelUpStats[0];
+        rangerStats[1] += rangerLevelUpStats[1];
+        rangerStats[2] += rangerLevelUpStats[2];
+
+        rangerLevelUpStats[0] += rangerLevelUpStats[0];
+        rangerLevelUpStats[1] += rangerLevelUpStats[1];
+        rangerLevelUpStats[2] += rangerLevelUpStats[2];
+
+        healerStats[0] += healerLevelUpStats[0];
+        healerStats[1] += healerLevelUpStats[0];
+        healerStats[2] += healerLevelUpStats[0];
+
+        healerLevelUpStats[0] += healerLevelUpStats[0];
+        healerLevelUpStats[1] += healerLevelUpStats[1];
+        healerLevelUpStats[2] += healerLevelUpStats[2];
     }
 
     //This method saves gold, xp and weapon/armor that player got from lootController.
@@ -567,6 +638,8 @@ public class MasterModel {
             if (forestCon.fightWon) {
                 System.out.println("fightWon");
 
+                forestCon.fightWon = false;
+
                 forestCon.ownedPotions[0] = ownedPotions[0];
                 forestCon.ownedPotions[1] = ownedPotions[1];
                 forestCon.ownedPotions[2] = ownedPotions[2];
@@ -612,6 +685,8 @@ public class MasterModel {
             if (forestCon.fightWon) {
                 System.out.println("fightWon");
 
+                forestCon.fightWon = false;
+
                 forestCon.ownedPotions[0] = ownedPotions[0];
                 forestCon.ownedPotions[1] = ownedPotions[1];
                 forestCon.ownedPotions[2] = ownedPotions[2];
@@ -646,10 +721,95 @@ public class MasterModel {
         }
     }
 
-    private void addShopItems(){
+    private void caveFightLoop1() throws InterruptedException {
+        int loops = 0;
+        boolean broken = false;
 
+        System.out.println("loop1");
+        while (true) {
+            System.out.println("run 1");
+
+            if (caveCon.fightWon) {
+                System.out.println("fightWon");
+
+                forestCon.ownedPotions[0] = ownedPotions[0];
+                forestCon.ownedPotions[1] = ownedPotions[1];
+                forestCon.ownedPotions[2] = ownedPotions[2];
+
+                forestCon.ownedPotions[3] = ownedPotions[3];
+                forestCon.ownedPotions[4] = ownedPotions[4];
+                forestCon.ownedPotions[5] = ownedPotions[5];
+
+                forestCon.ownedPotions[6] = ownedPotions[6];
+                forestCon.ownedPotions[7] = ownedPotions[7];
+                forestCon.ownedPotions[8] = ownedPotions[8];
+
+                forestCon.ownedPotions[9] = ownedPotions[9];
+                forestCon.ownedPotions[10] = ownedPotions[10];
+                forestCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(1);
+                broken = true;
+                break;
+            } else if (caveCon.fightLost) {
+                System.out.println("fightLost");
+                loseScreen.loseScreen();
+                broken = true;
+                break;
+            } else if (loops == 100000) {
+                break;
+            }
+            loops++;
+        }
+        if (!broken) {
+            caveFightLoop2();
+        }
     }
 
+    private void caveFightLoop2() throws InterruptedException {
+        int loops = 0;
+        boolean broken = false;
+        System.out.println("loop2");
+
+        while (true) {
+            System.out.println("run 2");
+
+            if (caveCon.fightWon) {
+                System.out.println("fightWon");
+
+                forestCon.ownedPotions[0] = ownedPotions[0];
+                forestCon.ownedPotions[1] = ownedPotions[1];
+                forestCon.ownedPotions[2] = ownedPotions[2];
+
+                forestCon.ownedPotions[3] = ownedPotions[3];
+                forestCon.ownedPotions[4] = ownedPotions[4];
+                forestCon.ownedPotions[5] = ownedPotions[5];
+
+                forestCon.ownedPotions[6] = ownedPotions[6];
+                forestCon.ownedPotions[7] = ownedPotions[7];
+                forestCon.ownedPotions[8] = ownedPotions[8];
+
+                forestCon.ownedPotions[9] = ownedPotions[9];
+                forestCon.ownedPotions[10] = ownedPotions[10];
+                forestCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(1);
+                broken = true;
+                break;
+            } else if (caveCon.fightLost) {
+                System.out.println("fightLost");
+                loseScreen.loseScreen();
+                broken = true;
+                break;
+            } else if (loops == 100000) {
+                break;
+            }
+            loops++;
+        }
+        if (!broken) {
+            caveFightLoop1();
+        }
+    }
 
     private void levelUpLoop1() throws InterruptedException {
 
@@ -662,6 +822,7 @@ public class MasterModel {
 
             if (luc.done) {
                 System.out.println("xp ready");
+                luc.done = false;
                 levelUpStats();
                 broken = true;
                 break;
@@ -690,6 +851,7 @@ public class MasterModel {
 
             if (lc.done) {
                 System.out.println("loot ready, start loot");
+                luc.done = false;
                 levelUpStats();
                 broken = true;
                 break;
@@ -717,7 +879,6 @@ public class MasterModel {
 
             if (sc.done) {
                 System.out.println("loot ready, start loot");
-                addShopItems();
                 broken = true;
                 break;
             }
@@ -815,6 +976,52 @@ public class MasterModel {
             lootLoop1();
         }
         lc.done = false;
+    }
+
+    private void tutorialLoop1() throws InterruptedException {
+        int loops = 0;
+        boolean broken = false;
+        System.out.println("tutorial loop1");
+
+        while (true) {
+            System.out.println("running loop 2");
+
+            if (tc.done) {
+                broken = true;
+                startWorldModel();
+                break;
+            } else if (loops == 100000) {
+                break;
+            }
+            loops++;
+        }
+            if (!broken) {
+                tutorialLoop2();
+            }
+            tc.done = false;
+        }
+
+    private void tutorialLoop2() throws InterruptedException {
+        int loops = 0;
+        boolean broken = false;
+        System.out.println("tutorial loop1");
+
+        while (true) {
+            System.out.println("running loop 2");
+
+            if (tc.done) {
+                broken = true;
+                startWorldModel();
+                break;
+            } else if (loops == 100000) {
+                break;
+            }
+            loops++;
+        }
+        if (!broken) {
+            tutorialLoop1();
+        }
+        tc.done = false;
     }
 
     //Equip weapon/armors
