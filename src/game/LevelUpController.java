@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class LevelUpController {
 
-    LevelUpView luv = new LevelUpView();
+    LevelUpView luv;
 
     public int xp;
     public int level;
@@ -20,9 +20,13 @@ public class LevelUpController {
     private int healerHp, healerBlock, healerDamage;
 
     boolean done = false;
+    boolean playerNotLevelUp = false;
 
-    //This method checks party xp and level party up. Use this method after every fight.
+    //This method checks OldClasses.party xp and level OldClasses.party up. Use this method after every fight.
     public void didPlayerLevelUp(int getXp, int getLevel, int[] wUp, int[] rUp, int[] mUp, int[] hUp, int[] wStat, int[] rStat, int[] mStat, int[] hStat){
+        luv = new LevelUpView();
+
+        done = false;
 
         xp = getXp;
         level = getLevel;
@@ -59,54 +63,10 @@ public class LevelUpController {
         healerBlock = hStat[1];
         healerDamage = hStat[2];
 
-        if (xp>15 && level == 1){
-            level = 2;
-            levelUpStats();
-            setLabels();
-            luv.levelUpFrame();
-        }
-        if (xp>40 && level == 2){
-            level = 3;
-            levelUpStats();
-            luv.levelUpFrame();
-        }
-        else if (xp>80 && level == 3){
-            level = 4;
-            levelUpStats();
-            luv.levelUpFrame();
-        }
-        else if(xp>160 && level == 4){
-            level = 5;
-            levelUpStats();
-            luv.levelUpFrame();
-        }
-        else if(xp>300 && level == 5){
-            level = 6;
-            levelUpStats();
-            luv.levelUpFrame();
-        }
-        else if(xp>500 && level == 6){
-            level = 7;
-            levelUpStats();
-            luv.levelUpFrame();
-        }
-        else if(xp>1000 && level == 7){
-            level = 8;
-            levelUpStats();
-            luv.levelUpFrame();
-        }
-        else if(xp>2000 && level == 8){
-            level = 9;
-            levelUpStats();
-            luv.levelUpFrame();
-        }
-        else if(xp>4000 && level == 9){
-            level = 10;
-            levelUpStats();
-            luv.levelUpFrame();
-        }
-
+        setLabels();
+        luv.levelUpFrame();
         luv.continueButton.addActionListener(e -> done = true);
+        luv.continueButton.addActionListener(e -> luv.levelFrame.dispose());
 
     }
 
@@ -126,44 +86,8 @@ public class LevelUpController {
             luv.mageDamage = new JLabel("Damage: "+(mageDamage-mD/2)+" -> "+mageDamage+"   ");
             luv.mageBlock = new JLabel("Block: "+(mageBlock-mB/2)+" -> "+mageBlock+"   ");
 
-            luv.healerHp = new JLabel("Hp: "+(healerHp-hHp/2)+" -> "+mageHp+"   ");
+            luv.healerHp = new JLabel("Hp: "+(healerHp-hHp/2)+" -> "+healerHp+"   ");
             luv.healerDamage = new JLabel("Damage: "+(healerDamage-hD/2)+" -> "+healerDamage+"   ");
             luv.healerBlock = new JLabel("Block: "+(healerBlock-hB/2)+" -> "+healerBlock+"   ");
         }
-
-    //When player level up, this method adds bonuses to stats.
-    public void levelUpStats(){
-
-        warriorHp += wHp;
-        warriorDamage += wD;
-        warriorBlock += wB;
-
-        wHp += wHp;
-        wD += wD;
-        wB += wB;
-
-        rangerHp += rHp;
-        rangerDamage += rD;
-        rangerBlock += rB;
-
-        rHp += rHp;
-        rD += rD;
-        rB += rB;
-
-        mageHp += mHp;
-        mageDamage += mD;
-        mageBlock += mB;
-
-        mHp += mHp;
-        mD += mD;
-        mB += mB;
-
-        healerHp += hHp;
-        healerDamage += hD;
-        healerBlock += hB;
-
-        hHp += hHp;
-        hD += hD;
-        hB += hB;
-    }
 }

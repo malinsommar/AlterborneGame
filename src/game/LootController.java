@@ -7,9 +7,9 @@ import java.awt.event.ActionListener;
 
 public class LootController {
 
-    private LootFrame lf = new LootFrame();
+    private LootFrame lf;
 
-    int textDelay = 0, whatLoot, xpInt, goldInt;
+    int textDelay, whatLoot, xpInt, goldInt;
 
     private String warriorWeaponName, mageWeaponName, rangerWeaponName, healerWeaponName;
     private String warriorArmorName, mageArmorName,rangerArmorName, healerArmorName;
@@ -35,17 +35,23 @@ public class LootController {
 
     private boolean showEquipButton = false;
     boolean playerWantsLoot = false;
-
-    public int[] status = new int[1];
+    boolean done = false;
 
     //This method starts LootFrame and implements the methods needed for LootScreen.
     public void startLootScreen(int fight){
+        showEquipButton = false;
+        playerWantsLoot = false;
+        textDelay = 0;
+        done = false;
 
+        lf = new LootFrame();
         lf.lootScreenFrame();
         generateLoot(fight);
         hover();
         textDelayTimer.start();
         lf.equipButton.addActionListener(e -> equipLoot());
+        lf.continueButton.addActionListener(e-> lf.lootScreenJFrame.dispose());
+        lf.continueButton.addActionListener(e-> done = true);
 
     }
 
@@ -623,7 +629,7 @@ public class LootController {
         lf.hideLabels();
     }
 
-    //Method is called when equipButton is pressed. Changes the party-members armor/weapon and updates currentWeapon labels.
+    //Method is called when equipButton is pressed. Changes the OldClasses.party-members armor/weapon and updates currentWeapon labels.
     private void equipLoot(){
         //Warrior
         if (whatLoot==1) {
@@ -756,18 +762,17 @@ public class LootController {
         @Override
         public void actionPerformed(ActionEvent ae) {
             textDelay++;
-            if (textDelay == 2){
+            if (textDelay == 1){
                 MusicPick.musicStart("ding","");
                 lf.lootScreenJFrame.add(lf.xp);
                 System.out.println(xpInt);
             }
-            else if(textDelay == 3){
+            else if(textDelay == 2){
                 MusicPick.musicStart("ding","");
                 lf.lootScreenJFrame.add(lf.gold);
                 System.out.println(goldInt);
             }
-            //TODO fixa lootscreen
-            else if(textDelay == 4){
+            else if(textDelay == 3){
                 MusicPick.musicStart("ding","");
                 lf.lootScreenJFrame.add(lf.item);
                 if(showEquipButton){

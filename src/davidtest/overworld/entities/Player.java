@@ -20,11 +20,12 @@ public class Player extends Mob {
     private boolean isOnFieldPath = false; // if player is on tile to enter Field-combat
     private boolean isOnSwampPath = false; // if player is on tile to enter Swamp-combat
     private boolean isOnCastlePath = false; // if player is on tile to enter Castle-combat
-    private boolean EnterShop = false;  // if player is on tile to enter Shop
+    private boolean isOpeningChest = false; // if player is touching a chest-tile
+    private boolean EnterShop = false;  // if player is on tile to enter Shop (is not used)
 
 
     private int tickCount = 0; //counts the ticks since the last update
-    private String username;
+    private String username; //username (not used in game)
 
     public Player(Level level1, int x, int y, InputHandler input) {
         super(level1, "Player", x, y, 1);
@@ -66,6 +67,7 @@ public class Player extends Mob {
             //identify if player is swimming
             if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 3) {
                 isSwimming = true;
+
                 RandomEncounter randomEncounter = new RandomEncounter();
                 System.out.println(randomEncounter.randomNr);
                 if (randomEncounter.randomNr == 69) {
@@ -73,30 +75,22 @@ public class Player extends Mob {
                 }
             }
             //identify if player is not swimming
-            else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() != 3) {
+             else {
                 isSwimming = false;
             }
 
             if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 8) {
                 isSwampSwimming = true;
+
                 RandomEncounter randomEncounter = new RandomEncounter();
                 if (randomEncounter.randomNr == 5) {
                     isOnForestPath = true;
                 }
             }
-            //identify if player is not swimming
-            else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() != 8) {
-                isSwampSwimming = false;
-            }
 
-            if (level1.getTile( this.x + x >> 4,this.y >> 3).getId() ==5) {
-                /*RandomEncounter randomEncounter = new RandomEncounter();
-                if (randomEncounter.randomNr == 1) {
-                    //isOnForestPath = true;
-                }*/
-            }
-            else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() !=5) {
-                //isOnForestPath = false;
+            //identify if player is not swimming
+            else {
+                isSwampSwimming = false;
             }
                 tickCount++; //adds to tick whenever a move is made
         }
@@ -198,6 +192,9 @@ public class Player extends Mob {
             if (isCastlePathTile(xa,ya,x,yMin)) {
                 isOnCastlePath = true;
             }
+            if (isChestTile(xa,ya,x,yMin)) {
+                isOpeningChest = true;
+            }
         }
         for (int x = xMin; x < xMax; x++) {
             if (isSolidTile(xa, ya, x, yMax)) {
@@ -241,4 +238,7 @@ public class Player extends Mob {
         return  isOnCastlePath;
     }
 
+    public boolean hasOpenedChest() {
+        return  isOpeningChest;
+    }
 }

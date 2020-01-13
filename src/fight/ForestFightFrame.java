@@ -701,7 +701,7 @@ public class ForestFightFrame {
         endTurnButton.setFocusPainted(false);//Remove border around text in button
     }
 
-    //Get all party-gif's.
+    //Get all OldClasses.party-gif's.
     private void importPartyGif(){
         warrior = new JLabel();
         warrior.setIcon(new ImageIcon("warrior.gif"));

@@ -1,8 +1,8 @@
 package simontest;
-import party.Warrior;
+import OldClasses.party.Warrior;
 
-public class testspells {
-
+public class testspells {}
+/*
     int[] partypizza = new int[4];
     int[] enemies = new int[4];
     int level = 5;
@@ -80,7 +80,7 @@ public class testspells {
             }
             System.out.println("the warrior nr " + 0 + " has " + warrpizza.hp);
         } else if (spell.equals("group heal")) {
-            //glöm inte party
+            //glöm inte OldClasses.party
             warrpizza.hp += (30 * level);
             for (int i = 0; i < 4; i++) {
                 partypizza[i] -= (5 * level);

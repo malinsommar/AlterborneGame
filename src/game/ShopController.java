@@ -5,18 +5,22 @@ import java.util.Arrays;
 public class ShopController {
 
     ShopView sv = new ShopView();
-    public int[] choice = new int[1];
 
-    private int exitCount = 1;
-    int currentGold, whatLoot;
+    int currentGold;
+    public int whatItemBought;
 
-    public void startShopView(int gold) {
+    boolean done = false;
+    boolean itemBought = false;
 
-        currentGold = gold;
+
+    public void startShopView(int getGold, String[] armorNames, String[] weaponNames, int[] weaponDamage, int[] currentArmorDamage, int[] armorBlock, String[] rareWeaponArmorNames, String[] epicWeaponArmorNames, String[] legendaryWeaponArmorNames, int[] rareWeaponArmorDamageBlock, int[] epicWeaponArmorDamageBlock, int[] legendaryWeaponArmorDamageBlock, int[] armorDamage) throws InterruptedException {
+
+        currentGold = getGold;
 
         sv.startShopFrame();
         hoverEffect();
 
+        sv.goldLabel.setText("Gold: "+currentGold);
 
         //When you press one of the armors/weapons --> buyEquipment()
         sv.warriorArmor1.addActionListener(e -> buyEquipment(1));
@@ -61,156 +65,187 @@ public class ShopController {
         sv.potion11.addActionListener(e -> buyPotion(11));
         sv.potion12.addActionListener(e -> buyPotion(12));
 
-        while (choice[0] == 0) {
-            sv.Exit.addActionListener(e -> {
-                if (exitCount == 1) {
-                    exitShop();
-                }
-            });
-        }
+        sv.Exit.addActionListener(e->sv.shopFrame.dispose());
+        sv.Exit.addActionListener(e->done = true);
     }
-    public void exitShop() {
-        exitCount++;
-        choice[0] = 1;
-        System.out.println(Arrays.toString(choice));
-        sv.shopFrame.dispose();
-        }
 
     public void buyEquipment(int whatEquipment){
-
-        whatLoot = whatEquipment;
 
         //Warrior
         if (whatEquipment==1 && currentGold>49){
             currentGold-=50;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Warrior equipped the *Shiny armor*.");
+            whatItemBought = 1;
+            itemBought = true;
         }
         else if (whatEquipment==2 && currentGold>99){
             currentGold-=100;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Warrior equipped the *Hardened armor*.");
+            whatItemBought = 2;
+            itemBought = true;
         }
         else if (whatEquipment==3 && currentGold>149){
             currentGold-=150;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Warrior equipped the *Royal Enchanted Armor*.");
+            whatItemBought = 3;
+            itemBought = true;
         }
         else if (whatEquipment==4 && currentGold>49){
             currentGold-=50;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Warrior equipped the *Iron sword*.");
+            whatItemBought = 4;
+            itemBought = true;
         }
         else if (whatEquipment==5 && currentGold>99){
             currentGold-=100;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Warrior equipped the *Tempered steel blade*.");
+            whatItemBought = 5;
+            itemBought = true;
         }
         else if (whatEquipment==6 && currentGold>149){
             currentGold-=150;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Warrior equipped the *Sword of a thousand truths*.");
+            whatItemBought = 6;
+            itemBought = true;
         }
         //Mage
         else if (whatEquipment==7 && currentGold>49){
             currentGold-=50;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Mage equipped the *Mooncloth robe*.");
+            whatItemBought = 7;
+            itemBought = true;
         }
         else if (whatEquipment==8 && currentGold>99){
             currentGold-=100;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Mage equipped the *Enchanted robe*.");
+            whatItemBought = 8;
+            itemBought = true;
         }
         else if (whatEquipment==9 && currentGold>149){
             currentGold-=150;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Mage equipped the *Robe of the archmage*.");
+            whatItemBought = 9;
+            itemBought = true;
         }
         else if (whatEquipment==10 && currentGold>49){
             currentGold-=50;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Mage equipped the *Ivory fire wand*.");
+            whatItemBought = 10;
+            itemBought = true;
         }
         else if (whatEquipment==11 && currentGold>99){
             currentGold-=100;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Mage equipped the *Enchanted mana wand*.");
+            whatItemBought = 11;
+            itemBought = true;
         }
         else if (whatEquipment==12 && currentGold>149) {
             currentGold -= 150;
             sv.goldLabel.setText("Gold: " + currentGold);
             sv.currentAction.setText("Mage equipped the *Pyromaniac's tinderbox*.");
+            whatItemBought = 12;
+            itemBought = true;
         }
         //Ranger
         else if (whatEquipment==13 && currentGold>49){
             currentGold-=50;
             sv.goldLabel.setText("Gold: " + currentGold);
             sv.currentAction.setText("Ranger equipped the *Fine leather armor*.");
+            whatItemBought = 13;
+            itemBought = true;
         }
         else if (whatEquipment==14 && currentGold>99){
             currentGold-=100;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Ranger equipped the *Elven leather armor*.");
+            whatItemBought = 14;
+            itemBought = true;
         }
         else if (whatEquipment==15 && currentGold>149){
             currentGold-=150;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Ranger equipped the *Demonskin armor*.");
+            whatItemBought = 15;
+            itemBought = true;
         }
         else if (whatEquipment==16 && currentGold>49){
             currentGold-=50;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Ranger equipped the *Elven bow*.");
+            whatItemBought = 16;
+            itemBought = true;
         }
         else if (whatEquipment==17 && currentGold>99){
             currentGold-=100;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Ranger equipped the *Dragonslayer's bow*.");
+            whatItemBought = 17;
+            itemBought = true;
         }
         else if (whatEquipment==18 && currentGold>149){
             currentGold-=150;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Ranger equipped the *Bullseye bow*.");
+            whatItemBought = 18;
+            itemBought = true;
         }
         //Healer
         else if (whatEquipment==19 && currentGold>49){
             currentGold-=50;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Healer equipped the *Priests robe*.");
+            whatItemBought = 19;
+            itemBought = true;
         }
         else if (whatEquipment==20 && currentGold>99){
             currentGold-=100;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Healer equipped the *Clerics armor*.");
+            whatItemBought = 20;
         }
         else if (whatEquipment==21 && currentGold>149){
             currentGold-=150;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Healer equipped the *Plate armor of Parl'ont the crusader*.");
+            whatItemBought = 21;
+            itemBought = true;
         }
         else if (whatEquipment==22 && currentGold>49){
             currentGold-=50;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Healer equipped the *Stick of truth*.");
+            whatItemBought = 22;
+            itemBought = true;
         }
         else if (whatEquipment==23 && currentGold>99){
             currentGold-=100;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Healer equipped the *Cleric's blessed walking stick*.");
+            whatItemBought = 23;
+            itemBought = true;
         }
         else if (whatEquipment==24 && currentGold>149){
             currentGold-=150;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("Healer equipped the *Root of the world tree*.");
+            whatItemBought = 24;
+            itemBought = true;
         }
         else{
             sv.currentAction.setText("Shopkeeper: You cant afford that!");
         }
 
-        //TODO DOES NOT FOLLOW MVC
-        ShopModel sm = new ShopModel();
-        sm.addBoughtItems();
     }
 
     public void buyPotion(int whatPotion){
@@ -219,61 +254,85 @@ public class ShopController {
             currentGold-=10;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a minor health potion");
+            whatItemBought = 26;
+            itemBought = true;
         }
         else if (whatPotion==2 && currentGold>19){
             currentGold-=20;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a lesser health potion");
+            whatItemBought = 27;
+            itemBought = true;
         }
         else if (whatPotion==3 && currentGold>29){
             currentGold-=30;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a major health potion");
+            whatItemBought = 28;
+            itemBought = true;
         }
         else if (whatPotion==4 && currentGold>9){
             currentGold-=10;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a minor block potion");
+            whatItemBought = 29;
+            itemBought = true;
         }
         else if (whatPotion==5 && currentGold>19){
            currentGold-=20;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a lesser block potion");
+            whatItemBought = 30;
+            itemBought = true;
         }
         else if (whatPotion==6 && currentGold>29){
             currentGold-=30;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a major block potion");
+            whatItemBought = 31;
+            itemBought = true;
         }
         else if (whatPotion==7 && currentGold>9){
            currentGold-=10;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a minor energy potion");
+            whatItemBought = 32;
+            itemBought = true;
         }
         else if (whatPotion==8 && currentGold>19){
            currentGold-=20;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a lesser energy potion");
+            whatItemBought = 33;
+            itemBought = true;
         }
         else if (whatPotion==9 && currentGold>29){
             currentGold-=30;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a major energy potion");
+            whatItemBought = 34;
+            itemBought = true;
         }
         else if (whatPotion==10 && currentGold>9){
            currentGold-=10;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a minor strength potion");
+            whatItemBought = 35;
+            itemBought = true;
         }
         else if (whatPotion==11 && currentGold>19){
             currentGold-=20;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a lesser strength potion");
+            whatItemBought = 36;
+            itemBought = true;
         }
         else if (whatPotion==12 && currentGold>29){
             currentGold-=30;
             sv.goldLabel.setText("Gold: "+currentGold);
             sv.currentAction.setText("You bought a major strength potion");
+            whatItemBought = 27;
+            itemBought = true;
         }
         else{
             sv.currentAction.setText("Shopkeeper: You cant afford that!");

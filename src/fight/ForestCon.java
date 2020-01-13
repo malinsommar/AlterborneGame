@@ -17,10 +17,13 @@ public class ForestCon {
 
     ForestFightFrame fff = new ForestFightFrame();
 
-    //Get hp, block and damage from party
+    //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
-    public int warriorDamage, mageDamage, healerDamage, rangerDamage;
+    public int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
+    private int buffDamage[] = new int[4];
+    private boolean debuffed = false;
+    int wolfDamage;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -77,21 +80,24 @@ public class ForestCon {
     private boolean animationPlaying = false;
     private boolean stealthed = false;
 
-    int[] wolfHp = {20,20,20,20};
+    int[] wolfHp = new int[4];
 
     public boolean fightWon = false;
     public boolean fightLost = false;
 
-    private int[] ownedPotions = new int[12];
-
-    public int[] status = new int[1];
-    public int battleWon = 1;
+    public int[] ownedPotions = new int[12];
 
     public void startFight(){
 
         MusicPick.musicStart("forest1","music");
 
+        wolfHp[0] = 1;
+        wolfHp[1] = 1;
+        wolfHp[2] = 1;
+        wolfHp[3] = 1;
+
         currentEnergy = 5;
+        warriorEnergyInt = 5;
 
         setStartLabels();
         fff.forestFightFrame();
@@ -225,16 +231,21 @@ public class ForestCon {
         }
         //  ***ENEMIES TURN***
         if (turns==5){
-                    fff.whosTurn.setText(" ");
-                    fff.playersHp.setText(" ");
-                    fff.energy.setText(" ");
-                    fff.block.setText(" ");
-                    enemyTurnTimer.start();
+            fff.whosTurn.setText(" ");
+            fff.playersHp.setText(" ");
+            fff.energy.setText(" ");
+            fff.block.setText(" ");
+            enemyTurnTimer.start();
+
+            //removes temporary damage buffs at the end of turn
+            for (int i = 0; i < buffDamage.length; i++) {
+                buffDamage[i] = 0;
+            }
                 }
             }
 
             private void enemyDamage(){
-                for (int i = 0; i < 4; i++) {
+                for (int i = 0; i < wolfHp.length; i++) {
                     if (wolfHp[i] > 0) {
                         wolfAttack();
                         partyDeath();
@@ -246,9 +257,9 @@ public class ForestCon {
 
 
     private void skill1(){
-        if (turns == 1 && warriorEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
-                warriorEnergyInt=warriorEnergyInt-2;
-                currentEnergy=currentEnergy-2;
+        if (turns == 1 && warriorEnergyInt>2 && fff.targetarrow.isVisible() && !animationPlaying){
+                warriorEnergyInt=warriorEnergyInt-3;
+                currentEnergy=currentEnergy-3;
                 fff.energy.setText("Energy: "+warriorEnergyInt);
                 charge.start();
         }
@@ -270,9 +281,9 @@ public class ForestCon {
     }
 
     private void skill2(){
-        if (turns == 1 && warriorEnergyInt>1 && !animationPlaying){
-            warriorEnergyInt=warriorEnergyInt-2;
-            currentEnergy=currentEnergy-2;
+        if (turns == 1 && warriorEnergyInt>3 && !animationPlaying){
+            warriorEnergyInt=warriorEnergyInt-4;
+            currentEnergy=currentEnergy-4;
             fff.energy.setText("Energy: "+warriorEnergyInt);
             dunk.start();
         }
@@ -291,16 +302,19 @@ public class ForestCon {
     }
 
     private void skill3(){
-        if (turns == 1 && !animationPlaying){
+        if (turns == 1 && warriorEnergyInt>2 && !animationPlaying){
+            warriorEnergyInt=warriorEnergyInt-3;
+            currentEnergy=currentEnergy-3;
+            fff.energy.setText("Energy: " + warriorEnergyInt);
             followup = true;
             shout.start();
         }
         if(turns == 2){
 
         }
-        if (turns==3 && mageEnergyInt>2 && !animationPlaying){
-                mageEnergyInt=mageEnergyInt-3;
-                currentEnergy=currentEnergy-3;
+        if (turns==3 && mageEnergyInt>4 && !animationPlaying){
+                mageEnergyInt=mageEnergyInt-5;
+                currentEnergy=currentEnergy-5;
                 fff.energy.setText("Energy: "+mageEnergyInt);
                 flameStrike.start();
         }
@@ -313,7 +327,10 @@ public class ForestCon {
     }
 
     private void skill4(){
-        if (turns == 1 && !animationPlaying){
+        if (turns == 1 && warriorEnergyInt>4 && !animationPlaying){
+            warriorEnergyInt=warriorEnergyInt-5;
+            currentEnergy=currentEnergy-5;
+            fff.energy.setText("Energy: " + warriorEnergyInt);
             shout.start();
         }
         if(turns == 2 && rangerEnergyInt>2 && !animationPlaying){
@@ -353,10 +370,10 @@ public class ForestCon {
 
         //warrior
         if (turns == 1){
-            fff.skill1Button.setText("Charge (2)");
-            fff.skill2Button.setText("Slam (3)");
-            fff.skill3Button.setText("Battlecry");
-            fff.skill4Button.setText("Demoralize");
+            fff.skill1Button.setText("Charge (3)");
+            fff.skill2Button.setText("Slam (4)");
+            fff.skill3Button.setText("Battlecry (3)");
+            fff.skill4Button.setText("Demoralize (5)");
         }
         //ranger
         if (turns == 2){
@@ -369,7 +386,7 @@ public class ForestCon {
         if (turns == 3) {
             fff.skill1Button.setText("Fireball (2)");
             fff.skill2Button.setText(" ");
-            fff.skill3Button.setText("Meteor (4)");
+            fff.skill3Button.setText("Meteor (5)");
             fff.skill4Button.setText("Pyroblast (5)");
         }
         //healer
@@ -449,7 +466,7 @@ public class ForestCon {
         }
     }
 
-    //Checks if all of the enemies or party-members are dead.
+    //Checks if all of the enemies or OldClasses.party-members are dead.
     private void isFightOver(){
         //If all of the wolves are dead. Open lootScreen.
         if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
@@ -458,7 +475,7 @@ public class ForestCon {
             fightWon = true;
 
         }
-        //In the whole party is dead, game is over. Send to loseScreen.
+        //In the whole OldClasses.party is dead, game is over. Send to loseScreen.
         if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             fff.forestFightJFrame.dispose();
             fightLost = true;
@@ -469,16 +486,18 @@ public class ForestCon {
     //When the wolf attacks.
     public void wolfAttack() {
         target = (int) (Math.random() * 4); //Random target, 0-3.
-        int wolfDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
+        if (debuffed) {
+        wolfDamage = (int) (Math.random() * 10) + 5;} //Generate random damage, 15-25.
+        if (!debuffed) {
+        wolfDamage = (int) (Math.random() * 10) + 15;} //Generate random damage, 15-25.
 
-        //Loops until it reaches an alive party-member.
+    //Loops until it reaches an alive OldClasses.party-member.
         while (true) {
 
             //Warrior, Target 2.
             if (target == 0) {
                 //If warrior is dead, target=1.
                 if (warriorCurrentHp < 1) {
-                    rangerattacked = true;
                     target=1;
                 }
                 //If warrior is alive.
@@ -494,7 +513,6 @@ public class ForestCon {
             if (target == 2) {
                 //If mage is dead, target=2.
                 if (mageCurrentHp < 1) {
-                    mageattacked = true;
                     target = 3;
                 }
                 //If mage is alive.
@@ -509,12 +527,17 @@ public class ForestCon {
             //Ranger, target 2.
             if (target ==1) {
                 //If ranger is dead, target=3.
-                if (rangerCurrentHp < 1) {
-                    healerattacked = true;
+
+                //will not be attacked if stealthed
+                if (stealthed){
+                    //prevents following else ifs
+                }
+
+                else if (rangerCurrentHp < 1) {
                     target = 2;
                 }
                 //If ranger is alive.
-                if (rangerCurrentHp >0) {
+                else if (rangerCurrentHp >0) {
                     wolfDamage=wolfDamage-rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - wolfDamage;
                     fff.player2Hp.setText("Ranger:  "+rangerCurrentHp);
@@ -526,7 +549,6 @@ public class ForestCon {
             if (target == 3) {
                 //If healer is dead, target=0.
                 if (healerCurrentHp < 1) {
-                    warriorattacked = true;
                     target = 0;
                 }
                 //If healer is alive.
@@ -578,7 +600,7 @@ public class ForestCon {
         }
     }
 
-    //Checks if any party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
+    //Checks if any OldClasses.party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     public void partyDeath(){
 
         if(warriorCurrentHp<=0){
@@ -823,21 +845,21 @@ public class ForestCon {
             }
             if (potion == 10) {
                 if (ownedPotions[9] > 0) {
-                    warriorDamage += 5;
+                    buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             }
             if (potion == 11) {
                 if (ownedPotions[10] > 0) {
-                    warriorDamage += 10;
+                    buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             }
             if (potion == 12) {
                 if (ownedPotions[11] > 0) {
-                    warriorDamage += 20;
+                    buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
@@ -915,19 +937,19 @@ public class ForestCon {
                 }
             } else if (potion == 10) {
                 if (ownedPotions[9] > 0) {
-                    rangerDamage += 5;
+                    buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
-                    rangerDamage += 10;
+                    buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
-                    rangerDamage += 20;
+                    buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
@@ -1004,19 +1026,19 @@ public class ForestCon {
                 }
             } else if (potion == 10) {
                 if (ownedPotions[9] > 0) {
-                    mageDamage += 5;
+                    buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
-                    mageDamage += 10;
+                    buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
-                    mageDamage += 20;
+                    buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
@@ -1093,19 +1115,19 @@ public class ForestCon {
                 }
             } else if (potion == 10) {
                 if (ownedPotions[9] > 0) {
-                    healerDamage += 5;
+                    buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
-                    healerDamage += 10;
+                    buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
-                    healerDamage += 20;
+                    buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
@@ -1238,7 +1260,8 @@ public class ForestCon {
 
     //called from spells to deal damage to enemies
     //damageTargets types: single, line, all
-    public void spellDamageSystem(int damage, String damageTargets){
+    public void spellDamageSystem(int unbuffedDamage, String damageTargets){
+        damage = unbuffedDamage + buffDamage[turns - 1];
         if (damageTargets.equals("single")){
             wolfHp[target-1] -= damage;
         }
@@ -1469,6 +1492,9 @@ public class ForestCon {
                 swordIconY -= upMegaMath;
             }
             if (timePast == 50) {
+                for (int i = 0; i < buffDamage.length; i++) {
+                    buffDamage[i] += 3;
+                }
                 swordIconX = 300;
                 swordIconY = 300;
                 fff.swordIcon.setVisible(false);
@@ -1542,6 +1568,7 @@ public class ForestCon {
                 downMegaMath = 1;
                 leftMegaMath = 1;
                 phase = 0;
+                debuffed = true;
                 animationPlaying = false;
                 demoralized.stop();
             }
@@ -1709,7 +1736,7 @@ public class ForestCon {
         public void actionPerformed(ActionEvent ae) {
             if (phase == 0){
                 animationPlaying = true;
-                MusicPick.musicStart("ding", "");
+                MusicPick.musicStart("Explosion", "");
                 phase = 1;
                 fff.bomb.setVisible(true);
             }
@@ -1729,6 +1756,7 @@ public class ForestCon {
                     fff.bomb.setLocation(bombX, bombY);
                     fff.bomb.setVisible(false);
                     fff.explode.setVisible(true);
+                    MusicPick.musicStart("Explosion", "");
                 }
                 if(timePast == 60){
                     bombMegaMath = 36;
@@ -1737,7 +1765,12 @@ public class ForestCon {
                     timePast = 0;
                     phase = 0;
                     bombthrow.stop();
-                    spellDamageSystem(4,"all");
+                    if (stealthed) {
+                        spellDamageSystem(8, "all");
+                        unstealth();
+                    } else {
+                        spellDamageSystem(4, "all");
+                    }
                     animationPlaying = false;
                 }
             }
@@ -2047,6 +2080,7 @@ public class ForestCon {
                     spellDamageSystem(healerDamage,"single");
                     healerAttack.stop();
                     animationPlaying = false;
+                    System.out.println("healer attack done");
                 }
             }
         }
@@ -2110,12 +2144,14 @@ public class ForestCon {
                 fff.wolf4.setLocation(wolf4X, wolf4Y);
             } else if (timePast < 450) {
                 fff.wolf4.setLocation(wolf4StartX, wolf4StartY);
+                enemyDamage();
                 enemyTurnTimer.stop();
                 timePast = 0;
                 fff.endTurnButton.setVisible(true);
                 turns = 0;
                 animationPlaying = false;
                 takeDamage.start();
+                debuffed = false;
             }
         }
     });
@@ -2136,25 +2172,25 @@ public class ForestCon {
 
                 MusicPick.musicStart("warriorattacked", "");
             } else if (timePastTakeDamage == 10) {
-                if (warriorattacked) fff.warrior.setVisible(false);
-                if (rangerattacked) fff.ranger.setVisible(false);
-                if (mageattacked) fff.mage.setVisible(false);
-                if (healerattacked) fff.healer.setVisible(false);
+                if (warriorattacked && warriorCurrentHp > 0) fff.warrior.setVisible(false);
+                if (rangerattacked && rangerCurrentHp > 0) fff.ranger.setVisible(false);
+                if (mageattacked && mageCurrentHp > 0) fff.mage.setVisible(false);
+                if (healerattacked && healerCurrentHp > 0) fff.healer.setVisible(false);
             } else if (timePastTakeDamage == 20) {
-                if (warriorattacked) fff.warrior.setVisible(true);
-                if (rangerattacked) fff.ranger.setVisible(true);
-                if (mageattacked) fff.mage.setVisible(true);
-                if (healerattacked) fff.healer.setVisible(true);
+                if (warriorattacked && warriorCurrentHp > 0) fff.warrior.setVisible(true);
+                if (rangerattacked && rangerCurrentHp > 0) fff.ranger.setVisible(true);
+                if (mageattacked && mageCurrentHp > 0) fff.mage.setVisible(true);
+                if (healerattacked && healerCurrentHp > 0) fff.healer.setVisible(true);
             } else if (timePastTakeDamage == 30) {
-                if (warriorattacked) fff.warrior.setVisible(false);
-                if (rangerattacked) fff.ranger.setVisible(false);
-                if (mageattacked) fff.mage.setVisible(false);
-                if (healerattacked) fff.healer.setVisible(false);
+                if (warriorattacked && warriorCurrentHp > 0) fff.warrior.setVisible(false);
+                if (rangerattacked && rangerCurrentHp > 0) fff.ranger.setVisible(false);
+                if (mageattacked  && mageCurrentHp > 0) fff.mage.setVisible(false);
+                if (healerattacked  && healerCurrentHp > 0) fff.healer.setVisible(false);
             } else if (timePastTakeDamage == 40) {
-                if (warriorattacked) fff.warrior.setVisible(true);
-                if (rangerattacked) fff.ranger.setVisible(true);
-                if (mageattacked) fff.mage.setVisible(true);
-                if (healerattacked) fff.healer.setVisible(true);
+                if (warriorattacked  && warriorCurrentHp > 0) fff.warrior.setVisible(true);
+                if (rangerattacked  && rangerCurrentHp > 0) fff.ranger.setVisible(true);
+                if (mageattacked  && mageCurrentHp > 0) fff.mage.setVisible(true);
+                if (healerattacked  && healerCurrentHp > 0) fff.healer.setVisible(true);
             } else if (timePastTakeDamage > 45) {
                 warriorattacked = false;
                 rangerattacked = false;
@@ -2163,7 +2199,6 @@ public class ForestCon {
                 animationPlaying = false;
                 takeDamage.stop();
                 timePastTakeDamage = 0;
-                enemyDamage();
                 startNewTurn();
             }
         }

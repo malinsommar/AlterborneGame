@@ -1,8 +1,8 @@
-package party;
+package OldClasses.party;
 
 public class Ranger {
 
-    public String rangerRareWeaponName = "Elven bow", rangerEpicWeaponName = "Dragonslayer's bow", rangerLegendaryWeaponName = "Bullseye bow", rangerRareArmorName = "Fine leather armor", rangerEpicArmorName = "Elven leather armor", rangerLegendaryArmorName = "Demonskin armor";
+   /* public String rangerRareWeaponName = "Elven bow", rangerEpicWeaponName = "Dragonslayer's bow", rangerLegendaryWeaponName = "Bullseye bow", rangerRareArmorName = "Fine leather armor", rangerEpicArmorName = "Elven leather armor", rangerLegendaryArmorName = "Demonskin armor";
     public int rangerRareWeaponDamage = 8, rangerEpicWeaponDamage = 16, rangerLegendaryWeaponDamage = 26, rangerRareArmorBlock = 5, rangerEpicArmorBlock = 11, rangerLegendaryArmorBlock = 18;
 
     public String currentWeaponName = "Simple bow";
@@ -11,9 +11,6 @@ public class Ranger {
     public String currentArmorName = "Broken leather armor";
     public int currentArmorBlock = 0;
 
-    public int hp;
-    public int block;
-    public int damage;
 
     public int combinedBlock = block + currentArmorBlock;
     public int combinedDamage = damage + currentWeaponDamage;
@@ -43,5 +40,5 @@ public class Ranger {
     public void rangerLegendaryArmor(){
         currentArmorName = rangerLegendaryArmorName;
         currentArmorBlock = rangerLegendaryArmorBlock;
-    }
+    }*/
 }

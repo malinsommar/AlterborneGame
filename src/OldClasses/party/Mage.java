@@ -1,8 +1,8 @@
-package party;
+package OldClasses.party;
 
 public class Mage{
 
-    public String mageRareWeaponName = "Ivory fire wand", mageEpicWeaponName = "Enchanted mana wand", mageLegendaryWeaponName = "Pyromaniac's tinderbox", mageRareArmorName = "Mooncloth robe", mageEpicArmorName = "Enchanted robe", mageLegendaryArmorName = "Robe of the archmage";
+  /*  public String mageRareWeaponName = "Ivory fire wand", mageEpicWeaponName = "Enchanted mana wand", mageLegendaryWeaponName = "Pyromaniac's tinderbox", mageRareArmorName = "Mooncloth robe", mageEpicArmorName = "Enchanted robe", mageLegendaryArmorName = "Robe of the archmage";
     public int mageRareWeaponDamage = 7, mageEpicWeaponDamage = 15, mageLegendaryWeaponDamage = 30, mageRareArmorBlock = 2, mageEpicArmorBlock = 4, mageLegendaryArmorBlock = 6, mageRareArmorDamage = 4, mageEpicArmorDamage = 10, mageLegendaryArmorDamage = 20;
 
     public String currentWeaponName = "Wooden wand";
@@ -17,10 +17,10 @@ public class Mage{
     public int damage;
 
     public int combinedBlock = block + currentArmorBlock;
-    public int combinedDamage = damage + currentWeaponDamage + currentArmorDamage;
+    public int combinedDamage = damage + currentWeaponDamage + currentArmorDamage;*/
 
     //All mage weapons
-    public void mageRareWeapon(){
+  /*  public void mageRareWeapon(){
         currentWeaponName = mageRareWeaponName;
         currentWeaponDamage = mageRareWeaponDamage;
     }
@@ -48,5 +48,5 @@ public class Mage{
         currentArmorName = mageLegendaryArmorName;
         currentArmorBlock = mageLegendaryArmorBlock;
         currentArmorDamage = mageLegendaryArmorDamage;
-    }
+    }*/
 }
