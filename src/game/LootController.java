@@ -39,11 +39,12 @@ public class LootController {
 
     //This method starts LootFrame and implements the methods needed for LootScreen.
     public void startLootScreen(int fight){
-
+        showEquipButton = false;
+        playerWantsLoot = false;
         textDelay = 0;
+        done = false;
 
         lf = new LootFrame();
-
         lf.lootScreenFrame();
         generateLoot(fight);
         hover();

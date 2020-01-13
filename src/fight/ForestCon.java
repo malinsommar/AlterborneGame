@@ -89,10 +89,10 @@ public class ForestCon {
 
         MusicPick.musicStart("forest1","music");
 
-        wolfHp[0] = 20;
-        wolfHp[1] = 20;
-        wolfHp[2] = 20;
-        wolfHp[3] = 20;
+        wolfHp[0] = 1;
+        wolfHp[1] = 1;
+        wolfHp[2] = 1;
+        wolfHp[3] = 1;
 
         currentEnergy = 5;
         warriorEnergyInt = 5;

@@ -814,7 +814,7 @@ public class MasterModel {
 
         int loops = 0;
         boolean broken = false;
-        System.out.println("loop1");
+        System.out.println("level loop1");
 
         while (true) {
             System.out.println("running loop 1");
@@ -843,12 +843,12 @@ public class MasterModel {
 
         int loops = 0;
         boolean broken = false;
-        System.out.println("loop1");
+        System.out.println("level loop1");
 
         while (true) {
             System.out.println("running loop 1");
 
-            if (lc.done) {
+            if (luc.done) {
                 System.out.println("loot ready, start loot");
                 luc.done = false;
                 levelUpStats();
@@ -931,7 +931,7 @@ public class MasterModel {
     private void lootLoop1() throws InterruptedException {
         int loops = 0;
         boolean broken = false;
-        System.out.println("loop1");
+        System.out.println("loot loop1");
 
         while (true) {
             System.out.println("running loop 1");
@@ -956,7 +956,7 @@ public class MasterModel {
 
         int loops = 0;
         boolean broken = false;
-        System.out.println("loop2");
+        System.out.println("loot loop2");
 
         while (true) {
             System.out.println("running loop 2");
