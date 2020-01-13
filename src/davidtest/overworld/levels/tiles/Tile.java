@@ -46,7 +46,9 @@ public abstract class Tile {
     public static final Tile SHEEPHEADLEFT = new AnimatedSolidTile(30, new int[][] {{ 4, 15}, { 5, 15},},
             Colours.get(176, 334, 333, 1), 0xFF7a8b54, 1900);
     public static final Tile SHEEPBODYLEFT = new SolidTile(31, 6, 15, Colours.get(-1,334,333,-1), 0xFF7a8b55);
+
     public static Tile FORESTCHEST = new ChestTile(32, 0, 17, Colours.get(16,210,178,332), 0xFFab6a1c);
+
     public static final Tile FIELDCHEST = new SolidTile(33, 1, 17, Colours.get(176,210,178,332), 0xFFab6a2c);
     public static final Tile MOUNTAINCHEST = new SolidTile(34, 2, 17, Colours.get(333,210,178,332), 0xFFab6a3c);
     public static final Tile SWAMPCHEST = new SolidTile(35, 3, 17, Colours.get(18,210,178,332), 0xFFab6a4c);
@@ -62,7 +64,6 @@ public abstract class Tile {
     public static final Tile RIGHTBOTTOMSWAMPCAVE = new SwampPathTile(45, 1, 25, Colours.get(1,2,333, 18), 0xFF672330);
     public static final Tile LEFTOPSWAMPCAVE = new SwampPathTile(46, 2, 25, Colours.get(1,2,333,18), 0xFF672331);
     public static final Tile RIGHTTOPSWAMPCAVE = new SwampPathTile(47, 3, 25, Colours.get(1,2,333,18), 0xFF672332);
-
 
 
     protected byte id;
@@ -93,6 +94,9 @@ public abstract class Tile {
         this.levelColour  = levelColour;
         tiles[id] = this;
 
+        if (isChest()) {
+            FORESTCHEST = new ChestTile(32, 0, 19, Colours.get(16,210,178,332), 0xFFab6a1c);
+        }
     }
     public byte getId() {
         return id;
@@ -128,7 +132,8 @@ public abstract class Tile {
         return door;
     }
 
-    public boolean isChest() {return chest;}
+    public boolean isChest() {
+        return chest;}
 
     public abstract void tick();
 
