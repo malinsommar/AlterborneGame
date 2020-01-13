@@ -1,31 +1,40 @@
 package game;
 
-import OldClasses.Hub;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-public class LoseScreen extends JFrame {
+public class LoseScreen {
+
+    JFrame loseFrame = new JFrame();
 
     JLabel died, forces, kingdom, who;
-    JButton countinueButton;
-    Font pixelMplus;
+    JButton continueButton;
+    private Font pixelMplus;
     TextField name;
-    public String userName;
-    private int textDelay = 0;
 
     public void loseScreen() {
-        setLayout(null);
-        setSize(1920, 1080);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loseFrame.setLayout(null);
+        loseFrame.setSize(1920, 1080);
+        loseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         importFont();
+        importLabels();
 
+        loseFrame.add(died);
+        loseFrame.add(forces);
+        loseFrame.add(kingdom);
+        loseFrame.add(who);
+        loseFrame.add(name);
+        loseFrame.add(continueButton);
 
+        loseFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        loseFrame.setUndecorated(true);
+        loseFrame.setVisible(true);
+    }
+
+    private void importLabels(){
         died = new JLabel("You Died");
         died.setForeground(Color.black);
         died.setFont(pixelMplus.deriveFont(150f));
@@ -53,63 +62,16 @@ public class LoseScreen extends JFrame {
         name = new TextField();
         name.setBounds(530,460,200,30);
 
-        userName = name.getName();
-
-        countinueButton = new JButton("Fade away");
-        countinueButton.setSize(300, 100);
-        countinueButton.setLocation(520, 600);
-        countinueButton.setForeground(Color.white);
-        countinueButton.setFont(pixelMplus.deriveFont(35f));
-        countinueButton.setBackground(Color.darkGray);
-        countinueButton.setBorder(null);
-        countinueButton.setFocusPainted(false);
-
-        countinueButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                countinueButton.setBackground(Color.gray);
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                countinueButton.setBackground(Color.darkGray);
-            }
-        });
-
-        timer.setRepeats(true);
-        timer.setCoalesce(true);
-        timer.setInitialDelay(2500);
-        timer.start();
-
-        countinueButton.addActionListener(e -> dispose());
-        countinueButton.addActionListener(e -> new Hub());
-
-        MusicPick.musicStart("gwyn","music");
-
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
-        setVisible(true);
+        continueButton = new JButton("Fade away");
+        continueButton.setSize(300, 100);
+        continueButton.setLocation(480, 600);
+        continueButton.setForeground(Color.white);
+        continueButton.setFont(pixelMplus.deriveFont(35f));
+        continueButton.setBackground(Color.darkGray);
+        continueButton.setBorder(null);
+        continueButton.setFocusPainted(false);
     }
 
-    Timer timer = new Timer(1000, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent ae) {
-            textDelay++;
-            if (textDelay == 1){
-                add(died);
-            }
-            else if (textDelay == 3){
-                add(forces);
-            }
-            else if (textDelay == 5){
-                add(kingdom);
-            }
-            else if (textDelay == 7){
-                add(who);
-                add(name);
-                add(countinueButton);
-            }
-            repaint();
-        }
-    });
 
     private void importFont() {
         try {
