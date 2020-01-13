@@ -150,8 +150,8 @@ public class MasterModel {
         rangerStats[2] = 3 + currentRangerWeaponDamage;
 
         mageStats[0] = 70;
-        mageStats[0] = 0 + currentMageArmorBlock;
-        mageStats[0] = 4 +currentMageArmorDamage + currentMageWeaponDamage;
+        mageStats[1] = 0 + currentMageArmorBlock;
+        mageStats[2] = 4 +currentMageArmorDamage + currentMageWeaponDamage;
 
         healerStats[0] = 100;
         healerStats[1] = 1 + currentHealerArmorBlock;
