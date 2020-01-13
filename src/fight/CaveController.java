@@ -21,6 +21,8 @@ public class CaveController{
     private int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
+    private boolean debuffed = false;
+    int goblinDamage;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -337,7 +339,10 @@ public class CaveController{
     }
 
     private void skill3() {
-        if (turns == 1) {
+        if (turns == 1 && warriorEnergyInt>2){
+            warriorEnergyInt=warriorEnergyInt-3;
+            currentEnergy=currentEnergy-3;
+            cv.energy.setText("Energy: " + warriorEnergyInt);
             followup = true;
             shout.start();
         }
@@ -359,7 +364,10 @@ public class CaveController{
     }
 
     private void skill4() {
-        if (turns == 1) {
+        if (turns == 1 && warriorEnergyInt>4){
+            warriorEnergyInt=warriorEnergyInt-5;
+            currentEnergy=currentEnergy-5;
+            cv.energy.setText("Energy: " + warriorEnergyInt);
             shout.start();
         }
         if (turns == 2 && rangerEnergyInt > 2) {
@@ -480,8 +488,8 @@ public class CaveController{
         if (turns == 1){
             cv.skill1Button.setText("Charge (3)");
             cv.skill2Button.setText("Slam (4)");
-            cv.skill3Button.setText("Battlecry");
-            cv.skill4Button.setText("Demoralize");
+            cv.skill3Button.setText("Battlecry (3)");
+            cv.skill4Button.setText("Demoralize (5)");
         }
         //ranger
         if (turns == 2){
@@ -624,7 +632,11 @@ public class CaveController{
     //When the goblin attacks.
     private void goblinAttack() {
         target = (int) (Math.random() * 4); //Random target, 0-3.
-        int goblinDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
+        if (debuffed) {
+            goblinDamage = (int) (Math.random() * 10) + 5;} //Generate random damage, 15-25.
+        if (!debuffed) {
+            goblinDamage = (int) (Math.random() * 10) + 15;} //Generate random damage, 15-25.
+
 
         //Loops until it reaches an alive OldClasses.party-member.
         while (true) {
@@ -1475,7 +1487,7 @@ public class CaveController{
             }
             if (timePast == 50) {
                 for (int i = 0; i < buffDamage.length; i++) {
-                    buffDamage[i] += 5;
+                    buffDamage[i] += 3;
                 }
                 swordIconX = 300;
                 swordIconY = 300;
@@ -1549,6 +1561,7 @@ public class CaveController{
                 rightMegaMath = 1;
                 downMegaMath = 1;
                 leftMegaMath = 1;
+                debuffed = true;
                 phase = 0;
                 animationPlaying = false;
                 demoralized.stop();
@@ -2097,6 +2110,7 @@ public class CaveController{
                 cv.endTurnButton.setVisible(true);
                 animationPlaying = false;
                 takeDamage.start();
+                animationPlaying = false;
             }
         }
     });

@@ -22,6 +22,8 @@ public class ForestCon {
     public int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
+    private boolean debuffed = false;
+    int wolfDamage;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -300,16 +302,19 @@ public class ForestCon {
     }
 
     private void skill3(){
-        if (turns == 1 && !animationPlaying){
+        if (turns == 1 && warriorEnergyInt>2 && !animationPlaying){
+            warriorEnergyInt=warriorEnergyInt-3;
+            currentEnergy=currentEnergy-3;
+            fff.energy.setText("Energy: " + warriorEnergyInt);
             followup = true;
             shout.start();
         }
         if(turns == 2){
 
         }
-        if (turns==3 && mageEnergyInt>2 && !animationPlaying){
-                mageEnergyInt=mageEnergyInt-3;
-                currentEnergy=currentEnergy-3;
+        if (turns==3 && mageEnergyInt>4 && !animationPlaying){
+                mageEnergyInt=mageEnergyInt-5;
+                currentEnergy=currentEnergy-5;
                 fff.energy.setText("Energy: "+mageEnergyInt);
                 flameStrike.start();
         }
@@ -322,7 +327,10 @@ public class ForestCon {
     }
 
     private void skill4(){
-        if (turns == 1 && !animationPlaying){
+        if (turns == 1 && warriorEnergyInt>4 && !animationPlaying){
+            warriorEnergyInt=warriorEnergyInt-5;
+            currentEnergy=currentEnergy-5;
+            fff.energy.setText("Energy: " + warriorEnergyInt);
             shout.start();
         }
         if(turns == 2 && rangerEnergyInt>2 && !animationPlaying){
@@ -364,8 +372,8 @@ public class ForestCon {
         if (turns == 1){
             fff.skill1Button.setText("Charge (3)");
             fff.skill2Button.setText("Slam (4)");
-            fff.skill3Button.setText("Battlecry");
-            fff.skill4Button.setText("Demoralize");
+            fff.skill3Button.setText("Battlecry (3)");
+            fff.skill4Button.setText("Demoralize (5)");
         }
         //ranger
         if (turns == 2){
@@ -478,9 +486,12 @@ public class ForestCon {
     //When the wolf attacks.
     public void wolfAttack() {
         target = (int) (Math.random() * 4); //Random target, 0-3.
-        int wolfDamage = (int) (Math.random() * 10) + 15;//Generate random damage, 15-25.
+        if (debuffed) {
+        wolfDamage = (int) (Math.random() * 10) + 5;} //Generate random damage, 15-25.
+        if (!debuffed) {
+        wolfDamage = (int) (Math.random() * 10) + 15;} //Generate random damage, 15-25.
 
-        //Loops until it reaches an alive OldClasses.party-member.
+    //Loops until it reaches an alive OldClasses.party-member.
         while (true) {
 
             //Warrior, Target 2.
@@ -1481,6 +1492,9 @@ public class ForestCon {
                 swordIconY -= upMegaMath;
             }
             if (timePast == 50) {
+                for (int i = 0; i < buffDamage.length; i++) {
+                    buffDamage[i] += 3;
+                }
                 swordIconX = 300;
                 swordIconY = 300;
                 fff.swordIcon.setVisible(false);
@@ -1554,6 +1568,7 @@ public class ForestCon {
                 downMegaMath = 1;
                 leftMegaMath = 1;
                 phase = 0;
+                debuffed = true;
                 animationPlaying = false;
                 demoralized.stop();
             }
@@ -2136,6 +2151,7 @@ public class ForestCon {
                 turns = 0;
                 animationPlaying = false;
                 takeDamage.start();
+                debuffed = false;
             }
         }
     });
