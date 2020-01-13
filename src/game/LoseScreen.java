@@ -15,6 +15,7 @@ public class LoseScreen {
     TextField name;
 
     public void loseScreen() {
+
         loseFrame.setLayout(null);
         loseFrame.setSize(1920, 1080);
         loseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,8 +30,8 @@ public class LoseScreen {
         loseFrame.add(name);
         loseFrame.add(continueButton);
 
-        loseFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        loseFrame.setUndecorated(true);
+        //loseFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //loseFrame.setUndecorated(true);
         loseFrame.setVisible(true);
     }
 

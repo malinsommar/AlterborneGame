@@ -101,7 +101,6 @@ public class MasterModel {
     private int[] legendaryWeaponArmorDamageBlock = new int[18];
     private int[] armorDamage = new int[6];
 
-
     //Get user input from ConHub to start game of exit game.
     void startGame() throws InterruptedException {
 
@@ -118,6 +117,7 @@ public class MasterModel {
         }
     }
 
+    //This method open the overWorld screen. Depending on where the player goes on the map it returns a variable that opens different fights of shop screen.
     public void startWorldModel() throws InterruptedException {
         WorldModel worldModel = new WorldModel();
         if (worldModel.HandleOverWorld() == 1) {
@@ -140,6 +140,7 @@ public class MasterModel {
         }
     }
 
+    //This method sets all beginning stats such as hp, damage etc.
     private void setStartNumbers() {
 
         warriorStats[0] = 130;
@@ -204,10 +205,8 @@ public class MasterModel {
         healerLevelUpStats[2] = 3;
     }
 
-    //Fight methods starts here
-
-    //This method imports all stats that the battle will need and start ForestFightController.
-    public void startForestFight() throws InterruptedException {
+    //This method starts the forest fight and send necessary variables to ForestController.
+    private void startForestFight() throws InterruptedException {
         forestCon.getInventory(ownedPotions);
         forestCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
         forestCon.startFight();
@@ -215,7 +214,8 @@ public class MasterModel {
         forestFightLoop1();
     }
 
-    public void startCaveFight() throws InterruptedException {
+    //This method starts the cave fight and send necessary variables to CaveController.
+    private void startCaveFight() throws InterruptedException {
         caveCon.getInventory(ownedPotions);
         caveCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
         caveCon.startFight();
@@ -223,6 +223,7 @@ public class MasterModel {
         caveFightLoop1();
     }
 
+    //This method starts the field fight and send necessary variables to FieldController.
     public void startFieldFight() {
 
     }
@@ -962,6 +963,8 @@ public class MasterModel {
         }
         lc.done = false;
     }
+
+    //TODO only 2 loops (tc.done||lc.done||luc.done)
 
     private void lootLoop2() throws InterruptedException {
 
