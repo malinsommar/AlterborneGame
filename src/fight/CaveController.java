@@ -18,8 +18,9 @@ public class CaveController{
 
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
-    private int warriorDamage, mageDamage, healerDamage, rangerDamage;
+    private int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
+    private int buffDamage[] = new int[4];
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -231,6 +232,12 @@ public class CaveController{
             cv.energy.setText(" ");
             cv.block.setText(" ");
             enemyTurnTimer.start();
+
+            //removes temporary damage buffs at the end of turn
+            for (int i = 0; i < buffDamage.length; i++) {
+                buffDamage[i] = 0;
+            }
+
             turns = 0;
         }
     }
@@ -282,9 +289,9 @@ public class CaveController{
     }
 
     private void skill1() {
-        if (turns == 1 && warriorEnergyInt > 1 && cv.targetarrow.isVisible()) {
-            warriorEnergyInt = warriorEnergyInt - 2;
-            currentEnergy = currentEnergy - 2;
+        if (turns == 1 && warriorEnergyInt > 2 && cv.targetarrow.isVisible()) {
+            warriorEnergyInt = warriorEnergyInt - 3;
+            currentEnergy = currentEnergy - 3;
             cv.energy.setText("Energy: " + warriorEnergyInt);
             charge.start();
         }
@@ -307,9 +314,9 @@ public class CaveController{
     }
 
     private void skill2() {
-        if (turns == 1 && warriorEnergyInt > 1) {
-            warriorEnergyInt = warriorEnergyInt - 2;
-            currentEnergy = currentEnergy - 2;
+        if (turns == 1 && warriorEnergyInt > 3) {
+            warriorEnergyInt = warriorEnergyInt - 4;
+            currentEnergy = currentEnergy - 4;
             cv.energy.setText("Energy: " + warriorEnergyInt);
             dunk.start();
         }
@@ -469,8 +476,8 @@ public class CaveController{
 
         //warrior
         if (turns == 1){
-            cv.skill1Button.setText("Charge (2)");
-            cv.skill2Button.setText("Slam (2)");
+            cv.skill1Button.setText("Charge (3)");
+            cv.skill2Button.setText("Slam (4)");
             cv.skill3Button.setText("Battlecry");
             cv.skill4Button.setText("Demoralize");
         }
@@ -878,21 +885,21 @@ public class CaveController{
             }
             if (potion == 10) {
                 if (ownedPotions[9] > 0) {
-                    warriorDamage += 5;
+                    buffDamage[turns - 1] += 5;
                     ownedPotions[9] -= 1;
                     cv.potion10Label.setText("" + ownedPotions[9]);
                 }
             }
             if (potion == 11) {
                 if (ownedPotions[10] > 0) {
-                    warriorDamage += 10;
+                    buffDamage [turns - 1] += 10;
                     ownedPotions[10] -= 1;
                     cv.potion11Label.setText("" + ownedPotions[10]);
                 }
             }
             if (potion == 12) {
                 if (ownedPotions[11] > 0) {
-                    warriorDamage += 20;
+                    buffDamage [turns - 1] += 20;
                     ownedPotions[11] -= 1;
                     cv.potion12Label.setText("" + ownedPotions[11]);
                 }
@@ -970,19 +977,19 @@ public class CaveController{
                 }
             } else if (potion == 10) {
                 if (ownedPotions[9] > 0) {
-                    rangerDamage += 5;
+                    buffDamage[turns - 1] += 5;
                     ownedPotions[9] -= 1;
                     cv.potion10Label.setText("" + ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
-                    rangerDamage += 10;
+                    buffDamage[turns - 1] += 10;
                     ownedPotions[10] -= 1;
                     cv.potion11Label.setText("" + ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
-                    rangerDamage += 20;
+                    buffDamage[turns - 1] += 20;
                     ownedPotions[11] -= 1;
                     cv.potion12Label.setText("" + ownedPotions[11]);
                 }
@@ -1059,19 +1066,19 @@ public class CaveController{
                 }
             } else if (potion == 10) {
                 if (ownedPotions[9] > 0) {
-                    mageDamage += 5;
+                    buffDamage[turns - 1] += 5;
                     ownedPotions[9] -= 1;
                     cv.potion10Label.setText("" + ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
-                    mageDamage += 10;
+                    buffDamage[turns - 1] += 10;
                     ownedPotions[10] -= 1;
                     cv.potion11Label.setText("" + ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
-                    mageDamage += 20;
+                    buffDamage[turns - 1] += 20;
                     ownedPotions[11] -= 1;
                     cv.potion12Label.setText("" + ownedPotions[11]);
                 }
@@ -1148,19 +1155,19 @@ public class CaveController{
                 }
             } else if (potion == 10) {
                 if (ownedPotions[9] > 0) {
-                    healerDamage += 5;
+                    buffDamage[turns - 1] += 5;
                     ownedPotions[9] -= 1;
                     cv.potion10Label.setText("" + ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
-                    healerDamage += 10;
+                    buffDamage[turns - 1] += 10;
                     ownedPotions[10] -= 1;
                     cv.potion11Label.setText("" + ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
-                    healerDamage += 20;
+                    buffDamage[turns - 1] += 20;
                     ownedPotions[11] -= 1;
                     cv.potion12Label.setText("" + ownedPotions[11]);
                 }
@@ -1240,7 +1247,8 @@ public class CaveController{
 
     //called from spells to deal damage to enemies
     //damageTargets types: single, line, all
-    public void spellDamageSystem(int damage, String damageTargets) {
+    public void spellDamageSystem(int unbuffedDamage, String damageTargets) {
+        damage = unbuffedDamage + buffDamage[turns - 1];
         if (damageTargets.equals("single")) {
             goblinHp[target - 1] -= damage;
         }
@@ -1367,7 +1375,7 @@ public class CaveController{
                     warriorMegaMath = 30;
                     phase = 0;
                     dunk.stop();
-                    spellDamageSystem(3, "all");
+                    spellDamageSystem(4, "all");
                     animationPlaying = false;
 
                 }
@@ -1467,6 +1475,9 @@ public class CaveController{
                 swordIconY -= upMegaMath;
             }
             if (timePast == 50) {
+                for (int i = 0; i < buffDamage.length; i++) {
+                    buffDamage[i] += 5;
+                }
                 swordIconX = 300;
                 swordIconY = 300;
                 cv.swordIcon.setVisible(false);
@@ -2028,6 +2039,7 @@ public class CaveController{
                     spellDamageSystem(healerDamage, "single");
                     healerAttack.stop();
                     animationPlaying = false;
+                    System.out.println("healer attack done");
                 }
             }
         }
