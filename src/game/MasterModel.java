@@ -13,10 +13,9 @@ public class MasterModel {
     private LootController lc = new LootController();
     private ForestCon forestCon = new ForestCon();
     private CaveController caveCon = new CaveController();
-    private LoseScreen loseScreen = new LoseScreen();
     private FieldController fieldCon = new FieldController();
     private ShopController sc = new ShopController();
-
+    private LoseController loseController = new LoseController();
 
     private int[] warriorStats = new int[3];
     private int[] mageStats = new int[3];
@@ -28,6 +27,8 @@ public class MasterModel {
     private int[] rangerLevelUpStats = new int[3];
 
     //Warrior weapon/armor things
+
+    //TODO sänk levelupstats
 
     private String warriorRareWeaponName = "Iron sword", warriorEpicWeaponName = "Tempered steel blade", warriorLegendaryWeaponName = "Sword of a thousand truths", warriorRareArmorName = "Shiny Armor", warriorEpicArmorName = "Hardened Armor", warriorLegendaryArmorName = "Royal Enchanted Armor";
     private int warriorRareWeaponDamage = 8, warriorEpicWeaponDamage = 15, warriorLegendaryWeaponDamage = 27, warriorRareArmorBlock = 6, warriorEpicArmorBlock = 10, warriorLegendaryArmorBlock;
@@ -156,7 +157,14 @@ public class MasterModel {
         healerStats[0] = 100;
         healerStats[1] = 1 + currentHealerArmorBlock;
         healerStats[2] = 0 +currentHealerArmorDamage + currentHealerWeaponDamage;
-        
+
+        //TODO ändra
+
+        warriorStats[0]=1;
+        mageStats[0]=1;
+        rangerStats[0]=1;
+        healerStats[0]=1;
+
 
         currentXp = 0;
         currentLevel = 1;
@@ -335,6 +343,10 @@ public class MasterModel {
         healerLevelUpStats[0] += healerLevelUpStats[0];
         healerLevelUpStats[1] += healerLevelUpStats[1];
         healerLevelUpStats[2] += healerLevelUpStats[2];
+    }
+
+    public void startLoseScreen(){
+      loseController.startLoseScreen(currentXp);
     }
 
     //This method saves gold, xp and weapon/armor that player got from lootController.
@@ -630,9 +642,9 @@ public class MasterModel {
         int loops = 0;
         boolean broken = false;
 
-        System.out.println("loop1");
+        System.out.println("forest loop1");
         while (true) {
-            System.out.println("run 1");
+            System.out.println("run forest 1");
 
             if (forestCon.fightWon) {
                 System.out.println("fightWon");
@@ -658,10 +670,10 @@ public class MasterModel {
                 startLootController(1);
                 broken = true;
                 break;
-            } else if (forestCon.fightLost) {
-                System.out.println("fightLost");
-                loseScreen.loseScreen();
+            } if (forestCon.fightLost) {
+                System.out.println("fightLost loop 1");
                 broken = true;
+                startLoseScreen();
                 break;
             } else if (loops == 100000) {
                 break;
@@ -676,10 +688,10 @@ public class MasterModel {
     private void forestFightLoop2() throws InterruptedException {
         int loops = 0;
         boolean broken = false;
-        System.out.println("loop2");
+        System.out.println("forest loop2");
 
         while (true) {
-            System.out.println("run 2");
+            System.out.println("run forest 2");
 
             if (forestCon.fightWon) {
                 System.out.println("fightWon");
@@ -705,10 +717,11 @@ public class MasterModel {
                 startLootController(1);
                 broken = true;
                 break;
-            } else if (forestCon.fightLost) {
-                System.out.println("fightLost");
-                loseScreen.loseScreen();
+            }
+            else if (forestCon.fightLost) {
+                System.out.println("fightLost loop 2");
                 broken = true;
+                startLoseScreen();
                 break;
             } else if (loops == 100000) {
                 break;
@@ -726,7 +739,7 @@ public class MasterModel {
 
         System.out.println("loop1");
         while (true) {
-            System.out.println("run 1");
+            System.out.println("running cave 1");
 
             if (caveCon.fightWon) {
                 System.out.println("fightWon");
@@ -752,7 +765,7 @@ public class MasterModel {
                 break;
             } else if (caveCon.fightLost) {
                 System.out.println("fightLost");
-                loseScreen.loseScreen();
+                startLoseScreen();
                 broken = true;
                 break;
             } else if (loops == 100000) {
@@ -771,7 +784,7 @@ public class MasterModel {
         System.out.println("loop2");
 
         while (true) {
-            System.out.println("run 2");
+            System.out.println("running cave 2");
 
             if (caveCon.fightWon) {
                 System.out.println("fightWon");
@@ -797,7 +810,7 @@ public class MasterModel {
                 break;
             } else if (caveCon.fightLost) {
                 System.out.println("fightLost");
-                loseScreen.loseScreen();
+                startLoseScreen();
                 broken = true;
                 break;
             } else if (loops == 100000) {
@@ -817,12 +830,11 @@ public class MasterModel {
         System.out.println("level loop1");
 
         while (true) {
-            System.out.println("running loop 1");
+            System.out.println("running levelUp loop 1");
 
             if (luc.done) {
                 System.out.println("xp ready");
                 luc.done = false;
-                levelUpStats();
                 broken = true;
                 break;
             } else if (luc.playerNotLevelUp) {
@@ -846,12 +858,11 @@ public class MasterModel {
         System.out.println("level loop1");
 
         while (true) {
-            System.out.println("running loop 1");
+            System.out.println("running levelUp loop 1");
 
             if (luc.done) {
                 System.out.println("loot ready, start loot");
                 luc.done = false;
-                levelUpStats();
                 broken = true;
                 break;
             } else if (luc.playerNotLevelUp) {
@@ -874,7 +885,7 @@ public class MasterModel {
         System.out.println("ShopLoop1");
 
         while (true) {
-            System.out.println("running loop 1");
+            System.out.println("running shop loop 1");
 
             if (sc.done) {
                 System.out.println("loot ready, start loot");
@@ -904,7 +915,7 @@ public class MasterModel {
         System.out.println("ShopLoop2");
 
         while (true) {
-            System.out.println("running loop 2");
+            System.out.println("running shop loop 2");
 
             if (sc.done) {
                 System.out.println("loot ready, start loot");
@@ -934,7 +945,7 @@ public class MasterModel {
         System.out.println("loot loop1");
 
         while (true) {
-            System.out.println("running loop 1");
+            System.out.println("running loot loop 1");
 
             if (lc.done) {
                 System.out.println("loot ready, start loot");
@@ -959,7 +970,7 @@ public class MasterModel {
         System.out.println("loot loop2");
 
         while (true) {
-            System.out.println("running loop 2");
+            System.out.println("running loot loop 2");
 
             if (lc.done) {
                 System.out.println("loot ready, start loot");
@@ -983,7 +994,7 @@ public class MasterModel {
         System.out.println("tutorial loop1");
 
         while (true) {
-            System.out.println("running loop 2");
+            System.out.println("running tut loop 1");
 
             if (tc.done) {
                 broken = true;
@@ -1006,7 +1017,7 @@ public class MasterModel {
         System.out.println("tutorial loop1");
 
         while (true) {
-            System.out.println("running loop 2");
+            System.out.println("running tut loop 2");
 
             if (tc.done) {
                 broken = true;
