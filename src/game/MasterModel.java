@@ -164,7 +164,7 @@ public class MasterModel {
         }
         //Field
         else if (worldModel.HandleOverWorld() == 4) {
-            if(ran > 99){
+            if(ran > 10){
                 startFieldFight();
             }
             else {
