@@ -1,14 +1,10 @@
 package fight;
 
-import game.LoseScreen;
 import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.EventListener;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
 public class CaveController{
 
