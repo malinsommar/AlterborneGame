@@ -85,7 +85,7 @@ public class FieldController{
 
     public void startFight() {
 
-        MusicPick.musicStart("danceknigths", "music");
+        MusicPick.musicStart("field", "music");
 
         currentEnergy = 5;
         warriorEnergyInt = 5;

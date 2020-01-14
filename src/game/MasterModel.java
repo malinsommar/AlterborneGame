@@ -1,9 +1,7 @@
 package game;
 
 import davidtest.overworld.map.WorldModel;
-import fight.CaveController;
-import fight.FieldController;
-import fight.ForestCon;
+import fight.*;
 
 public class MasterModel {
 
@@ -12,8 +10,10 @@ public class MasterModel {
     private LevelUpController luc = new LevelUpController();
     private LootController lc = new LootController();
     private ForestCon forestCon = new ForestCon();
+    private ForestBossCon forestBossCon = new ForestBossCon();
     private CaveController caveCon = new CaveController();
     private FieldController fieldCon = new FieldController();
+    private CastleController castleCon = new CastleController();
     private ShopController sc = new ShopController();
     private LoseController loseController = new LoseController();
     private UserNameController unc = new UserNameController();
@@ -187,8 +187,12 @@ public class MasterModel {
     }
 
     //This method starts the forest boss fight and send necessary variables to the controller.
-    private void startForestBossFight(){
+    private void startForestBossFight() throws InterruptedException {
+        forestBossCon.getInventory(ownedPotions);
+        forestBossCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        forestBossCon.startFight();
 
+        masterLoop1();
     }
 
     //This method starts the cave fight and send necessary variables to CaveController.
@@ -230,8 +234,12 @@ public class MasterModel {
     }
 
     //This method starts the castle fight and send necessary variables to CastleController.
-    private void startCastleFight(){
+    private void startCastleFight() throws InterruptedException {
+        castleCon.getInventory(ownedPotions);
+        castleCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        castleCon.startFight();
 
+        masterLoop1();
     }
 
     //This method starts the castle boss fight and send necessary variables to the controller.
