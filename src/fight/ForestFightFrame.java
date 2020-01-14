@@ -17,7 +17,7 @@ public class ForestFightFrame {
     Potions potions = new Potions();
 
     //Create fonts
-    private Font pixelMplus;
+    Font pixelMplus;
 
     //Create buttons
     public JButton attackButton, blockButton, itemButton, skillButton, endTurnButton;
