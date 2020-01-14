@@ -403,6 +403,7 @@ public class ForestCon {
             fff.skill2Button.setText("Slam (4)");
             fff.skill3Button.setText("Battlecry (3)");
             fff.skill4Button.setText("Demoralize (5)");
+            fff.skill4Button.setFont(fff.pixelMplus.deriveFont(27f));
         }
         //ranger
         if (turns == 2){
@@ -438,32 +439,32 @@ public class ForestCon {
             warriorEnergyInt=warriorEnergyInt-2;
             currentEnergy=currentEnergy-2;
             warriorBlock+=5;
-            fff.energy.setText("Energy: "+warriorEnergyInt);
-            fff.block.setText("Block: "+warriorBlock);
+            fff.energy.setText("Energy: "+warriorEnergyInt+"  ");
+            fff.block.setText("Block: "+warriorBlock+"  ");
         }
         //If its ranger's turn and player has 2 or more energy.
         else if(turns==2 && rangerEnergyInt>1 && !animationPlaying){
             rangerEnergyInt=rangerEnergyInt-2;
             currentEnergy=currentEnergy-2;
             rangerBlock+=5;
-            fff.energy.setText("Energy: "+rangerEnergyInt);
-            fff.block.setText("Block: "+rangerBlock);
+            fff.energy.setText("Energy: "+rangerEnergyInt+"  ");
+            fff.block.setText("Block: "+rangerBlock+"  ");
         }
         //If its mage's turn and player has 2 or more energy.
         else if(turns==3 && mageEnergyInt>1 && !animationPlaying){
             mageEnergyInt=mageEnergyInt-2;
             currentEnergy=currentEnergy-2;
             mageBlock+=5;
-            fff.energy.setText("Energy: "+mageEnergyInt);
-            fff.block.setText("Block: "+mageBlock);
+            fff.energy.setText("Energy: "+mageEnergyInt+"  ");
+            fff.block.setText("Block: "+mageBlock+"  ");
         }
         //If its healer's turn and player has 2 or more energy.
         else if(turns==4 && healerEnergyInt>1 && !animationPlaying){
             healerEnergyInt=healerEnergyInt-2;
             currentEnergy=currentEnergy-2;
             healerBlock+=5;
-            fff.energy.setText("Energy: "+healerEnergyInt);
-            fff.block.setText("Block: "+healerBlock);
+            fff.energy.setText("Energy: "+healerEnergyInt+"  ");
+            fff.block.setText("Block: "+healerBlock+"  ");
         }
     }
 
@@ -477,28 +478,28 @@ public class ForestCon {
         if(turns==1 && warriorEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
             warriorEnergyInt=warriorEnergyInt-2; //Energy -2.
             currentEnergy=currentEnergy-2; // Update currentEnergy.
-            fff.energy.setText("Energy: "+warriorEnergyInt); //Update energyLabel
+            fff.energy.setText("Energy: "+warriorEnergyInt+"  "); //Update energyLabel
             tackle.start(); //Warrior deals damage to a wolf.
         }
         //If its ranger's turn and player has 2 or more energy.
         else if(turns==2 && rangerEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
             rangerEnergyInt=rangerEnergyInt-2;
             currentEnergy=currentEnergy-2;
-            fff.energy.setText("Energy: "+rangerEnergyInt);
+            fff.energy.setText("Energy: "+rangerEnergyInt+"  ");
             shoot.start();
         }
         //If its mage's turn and player has 2 or more energy.
         else if(turns==3 && mageEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
             mageEnergyInt=mageEnergyInt-2;
             currentEnergy=currentEnergy-2;
-            fff.energy.setText("Energy: "+mageEnergyInt);
+            fff.energy.setText("Energy: "+mageEnergyInt+"  ");
             blast.start();
         }
         //If its healer's turn and player has 2 or more energy.
         else if(turns==4 && healerEnergyInt>1 && fff.targetarrow.isVisible() && !animationPlaying){
             healerEnergyInt=healerEnergyInt-2;
             currentEnergy=currentEnergy-2;
-            fff.energy.setText("Energy: "+healerEnergyInt);
+            fff.energy.setText("Energy: "+healerEnergyInt+"  ");
             healerAttack.start();
         }
     }
@@ -545,7 +546,7 @@ public class ForestCon {
                 if (warriorCurrentHp >0) {
                     enemyDamage=enemyDamage-warriorBlock; //Warrior take damage equal to wolf damage.
                     warriorCurrentHp = warriorCurrentHp - enemyDamage; //Update warrior hp.
-                    fff.player1Hp.setText("Warrior: "+warriorCurrentHp); //Update hp Label.
+                    fff.player1Hp.setText("Warrior: "+warriorCurrentHp+"  "); //Update hp Label.
                     warriorattacked = true;
                     break;
                 }
@@ -560,7 +561,7 @@ public class ForestCon {
                 if (mageCurrentHp >0) {
                     enemyDamage=enemyDamage-mageBlock;
                     mageCurrentHp = mageCurrentHp - enemyDamage;
-                    fff.player3Hp.setText("Mage:    "+mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+mageCurrentHp+"  ");
                     mageattacked = true;
                     break;
                 }
@@ -581,7 +582,7 @@ public class ForestCon {
                 else {
                     enemyDamage=enemyDamage-rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - enemyDamage;
-                    fff.player2Hp.setText("Ranger:  "+rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+rangerCurrentHp+"  ");
                     rangerattacked = true;
                     unstealth();
                     break;
@@ -597,7 +598,7 @@ public class ForestCon {
                 if (healerCurrentHp >0) {
                     enemyDamage=enemyDamage-healerBlock;
                     healerCurrentHp = healerCurrentHp - enemyDamage;
-                    fff.player4Hp.setText("Healer:   "+healerCurrentHp);
+                    fff.player4Hp.setText("Healer:   "+healerCurrentHp+"  ");
                     healerattacked = true;
                     break;
                 }
@@ -762,17 +763,17 @@ public class ForestCon {
         fff.potion11Label = new JLabel("" + ownedPotions[10]);
         fff.potion12Label = new JLabel("" + ownedPotions[11]);
 
-        fff.wolf1Hp = new JLabel("Wolf 1: "+ wolfHp[0]);
-        fff.wolf2Hp = new JLabel("Wolf 2: "+ wolfHp[1]);
-        fff.wolf3Hp = new JLabel("Wolf 3: "+ wolfHp[2]);
-        fff.wolf4Hp = new JLabel("Wolf 4: "+ wolfHp[3]);
+        fff.wolf1Hp = new JLabel("Wolf 1: "+ wolfHp[0]+"  ");
+        fff.wolf2Hp = new JLabel("Wolf 2: "+ wolfHp[1]+"  ");
+        fff.wolf3Hp = new JLabel("Wolf 3: "+ wolfHp[2]+"  ");
+        fff.wolf4Hp = new JLabel("Wolf 4: "+ wolfHp[3]+"  ");
 
         fff.playersHp = new JLabel("Hp: "+warriorCurrentHp+"   ");
         fff.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp+"   ");
         fff.player2Hp = new JLabel("Ranger:  "+ rangerCurrentHp+"   ");
         fff.player3Hp = new JLabel("Mage:    "+ mageCurrentHp+"   ");
         fff.player4Hp = new JLabel("Healer:  "+ healerCurrentHp+"   ");
-        fff.block = new JLabel("Block: "+warriorBlock);
+        fff.block = new JLabel("Block: "+warriorBlock+"      ");
     }
 
     /**

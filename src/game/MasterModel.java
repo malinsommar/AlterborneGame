@@ -555,7 +555,7 @@ public class MasterModel {
     //This method sets all beginning stats such as hp, damage etc.
     private void setStartNumbers() {
 
-        warriorStats[0] = 130;
+        warriorStats[0] = 110;
         warriorStats[1] = 3 + currentWarriorArmorBlock;
         warriorStats[2] = 2 + currentWarriorWeaponDamage;
 
@@ -567,16 +567,9 @@ public class MasterModel {
         mageStats[1] = 0 + currentMageArmorBlock;
         mageStats[2] = 4 +currentMageArmorDamage + currentMageWeaponDamage;
 
-        healerStats[0] = 100;
+        healerStats[0] = 90;
         healerStats[1] = 1 + currentHealerArmorBlock;
         healerStats[2] = 0 +currentHealerArmorDamage + currentHealerWeaponDamage;
-
-        //TODO ändra
-
-        warriorStats[0]=1;
-        mageStats[0]=1;
-        rangerStats[0]=1;
-        healerStats[0]=1;
 
         currentXp = 0;
         currentLevel = 1;
@@ -862,12 +855,7 @@ public class MasterModel {
                 broken = true;
                 break;
             }
-            else if (forestCon.fightLost) {
-                System.out.println("fightLost loop 1");
-                broken = true;
-                startLoseScreen();
-                break;
-            }
+
             //CaveFight
             else if (caveCon.fightWon){
                 System.out.println("Cave fight won");
@@ -920,21 +908,116 @@ public class MasterModel {
                 broken = true;
                 break;
             }
-            else if (caveCon.fightLost) {
-                System.out.println("Cave fight lost");
-                startLoseScreen();
+            //SwampFight
+            else if (swampcon.fightWon){
+                System.out.println("swamp fight won");
+
+                swampcon.fightWon = false;
+
+                swampcon.ownedPotions[0] = ownedPotions[0];
+                swampcon.ownedPotions[1] = ownedPotions[1];
+                swampcon.ownedPotions[2] = ownedPotions[2];
+
+                swampcon.ownedPotions[3] = ownedPotions[3];
+                swampcon.ownedPotions[4] = ownedPotions[4];
+                swampcon.ownedPotions[5] = ownedPotions[5];
+
+                swampcon.ownedPotions[6] = ownedPotions[6];
+                swampcon.ownedPotions[7] = ownedPotions[7];
+                swampcon.ownedPotions[8] = ownedPotions[8];
+
+                swampcon.ownedPotions[9] = ownedPotions[9];
+                swampcon.ownedPotions[10] = ownedPotions[10];
+                swampcon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(4);
                 broken = true;
                 break;
             }
+            //CastleFight
+            else if (castleCon.fightWon){
+                System.out.println("swamp fight won");
+
+                castleCon.fightWon = false;
+
+                castleCon.ownedPotions[0] = ownedPotions[0];
+                castleCon.ownedPotions[1] = ownedPotions[1];
+                castleCon.ownedPotions[2] = ownedPotions[2];
+
+                castleCon.ownedPotions[3] = ownedPotions[3];
+                castleCon.ownedPotions[4] = ownedPotions[4];
+                castleCon.ownedPotions[5] = ownedPotions[5];
+
+                castleCon.ownedPotions[6] = ownedPotions[6];
+                castleCon.ownedPotions[7] = ownedPotions[7];
+                castleCon.ownedPotions[8] = ownedPotions[8];
+
+                castleCon.ownedPotions[9] = ownedPotions[9];
+                castleCon.ownedPotions[10] = ownedPotions[10];
+                castleCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(5);
+                broken = true;
+                break;
+            }
+            //ForestBoss
+            else if (forestBossCon.fightWon){
+                System.out.println("forestBoss fight won");
+
+                forestBossCon.fightWon = false;
+
+                forestBossCon.ownedPotions[0] = ownedPotions[0];
+                forestBossCon.ownedPotions[1] = ownedPotions[1];
+                forestBossCon.ownedPotions[2] = ownedPotions[2];
+
+                forestBossCon.ownedPotions[3] = ownedPotions[3];
+                forestBossCon.ownedPotions[4] = ownedPotions[4];
+                forestBossCon.ownedPotions[5] = ownedPotions[5];
+
+                forestBossCon.ownedPotions[6] = ownedPotions[6];
+                forestBossCon.ownedPotions[7] = ownedPotions[7];
+                forestBossCon.ownedPotions[8] = ownedPotions[8];
+
+                forestBossCon.ownedPotions[9] = ownedPotions[9];
+                forestBossCon.ownedPotions[10] = ownedPotions[10];
+                forestBossCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(10);
+                broken = true;
+                break;
+            }
+            //Fights lost
+            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||fieldCon.fightLost||swampcon.fightLost||castleCon.fightLost) {
+                System.out.println("fightLost loop 1");
+                broken = true;
+                startLoseScreen();
+                break;
+            }
             //Loot, tutorial, shop, levelUp,
-            else if (lc.done||tc.done||sc.done||luc.done) {
+            else if (lc.done||tc.done||sc.done||luc.done||unc.done) {
                 System.out.println("Done");
+                unc.done = false;
                 luc.done = false;
                 sc.done = false;
                 tc.done = false;
                 lc.done = false;
                 broken = true;
                 break;
+            }
+            else if (hubController.gameDone){
+                hubController.gameDone =false;
+                enterUserName();
+                broken = true;
+                break;
+            }
+            else if (hubController.tutorialDone){
+                hubController.tutorialDone = false;
+                startTutorial();
+                broken = true;
+                break;
+            }
+            else if (hubController.exitDone){
+                System.exit(0);
             }
             //Bought item
             else if (sc.itemBought){
@@ -960,10 +1043,10 @@ public class MasterModel {
     private void masterLoop2() throws InterruptedException {
         int loops = 0;
         boolean broken = false;
-        System.out.println("Loop 2");
+        System.out.println("Loop 1");
 
         while (true){
-            System.out.println("Running loop 2");
+            System.out.println("Running loop 1");
 
             //ForestFight
             if (forestCon.fightWon){
@@ -991,12 +1074,7 @@ public class MasterModel {
                 broken = true;
                 break;
             }
-            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||fieldCon.fightLost) {
-                System.out.println("fightLost loop 1");
-                broken = true;
-                startLoseScreen();
-                break;
-            }
+
             //CaveFight
             else if (caveCon.fightWon){
                 System.out.println("Cave fight won");
@@ -1049,9 +1127,61 @@ public class MasterModel {
                 broken = true;
                 break;
             }
+            //SwampFight
+            else if (swampcon.fightWon){
+                System.out.println("swamp fight won");
 
+                swampcon.fightWon = false;
+
+                swampcon.ownedPotions[0] = ownedPotions[0];
+                swampcon.ownedPotions[1] = ownedPotions[1];
+                swampcon.ownedPotions[2] = ownedPotions[2];
+
+                swampcon.ownedPotions[3] = ownedPotions[3];
+                swampcon.ownedPotions[4] = ownedPotions[4];
+                swampcon.ownedPotions[5] = ownedPotions[5];
+
+                swampcon.ownedPotions[6] = ownedPotions[6];
+                swampcon.ownedPotions[7] = ownedPotions[7];
+                swampcon.ownedPotions[8] = ownedPotions[8];
+
+                swampcon.ownedPotions[9] = ownedPotions[9];
+                swampcon.ownedPotions[10] = ownedPotions[10];
+                swampcon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(4);
+                broken = true;
+                break;
+            }
+            //CastleFight
+            else if (castleCon.fightWon){
+                System.out.println("swamp fight won");
+
+                castleCon.fightWon = false;
+
+                castleCon.ownedPotions[0] = ownedPotions[0];
+                castleCon.ownedPotions[1] = ownedPotions[1];
+                castleCon.ownedPotions[2] = ownedPotions[2];
+
+                castleCon.ownedPotions[3] = ownedPotions[3];
+                castleCon.ownedPotions[4] = ownedPotions[4];
+                castleCon.ownedPotions[5] = ownedPotions[5];
+
+                castleCon.ownedPotions[6] = ownedPotions[6];
+                castleCon.ownedPotions[7] = ownedPotions[7];
+                castleCon.ownedPotions[8] = ownedPotions[8];
+
+                castleCon.ownedPotions[9] = ownedPotions[9];
+                castleCon.ownedPotions[10] = ownedPotions[10];
+                castleCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(5);
+                broken = true;
+                break;
+            }
+            //ForestBoss
             else if (forestBossCon.fightWon){
-                System.out.println("forest boss fight won");
+                System.out.println("forestBoss fight won");
 
                 forestBossCon.fightWon = false;
 
@@ -1075,8 +1205,14 @@ public class MasterModel {
                 broken = true;
                 break;
             }
-
-            //Loot, tutorial, shop, levelUp, username.
+            //Fights lost
+            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||fieldCon.fightLost||swampcon.fightLost||castleCon.fightLost) {
+                System.out.println("fightLost loop 1");
+                broken = true;
+                startLoseScreen();
+                break;
+            }
+            //Loot, tutorial, shop, levelUp,
             else if (lc.done||tc.done||sc.done||luc.done||unc.done) {
                 System.out.println("Done");
                 unc.done = false;
@@ -1087,7 +1223,6 @@ public class MasterModel {
                 broken = true;
                 break;
             }
-            //Hub
             else if (hubController.gameDone){
                 hubController.gameDone =false;
                 enterUserName();
