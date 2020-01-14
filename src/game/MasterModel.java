@@ -360,50 +360,49 @@ public class MasterModel {
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if (currentXp>80 && currentLevel == 3){
+        else if (currentXp>100 && currentLevel == 3){
             currentLevel = 4;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>160 && currentLevel == 4){
+        else if(currentXp>300 && currentLevel == 4){
             currentLevel = 5;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>300 && currentLevel == 5){
+        else if(currentXp>800 && currentLevel == 5){
             currentLevel = 6;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>500 && currentLevel == 6){
+        else if(currentXp>1500 && currentLevel == 6){
             currentLevel = 7;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>1000 && currentLevel == 7){
+        else if(currentXp>3000 && currentLevel == 7){
             currentLevel = 8;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>2000 && currentLevel == 8){
+        else if(currentXp>5000 && currentLevel == 8){
             currentLevel = 9;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>4000 && currentLevel == 9){
+        else if(currentXp>7000 && currentLevel == 9){
             currentLevel = 10;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
     }
-
     /**
      *
      */
@@ -435,8 +434,8 @@ public class MasterModel {
         rangerLevelUpStats[2] += rangerLevelUpStats[2];
 
         healerStats[0] += healerLevelUpStats[0];
-        healerStats[1] += healerLevelUpStats[0];
-        healerStats[2] += healerLevelUpStats[0];
+        healerStats[1] += healerLevelUpStats[1];
+        healerStats[2] += healerLevelUpStats[2];
 
         healerLevelUpStats[0] += healerLevelUpStats[0];
         healerLevelUpStats[1] += healerLevelUpStats[1];
@@ -522,23 +521,23 @@ public class MasterModel {
         } else if (lc.whatLoot == 27) {
             ownedPotions[2]++;
         } else if (lc.whatLoot == 28) {
-            ownedPotions[7]++;
-        } else if (lc.whatLoot == 29) {
-            ownedPotions[8]++;
-        } else if (lc.whatLoot == 30) {
-            ownedPotions[9]++;
-        } else if (lc.whatLoot == 31) {
-            ownedPotions[10]++;
-        } else if (lc.whatLoot == 32) {
-            ownedPotions[11]++;
-        } else if (lc.whatLoot == 33) {
-            ownedPotions[12]++;
-        } else if (lc.whatLoot == 34) {
-            ownedPotions[4]++;
-        } else if (lc.whatLoot == 35) {
-            ownedPotions[5]++;
-        } else if (lc.whatLoot == 36) {
             ownedPotions[6]++;
+        } else if (lc.whatLoot == 29) {
+            ownedPotions[7]++;
+        } else if (lc.whatLoot == 30) {
+            ownedPotions[8]++;
+        } else if (lc.whatLoot == 31) {
+            ownedPotions[9]++;
+        } else if (lc.whatLoot == 32) {
+            ownedPotions[10]++;
+        } else if (lc.whatLoot == 33) {
+            ownedPotions[11]++;
+        } else if (lc.whatLoot == 34) {
+            ownedPotions[3]++;
+        } else if (lc.whatLoot == 35) {
+            ownedPotions[4]++;
+        } else if (lc.whatLoot == 36) {
+            ownedPotions[5]++;
         }
         startWorldModel();
     }
@@ -586,21 +585,21 @@ public class MasterModel {
         ownedPotions[11] = 0;
 
         //0 = HP, 1 = block, 2 = damage
-        warriorLevelUpStats[0] = 5;
+        warriorLevelUpStats[0] = 6;
         warriorLevelUpStats[1] = 2;
         warriorLevelUpStats[2] = 2;
 
         rangerLevelUpStats[0] = 3;
-        rangerLevelUpStats[1] = 4;
-        rangerLevelUpStats[2] = 2;
+        rangerLevelUpStats[1] = 2;
+        rangerLevelUpStats[2] = 4;
 
         mageLevelUpStats[0] = 2;
-        mageLevelUpStats[1] = 6;
-        mageLevelUpStats[2] = 1;
+        mageLevelUpStats[1] = 1;
+        mageLevelUpStats[2] = 5;
 
         healerLevelUpStats[0] = 5;
-        healerLevelUpStats[1] = 2;
-        healerLevelUpStats[2] = 3;
+        healerLevelUpStats[1] = 5;
+        healerLevelUpStats[2] = 2;
     }
 
     /**

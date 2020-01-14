@@ -84,13 +84,23 @@ public class CastleController{
 
     public int[] ownedPotions = new int[12];
 
-    private int[] undeadHp = {30, 30, 30, 30};
+    private int[] undeadHp = new int[4];
 
     public void startFight() {
 
         MusicPick.musicStart("spooky", "music");
 
+        turns = 1;
         currentEnergy = 5;
+        warriorEnergyInt = 5;
+        rangerEnergyInt = 0;
+        mageEnergyInt = 0;
+        healerEnergyInt = 0;
+
+        undeadHp[0] = 200;
+        undeadHp[1] = 200;
+        undeadHp[2] = 200;
+        undeadHp[3] = 200;
 
         setStartLabels();
         cv.CastleFightFrame();
@@ -489,6 +499,8 @@ public class CastleController{
             cv.skill2Button.setText("Slam (4)");
             cv.skill3Button.setText("Battlecry (3)");
             cv.skill4Button.setText("Demoralize (5)");
+            cv.skill4Button.setFont(cv.pixelMplus.deriveFont(27f));
+
         }
         //ranger
         if (turns == 2){

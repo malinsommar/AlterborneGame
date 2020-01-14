@@ -598,65 +598,65 @@ public class ForestFightFrame {
         playersHp.setFont(pixelMplus.deriveFont(30f));
         playersHp.setForeground(Color.black);
         Dimension playersHpSize = playersHp.getPreferredSize();
-        playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
+        playersHp.setBounds(30, 600, playersHpSize.width+50, playersHpSize.height);
 
         wolf1Hp.setFont(pixelMplus.deriveFont(30f));
         wolf1Hp.setForeground(Color.black);
         Dimension wolf1HpSize = wolf1Hp.getPreferredSize();
-        wolf1Hp.setBounds(660, 560, wolf1HpSize.width, wolf1HpSize.height);
+        wolf1Hp.setBounds(660, 560, wolf1HpSize.width+50, wolf1HpSize.height);
 
         wolf2Hp.setFont(pixelMplus.deriveFont(30f));
         wolf2Hp.setForeground(Color.black);
         Dimension wolf2HpSize = wolf2Hp.getPreferredSize();
-        wolf2Hp.setBounds(660, 595, wolf2HpSize.width, wolf2HpSize.height);
+        wolf2Hp.setBounds(660, 595, wolf2HpSize.width+50, wolf2HpSize.height);
 
         wolf3Hp.setFont(pixelMplus.deriveFont(30f));
         wolf3Hp.setForeground(Color.black);
         Dimension wolf3HpSize = wolf3Hp.getPreferredSize();
-        wolf3Hp.setBounds(660, 630, wolf3HpSize.width, wolf3HpSize.height);
+        wolf3Hp.setBounds(660, 630, wolf3HpSize.width+50, wolf3HpSize.height);
 
         wolf4Hp.setFont(pixelMplus.deriveFont(30f));
         wolf4Hp.setForeground(Color.black);
         Dimension wolf4HpSize = wolf4Hp.getPreferredSize();
-        wolf4Hp.setBounds(660, 665, wolf4HpSize.width, wolf4HpSize.height);
+        wolf4Hp.setBounds(660, 665, wolf4HpSize.width+50, wolf4HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
         Dimension player1HpSize = player1Hp.getPreferredSize();
-        player1Hp.setBounds(430, 560, player1HpSize.width, player1HpSize.height);
+        player1Hp.setBounds(430, 560, player1HpSize.width+50, player1HpSize.height);
 
         player2Hp.setFont(pixelMplus.deriveFont(30f));
         player2Hp.setForeground(Color.black);
         Dimension player2HpSize = player1Hp.getPreferredSize();
-        player2Hp.setBounds(430, 595, player2HpSize.width, player2HpSize.height);
+        player2Hp.setBounds(430, 595, player2HpSize.width+50, player2HpSize.height);
 
         player3Hp.setFont(pixelMplus.deriveFont(30f));
         player3Hp.setForeground(Color.black);
         Dimension player3HpSize = player3Hp.getPreferredSize();
-        player3Hp.setBounds(430, 630, player3HpSize.width, player3HpSize.height);
+        player3Hp.setBounds(430, 630, player3HpSize.width+50, player3HpSize.height);
 
         player4Hp.setFont(pixelMplus.deriveFont(30f));
         player4Hp.setForeground(Color.black);
         Dimension player4HpSize = player4Hp.getPreferredSize();
-        player4Hp.setBounds(430, 665, player4HpSize.width, player4HpSize.height);
+        player4Hp.setBounds(430, 665, player4HpSize.width+50, player4HpSize.height);
 
         energy = new JLabel("Energy: 5");
         energy.setFont(pixelMplus.deriveFont(30f));
         energy.setForeground(Color.black);
         Dimension energySize = energy.getPreferredSize();
-        energy.setBounds(30, 640, energySize.width, energySize.height);
+        energy.setBounds(30, 640, energySize.width+50, energySize.height);
 
         block.setFont(pixelMplus.deriveFont(30f));
         block.setForeground(Color.black);
         Dimension blockSize = energy.getPreferredSize();
-        block.setBounds(30, 670, blockSize.width+50, blockSize.height);
+        block.setBounds(30, 670, blockSize.width+200, blockSize.height);
 
         whosTurn = new JLabel("Warrior's turn");
         whosTurn.setFont(pixelMplus.deriveFont(30f));
         whosTurn.setForeground(Color.black);
         whosTurn.setBackground(Color.blue);
         Dimension whoSize = whosTurn.getPreferredSize();
-        whosTurn.setBounds(30, 560, whoSize.width, whoSize.height);
+        whosTurn.setBounds(30, 560, whoSize.width+50, whoSize.height);
     }
 
     /**
@@ -732,10 +732,10 @@ public class ForestFightFrame {
         Dimension rangerSize = ranger.getPreferredSize();
         Dimension mageSize = mage.getPreferredSize();
 
-        warrior.setBounds(170, 210, warriorSize.width, warriorSize.height);
-        healer.setBounds(-30, 210, healerSize.width, healerSize.height);
-        ranger.setBounds(70, 290, rangerSize.width, rangerSize.height);
-        mage.setBounds(-110, 290, mageSize.width, mageSize.height);
+        warrior.setBounds(170, 210, warriorSize.width+50, warriorSize.height);
+        healer.setBounds(-30, 210, healerSize.width+50, healerSize.height);
+        ranger.setBounds(70, 290, rangerSize.width+50, rangerSize.height);
+        mage.setBounds(-110, 290, mageSize.width+50, mageSize.height);
     }
 
     /**
@@ -746,19 +746,19 @@ public class ForestFightFrame {
         wolf1 = new JLabel();
         wolf1.setIcon(new ImageIcon("forestMob.gif"));
         Dimension wolfSize = wolf1.getPreferredSize();
-        wolf1.setBounds(850, 320, wolfSize.width, wolfSize.height);
+        wolf1.setBounds(850, 320, wolfSize.width+50, wolfSize.height);
 
         wolf2 = new JLabel();
         wolf2.setIcon(new ImageIcon("forestMob.gif"));
-        wolf2.setBounds(1030, 320, wolfSize.width, wolfSize.height);
+        wolf2.setBounds(1030, 320, wolfSize.width+50, wolfSize.height);
 
         wolf3 = new JLabel();
         wolf3.setIcon(new ImageIcon("forestMob.gif"));
-        wolf3.setBounds(900, 400, wolfSize.width, wolfSize.height);
+        wolf3.setBounds(900, 400, wolfSize.width+50, wolfSize.height);
 
         wolf4 = new JLabel();
         wolf4.setIcon(new ImageIcon("forestMob.gif"));
-        wolf4.setBounds(1080, 400, wolfSize.width, wolfSize.height);
+        wolf4.setBounds(1080, 400, wolfSize.width+50, wolfSize.height);
     }
 
 
