@@ -25,9 +25,9 @@ public class Player extends Mob {
 
 
     private int tickCount = 0; //counts the ticks since the last update
-    private String username; //username (not used in game)
+    private String username; //username
 
-    public Player(Level level1, int x, int y, InputHandler input) {
+    public Player(Level level1, int x, int y, InputHandler input, String username) {
         super(level1, "Player", x, y, 1);
         this.input = input; //assign the input-method onto the player
         this.username = username;
@@ -151,7 +151,9 @@ public class Player extends Mob {
         if (!isSwimming && !isSwampSwimming) {
             screen.render(xOffset + (modifier * flipBottom), yOffset + modifier, xTile + (yTile + 1) * 32, colour, flipBottom, scale);
             screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour, flipBottom, scale);
-
+        }
+        if (username != null) {
+            Fonts.render(username, screen, xOffset -((username.length()- 1) / 2 * 8), yOffset - 10, Colours.get(-1,-1,1, 555), 1);
         }
     }
 
