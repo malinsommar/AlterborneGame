@@ -19,6 +19,9 @@ public class HubView extends JPanel {
     public JButton tutorialButton, newRunButton, exitButton, startButton;
     private Font pixelMplus;
 
+    /**
+     *
+     */
     //This method open Menu panel or backstory panel.
     public void hubFrame(){
 
@@ -70,6 +73,9 @@ public class HubView extends JPanel {
         hubJFrame.setVisible(true);
     }
 
+    /**
+     *
+     */
     //Import buttons and labels for the hub/main menu.
     private void importHubButtonsLabels(){
 
@@ -109,6 +115,9 @@ public class HubView extends JPanel {
         exitButton.setFocusPainted(false);//Remove border around text in button
     }
 
+    /**
+     *
+     */
     //Import buttons and labels for the .
     private void importBackstoryGifs(){
         //Create a label
@@ -136,6 +145,9 @@ public class HubView extends JPanel {
         healer.setBounds(720, 350, healerSize.width, healerSize.height);
     }
 
+    /**
+     *
+     */
     private void importBackstoryButtonsLabels(){
 
         startButton = new JButton("Save the world");
@@ -192,6 +204,9 @@ public class HubView extends JPanel {
 
     }
 
+    /**
+     *
+     */
     private void hover(){
 
         //new run button
@@ -228,6 +243,9 @@ public class HubView extends JPanel {
         });
     }
 
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));

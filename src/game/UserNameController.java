@@ -2,6 +2,9 @@ package game;
 
 import java.awt.*;
 
+/**
+ * @author Malin Sommar
+ */
 public class UserNameController {
 
     UserNameView unw = new UserNameView();
@@ -9,6 +12,9 @@ public class UserNameController {
     boolean done = false;
      public TextField nameField;
 
+    /**
+     *
+     */
     public void startUserNameFrame() {
         unw.userNameScreen();
         hover();
@@ -21,6 +27,9 @@ public class UserNameController {
         unw.continueButton.addActionListener(e -> done = true);
     }
 
+    /**
+     *
+     */
     private void hover(){
         unw.continueButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

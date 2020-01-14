@@ -4,12 +4,19 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Simon Bengtsson
+ */
 public class MusicPick {
 
     private static Clip musicClip;
     private static Clip soundClip;
     private static boolean first = true;
 
+    /**
+     * @param pick
+     * @param soundType
+     */
     public static void musicStart(String pick, String soundType) {
         try {
             if (!first && soundType.equals("music")) {
@@ -44,6 +51,10 @@ public class MusicPick {
             //whatevers
         }
     }
+
+    /**
+     *
+     */
     public static void musicStop(){
         musicClip.stop();
     }

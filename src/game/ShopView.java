@@ -5,6 +5,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Malin Sommar
+ */
 public class ShopView {
 
     public Font pixelMplus;
@@ -68,6 +71,9 @@ public class ShopView {
 
     JFrame shopFrame = new JFrame();
 
+    /**
+     *
+     */
     public void startShopFrame(){
         shopFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         shopFrame.setLayout(null);
@@ -139,8 +145,9 @@ public class ShopView {
         shopFrame.setVisible(true);
     }
 
-
-
+    /**
+     *
+     */
     public void addLabels(){
 
         currentAction = new JLabel("Shopkeeper: Are you gonna buy something or what?             ");
@@ -204,6 +211,9 @@ public class ShopView {
         healer.setBounds(585, 320, healerSize.width, healerSize.height);
     }
 
+    /**
+     *
+     */
     private void addButtons(){
 
         Exit = new JButton("Exit shop");
@@ -444,6 +454,9 @@ public class ShopView {
         healerWeapon3.setFocusPainted(false);
     }
 
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));

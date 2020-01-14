@@ -6,6 +6,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Malin Sommar
+ */
 public class LootFrame {
 
     JFrame lootScreenJFrame = new JFrame();
@@ -15,6 +18,9 @@ public class LootFrame {
     public JButton continueButton,equipButton;
     public JLabel vicTitle, item, xp, gold, currentEquipment, currentEquipmentStats, currentEquipmentName, newEquipment, newEquipmentStats, newEquipmentName;
 
+    /**
+     *
+     */
     public void lootScreenFrame(){
 
         lootScreenJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,6 +40,9 @@ public class LootFrame {
         lootScreenJFrame.setVisible(true);
     }
 
+    /**
+     *
+     */
     //Set text in labels to " " when they are not supposed to show.
     void hideLabels(){
         currentEquipment = new JLabel(" ");
@@ -44,6 +53,9 @@ public class LootFrame {
         newEquipmentStats = new JLabel(" ");
     }
 
+    /**
+     *
+     */
     //Add all buttons and labels
     private void addButtonsLabels(){
 
@@ -126,6 +138,10 @@ public class LootFrame {
         equipButton.setBorder(null);
         equipButton.setFocusPainted(false);
     }
+
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));
