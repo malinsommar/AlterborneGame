@@ -7,6 +7,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Malin Sommar, Simon Bengtsson
+ */
 public class ForestFightFrame {
 
     JPanel inventory = new JPanel();
@@ -57,6 +60,9 @@ public class ForestFightFrame {
     public JLabel targetarrow = new JLabel(new ImageIcon("targetarrow.png"));
     public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
 
+    /**
+     *
+     */
     public void forestFightFrame(){
 
         forestFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -187,6 +193,9 @@ public class ForestFightFrame {
         forestFightJFrame.setVisible(true);
     }
 
+    /**
+     *
+     */
     public void animationStuff(){
 
         Dimension arrowSize = arrow.getPreferredSize();
@@ -309,6 +318,9 @@ public class ForestFightFrame {
 
     }
 
+    /**
+     *
+     */
     public void spellMenuStartup(){
 
         //button 1
@@ -358,6 +370,9 @@ public class ForestFightFrame {
 
     }
 
+    /**
+     *
+     */
     //to select target for healing
     public void healingTarget(){
 
@@ -399,8 +414,10 @@ public class ForestFightFrame {
 
     }
 
+    /**
+     *
+     */
     private void getInventory() {
-
 
         //Minor Health Potion
         potion1 = new JButton(potions.minorHealthGif);
@@ -573,6 +590,9 @@ public class ForestFightFrame {
         potion12Label.setBounds(1070, 125, potion12LabelSize.width, potion12LabelSize.height);
     }
 
+    /**
+     *
+     */
     //Set al "stats" for labels.
     private void importLabels(){
         playersHp.setFont(pixelMplus.deriveFont(30f));
@@ -640,6 +660,9 @@ public class ForestFightFrame {
         whosTurn.setBounds(30, 560, whoSize.width, whoSize.height);
     }
 
+    /**
+     *
+     */
     //Set all stats for buttons.
     private void importButtons(){
         //Attack button
@@ -688,6 +711,9 @@ public class ForestFightFrame {
         endTurnButton.setFocusPainted(false);//Remove border around text in button
     }
 
+    /**
+     *
+     */
     //Get all OldClasses.party-gif's.
     private void importPartyGif(){
         warrior = new JLabel();
@@ -713,6 +739,9 @@ public class ForestFightFrame {
         mage.setBounds(-110, 290, mageSize.width, mageSize.height);
     }
 
+    /**
+     *
+     */
     //Get wolf gif.
     private void importWolfGif(){
         wolf1 = new JLabel();
@@ -734,7 +763,9 @@ public class ForestFightFrame {
     }
 
 
-
+    /**
+     * 
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));

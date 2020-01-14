@@ -673,14 +673,11 @@ public class CastleController{
             if (target == 1) {
                 //If ranger is dead, target=3.
 
-                //will not be attacked if stealthed
-                if (stealthed && (mageCurrentHp > 0 || healerCurrentHp > 0 || warriorCurrentHp > 0)){
-                    target = 0;
-                }
-
-                else if (rangerCurrentHp < 1) {
+                //will not be attacked if stealthed or dead
+                if ((rangerCurrentHp < 1) || (stealthed && (mageCurrentHp > 0 || healerCurrentHp > 0 || warriorCurrentHp > 0))){
                     target = 2;
                 }
+
                 //If ranger is alive.
                 else {
                     rangerattacked = true;

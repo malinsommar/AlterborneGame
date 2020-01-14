@@ -67,7 +67,7 @@ public class FieldView {
         fieldFightJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         fieldFightJFrame.setUndecorated(true);
 
-        ImageIcon background = new ImageIcon("field.png");
+        ImageIcon background = new ImageIcon("fielddone.jpg");
         fieldFightJFrame.setContentPane(new JLabel(background));
 
         inventory.setLayout(null);

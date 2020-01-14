@@ -1,10 +1,13 @@
+
 package game;
 
 import davidtest.overworld.map.WorldModel;
-import fight.CaveController;
-import fight.FieldController;
-import fight.ForestCon;
+import fight.*;
 
+/**
+ * @author Malin Sommar
+ * @version 1
+ */
 public class MasterModel {
 
     private HubController hubController = new HubController();
@@ -12,12 +15,13 @@ public class MasterModel {
     private LevelUpController luc = new LevelUpController();
     private LootController lc = new LootController();
     private ForestCon forestCon = new ForestCon();
+    private ForestBossCon forestBossCon = new ForestBossCon();
     private CaveController caveCon = new CaveController();
     private FieldController fieldCon = new FieldController();
+    private CastleController castleCon = new CastleController();
     private ShopController sc = new ShopController();
     private LoseController loseController = new LoseController();
     private UserNameController unc = new UserNameController();
-
 
     private int[] warriorStats = new int[3];
     private int[] mageStats = new int[3];
@@ -99,6 +103,9 @@ public class MasterModel {
     private int[] legendaryWeaponArmorDamageBlock = new int[18];
     private int[] armorDamage = new int[6];
 
+    /**
+     * @throws InterruptedException
+     */
     //Get user input from ConHub to start game of exit game.
     void startGame() throws InterruptedException {
 
@@ -107,6 +114,9 @@ public class MasterModel {
         masterLoop1();
     }
 
+    /**
+     * @throws InterruptedException
+     */
     private void enterUserName() throws InterruptedException {
         unc.startUserNameFrame();
         masterLoop1();
@@ -116,6 +126,10 @@ public class MasterModel {
         startWorldModel();
     }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     //This method open the overWorld screen. Depending on where the player goes on the map it returns a variable that opens different fights of shop screen.
     private void startWorldModel() throws InterruptedException {
         WorldModel worldModel = new WorldModel(userName);
@@ -177,6 +191,9 @@ public class MasterModel {
         }
     }
 
+    /**
+     * @throws InterruptedException
+     */
     //This method starts the forest fight and send necessary variables to ForestController.
     private void startForestFight() throws InterruptedException {
         forestCon.getInventory(ownedPotions);
@@ -186,11 +203,22 @@ public class MasterModel {
         masterLoop1();
     }
 
+    /**
+     *
+     */
     //This method starts the forest boss fight and send necessary variables to the controller.
-    private void startForestBossFight(){
+    private void startForestBossFight() throws InterruptedException {
+        forestBossCon.getInventory(ownedPotions);
+        forestBossCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        forestBossCon.startFight();
 
+        masterLoop1();
     }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     //This method starts the cave fight and send necessary variables to CaveController.
     private void startCaveFight() throws InterruptedException {
         caveCon.getInventory(ownedPotions);
@@ -200,11 +228,18 @@ public class MasterModel {
         masterLoop1();
     }
 
+    /**
+     *
+     */
     //This method starts the cave boss fight and send necessary variables to the controller.
     private void startCaveBossFight(){
 
     }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     //This method starts the field fight and send necessary variables to FieldController.
     private void startFieldFight() throws InterruptedException {
         fieldCon.getInventory(ownedPotions);
@@ -214,43 +249,69 @@ public class MasterModel {
         masterLoop1();
     }
 
+    /**
+     *
+     */
     //This method starts the field boss fight and send necessary variables to the controller.
     private void startFieldBossFight(){
 
     }
-
+    /**
+     *
+     */
     //This method starts the swamp fight and send necessary variables to SwampController.
     private void startSwampFight(){
 
     }
 
+    /**
+     *
+     */
     //This method starts the swamp boss fight and send necessary variables to the controller.
     private void startSwampBossFight(){
 
     }
 
     //This method starts the castle fight and send necessary variables to CastleController.
-    private void startCastleFight(){
+    private void startCastleFight() throws InterruptedException {
+        castleCon.getInventory(ownedPotions);
+        castleCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        castleCon.startFight();
 
+        masterLoop1();
     }
 
+    /**
+     *
+     */
     //This method starts the castle boss fight and send necessary variables to the controller.
     private void startCastleBossFight(){
 
     }
 
+    /**
+     *
+     */
     //This method starts the secret fight and send necessary variables to SecretFightController. The secret fight has a low chance to randomly activates when swimming in water.
     private void startSecretFight(){
 
     }
 
-  private void startTutorial() throws InterruptedException {
+    /**
+     *
+     * @throws InterruptedException
+     */
+    private void startTutorial() throws InterruptedException {
       tc.startTutorial();
       masterLoop1();
 
       startGame();
-  }
+    }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     //This method starts the shop and send necessary variables to ShopController.
   private void startShop() throws InterruptedException {
       sc.startShopView(currentGold, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
@@ -261,6 +322,11 @@ public class MasterModel {
 
     //Here starts lootFrame stuff
 
+    /**
+     *
+     * @param whatFight
+     * @throws InterruptedException
+     */
     //This method sends away all information lootController is going to need and starts it.
     private void startLootController(int whatFight) throws InterruptedException {
         getEquipment();
@@ -270,6 +336,10 @@ public class MasterModel {
         addLoot();
     }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     //When player gets xp this methods check if player will level up.
     private void startLevelUp() throws InterruptedException {
 
@@ -329,6 +399,9 @@ public class MasterModel {
         }
     }
 
+    /**
+     *
+     */
     //This method levels up all stats when player levels up. For each level the reward gets bigger.
     private void levelUpStats(){
 
@@ -365,11 +438,18 @@ public class MasterModel {
         healerLevelUpStats[2] += healerLevelUpStats[2];
     }
 
+    /**
+     *
+     */
     //This method opens up the LoseController when the player dies.
     private void startLoseScreen(){
       loseController.startLoseScreen(currentXp, userName);
     }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     //This method saves gold, xp and weapon/armor that player got from lootController.
     private void addLoot() throws InterruptedException {
 
@@ -458,6 +538,9 @@ public class MasterModel {
         startWorldModel();
     }
 
+    /**
+     *
+     */
     //This method sets all beginning stats such as hp, damage etc.
     private void setStartNumbers() {
 
@@ -522,6 +605,9 @@ public class MasterModel {
         healerLevelUpStats[2] = 3;
     }
 
+    /**
+     *
+     */
     //Puts variables into arrays so that it is easier to send to other classes.
     private void getEquipment() {
         armorNames[0] = currentWarriorArmorName;
@@ -609,6 +695,10 @@ public class MasterModel {
         armorDamage[5] = healerLegendaryArmorDamage;
     }
 
+    /**
+     *
+     * @param whatLoot
+     */
     //This method adds the item player bought in the store to inventory or equips armor or weapons.
     private void addLootFromShop(int whatLoot){
         if (whatLoot == 1){
@@ -722,6 +812,10 @@ public class MasterModel {
         }
     }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     //This method loops the program until 'something' happens. Use this on all fights and frames that waits for input. Works like a homemade thread.
     private void masterLoop1() throws InterruptedException {
       int loops = 0;
@@ -790,7 +884,7 @@ public class MasterModel {
                 break;
             }
             //FieldFight
-            /*else if (caveCon.fightWon){
+            else if (fieldCon.fightWon){
                 System.out.println("field fight won");
 
                 fieldCon.fightWon = false;
@@ -814,7 +908,7 @@ public class MasterModel {
                 startLootController(3);
                 broken = true;
                 break;
-            }*/
+            }
             else if (caveCon.fightLost) {
                 System.out.println("Cave fight lost");
                 startLoseScreen();
@@ -848,6 +942,10 @@ public class MasterModel {
         }
   }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     private void masterLoop2() throws InterruptedException {
         int loops = 0;
         boolean broken = false;
@@ -990,82 +1088,130 @@ public class MasterModel {
         }
     }
 
+    /**
+     *
+     */
     //The following methods equip new weapons or armors to party members.
     private void warriorRareWeapon() {
         currentWarriorWeaponName = warriorRareWeaponName;
         currentWarriorWeaponDamage = warriorRareWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void warriorEpicWeapon() {
         currentWarriorWeaponName = warriorEpicWeaponName;
         currentWarriorWeaponDamage = warriorEpicWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void warriorLegendaryWeapon() {
         currentWarriorWeaponName = warriorLegendaryWeaponName;
         currentWarriorWeaponDamage = warriorLegendaryWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void warriorRareArmor() {
         currentWarriorArmorName = warriorRareArmorName;
         currentWarriorArmorBlock = warriorRareArmorBlock;
     }
 
+    /**
+     *
+     */
     private void warriorEpicArmor() {
         currentWarriorArmorName = warriorEpicArmorName;
         currentWarriorArmorBlock = warriorRareArmorBlock;
     }
 
+    /**
+     *
+     */
     private void warriorLegendaryArmor() {
         currentWarriorArmorName = warriorLegendaryArmorName;
         currentWarriorArmorBlock = warriorLegendaryArmorBlock;
     }
 
+    /**
+     *
+     */
     private void rangerRareWeapon() {
         currentRangerWeaponName = rangerRareWeaponName;
         currentRangerWeaponDamage = rangerRareWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void rangerEpicWeapon() {
         currentRangerWeaponName = rangerEpicWeaponName;
         currentRangerWeaponDamage = rangerEpicWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void rangerLegendaryWeapon() {
         currentRangerWeaponName = rangerLegendaryWeaponName;
         currentRangerWeaponDamage = rangerLegendaryWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void rangerRareArmor() {
         currentRangerArmorName = rangerRareArmorName;
         currentRangerArmorBlock = rangerRareArmorBlock;
     }
 
+    /**
+     *
+     */
     private void rangerEpicArmor() {
         currentRangerArmorName = rangerEpicArmorName;
         currentRangerArmorBlock = rangerEpicArmorBlock;
     }
 
+    /**
+     *
+     */
     private void rangerLegendaryArmor() {
         currentRangerArmorName = rangerLegendaryArmorName;
         currentRangerArmorBlock = rangerLegendaryArmorBlock;
     }
 
+    /**
+     *
+     */
     private void mageRareWeapon() {
         currentMageWeaponName = mageRareWeaponName;
         currentMageWeaponDamage = mageRareWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void mageEpicWeapon() {
         currentMageWeaponName = mageEpicWeaponName;
         currentMageWeaponDamage = mageEpicWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void mageLegendaryWeapon() {
         currentMageWeaponName = mageLegendaryWeaponName;
         currentMageWeaponDamage = mageLegendaryWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void mageRareArmor() {
         currentMageArmorName = mageRareArmorName;
         currentMageArmorBlock = mageRareArmorBlock;
@@ -1073,33 +1219,51 @@ public class MasterModel {
 
     }
 
+    /**
+     *
+     */
     private void mageEpicArmor() {
         currentMageArmorName = mageEpicArmorName;
         currentMageArmorBlock = mageEpicArmorBlock;
         currentMageArmorDamage = mageEpicArmorDamage;
     }
 
+    /**
+     *
+     */
     private void mageLegendaryArmor() {
         currentMageArmorName = mageLegendaryArmorName;
         currentMageArmorBlock = mageLegendaryArmorBlock;
         currentMageArmorDamage = mageLegendaryArmorDamage;
     }
 
+    /**
+     *
+     */
     private void healerRareWeapon() {
         currentHealerWeaponName = healerRareWeaponName;
         currentHealerWeaponDamage = healerRareWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void healerEpicWeapon() {
         currentHealerWeaponName = healerEpicWeaponName;
         currentHealerWeaponDamage = healerEpicWeaponDamage;
     }
 
+    /**
+     *
+     */
     private void healerLegendaryWeapon() {
         currentHealerWeaponName = healerLegendaryWeaponName;
         currentHealerWeaponDamage = healerLegendaryWeaponDamage;
     }
 
+    /**
+     *
+     */
     //All healer armors
     private void healerRareArmor() {
         currentHealerArmorName = healerRareArmorName;
@@ -1107,12 +1271,18 @@ public class MasterModel {
         currentHealerArmorDamage = healerRareArmorDamage;
     }
 
+    /**
+     *
+     */
     private void healerEpicArmor() {
         currentHealerArmorName = healerEpicArmorName;
         currentHealerArmorBlock = healerEpicArmorBlock;
         currentHealerArmorDamage = healerEpicArmorDamage;
     }
 
+    /**
+     *
+     */
     private void healerLegendaryArmor() {
         currentHealerArmorName = healerLegendaryArmorName;
         currentHealerArmorBlock = healerLegendaryArmorBlock;

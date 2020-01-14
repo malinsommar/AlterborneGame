@@ -2,6 +2,9 @@ package game;
 
 import javax.swing.*;
 
+/**
+ * @author Simon Bengtsson, Malin Sommar
+ */
 public class TutorialController {
 
     TutorialView tv = new TutorialView();
@@ -18,6 +21,9 @@ public class TutorialController {
     ImageIcon bild8 = new ImageIcon("endturn.png");
     ImageIcon bild9 = new ImageIcon("fight.png");
 
+    /**
+     *
+     */
     public void startTutorial(){
         tv.tutorialFrame();
 
@@ -30,6 +36,10 @@ public class TutorialController {
         });
     }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     public void nextPicture() throws InterruptedException {
         System.out.println("test");
 

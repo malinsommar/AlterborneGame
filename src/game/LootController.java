@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * @author Malin Sommar
+ */
 public class LootController {
 
     private LootFrame lf;
@@ -37,6 +40,10 @@ public class LootController {
     boolean playerWantsLoot = false;
     boolean done = false;
 
+    /**
+     *
+     * @param fight
+     */
     //This method starts LootFrame and implements the methods needed for LootScreen.
     public void startLootScreen(int fight){
         showEquipButton = false;
@@ -55,6 +62,23 @@ public class LootController {
 
     }
 
+    /**
+     *
+     * @param getGold
+     * @param getXp
+     * @param armorNames
+     * @param weaponNames
+     * @param weaponDamage
+     * @param currentArmorDamage
+     * @param armorBlock
+     * @param rareWeaponArmorNames
+     * @param epicWeaponArmorNames
+     * @param legendaryWeaponArmorNames
+     * @param rareWeaponArmorDamageBlock
+     * @param epicWeaponArmorDamageBlock
+     * @param legendaryWeaponArmorDamageBlock
+     * @param armorDamage
+     */
     //Method that collects info from model about gold, xp, weapons, armor etc.
     public void getInfo(int getGold, int getXp, String[] armorNames, String[] weaponNames, int[] weaponDamage, int[] currentArmorDamage, int[] armorBlock, String[] rareWeaponArmorNames, String[] epicWeaponArmorNames, String[] legendaryWeaponArmorNames, int[] rareWeaponArmorDamageBlock, int[] epicWeaponArmorDamageBlock, int[] legendaryWeaponArmorDamageBlock, int[] armorDamage){
 
@@ -146,6 +170,10 @@ public class LootController {
         healerLegendaryArmorDamage = armorDamage[5];
     }
 
+    /**
+     *
+     * @param fight
+     */
     //Generate what weapon/armor/potion player get from fight. The odds differ depending what fight player came from which the parameter int keeps track of.
     private void generateLoot(int fight){
         int ranLoot = (int) (Math.random() * 10);
@@ -212,6 +240,9 @@ public class LootController {
                 getMinorBlockPotion();
             }
         }
+        /**
+         *
+         */
         //If player comes from cave fight.
         else if(fight==2){
             ranLoot = (int) (Math.random() * 18);
@@ -320,6 +351,9 @@ public class LootController {
                 getMinorBlockPotion();
             }
         }
+        /**
+         *
+         */
         //If player comes from field fight.
         else if(fight==3){
             int xpUp = (int)(Math.random()*30)+30;
@@ -381,6 +415,9 @@ public class LootController {
                 getLesserBlockPotion();
             }
         }
+        /**
+         *
+         */
         //If player comes from swamp fight.
         else if(fight==4){
             ranLoot = (int) (Math.random() * 18);
@@ -489,6 +526,9 @@ public class LootController {
                 getMajorBlockPotion();
             }
         }
+        /**
+         *
+         */
         //If player comes from castle fight.
         else if(fight==5){
             int xpUp = (int)(Math.random()*100)+100;
@@ -552,6 +592,9 @@ public class LootController {
         }
     }
 
+    /**
+     *
+     */
     //The following 24 methods equips the loot and updates labels depending on what the player gets.
     private void getRareWarriorArmor(){
         lf.currentEquipment.setText("Current Armor:");
@@ -567,6 +610,10 @@ public class LootController {
         whatLoot = 1;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getEpicWarriorArmor(){
         lf.currentEquipment.setText("Current Armor:");
         lf.currentEquipmentName.setText(warriorArmorName);
@@ -581,6 +628,10 @@ public class LootController {
         whatLoot = 2;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getLegendaryWarriorArmor(){
 
         lf.currentEquipment.setText("Current Armor:");
@@ -596,6 +647,10 @@ public class LootController {
         whatLoot = 3;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getRareWarriorWeapon(){
         lf.currentEquipment.setText("Current Weapon:");
         lf.currentEquipmentName.setText(warriorWeaponName);
@@ -610,6 +665,10 @@ public class LootController {
         whatLoot = 4;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getEpicWarriorWeapon(){
         lf.currentEquipment.setText("Current Weapon:");
         lf.currentEquipmentName.setText(warriorWeaponName);
@@ -624,6 +683,10 @@ public class LootController {
         whatLoot = 5;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getLegendaryWarriorWeapon(){
 
         lf.currentEquipment.setText("Current Weapon:");
@@ -640,6 +703,9 @@ public class LootController {
         showEquipButton = true;
     }
 
+    /**
+     *
+     */
     private void getRareMageArmor(){
         lf.currentEquipment.setText("Current Armor:");
         lf.currentEquipmentName.setText(mageArmorName);
@@ -654,6 +720,10 @@ public class LootController {
         whatLoot = 7;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getEpicMageArmor(){
         lf.currentEquipment.setText("Current Armor:");
         lf.currentEquipmentName.setText(mageArmorName);
@@ -668,6 +738,10 @@ public class LootController {
         whatLoot = 8;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getLegendaryMageArmor(){
         lf.currentEquipment.setText("Current Armor:");
         lf.currentEquipmentName.setText(mageArmorName);
@@ -682,6 +756,10 @@ public class LootController {
         whatLoot = 9;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getRareMageWeapon(){
         lf.currentEquipment.setText("Current Weapon:");
         lf.currentEquipmentName.setText(mageWeaponName);
@@ -696,6 +774,10 @@ public class LootController {
         whatLoot = 10;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getEpicMageWeapon(){
         lf.currentEquipment.setText("Current Weapon:");
         lf.currentEquipmentName.setText(mageWeaponName);
@@ -710,6 +792,10 @@ public class LootController {
         whatLoot = 11;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getLegendaryMageWeapon(){
         lf.currentEquipment.setText("Current Weapon:");
         lf.currentEquipmentName.setText(mageWeaponName);
@@ -725,6 +811,9 @@ public class LootController {
         showEquipButton = true;
     }
 
+    /**
+     *
+     */
     private void getRareRangerArmor(){
         lf.currentEquipment.setText("Current Armor:");
         lf.currentEquipmentName.setText(rangerArmorName);
@@ -739,6 +828,10 @@ public class LootController {
         whatLoot = 13;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getEpicRangerArmor(){
         lf.currentEquipment.setText("Current Armor:");
         lf.currentEquipmentName.setText(rangerArmorName);
@@ -753,6 +846,10 @@ public class LootController {
         whatLoot = 14;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getLegendaryRangerArmor(){
         lf.currentEquipment.setText("Current Armor:");
         lf.currentEquipmentName.setText(rangerArmorName);
@@ -767,6 +864,10 @@ public class LootController {
         whatLoot = 15;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getRareRangerWeapon(){
         lf.currentEquipment.setText("Current Weapon:");
         lf.currentEquipmentName.setText(rangerWeaponName);
@@ -781,6 +882,10 @@ public class LootController {
         whatLoot = 16;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getEpicRangerWeapon(){
         lf.currentEquipment.setText("Current Weapon:");
         lf.currentEquipmentName.setText(rangerWeaponName);
@@ -795,6 +900,10 @@ public class LootController {
         whatLoot = 17;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getLegendaryRangerWeapon(){
         lf.currentEquipment.setText("Current Weapon:");
         lf.currentEquipmentName.setText(rangerWeaponName);
@@ -810,6 +919,9 @@ public class LootController {
         showEquipButton = true;
     }
 
+    /**
+     *
+     */
     private void getRareHealerArmor(){
 
         lf.currentEquipment.setText("Current Armor:");
@@ -826,6 +938,10 @@ public class LootController {
         whatLoot = 19;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getEpicHealerArmor(){
         lf.currentEquipment.setText("Current Armor:");
         lf.currentEquipmentName.setText(healerArmorName);
@@ -841,6 +957,10 @@ public class LootController {
         whatLoot = 20;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getLegendaryHealerArmor(){
         lf.currentEquipment.setText("Current Armor:");
         lf.currentEquipmentName.setText(healerArmorName);
@@ -856,6 +976,10 @@ public class LootController {
         whatLoot = 21;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getRareHealerWeapon(){
 
         lf.currentEquipment.setText("Current Weapon:");
@@ -871,6 +995,10 @@ public class LootController {
         whatLoot = 22;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getEpicHealerWeapon(){
         lf.currentEquipment.setText("Current Weapon:");
         lf.currentEquipmentName.setText(healerWeaponName);
@@ -885,6 +1013,10 @@ public class LootController {
         whatLoot = 23;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     private void getLegendaryHealerWeapon(){
         lf.currentEquipment.setText("Current Weapon:");
         lf.currentEquipmentName.setText(healerWeaponName);
@@ -899,71 +1031,119 @@ public class LootController {
         whatLoot = 24;
         showEquipButton = true;
     }
+
+    /**
+     *
+     */
     //The following 16 methods adds the potion player gets from the fight and updates labels.
     private void getMinorHealingPotion(){
         whatLoot = 25;
         lf.item.setText("Found a minor healing potion.");
         lf.hideLabels();
     }
+
+    /**
+     *
+     */
     private void getLesserHealingPotion(){
         whatLoot = 26;
         lf.item.setText("Found a lesser healing potion.");
         lf.hideLabels();
     }
+
+    /**
+     *
+     */
     private void getMajorHealingPotion(){
         whatLoot = 27;
         lf.item.setText("Found a major healing potion.");
         lf.hideLabels();
     }
 
+    /**
+     *
+     */
     private void getMinorEnergyPotion(){
         whatLoot = 28;
         lf.item.setText("Found a minor energy potion.");
         lf.hideLabels();
     }
+
+    /**
+     *
+     */
     private void getLesserEnergyPotion(){
         whatLoot = 29;
         lf.item.setText("Found a lesser energy potion.");
         lf.hideLabels();
     }
+
+    /**
+     *
+     */
     private void getMajorEnergyPotion(){
         whatLoot = 30;
         lf.item.setText("Found a major energy potion.");
         lf.hideLabels();
     }
 
+    /**
+     *
+     */
     private void getMinorStrengthPotion(){
         whatLoot = 31;
         lf.item.setText("Found a minor strength potion.");
         lf.hideLabels();
     }
+
+    /**
+     *
+     */
     private void getLesserStrengthPotion(){
         whatLoot = 32;
         lf.item.setText("Found a lesser strength potion.");
         lf.hideLabels();
     }
+
+    /**
+     *
+     */
     private void getMajorStrengthPotion(){
         whatLoot = 33;
         lf.item.setText("Found a major strength potion.");
         lf.hideLabels();
     }
 
+    /**
+     *
+     */
     private void getMinorBlockPotion(){
         whatLoot = 34;
         lf.item.setText("Found a minor block potion.");
         lf.hideLabels();
     }
+
+    /**
+     *
+     */
     private void getLesserBlockPotion(){
         whatLoot = 35;
         lf.item.setText("Found a lesser block potion.");
         lf.hideLabels();
     }
+
+    /**
+     *
+     */
     private void getMajorBlockPotion(){
         whatLoot = 36;
         lf.item.setText("Found a major block potion.");
         lf.hideLabels();
     }
 
+    /**
+     *
+     */
     //Method is called when equipButton is pressed. Changes the OldClasses.party-members armor/weapon and updates currentWeapon labels.
     private void equipLoot(){
         //Warrior
@@ -1092,6 +1272,9 @@ public class LootController {
         }
     }
 
+    /**
+     *
+     */
     //Timer ticks every second, adding labels and buttons.
     private Timer textDelayTimer = new Timer(1000, new ActionListener() {
         @Override
@@ -1125,6 +1308,9 @@ public class LootController {
         }
     });
 
+    /**
+     *
+     */
     //Adds hover effect to buttons.
     private void hover(){
         lf.continueButton.addMouseListener(new java.awt.event.MouseAdapter() {

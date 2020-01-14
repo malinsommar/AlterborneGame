@@ -22,6 +22,19 @@ public class LevelUpController {
     boolean done = false;
     boolean playerNotLevelUp = false;
 
+    /**
+     *
+     * @param getXp
+     * @param getLevel
+     * @param wUp
+     * @param rUp
+     * @param mUp
+     * @param hUp
+     * @param wStat
+     * @param rStat
+     * @param mStat
+     * @param hStat
+     */
     //This method checks OldClasses.party xp and level OldClasses.party up. Use this method after every fight.
     public void didPlayerLevelUp(int getXp, int getLevel, int[] wUp, int[] rUp, int[] mUp, int[] hUp, int[] wStat, int[] rStat, int[] mStat, int[] hStat){
         luv = new LevelUpView();
@@ -70,6 +83,9 @@ public class LevelUpController {
 
     }
 
+    /**
+     *
+     */
     public void setLabels(){
 
             luv.whatLevel = new JLabel("Level "+level+"     ");

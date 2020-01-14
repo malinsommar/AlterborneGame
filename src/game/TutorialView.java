@@ -5,6 +5,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Malin Sommar
+ */
 public class TutorialView {
 
     JFrame tutorialJFrame = new JFrame();
@@ -13,6 +16,9 @@ public class TutorialView {
 
     JLabel picture,text1,text2,text3;
 
+    /**
+     *
+     */
     public void tutorialFrame(){
 
         tutorialJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,6 +43,9 @@ public class TutorialView {
         tutorialJFrame.setVisible(true);
     }
 
+    /**
+     *
+     */
     public void addLabels(){
 
         nextPic = new JButton("Next");
@@ -68,6 +77,9 @@ public class TutorialView {
 
     }
 
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));
