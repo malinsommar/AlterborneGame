@@ -46,7 +46,7 @@ public abstract class Tile {
             Colours.get(176, 334, 333, 1), 0xFF7a8b54, 1900);
     public static final Tile SHEEPBODYLEFT = new SolidTile(31, 6, 15, Colours.get(-1,334,333,-1), 0xFF7a8b55);
 
-    public static Tile FORESTCHEST = new ChestTile(32, 0, 17, Colours.get(16,210,178,332), 0xFFab6a1c);
+    public static Tile FORESTCHEST = new SolidTile(32, 0, 17, Colours.get(16,210,178,332), 0xFFab6a1c);
 
     public static final Tile FIELDCHEST = new SolidTile(33, 1, 17, Colours.get(176,210,178,332), 0xFFab6a2c);
     public static final Tile MOUNTAINCHEST = new SolidTile(34, 2, 17, Colours.get(333,210,178,332), 0xFFab6a3c);
@@ -70,18 +70,16 @@ public abstract class Tile {
     //create the boolean values that will be assigned to to tiles depending on purpose
     protected byte id;
     boolean solid;
-    private boolean emitter;
     boolean forestPath;
     boolean mountainPath;
     boolean fieldPath;
     boolean swampPath;
     boolean castlePath;
     boolean door;
-    boolean chest;
     private int levelColour;
 
     //create the parameters for all tiles
-    Tile(int id, boolean isSolid, boolean isEmitter, boolean isDoor, boolean isForestPath, boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCastlePath, boolean isChestTile, int levelColour) {
+    Tile(int id, boolean isSolid, boolean isDoor, boolean isForestPath, boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCastlePath, int levelColour) {
         this.id = (byte) id;
         //if a tile-id has been used before: throw RuntimeException
         if (tiles[id] != null)
@@ -89,20 +87,14 @@ public abstract class Tile {
 
         //Indicate that all the variables within the parameter are the same as these variables
         this.solid = isSolid;
-        this.emitter = isEmitter;
         this.forestPath = isForestPath;
         this.mountainPath = isMountainPath;
         this.fieldPath = isFieldPath;
         this.swampPath = isSwampPath;
         this.castlePath = isCastlePath;
         this.door = isDoor;
-        this.chest = isChestTile;
         this.levelColour  = levelColour;
         tiles[id] = this;
-
-        if (isChest()) {
-            FORESTCHEST = new ChestTile(32, 0, 19, Colours.get(16,210,178,332), 0xFFab6a1c);
-        }
     }
 
     //return theses booleans as true if the tile has been identified with it
@@ -112,10 +104,6 @@ public abstract class Tile {
 
     public boolean isSolid() {
         return solid;
-    }
-
-    public boolean isEmitter() {
-        return emitter;
     }
 
     public int getLevelColour() {
@@ -139,9 +127,6 @@ public abstract class Tile {
     public boolean isDoor() {
         return door;
     }
-
-    public boolean isChest() {
-        return chest;}
 
         //update the values with every tick
     public abstract void tick();
