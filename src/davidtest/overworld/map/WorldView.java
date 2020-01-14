@@ -31,7 +31,7 @@ public class WorldView extends Canvas {
 
     public JFrame frame; //Call the JFrame
 
-     public WorldView() {
+     public void startWorldView(String userName) {
          //Control the frames area. In this case it is based on what the already assigned Height and Width says
         setMinimumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
         setMaximumSize(new Dimension(WIDTH * SCALE, HEIGHT * SCALE));
@@ -47,7 +47,7 @@ public class WorldView extends Canvas {
          InputHandler input = new InputHandler(this); //call input-object
          screen = new Screen(WorldView.WIDTH, WorldView.HEIGHT, new SpriteSheet("/resources/spriteSheet/Sprite_sheet.png"));//call spriteSheet-object within the frames height and width
          level = new Level("/resources/maps/Map.png");//call map-object
-         player = new Player(level, 230, 235, input, MasterModel.userName); //call Player-object and position it on map. Assign the input class to player
+         player = new Player(level, 230, 235, input, userName); //call Player-object and position it on map. Assign the input class to player
          level.addEntity(player); //add player onto the screen
 
 

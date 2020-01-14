@@ -7,7 +7,7 @@ public class UserNameController {
     UserNameView unw = new UserNameView();
 
     boolean done = false;
-     public static TextField nameField;
+     public TextField nameField;
 
     public void startUserNameFrame() {
         unw.userNameScreen();

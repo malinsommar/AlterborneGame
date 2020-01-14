@@ -1,6 +1,5 @@
 package fight;
 
-import game.LoseScreen;
 import game.MusicPick;
 
 import javax.swing.*;
