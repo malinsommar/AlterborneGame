@@ -82,15 +82,21 @@ public class CaveController{
     public boolean fightWon = false;
     public boolean fightLost = false;
 
-    private int[] ownedPotions = new int[12];
+    public int[] ownedPotions = new int[12];
 
-    private int[] goblinHp = {30, 30, 30, 30};
+    private int[] goblinHp = new int[4];
 
     public void startFight() {
 
         MusicPick.musicStart("danceknigths", "music");
 
         currentEnergy = 5;
+        warriorEnergyInt = 5;
+
+        goblinHp[0] = 30;
+        goblinHp[1] = 30;
+        goblinHp[2] = 30;
+        goblinHp[3] = 30;
 
         setStartLabels();
         cv.caveFightFrame();

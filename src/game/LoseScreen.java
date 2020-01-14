@@ -54,15 +54,6 @@ public class LoseScreen {
         Dimension kingdomSize = kingdom.getPreferredSize();
         kingdom.setBounds(200, 300, kingdomSize.width, kingdomSize.height);
 
-        who = new JLabel("What is your name, hero?");
-        who.setForeground(Color.black);
-        who.setFont(pixelMplus.deriveFont(30f));
-        Dimension whoSize = who.getPreferredSize();
-        who.setBounds(460, 400, whoSize.width, whoSize.height);
-
-        name = new TextField();
-        name.setBounds(530,460,200,30);
-
         continueButton = new JButton("Fade away");
         continueButton.setSize(300, 100);
         continueButton.setLocation(480, 600);
