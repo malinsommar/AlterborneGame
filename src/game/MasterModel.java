@@ -52,7 +52,7 @@ public class MasterModel {
     private int rangerRareWeaponDamage = 8, rangerEpicWeaponDamage = 16, rangerLegendaryWeaponDamage = 26, rangerRareArmorBlock = 5, rangerEpicArmorBlock = 11, rangerLegendaryArmorBlock = 18;
 
     private String currentRangerWeaponName = "Simple bow";
-    private int currentRangerWeaponDamage = 5;
+    private int currentRangerWeaponDamage = 4;
 
     private String currentRangerArmorName = "Broken leather armor";
     private int currentRangerArmorBlock = 0;
@@ -73,10 +73,10 @@ public class MasterModel {
     private int healerRareWeaponDamage = 7, healerEpicWeaponDamage = 13, healerLegendaryWeaponDamage = 23, healerRareArmorBlock = 2, healerEpicArmorBlock = 8, healerLegendaryArmorBlock = 13, healerRareArmorDamage = 3, healerEpicArmorDamage = 7, healerLegendaryArmorDamage = 15;
 
     private String currentHealerWeaponName = "Wooden staff";
-    private int currentHealerWeaponDamage = 5;
+    private int currentHealerWeaponDamage = 2;
 
     private String currentHealerArmorName = "Cloth scraps";
-    private int currentHealerArmorBlock = 5;
+    private int currentHealerArmorBlock = 4;
     private int currentHealerArmorDamage = 0;
 
     //Array that keeps track of how many potions you own.(Minor, lesser, major) 1-3 = Healing potions. 4-6 = block potions. 7-9 = energy potions. 10-12 = str potions.
@@ -164,7 +164,7 @@ public class MasterModel {
         }
         //Field
         else if (worldModel.HandleOverWorld() == 4) {
-            if(ran > 99){
+            if(ran > 10){
                 startFieldFight();
             }
             else {
@@ -208,6 +208,7 @@ public class MasterModel {
 
     /**
      *
+     * @throws InterruptedException
      */
     //This method starts the forest boss fight and send necessary variables to the controller.
     private void startForestBossFight() throws InterruptedException {
@@ -233,6 +234,7 @@ public class MasterModel {
 
     /**
      *
+     * @throws InterruptedException
      */
     //This method starts the cave boss fight and send necessary variables to the controller.
     private void startCaveBossFight() throws InterruptedException {
@@ -258,6 +260,7 @@ public class MasterModel {
 
     /**
      *
+     * @throws InterruptedException
      */
     //This method starts the field boss fight and send necessary variables to the controller.
     private void startFieldBossFight() throws InterruptedException {
@@ -267,8 +270,10 @@ public class MasterModel {
 
         masterLoop1();
     }
+
     /**
      *
+     * @throws InterruptedException
      */
     //This method starts the swamp fight and send necessary variables to SwampController.
     private void startSwampFight() throws InterruptedException {
@@ -287,6 +292,10 @@ public class MasterModel {
 
     }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     //This method starts the castle fight and send necessary variables to CastleController.
     private void startCastleFight() throws InterruptedException {
         castleCon.getInventory(ownedPotions);
@@ -334,8 +343,6 @@ public class MasterModel {
       masterLoop1();
       startWorldModel();
   }
-
-    //Here starts lootFrame stuff
 
     /**
      *
@@ -454,14 +461,6 @@ public class MasterModel {
 
     /**
      *
-     */
-    //This method opens up the LoseController when the player dies.
-    private void startLoseScreen(){
-      loseController.startLoseScreen(currentXp, userName);
-    }
-
-    /**
-     *
      * @throws InterruptedException
      */
     //This method saves gold, xp and weapon/armor that player got from lootController.
@@ -563,16 +562,16 @@ public class MasterModel {
         warriorStats[2] = 2 + currentWarriorWeaponDamage;
 
         rangerStats[0] = 80;
-        rangerStats[1] = 0 + currentRangerArmorBlock;
+        rangerStats[1] = 1 + currentRangerArmorBlock;
         rangerStats[2] = 3 + currentRangerWeaponDamage;
 
         mageStats[0] = 70;
-        mageStats[1] = 0 + currentMageArmorBlock;
+        mageStats[1] = 1 + currentMageArmorBlock;
         mageStats[2] = 4 +currentMageArmorDamage + currentMageWeaponDamage;
 
         healerStats[0] = 90;
         healerStats[1] = 1 + currentHealerArmorBlock;
-        healerStats[2] = 0 +currentHealerArmorDamage + currentHealerWeaponDamage;
+        healerStats[2] = 1 +currentHealerArmorDamage + currentHealerWeaponDamage;
 
         currentXp = 0;
         currentLevel = 1;
@@ -993,7 +992,7 @@ public class MasterModel {
             else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||fieldCon.fightLost||swampcon.fightLost||castleCon.fightLost) {
                 System.out.println("fightLost loop 1");
                 broken = true;
-                startLoseScreen();
+                loseController.startLoseScreen(currentXp, userName);
                 break;
             }
             //Loot, tutorial, shop, levelUp,
@@ -1212,7 +1211,7 @@ public class MasterModel {
             else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||fieldCon.fightLost||swampcon.fightLost||castleCon.fightLost) {
                 System.out.println("fightLost loop 1");
                 broken = true;
-                startLoseScreen();
+                loseController.startLoseScreen(currentXp, userName);
                 break;
             }
             //Loot, tutorial, shop, levelUp,

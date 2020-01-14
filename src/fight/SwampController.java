@@ -39,10 +39,10 @@ public class SwampController {
         public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
         public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
 
-        public int trunk1X = 850, trunk1Y = 300, trunk1StartX = trunk1X, trunk1StartY = trunk1Y;
-        public int trunk2X = 1030, trunk2Y = 300, trunk2StartX = trunk2X, trunk2StartY = trunk2Y;
-        public int trunk3X = 920, trunk3Y = 370, trunk3StartX = trunk3X, trunk3StartY = trunk3Y;
-        public int trunk4X = 1100, trunk4Y = 370, trunk4StartX = trunk4X, trunk4StartY = trunk4Y;
+        public int trunk1X = 750, trunk1Y = 270, trunk1StartX = trunk1X, trunk1StartY = trunk1Y;
+        public int trunk2X = 970, trunk2Y = 270, trunk2StartX = trunk2X, trunk2StartY = trunk2Y;
+        public int trunk3X = 840, trunk3Y = 340, trunk3StartX = trunk3X, trunk3StartY = trunk3Y;
+        public int trunk4X = 1080, trunk4Y = 340, trunk4StartX = trunk4X, trunk4StartY = trunk4Y;
 
         //spells/attack
         public int swordIconX = 300, swordIconY = 300;
@@ -157,7 +157,6 @@ public class SwampController {
         //When you press "end turn" button.
         private void startNewTurn() {
             turns++;
-
             //Warrior's turn
             if (turns == 1 && warriorCurrentHp > 0) {
                 warriorEnergyInt += 5; //Get energy

@@ -22,7 +22,7 @@ public class CaveController{
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
     private boolean debuffed = false;
-    private int enemyDamage, enemyRandomDamage = 15, enemyBaseDamage = 20;
+    private int enemyDamage, enemyRandomDamage = 25, enemyBaseDamage = 20;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -100,10 +100,10 @@ public class CaveController{
         mageEnergyInt = 0;
         healerEnergyInt = 0;
 
-        goblinHp[0] = 50;
-        goblinHp[1] = 50;
-        goblinHp[2] = 50;
-        goblinHp[3] = 50;
+        goblinHp[0] = 70;
+        goblinHp[1] = 70;
+        goblinHp[2] = 70;
+        goblinHp[3] = 70;
 
         setStartLabels();
         cv.caveFightFrame();
