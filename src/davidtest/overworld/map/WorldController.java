@@ -4,6 +4,7 @@ import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Fonts;
 import davidtest.overworld.map.Functionality.MouseClickSimulated;
 import game.MusicPick;
+import game.UserNameController;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -25,7 +26,8 @@ public class WorldController extends Canvas implements Runnable {
     private int OpeningChest = 1;
 
 
-    public void startWorldController() throws InterruptedException {
+    public void startWorldController(String userName) throws InterruptedException {
+        owf.startWorldView(userName);
         start();//start the program
         new MouseClickSimulated();
         while (Entrance[0] <= 0) {

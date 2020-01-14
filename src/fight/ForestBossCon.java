@@ -1,14 +1,12 @@
 package fight;
 
-import game.LoseScreen;
 import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.EventListener;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 public class ForestBossCon {
 
@@ -253,6 +251,10 @@ public class ForestBossCon {
             }
 
             turns = 0;
+            if (debuffed) {
+                debuffed = false;
+                bossDamage += 10;
+            }
         }
     }
 
@@ -637,7 +639,7 @@ public class ForestBossCon {
             } else if (bossTarget == 3) {
                 mageCurrentHp -= bossDamage*4;
                 mageattacked = true;
-            } else if (bossTarget == 4) {
+            } else if (bossTarget == 4) { //always true when reached
                 healerCurrentHp -= bossDamage*4;
                 healerattacked = true;
             }
@@ -1456,7 +1458,10 @@ public class ForestBossCon {
                 rightMegaMath = 1;
                 downMegaMath = 1;
                 leftMegaMath = 1;
-                debuffed = true;
+                if (!debuffed) {
+                    debuffed = true;
+                    bossDamage -= 10;
+                }
                 phase = 0;
                 animationPlaying = false;
                 demoralized.stop();

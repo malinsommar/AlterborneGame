@@ -7,6 +7,7 @@ import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.map.Functionality.InputHandler;
 import davidtest.overworld.map.Functionality.RandomEncounter;
+import game.UserNameController;
 
 import java.awt.*;
 
