@@ -4,18 +4,17 @@ import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.EventListener;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 public class ForestBossCon {
 
     ForestBossView FBV = new ForestBossView();
 
-
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
+    private int warriorMaxHp, mageMaxHp, healerMaxHp, rangerMaxHp;
     private int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
@@ -252,6 +251,10 @@ public class ForestBossCon {
             }
 
             turns = 0;
+            if (debuffed) {
+                debuffed = false;
+                bossDamage += 10;
+            }
         }
     }
 
@@ -636,7 +639,7 @@ public class ForestBossCon {
             } else if (bossTarget == 3) {
                 mageCurrentHp -= bossDamage*4;
                 mageattacked = true;
-            } else if (bossTarget == 4) {
+            } else if (bossTarget == 4) { //always true when reached
                 healerCurrentHp -= bossDamage*4;
                 healerattacked = true;
             }
@@ -734,6 +737,11 @@ public class ForestBossCon {
         rangerCurrentHp = ranger[0];
         rangerStartBlock = ranger[1];
         rangerStartDamage = ranger[2];
+
+        warriorMaxHp =warriorCurrentHp;
+        mageMaxHp = mageCurrentHp;
+        healerMaxHp = healerCurrentHp;
+        rangerMaxHp = rangerCurrentHp;
     }
 
     //Get the effect from potions.
@@ -1197,6 +1205,10 @@ public class ForestBossCon {
             rangerCurrentHp += healing;
             mageCurrentHp += healing;
         }
+        if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
+        if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
+        if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
+        if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
         FBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
         FBV.player2Hp.setText("Ranger:  " + rangerCurrentHp);
         FBV.player3Hp.setText("Mage:    " + mageCurrentHp);
@@ -1455,7 +1467,10 @@ public class ForestBossCon {
                 rightMegaMath = 1;
                 downMegaMath = 1;
                 leftMegaMath = 1;
-                debuffed = true;
+                if (!debuffed) {
+                    debuffed = true;
+                    bossDamage -= 10;
+                }
                 phase = 0;
                 animationPlaying = false;
                 demoralized.stop();

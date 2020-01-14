@@ -19,6 +19,7 @@ public class ForestCon {
 
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
+    private int warriorMaxHp, mageMaxHp, healerMaxHp, rangerMaxHp;
     public int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
@@ -111,7 +112,7 @@ public class ForestCon {
             });
             fff.blockButton.addActionListener(e -> blockPressed());
             fff.itemButton.addActionListener(e -> {
-                    fff.itemPressed();
+                    fff.inventory.setVisible(true);
                     itemMenuActivate();
                 });
             fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
@@ -131,8 +132,10 @@ public class ForestCon {
                 skill4();
             });
             fff.returnButton.addActionListener(e -> spellMenuInactive());
+            fff.returnButton.addActionListener(e -> fff.inventory.setVisible(false));
 
-            //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
+
+        //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
             fff.potion1.addActionListener(e -> usePotion(1));
             fff.potion2.addActionListener(e -> usePotion(2));
             fff.potion3.addActionListener(e -> usePotion(3));
@@ -674,6 +677,11 @@ public class ForestCon {
         rangerCurrentHp = ranger[0];
         rangerStartBlock = ranger[1];
         rangerStartDamage = ranger[2];
+
+        warriorMaxHp =warriorCurrentHp;
+        mageMaxHp = mageCurrentHp;
+        healerMaxHp = healerCurrentHp;
+        rangerMaxHp = rangerCurrentHp;
     }
 
     public void setStartLabels(){
@@ -1303,6 +1311,10 @@ public class ForestCon {
             rangerCurrentHp += healing;
             mageCurrentHp += healing;
         }
+        if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
+        if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
+        if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
+        if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
         fff.player1Hp.setText("Warrior: " + warriorCurrentHp);
         fff.player2Hp.setText("Ranger:  " + rangerCurrentHp);
         fff.player3Hp.setText("Mage:    " + mageCurrentHp);
