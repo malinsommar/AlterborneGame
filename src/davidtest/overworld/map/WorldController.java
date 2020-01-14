@@ -4,8 +4,6 @@ import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Fonts;
 import davidtest.overworld.map.Functionality.MouseClickSimulated;
 import game.MusicPick;
-import game.UserNameController;
-
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
@@ -51,9 +49,6 @@ public class WorldController extends Canvas implements Runnable {
             }
             if(WaterEntrance ==1) {
                 EnterWater();
-            }
-            if (OpeningChest == 1) {
-                OpenChest();
             }
         }
     }
@@ -167,7 +162,7 @@ public class WorldController extends Canvas implements Runnable {
             //render the available mobs into to game
             owf.level.renderEntities(owf.screen);
 
-            //render sign into the game
+            //render signs into the game
             Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Forest", owf.screen, 320, 258, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("1-3", owf.screen, 332, 280, Colours.get(000, -1, -1, 555), 1);
@@ -233,11 +228,6 @@ public class WorldController extends Canvas implements Runnable {
         if (owf.player.hasEnteredCastle()) {
             CastleEntrance++;
             Entrance[0] = 6;
-        }
-    }
-    private void OpenChest() {
-        if (owf.player.hasOpenedChest()) {
-            OpeningChest++;
         }
     }
     private void EnterWater() {

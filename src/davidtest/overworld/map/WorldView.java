@@ -49,8 +49,6 @@ public class WorldView extends Canvas {
          level = new Level("/resources/maps/Map.png");//call map-object
          player = new Player(level, 230, 235, input, userName); //call Player-object and position it on map. Assign the input class to player
          level.addEntity(player); //add player onto the screen
-
-
          //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         frame.setResizable(false);//Not resizable
