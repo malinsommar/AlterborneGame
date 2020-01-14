@@ -44,7 +44,7 @@ public class Player extends Mob {
         /*up, down, left and right are identified with keyboard-inputs the xa or ya based on axel. When an assigned
         button is pressed, the xa or ya subs or adds by one, updating the movement*/
         int xa = 0; //set the base-value of the x-axis to 0
-        int ya = 0; //set the base-value of the y-axis to 0
+        int ya = 0;
         if (input != null) {
             if (input.up.isPressed()) {
                 ya--;
