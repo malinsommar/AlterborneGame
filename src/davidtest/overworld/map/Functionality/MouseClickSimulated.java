@@ -16,11 +16,14 @@ public class MouseClickSimulated {
                 e.printStackTrace();
             }
             //click within the space of the screen
-            click(650, 320);//set the x and y-axis within the screen
+            click(650, 320); //assign x and y-axis within the screen that the mouse will click
         }
     }
+    //set the x and y axel
     public static void click(int x, int y) {
-        robot.mouseMove(x, y); //assign parameter
+        robot.mouseMove(x, y); //parameter names
         robot.delay(1); //delay between activation of method and the input
+        robot.mousePress(MouseEvent.BUTTON1_MASK); //simulate a button-press
+        robot.mouseRelease(MouseEvent.BUTTON1_MASK); // simulate a button-release 
     }
 }
