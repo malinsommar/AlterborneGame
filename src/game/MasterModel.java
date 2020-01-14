@@ -1,9 +1,7 @@
 package game;
 
 import davidtest.overworld.map.WorldModel;
-import fight.CaveController;
-import fight.FieldController;
-import fight.ForestCon;
+import fight.*;
 
 public class MasterModel {
 
@@ -16,6 +14,9 @@ public class MasterModel {
     private LoseScreen loseScreen = new LoseScreen();
     private FieldController fieldCon = new FieldController();
     private ShopController sc = new ShopController();
+    private CastleController cc = new CastleController();
+    private ForestBossCon FBC = new ForestBossCon();
+
 
 
     private int[] warriorStats = new int[3];
@@ -108,7 +109,8 @@ public class MasterModel {
         hubController.test();
 
         if (hubController.choice[0] == 1) {
-            startWorldModel();
+            //startWorldModel();
+            startForestBossFight();
         } else if (hubController.choice[0] == 2) {
             tc.startTutorial();
             tutorialLoop1();
@@ -207,6 +209,14 @@ public class MasterModel {
         forestFightLoop1();
     }
 
+    public void startForestBossFight() throws InterruptedException {
+        FBC.getInventory(ownedPotions);
+        FBC.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        FBC.startFight();
+
+        forestFightLoop1();
+    }
+
     public void startCaveFight() throws InterruptedException {
         caveCon.getInventory(ownedPotions);
         caveCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
@@ -225,6 +235,14 @@ public class MasterModel {
             startForestFight();
         }
     }*/
+
+    public void startCastleFight() throws InterruptedException {
+        cc.getInventory(ownedPotions);
+        cc.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        cc.startFight();
+
+        caveFightLoop1();
+    }
   
   public void startShop() throws InterruptedException {
       sc.startShopView(currentGold, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);

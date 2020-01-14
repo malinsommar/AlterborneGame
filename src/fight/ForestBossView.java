@@ -7,9 +7,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class CastleView {
+public class ForestBossView {
 
-    JFrame CastleFightJFrame = new JFrame();
+    JFrame forestBossFightJFrame = new JFrame();
     Potions potions = new Potions();
     JFrame inventory = new JFrame();
 
@@ -25,8 +25,8 @@ public class CastleView {
     //Create Labels
     public JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr ,potion1Label,potion2Label,potion3Label,potion4Label,potion5Label,potion6Label,potion7Label,potion8Label,potion9Label,potion10Label,potion11Label,potion12Label;
     public JLabel whosTurn, energy, block;
-    public JLabel undead1, undead2, undead3, undead4;
-    public JLabel undead1Hp, undead2Hp, undead3Hp, undead4Hp;
+    public JLabel forestBoss, forestBossflip;
+    public JLabel forestBossHp, goblin2Hp, goblin3Hp, goblin4Hp;
     public JLabel warrior, mage, healer, ranger;
     public JLabel playersHp, player1Hp, player2Hp, player3Hp, player4Hp;
 
@@ -59,98 +59,90 @@ public class CastleView {
     public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
 
 
-    public void CastleFightFrame(){
+    public void forestBossFightFrame(){
 
-        CastleFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        CastleFightJFrame.setSize(1920, 1080);
-        CastleFightJFrame.setLayout(null);
-        CastleFightJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        CastleFightJFrame.setUndecorated(true);
+        forestBossFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        forestBossFightJFrame.setSize(1920, 1080);
+        forestBossFightJFrame.setLayout(null);
+        forestBossFightJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        forestBossFightJFrame.setUndecorated(true);
 
-        ImageIcon background = new ImageIcon("castle.png");
-        CastleFightJFrame.setContentPane(new JLabel(background));
+        ImageIcon background = new ImageIcon("forest.jpg");
+        forestBossFightJFrame.setContentPane(new JLabel(background));
 
         importFont();
         getInventory();
         importButtons();
         importLabels();
         importPartyGif();
-        importundeadGif();
+        importForestBossGif();
         spellMenuStartup();
         animationStuff();
         healingTarget();
 
-        CastleFightJFrame.add(energy);
-        CastleFightJFrame.add(block);
-        CastleFightJFrame.add(whosTurn);
+        forestBossFightJFrame.add(energy);
+        forestBossFightJFrame.add(block);
+        forestBossFightJFrame.add(whosTurn);
 
-        CastleFightJFrame.add(targetarrow);
+        forestBossFightJFrame.add(targetarrow);
 
-        CastleFightJFrame.add(attackButton);
-        CastleFightJFrame.add(blockButton);
-        CastleFightJFrame.add(itemButton);
-        CastleFightJFrame.add(skillButton);
-        CastleFightJFrame.add(endTurnButton);
+        forestBossFightJFrame.add(attackButton);
+        forestBossFightJFrame.add(blockButton);
+        forestBossFightJFrame.add(itemButton);
+        forestBossFightJFrame.add(skillButton);
+        forestBossFightJFrame.add(endTurnButton);
 
-        CastleFightJFrame.add(playersHp);
-        CastleFightJFrame.add(undead1Hp);
-        CastleFightJFrame.add(undead2Hp);
-        CastleFightJFrame.add(undead3Hp);
-        CastleFightJFrame.add(undead4Hp);
-        CastleFightJFrame.add(player1Hp);
-        CastleFightJFrame.add(player2Hp);
-        CastleFightJFrame.add(player3Hp);
-        CastleFightJFrame.add(player4Hp);
+        forestBossFightJFrame.add(playersHp);
+        forestBossFightJFrame.add(forestBossHp);
+        forestBossFightJFrame.add(player1Hp);
+        forestBossFightJFrame.add(player2Hp);
+        forestBossFightJFrame.add(player3Hp);
+        forestBossFightJFrame.add(player4Hp);
 
-        CastleFightJFrame.add(skill1Button);
-        CastleFightJFrame.add(skill2Button);
-        CastleFightJFrame.add(skill3Button);
-        CastleFightJFrame.add(skill4Button);
-        CastleFightJFrame.add(returnButton);
+        forestBossFightJFrame.add(skill1Button);
+        forestBossFightJFrame.add(skill2Button);
+        forestBossFightJFrame.add(skill3Button);
+        forestBossFightJFrame.add(skill4Button);
+        forestBossFightJFrame.add(returnButton);
 
-        CastleFightJFrame.add(healWarriorButton);
-        CastleFightJFrame.add(healRangerButton);
-        CastleFightJFrame.add(healMageButton);
-        CastleFightJFrame.add(healHealerButton);
+        forestBossFightJFrame.add(healWarriorButton);
+        forestBossFightJFrame.add(healRangerButton);
+        forestBossFightJFrame.add(healMageButton);
+        forestBossFightJFrame.add(healHealerButton);
 
-        CastleFightJFrame.add(arrow);
-        CastleFightJFrame.add(volley1);
-        CastleFightJFrame.add(volley2);
-        CastleFightJFrame.add(volley3);
-        CastleFightJFrame.add(blast);
-        CastleFightJFrame.add(fireStorm);
-        CastleFightJFrame.add(flame);
-        CastleFightJFrame.add(smallPyroBlast);
-        CastleFightJFrame.add(mediumPyroBlast);
-        CastleFightJFrame.add(bigPyroBlast);
-        CastleFightJFrame.add(swordIcon);
-        CastleFightJFrame.add(demoSword1);
-        CastleFightJFrame.add(demoSword2);
-        CastleFightJFrame.add(demoSword3);
-        CastleFightJFrame.add(demoSword4);
-        CastleFightJFrame.add(bomb);
-        CastleFightJFrame.add(explode);
-        CastleFightJFrame.add(stealthranger);
-        CastleFightJFrame.add(trap);
-        CastleFightJFrame.add(holyLight);
-        CastleFightJFrame.add(smallHolyLight);
-        CastleFightJFrame.add(groupHeal1);
-        CastleFightJFrame.add(groupHeal2);
-        CastleFightJFrame.add(groupHeal3);
-        CastleFightJFrame.add(groupHeal4);
+        forestBossFightJFrame.add(arrow);
+        forestBossFightJFrame.add(volley1);
+        forestBossFightJFrame.add(volley2);
+        forestBossFightJFrame.add(volley3);
+        forestBossFightJFrame.add(blast);
+        forestBossFightJFrame.add(fireStorm);
+        forestBossFightJFrame.add(flame);
+        forestBossFightJFrame.add(smallPyroBlast);
+        forestBossFightJFrame.add(mediumPyroBlast);
+        forestBossFightJFrame.add(bigPyroBlast);
+        forestBossFightJFrame.add(swordIcon);
+        forestBossFightJFrame.add(demoSword1);
+        forestBossFightJFrame.add(bomb);
+        forestBossFightJFrame.add(explode);
+        forestBossFightJFrame.add(stealthranger);
+        forestBossFightJFrame.add(trap);
+        forestBossFightJFrame.add(holyLight);
+        forestBossFightJFrame.add(smallHolyLight);
+        forestBossFightJFrame.add(groupHeal1);
+        forestBossFightJFrame.add(groupHeal2);
+        forestBossFightJFrame.add(groupHeal3);
+        forestBossFightJFrame.add(groupHeal4);
 
         //enemies
-        CastleFightJFrame.add(undead3);
-        CastleFightJFrame.add(undead4);
-        CastleFightJFrame.add(undead1);
-        CastleFightJFrame.add(undead2);
+        forestBossFightJFrame.add(forestBoss);
+        forestBossFightJFrame.add(forestBossflip);
         //player
-        CastleFightJFrame.add(ranger);
-        CastleFightJFrame.add(warrior);
-        CastleFightJFrame.add(mage);
-        CastleFightJFrame.add(healer);
+        forestBossFightJFrame.add(ranger);
+        forestBossFightJFrame.add(warrior);
+        forestBossFightJFrame.add(mage);
+        forestBossFightJFrame.add(healer);
 
-        CastleFightJFrame.setVisible(true);
+        forestBossFightJFrame.setVisible(true);
     }
 
     public void animationStuff(){
@@ -601,25 +593,10 @@ public class CastleView {
         Dimension playersHpSize = playersHp.getPreferredSize();
         playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
 
-        undead1Hp.setFont(pixelMplus.deriveFont(30f));
-        undead1Hp.setForeground(Color.black);
-        Dimension wolf1HpSize = undead1Hp.getPreferredSize();
-        undead1Hp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
-
-        undead2Hp.setFont(pixelMplus.deriveFont(30f));
-        undead2Hp.setForeground(Color.black);
-        Dimension wolf2HpSize = undead2Hp.getPreferredSize();
-        undead2Hp.setBounds(640, 595, wolf2HpSize.width, wolf2HpSize.height);
-
-        undead3Hp.setFont(pixelMplus.deriveFont(30f));
-        undead3Hp.setForeground(Color.black);
-        Dimension wolf3HpSize = undead3Hp.getPreferredSize();
-        undead3Hp.setBounds(640, 630, wolf3HpSize.width, wolf3HpSize.height);
-
-        undead4Hp.setFont(pixelMplus.deriveFont(30f));
-        undead4Hp.setForeground(Color.black);
-        Dimension wolf4HpSize = undead4Hp.getPreferredSize();
-        undead4Hp.setBounds(640, 665, wolf4HpSize.width, wolf4HpSize.height);
+        forestBossHp.setFont(pixelMplus.deriveFont(30f));
+        forestBossHp.setForeground(Color.black);
+        Dimension wolf1HpSize = forestBossHp.getPreferredSize();
+        forestBossHp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
@@ -728,30 +705,22 @@ public class CastleView {
         Dimension rangerSize = ranger.getPreferredSize();
         Dimension mageSize = mage.getPreferredSize();
 
-        warrior.setBounds(170, 250, warriorSize.width, warriorSize.height);
-        healer.setBounds(-30, 250, healerSize.width, healerSize.height);
-        ranger.setBounds(70, 310, rangerSize.width, rangerSize.height);
-        mage.setBounds(-110, 310, mageSize.width, mageSize.height);
+        warrior.setBounds(170, 210, warriorSize.width, warriorSize.height);
+        healer.setBounds(-30, 210, healerSize.width, healerSize.height);
+        ranger.setBounds(70, 290, rangerSize.width, rangerSize.height);
+        mage.setBounds(-110, 290, mageSize.width, mageSize.height);
     }
 
-    //Get undead gif.
-    private void importundeadGif(){
-        undead1 = new JLabel();
-        undead1.setIcon(new ImageIcon("skeleton.gif"));
-        Dimension undeadSize = undead1.getPreferredSize();
-        undead1.setBounds(750, 300, undeadSize.width+50, undeadSize.height);
+    //Get goblin gif.
+    private void importForestBossGif(){
+        forestBoss = new JLabel();
+        forestBoss.setIcon(new ImageIcon("forestBoss.gif"));
+        Dimension werewolfSize = forestBoss.getPreferredSize();
+        forestBoss.setBounds(850, 300, werewolfSize.width - 50, werewolfSize.height);
 
-        undead2 = new JLabel();
-        undead2.setIcon(new ImageIcon("skeleton.gif"));
-        undead2.setBounds(1005, 300, undeadSize.width+50, undeadSize.height);
-
-        undead3 = new JLabel();
-        undead3.setIcon(new ImageIcon("skeleton.gif"));
-        undead3.setBounds(870, 350, undeadSize.width+50, undeadSize.height);
-
-        undead4 = new JLabel();
-        undead4.setIcon(new ImageIcon("skeleton.gif"));
-        undead4.setBounds(1125, 350, undeadSize.width+50, undeadSize.height);
+        forestBossflip = new JLabel();
+        forestBossflip.setIcon(new ImageIcon("forestbossflip.gif"));
+        forestBossflip.setBounds(850, 300, werewolfSize.width - 50, werewolfSize.height);
     }
 
     private void importFont() {
