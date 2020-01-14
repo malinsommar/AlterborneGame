@@ -93,13 +93,17 @@ public class CaveController{
 
         MusicPick.musicStart("danceknigths", "music");
 
+        turns = 1;
         currentEnergy = 5;
         warriorEnergyInt = 5;
+        rangerEnergyInt = 0;
+        mageEnergyInt = 0;
+        healerEnergyInt = 0;
 
-        goblinHp[0] = 30;
-        goblinHp[1] = 30;
-        goblinHp[2] = 30;
-        goblinHp[3] = 30;
+        goblinHp[0] = 50;
+        goblinHp[1] = 50;
+        goblinHp[2] = 50;
+        goblinHp[3] = 50;
 
         setStartLabels();
         cv.caveFightFrame();
@@ -529,6 +533,8 @@ public class CaveController{
             cv.skill2Button.setText("Slam (4)");
             cv.skill3Button.setText("Battlecry (3)");
             cv.skill4Button.setText("Demoralize (5)");
+            cv.skill4Button.setFont(cv.pixelMplus.deriveFont(27f));
+
         }
         //ranger
         if (turns == 2){

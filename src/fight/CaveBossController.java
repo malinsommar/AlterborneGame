@@ -41,8 +41,8 @@ public class CaveBossController {
         public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
         public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
 
-        public int caveBossX = 700, caveBossY = 100, caveBossStartX = caveBossX, caveBossStartY = caveBossY;
-        private int caveBossFlipX = -350, caveBossFlipStart = caveBossFlipX;
+        public int caveBossX = 800, caveBossY = 100, caveBossStartX = caveBossX, caveBossStartY = caveBossY;
+        private int caveBossFlipX = -450, caveBossFlipStart = caveBossFlipX;
         private int attackPick;
         private int bossDamage;
         private int bossTarget;
@@ -622,7 +622,7 @@ public class CaveBossController {
             CBV.potion11Label = new JLabel("" + ownedPotions[10]);
             CBV.potion12Label = new JLabel("" + ownedPotions[11]);
 
-            CBV.caveBossHp = new JLabel("Satyr: " + caveBossHp);
+            CBV.caveBossHp = new JLabel("glarb: " + caveBossHp);
 
             CBV.playersHp = new JLabel("Hp: " + warriorCurrentHp);
             CBV.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
@@ -705,7 +705,7 @@ public class CaveBossController {
         private void mobDeath() {
 
             if (caveBossHp <= 0) {
-                CBV.caveBossHp.setText("Satyr: ");
+                CBV.caveBossHp.setText("glarb: ");
                 CBV.caveBoss.setVisible(false);
             }
         }
@@ -1258,7 +1258,7 @@ public class CaveBossController {
             damage = unbuffedDamage + buffDamage[turns - 1];
             caveBossHp -= damage;
 
-            CBV.caveBossHp.setText("Satyr: " + caveBossHp);
+            CBV.caveBossHp.setText("glarb: " + caveBossHp);
             mobDeath();
             isFightOver();
         }
@@ -2131,7 +2131,7 @@ public class CaveBossController {
                 if (phase == 0) {
                     animationPlaying = true;
                     CBV.endTurnButton.setVisible(false);
-                    MusicPick.musicStart("Satyrsound", "");
+                    MusicPick.musicStart("glarbsound", "");
                     phase = 1;
                 }
                 if (phase == 1) {
@@ -2140,6 +2140,8 @@ public class CaveBossController {
                     caveBossY -= bossMegaMath;
                     CBV.caveBoss.setLocation(caveBossX, caveBossY);
                     if (caveBossY > caveBossStartY) {
+                        caveBossY = caveBossStartY;
+                        CBV.caveBoss.setLocation(caveBossX, caveBossY);
                         phase = 2;
                     }
                 } else if (phase == 2) {
@@ -2165,7 +2167,7 @@ public class CaveBossController {
         /**
          *
          */
-        //attack 3
+        //attack 3, single target backstab
         private Timer bossAttack3 = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -2178,10 +2180,10 @@ public class CaveBossController {
                     CBV.caveBoss.setLocation(caveBossX, caveBossY);
                 } else if (timePast < 48) {
                     caveBossY = caveBossStartY;
-                    caveBossFlipX += 48;
+                    caveBossFlipX += 60;
                     CBV.caveBossflip.setLocation(caveBossFlipX, caveBossY);
                 } else if (timePast < 56) {
-                    caveBossFlipX -= 48;
+                    caveBossFlipX -= 60;
                     CBV.caveBossflip.setLocation(caveBossFlipX, caveBossY);
                 } else if (timePast < 150) {
                     caveBossX = caveBossStartX;
@@ -2201,7 +2203,7 @@ public class CaveBossController {
         /**
          *
          */
-        //attack 3
+        //attack 4, buff boss damage
         private Timer bossAttack4 = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {

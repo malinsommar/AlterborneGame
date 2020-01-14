@@ -749,13 +749,13 @@ public class CaveBossView {
         //Get goblin gif.
         private void importcaveBossGif(){
             caveBoss = new JLabel();
-            caveBoss.setIcon(new ImageIcon("caveBoss.gif"));
-            Dimension satyrSize = caveBoss.getPreferredSize();
-            caveBoss.setBounds(850, 300, satyrSize.width, satyrSize.height);
+            caveBoss.setIcon(new ImageIcon("cavebosstrue.gif"));
+            Dimension glarbSize = caveBoss.getPreferredSize();
+            caveBoss.setBounds(850, 300, glarbSize.width, glarbSize.height);
 
             caveBossflip = new JLabel();
             caveBossflip.setIcon(new ImageIcon("cavebossflip.gif"));
-            caveBossflip.setBounds(850, 300, satyrSize.width, satyrSize.height);
+            caveBossflip.setBounds(850, 300, glarbSize.width, glarbSize.height);
         }
 
         /**

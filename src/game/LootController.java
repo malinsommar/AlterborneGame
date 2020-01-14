@@ -593,6 +593,21 @@ public class LootController {
         //Boss fights
         else if(fight==10 || fight==20 || fight==30 || fight == 40 || fight == 50||fight == 100){
             int xpUp = (int)(Math.random()*200)+200;
+            if (fight==20){
+                xpUp += 50;
+            }
+            else if (fight==30){
+                xpUp += 100;
+            }
+            else if (fight==40){
+                xpUp += 150;
+            }
+            else if (fight==50){
+                xpUp += 200;
+            }
+            else if (fight==100){
+                xpUp += 300;
+            }
             int xpBefore = xpInt;
             xpInt += xpUp;
             lf.xp.setText("Xp: "+xpBefore+" --> "+xpInt);

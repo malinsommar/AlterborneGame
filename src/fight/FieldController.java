@@ -87,13 +87,17 @@ public class FieldController{
 
         MusicPick.musicStart("field", "music");
 
+        turns = 1;
         currentEnergy = 5;
         warriorEnergyInt = 5;
+        rangerEnergyInt = 0;
+        mageEnergyInt = 0;
+        healerEnergyInt = 0;
 
-        scarecrowHp[0] = 30;
-        scarecrowHp[1] = 30;
-        scarecrowHp[2] = 30;
-        scarecrowHp[3] = 30;
+        scarecrowHp[0] = 100;
+        scarecrowHp[1] = 100;
+        scarecrowHp[2] = 100;
+        scarecrowHp[3] = 100;
 
         setStartLabels();
         fv.fieldFightFrame();
@@ -492,6 +496,8 @@ public class FieldController{
             fv.skill2Button.setText("Slam (4)");
             fv.skill3Button.setText("Battlecry (3)");
             fv.skill4Button.setText("Demoralize (5)");
+            fv.skill4Button.setFont(fv.pixelMplus.deriveFont(27f));
+
         }
         //ranger
         if (turns == 2){

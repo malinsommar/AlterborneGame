@@ -88,13 +88,17 @@ public class SwampController {
 
             MusicPick.musicStart("swamp", "music");
 
+            turns = 1;
             currentEnergy = 5;
             warriorEnergyInt = 5;
+            rangerEnergyInt = 0;
+            mageEnergyInt = 0;
+            healerEnergyInt = 0;
 
-            trunkHp[0] = 30;
-            trunkHp[1] = 30;
-            trunkHp[2] = 30;
-            trunkHp[3] = 30;
+            trunkHp[0] = 150;
+            trunkHp[1] = 150;
+            trunkHp[2] = 150;
+            trunkHp[3] = 150;
 
             setStartLabels();
             sv.swampFightFrame();
@@ -493,6 +497,7 @@ public class SwampController {
                 sv.skill2Button.setText("Slam (4)");
                 sv.skill3Button.setText("Battlecry (3)");
                 sv.skill4Button.setText("Demoralize (5)");
+                sv.skill4Button.setFont(sv.pixelMplus.deriveFont(27f));
             }
             //ranger
             if (turns == 2){

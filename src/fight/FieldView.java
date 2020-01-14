@@ -14,7 +14,7 @@ public class FieldView {
     JPanel inventory = new JPanel();
 
     //Create fonts
-    private Font pixelMplus;
+    Font pixelMplus;
 
     //Create buttons
     public JButton attackButton, blockButton, itemButton, skillButton, endTurnButton;
@@ -79,7 +79,7 @@ public class FieldView {
         importButtons();
         importLabels();
         importPartyGif();
-        importscarecrowGif();
+        importScarecrowGif();
         spellMenuStartup();
         animationStuff();
         healingTarget();
@@ -586,66 +586,66 @@ public class FieldView {
         playersHp.setFont(pixelMplus.deriveFont(30f));
         playersHp.setForeground(Color.black);
         Dimension playersHpSize = playersHp.getPreferredSize();
-        playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
+        playersHp.setBounds(30, 600, playersHpSize.width+50, playersHpSize.height);
 
         scarecrow1Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow1Hp.setForeground(Color.black);
         Dimension wolf1HpSize = scarecrow1Hp.getPreferredSize();
-        scarecrow1Hp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
+        scarecrow1Hp.setBounds(640, 560, wolf1HpSize.width+50, wolf1HpSize.height);
 
         scarecrow2Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow2Hp.setForeground(Color.black);
         Dimension wolf2HpSize = scarecrow2Hp.getPreferredSize();
-        scarecrow2Hp.setBounds(640, 595, wolf2HpSize.width, wolf2HpSize.height);
+        scarecrow2Hp.setBounds(640, 595, wolf2HpSize.width+50, wolf2HpSize.height);
 
         scarecrow3Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow3Hp.setForeground(Color.black);
         Dimension wolf3HpSize = scarecrow3Hp.getPreferredSize();
-        scarecrow3Hp.setBounds(640, 630, wolf3HpSize.width, wolf3HpSize.height);
+        scarecrow3Hp.setBounds(640, 630, wolf3HpSize.width+50, wolf3HpSize.height);
 
         scarecrow4Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow4Hp.setForeground(Color.black);
         Dimension wolf4HpSize = scarecrow4Hp.getPreferredSize();
-        scarecrow4Hp.setBounds(640, 665, wolf4HpSize.width, wolf4HpSize.height);
+        scarecrow4Hp.setBounds(640, 665, wolf4HpSize.width+50, wolf4HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
         Dimension player1HpSize = player1Hp.getPreferredSize();
-        player1Hp.setBounds(410, 560, player1HpSize.width, player1HpSize.height);
+        player1Hp.setBounds(410, 560, player1HpSize.width+50, player1HpSize.height);
 
         player2Hp.setFont(pixelMplus.deriveFont(30f));
         player2Hp.setForeground(Color.black);
         Dimension player2HpSize = player1Hp.getPreferredSize();
-        player2Hp.setBounds(410, 595, player2HpSize.width, player2HpSize.height);
+        player2Hp.setBounds(410, 595, player2HpSize.width+50, player2HpSize.height);
 
         player3Hp.setFont(pixelMplus.deriveFont(30f));
         player3Hp.setForeground(Color.black);
         Dimension player3HpSize = player3Hp.getPreferredSize();
-        player3Hp.setBounds(410, 630, player3HpSize.width, player3HpSize.height);
+        player3Hp.setBounds(410, 630, player3HpSize.width+50, player3HpSize.height);
 
         player4Hp.setFont(pixelMplus.deriveFont(30f));
         player4Hp.setForeground(Color.black);
         Dimension player4HpSize = player4Hp.getPreferredSize();
-        player4Hp.setBounds(410, 665, player4HpSize.width, player4HpSize.height);
+        player4Hp.setBounds(410, 665, player4HpSize.width+50, player4HpSize.height);
 
         energy = new JLabel("Energy: 5");
         energy.setFont(pixelMplus.deriveFont(30f));
         energy.setForeground(Color.black);
         Dimension energySize = energy.getPreferredSize();
-        energy.setBounds(30, 640, energySize.width, energySize.height);
+        energy.setBounds(30, 640, energySize.width+50, energySize.height);
 
         block.setFont(pixelMplus.deriveFont(30f));
         block.setForeground(Color.black);
         Dimension blockSize = energy.getPreferredSize();
-        block.setBounds(30, 670, blockSize.width, blockSize.height);
+        block.setBounds(30, 670, blockSize.width+50, blockSize.height);
 
         whosTurn = new JLabel("Warrior's turn");
         whosTurn.setFont(pixelMplus.deriveFont(30f));
         whosTurn.setForeground(Color.black);
         whosTurn.setBackground(Color.blue);
         Dimension whoSize = whosTurn.getPreferredSize();
-        //whosTurn.setMaximumSize(new Dimension(whoSize.width+100,whoSize.height+100));
-        whosTurn.setBounds(30, 560, whoSize.width, whoSize.height);
+        //whosTurn.setMaximumSize(new Dimension(whoSize.width+50+100,whoSize.height+100));
+        whosTurn.setBounds(30, 560, whoSize.width+50, whoSize.height);
     }
 
     //Set all stats for buttons.
@@ -722,7 +722,7 @@ public class FieldView {
     }
 
     //Get scarecrow gif.
-    private void importscarecrowGif(){
+    private void importScarecrowGif(){
         scarecrow1 = new JLabel();
         scarecrow1.setIcon(new ImageIcon("scarecrowdone.gif"));
         Dimension scarecrowSize = scarecrow1.getPreferredSize();
