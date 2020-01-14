@@ -9,10 +9,11 @@ public class Colours {
                 + get(colour1); //black
     }
 
+    //assign the colour-scale within the 255 number-parameter
     private static int get(int colour) {
         if (colour < 0) return 255; //if a negative number is assigned during the process of choosing colors its assigned to won't render
-        int r = colour / 100%10;
-        int g = colour / 10%10;
+        int r = colour / 100%10; //colours divided by
+        int g = colour / 10%10; //colours divided by
         int b = colour % 10;
         return r * 36 + g * 6 + b;
     }

@@ -126,16 +126,6 @@ public abstract class Mob extends Entity {
                 && CastlePathTile.isCastlePath();
     }
 
-    protected boolean isChestTile(int xa, int ya, int x, int y) {
-        if (level1 == null) {
-            return false;
-        }
-        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
-        Tile ChestTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(ChestTile)
-                && ChestTile.isChest();
-    }
-
 
     //get name
     public String getName() {

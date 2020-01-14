@@ -24,7 +24,6 @@ public class Player extends Mob {
     private boolean isOnFieldPath = false; // if player is on tile to enter Field-combat
     private boolean isOnSwampPath = false; // if player is on tile to enter Swamp-combat
     private boolean isOnCastlePath = false; // if player is on tile to enter Castle-combat
-    private boolean isOpeningChest = false; // if player is touching a chest-tile
     private boolean EnterShop = false;  // if player is on tile to enter Shop (is not used)
     private boolean isOnWaterPath = false;
 
@@ -44,7 +43,7 @@ public class Player extends Mob {
 
         /*up, down, left and right are identified with keyboard-inputs the xa or ya based on axel. When an assigned
         button is pressed, the xa or ya subs or adds by one, updating the movement*/
-        int xa = 0;
+        int xa = 0; //set the base-value of the x-axis to 0
         int ya = 0;
         if (input != null) {
             if (input.up.isPressed()) {
@@ -199,9 +198,6 @@ public class Player extends Mob {
             if (isCastlePathTile(xa,ya,x,yMin)) {
                 isOnCastlePath = true;
             }
-            if (isChestTile(xa,ya,x,yMin)) {
-                isOpeningChest = true;
-            }
         }
 
         for (int x = xMin; x < xMax; x++) {
@@ -247,10 +243,6 @@ public class Player extends Mob {
 
     public boolean hasEnteredCastle() {
         return  isOnCastlePath;
-    }
-
-    public boolean hasOpenedChest() {
-        return  isOpeningChest;
     }
 
     public boolean hasEnteredWater() {

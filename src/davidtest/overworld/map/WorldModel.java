@@ -3,14 +3,16 @@ package davidtest.overworld.map;
 import game.UserNameController;
 
 public class WorldModel {
+    //call OverWorldController
         private WorldController overWorldController = new WorldController();
 
+        //set userName in parameters from the MasterModel
         public WorldModel(String userName) throws InterruptedException {
             overWorldController.startWorldController(userName);
             HandleOverWorld();
         }
+        //return int-values to MasterModel to identify which Controller should be used
         public int HandleOverWorld() {
-
             if (overWorldController.Entrance[0] == 1) {
                 return 1;
             }
@@ -34,4 +36,8 @@ public class WorldModel {
             }
             return 0;
         }
+
+    public static void main(String[] args) throws InterruptedException {
+        new WorldModel("he");
+    }
     }
