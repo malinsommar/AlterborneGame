@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
+/**
+ * @author Simon Bengtsson, Malin Sommar
+ */
 public class ForestBossCon {
 
     ForestBossView FBV = new ForestBossView();
@@ -80,10 +83,13 @@ public class ForestBossCon {
     public boolean fightWon = false;
     public boolean fightLost = false;
 
-    private int[] ownedPotions = new int[12];
+    public int[] ownedPotions = new int[12];
 
     private int forestBossHp = 200;
 
+    /**
+     *
+     */
     public void startFight() {
 
         MusicPick.musicStart("forest2", "music");
@@ -258,6 +264,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     private void skill1() {
         if (turns == 1 && warriorEnergyInt > 2) {
             warriorEnergyInt = warriorEnergyInt - 3;
@@ -283,6 +292,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     private void skill2() {
         if (turns == 1 && warriorEnergyInt > 3) {
             warriorEnergyInt = warriorEnergyInt - 4;
@@ -304,6 +316,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     private void skill3() {
         if (turns == 1 && warriorEnergyInt > 2) {
             warriorEnergyInt = warriorEnergyInt - 3;
@@ -329,6 +344,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     private void skill4() {
         if (turns == 1 && warriorEnergyInt > 4) {
             warriorEnergyInt = warriorEnergyInt - 5;
@@ -353,6 +371,10 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     * @param chosenSpell
+     */
     private void healingTargetMenu(int chosenSpell) {
         FBV.skill1Button.setVisible(false);
         FBV.skill2Button.setVisible(false);
@@ -431,11 +453,17 @@ public class ForestBossCon {
         });
     }
 
+    /**
+     *
+     */
     private void itemMenuActivate() {
         FBV.endTurnButton.setVisible(false);
         FBV.returnButton.setVisible(true);
     }
 
+    /**
+     *
+     */
     private void spellMenuActive() {
         FBV.attackButton.setVisible(false);
         FBV.blockButton.setVisible(false);
@@ -479,6 +507,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     //When player press block
     private void blockPressed() {
 
@@ -516,6 +547,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     //When you press the "attack button".
     private void attackPressed() {
 
@@ -549,6 +583,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     //Checks if all of the enemies or OldClasses.party-members are dead.
     private void isFightOver() {
         //If all of the wolves are dead. Open lootScreen.
@@ -566,6 +603,9 @@ public class ForestBossCon {
         //If none of these are true, nothing happens and the fight goes on.
     }
 
+    /**
+     *
+     */
     public void setStartLabels() {
 
         FBV.potion1Label = new JLabel("" + ownedPotions[0]);
@@ -591,6 +631,10 @@ public class ForestBossCon {
         FBV.block = new JLabel("Block: " + warriorBlock);
     }
 
+    /**
+     *
+     * @param attack
+     */
     //When the forestBoss attacks.
     private void forestBossAttack(String attack) {
         //charge
@@ -653,6 +697,9 @@ public class ForestBossCon {
 
     }
 
+    /**
+     *
+     */
     //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void mobDeath() {
 
@@ -662,6 +709,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     //Checks if any OldClasses.party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void partyDeath() {
 
@@ -687,6 +737,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     private void spellMenuInactive() {
         FBV.attackButton.setVisible(true);
         FBV.blockButton.setVisible(true);
@@ -701,6 +754,10 @@ public class ForestBossCon {
         FBV.returnButton.setVisible(false);
     }
 
+    /**
+     *
+     * @param potions
+     */
     public void getInventory(int[] potions) {
 
         ownedPotions[0] = potions[0];
@@ -717,6 +774,13 @@ public class ForestBossCon {
         ownedPotions[11] = potions[11];
     }
 
+    /**
+     *
+     * @param warrior
+     * @param mage
+     * @param healer
+     * @param ranger
+     */
     public void getPlayerStats(int[] warrior, int[] mage, int[] healer, int[] ranger) {
 
         warriorCurrentHp = warrior[0];
@@ -744,6 +808,10 @@ public class ForestBossCon {
         rangerMaxHp = rangerCurrentHp;
     }
 
+    /**
+     *
+     * @param potion
+     */
     //Get the effect from potions.
     private void usePotion(int potion) {
 
@@ -1110,6 +1178,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     //Add hover effect to buttons.
     private void hoverEffect() {
         //Attack Hover
@@ -1191,7 +1262,11 @@ public class ForestBossCon {
         isFightOver();
     }
 
-    //fixa denna
+    /**
+     *
+     * @param healing
+     * @param healingTargets
+     */
     public void spellHealSystem(int healing, String healingTargets) {
         if (healingTargets.equals("single")) {
             if (healTarget == 1) warriorCurrentHp += healing;
@@ -1215,7 +1290,9 @@ public class ForestBossCon {
         FBV.player4Hp.setText("Healer:  " + healerCurrentHp);
     }
 
-
+    /**
+     *
+     */
     //warrior
     public Timer tackle = new Timer(10, new ActionListener() {
         @Override
@@ -1242,7 +1319,9 @@ public class ForestBossCon {
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer charge = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1267,7 +1346,9 @@ public class ForestBossCon {
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer dunk = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1301,7 +1382,9 @@ public class ForestBossCon {
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer shout = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1354,7 +1437,9 @@ public class ForestBossCon {
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer battlecry = new Timer(20, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1411,7 +1496,9 @@ public class ForestBossCon {
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer demoralized = new Timer(20, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1479,7 +1566,9 @@ public class ForestBossCon {
     });
 
     //ranger
-
+    /**
+     *
+     */
     Timer shoot = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1509,7 +1598,9 @@ public class ForestBossCon {
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer volley = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1599,6 +1690,9 @@ public class ForestBossCon {
         }
     });
 
+    /**
+     *
+     */
     public void stealth() {
         if (!stealthed) {
             MusicPick.musicStart("stealth", "");
@@ -1608,6 +1702,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     public void unstealth() {
         if (stealthed) {
             MusicPick.musicStart("unstealth", "");
@@ -1617,6 +1714,9 @@ public class ForestBossCon {
         }
     }
 
+    /**
+     *
+     */
     public Timer bombthrow = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1662,7 +1762,9 @@ public class ForestBossCon {
         }
     });
 
-
+    /**
+     *
+     */
     //mage
     Timer blast = new Timer(10, new ActionListener() {
         @Override
@@ -1690,6 +1792,9 @@ public class ForestBossCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer pyroBlast = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1735,6 +1840,9 @@ public class ForestBossCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer flameStrike = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1797,7 +1905,9 @@ public class ForestBossCon {
         }
     });
 
-
+    /**
+     *
+     */
     public Timer fireBall = new Timer(15, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1859,6 +1969,9 @@ public class ForestBossCon {
         }
     });
 
+    /**
+     *
+     */
     //healer
     public Timer holyLightSpell = new Timer(10, new ActionListener() {
         @Override
@@ -1885,6 +1998,9 @@ public class ForestBossCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer smallHolyLightSpell = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1910,6 +2026,9 @@ public class ForestBossCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer groupHealSpell = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1941,6 +2060,9 @@ public class ForestBossCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer healerAttack = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1968,6 +2090,9 @@ public class ForestBossCon {
         }
     });
 
+    /**
+     *
+     */
     //charge, hits 2 targets
     private Timer bossAttack1 = new Timer(10, new ActionListener() {
         @Override
@@ -1995,6 +2120,9 @@ public class ForestBossCon {
         }
     });
 
+    /**
+     *
+     */
     //leap, hits all
     private Timer bossAttack2 = new Timer(10, new ActionListener() {
         @Override
@@ -2033,7 +2161,9 @@ public class ForestBossCon {
         }
     });
 
-
+    /**
+     *
+     */
     //attack 3
     private Timer bossAttack3 = new Timer(10, new ActionListener() {
         @Override
@@ -2067,6 +2197,9 @@ public class ForestBossCon {
         }
     });
 
+    /**
+     *
+     */
     //attack 3
     private Timer bossAttack4 = new Timer(10, new ActionListener() {
         @Override
@@ -2099,6 +2232,9 @@ public class ForestBossCon {
     });
 
 
+    /**
+     *
+     */
     private Timer takeDamage = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {

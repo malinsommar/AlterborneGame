@@ -980,7 +980,7 @@ public class MasterModel {
                 broken = true;
                 break;
             }
-            else if (forestCon.fightLost) {
+            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||fieldCon.fightLost) {
                 System.out.println("fightLost loop 1");
                 broken = true;
                 startLoseScreen();
@@ -1013,7 +1013,7 @@ public class MasterModel {
                 break;
             }
             //FieldFight
-            /*else if (caveCon.fightWon){
+            else if (fieldCon.fightWon){
                 System.out.println("field fight won");
 
                 fieldCon.fightWon = false;
@@ -1037,13 +1037,34 @@ public class MasterModel {
                 startLootController(3);
                 broken = true;
                 break;
-            }*/
-            else if (caveCon.fightLost) {
-                System.out.println("Cave fight lost");
-                startLoseScreen();
+            }
+
+            else if (forestBossCon.fightWon){
+                System.out.println("forest boss fight won");
+
+                forestBossCon.fightWon = false;
+
+                forestBossCon.ownedPotions[0] = ownedPotions[0];
+                forestBossCon.ownedPotions[1] = ownedPotions[1];
+                forestBossCon.ownedPotions[2] = ownedPotions[2];
+
+                forestBossCon.ownedPotions[3] = ownedPotions[3];
+                forestBossCon.ownedPotions[4] = ownedPotions[4];
+                forestBossCon.ownedPotions[5] = ownedPotions[5];
+
+                forestBossCon.ownedPotions[6] = ownedPotions[6];
+                forestBossCon.ownedPotions[7] = ownedPotions[7];
+                forestBossCon.ownedPotions[8] = ownedPotions[8];
+
+                forestBossCon.ownedPotions[9] = ownedPotions[9];
+                forestBossCon.ownedPotions[10] = ownedPotions[10];
+                forestBossCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(10);
                 broken = true;
                 break;
             }
+
             //Loot, tutorial, shop, levelUp, username.
             else if (lc.done||tc.done||sc.done||luc.done||unc.done) {
                 System.out.println("Done");

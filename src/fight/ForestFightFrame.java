@@ -764,7 +764,7 @@ public class ForestFightFrame {
 
 
     /**
-     * 
+     *
      */
     private void importFont() {
         try {

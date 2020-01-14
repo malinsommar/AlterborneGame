@@ -7,6 +7,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Simon Bengtsson
+ */
 public class CaveView {
 
     JFrame caveFightJFrame = new JFrame();
@@ -59,6 +62,9 @@ public class CaveView {
     public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
 
 
+    /**
+     *
+     */
     public void caveFightFrame(){
 
         caveFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -189,7 +195,10 @@ public class CaveView {
         inventory.setVisible(false);
         caveFightJFrame.setVisible(true);
     }
-    
+
+    /**
+     *
+     */
     public void animationStuff(){
 
         Dimension arrowSize = arrow.getPreferredSize();
@@ -317,6 +326,9 @@ public class CaveView {
 
     }
 
+    /**
+     *
+     */
     public void spellMenuStartup(){
 
         //button 1
@@ -366,6 +378,9 @@ public class CaveView {
 
     }
 
+    /**
+     *
+     */
     //to select target for healing
     public void healingTarget(){
 
@@ -407,6 +422,9 @@ public class CaveView {
 
     }
 
+    /**
+     *
+     */
     private void getInventory() {
 
         //Minor Health Potion
@@ -580,7 +598,10 @@ public class CaveView {
         potion12Label.setBounds(1070, 125, potion12LabelSize.width, potion12LabelSize.height);
     }
 
-    //Set al "stats" for labels.
+    /**
+     *
+     */
+    //Set all "stats" for labels.
     private void importLabels(){
         playersHp.setFont(pixelMplus.deriveFont(30f));
         playersHp.setForeground(Color.black);
@@ -647,6 +668,9 @@ public class CaveView {
         whosTurn.setBounds(30, 560, whoSize.width, whoSize.height);
     }
 
+    /**
+     *
+     */
     //Set all stats for buttons.
     private void importButtons(){
         //Attack button
@@ -695,7 +719,10 @@ public class CaveView {
         endTurnButton.setFocusPainted(false);//Remove border around text in button
     }
 
-    //Get all OldClasses.party-gif's.
+    /**
+     *
+     */
+    //Get all party-gif's.
     private void importPartyGif(){
         warrior = new JLabel();
         warrior.setIcon(new ImageIcon("warrior.gif"));
@@ -720,6 +747,9 @@ public class CaveView {
         mage.setBounds(-110, 290, mageSize.width, mageSize.height);
     }
 
+    /**
+     *
+     */
     //Get goblin gif.
     private void importGoblinGif(){
         goblin1 = new JLabel();
@@ -740,6 +770,9 @@ public class CaveView {
         goblin4.setBounds(1100, 370, goblinSize.width+50, goblinSize.height);
     }
 
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));

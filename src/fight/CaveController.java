@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * @author Simon Bengtsson
+ */
 public class CaveController{
 
 
@@ -83,6 +86,9 @@ public class CaveController{
 
     private int[] goblinHp = new int[4];
 
+    /**
+     *
+     */
     public void startFight() {
 
         MusicPick.musicStart("danceknigths", "music");
@@ -149,6 +155,9 @@ public class CaveController{
 
     }
 
+    /**
+     *
+     */
     //When you press "end turn" button.
     private void startNewTurn() {
         turns++;
@@ -249,6 +258,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     private void enemyDamage(){
         for (int i = 0; i < goblinHp.length; i++) {
             if (goblinHp[i] > 0) {
@@ -259,6 +271,9 @@ public class CaveController{
         isFightOver();
     }
 
+    /**
+     *
+     */
     public void targetSystem() {
 
         cv.goblin1.addMouseListener(new MouseAdapter() {
@@ -295,6 +310,9 @@ public class CaveController{
         });
     }
 
+    /**
+     *
+     */
     private void skill1() {
         if (turns == 1 && warriorEnergyInt > 2 && cv.targetarrow.isVisible()) {
             warriorEnergyInt = warriorEnergyInt - 3;
@@ -320,6 +338,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     private void skill2() {
         if (turns == 1 && warriorEnergyInt > 3) {
             warriorEnergyInt = warriorEnergyInt - 4;
@@ -341,6 +362,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     private void skill3() {
         if (turns == 1 && warriorEnergyInt>2){
             warriorEnergyInt=warriorEnergyInt-3;
@@ -366,6 +390,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     private void skill4() {
         if (turns == 1 && warriorEnergyInt>4){
             warriorEnergyInt=warriorEnergyInt-5;
@@ -390,6 +417,10 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     * @param chosenSpell
+     */
     private void healingTargetMenu(int chosenSpell) {
         cv.skill1Button.setVisible(false);
         cv.skill2Button.setVisible(false);
@@ -468,11 +499,17 @@ public class CaveController{
         });
     }
 
+    /**
+     *
+     */
     private void itemMenuActivate(){
         cv.endTurnButton.setVisible(false);
         cv.returnButton.setVisible(true);
     }
 
+    /**
+     *
+     */
     private void spellMenuActive() {
         cv.attackButton.setVisible(false);
         cv.blockButton.setVisible(false);
@@ -516,6 +553,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //When player press block
     private void blockPressed() {
 
@@ -553,6 +593,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //When you press the "attack button".
     private void attackPressed() {
 
@@ -586,6 +629,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //Checks if all of the enemies or OldClasses.party-members are dead.
     private void isFightOver() {
         //If all of the wolves are dead. Open lootScreen.
@@ -603,6 +649,9 @@ public class CaveController{
         //If none of these are true, nothing happens and the fight goes on.
     }
 
+    /**
+     *
+     */
     public void setStartLabels() {
 
         cv.potion1Label = new JLabel("" + ownedPotions[0]);
@@ -631,6 +680,9 @@ public class CaveController{
         cv.block = new JLabel("Block: " + warriorBlock);
     }
 
+    /**
+     *
+     */
     //When the goblin attacks.
     private void goblinAttack() {
         target = (int) (Math.random() * 4); //Random target, 0-3.
@@ -712,6 +764,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void mobDeath() {
 
@@ -745,6 +800,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //Checks if any OldClasses.party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void partyDeath() {
 
@@ -770,6 +828,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     private void spellMenuInactive() {
         cv.attackButton.setVisible(true);
         cv.blockButton.setVisible(true);
@@ -784,6 +845,10 @@ public class CaveController{
         cv.returnButton.setVisible(false);
     }
 
+    /**
+     *
+     * @param potions
+     */
     public void getInventory(int[] potions) {
 
         ownedPotions[0] = potions[0];
@@ -800,6 +865,13 @@ public class CaveController{
         ownedPotions[11] = potions[11];
     }
 
+    /**
+     *
+     * @param warrior
+     * @param mage
+     * @param healer
+     * @param ranger
+     */
     public void getPlayerStats(int[] warrior, int[] mage, int[] healer, int[] ranger) {
 
         warriorCurrentHp = warrior[0];
@@ -827,6 +899,10 @@ public class CaveController{
         rangerMaxHp = rangerCurrentHp;
     }
 
+    /**
+     *
+     * @param potion
+     */
     //Get the effect from potions.
     private void usePotion(int potion) {
 
@@ -1193,6 +1269,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //Add hover effect to buttons.
     private void hoverEffect() {
         //Attack Hover
@@ -1294,7 +1373,11 @@ public class CaveController{
         isFightOver();
     }
 
-    //fixa denna
+    /**
+     *
+      * @param healing
+     * @param healingTargets
+     */
     public void spellHealSystem(int healing, String healingTargets) {
         if (healingTargets.equals("single")) {
             if (healTarget == 1) warriorCurrentHp += healing;
@@ -1318,7 +1401,9 @@ public class CaveController{
         cv.player4Hp.setText("Healer:  " + healerCurrentHp);
     }
 
-
+    /**
+     *
+     */
     //warrior
     public Timer tackle = new Timer(10, new ActionListener() {
         @Override
@@ -1345,7 +1430,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer charge = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1370,7 +1457,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer dunk = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1404,7 +1493,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer shout = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1457,7 +1548,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer battlecry = new Timer(20, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1514,7 +1607,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer demoralized = new Timer(20, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1580,8 +1675,10 @@ public class CaveController{
         }
     });
 
+    /**
+     *
+     */
     //ranger
-
     Timer shoot = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1611,7 +1708,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer volley = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1701,6 +1800,9 @@ public class CaveController{
         }
     });
 
+    /**
+     *
+     */
     public void stealth() {
         if (!stealthed) {
             MusicPick.musicStart("stealth", "");
@@ -1710,6 +1812,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     public void unstealth() {
         if (stealthed) {
             MusicPick.musicStart("unstealth", "");
@@ -1719,6 +1824,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     public Timer bombthrow = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1764,7 +1872,9 @@ public class CaveController{
         }
     });
 
-
+    /**
+     *
+     */
     //mage
     Timer blast = new Timer(10, new ActionListener() {
         @Override
@@ -1791,7 +1901,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer pyroBlast = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1836,7 +1948,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer flameStrike = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1899,7 +2013,9 @@ public class CaveController{
         }
     });
 
-
+    /**
+     *
+     */
     public Timer fireBall = new Timer(15, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1960,7 +2076,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     //healer
     public Timer holyLightSpell = new Timer(10, new ActionListener() {
         @Override
@@ -1986,7 +2104,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer smallHolyLightSpell = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -2011,7 +2131,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer groupHealSpell = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -2042,7 +2164,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer healerAttack = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -2070,6 +2194,9 @@ public class CaveController{
         }
     });
 
+    /**
+     *
+     */
     //enemy
     private Timer enemyTurnTimer = new Timer(7, new ActionListener() {
         @Override
@@ -2129,6 +2256,9 @@ public class CaveController{
         }
     });
 
+    /**
+     *
+     */
     private Timer takeDamage = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
