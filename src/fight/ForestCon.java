@@ -111,7 +111,7 @@ public class ForestCon {
             });
             fff.blockButton.addActionListener(e -> blockPressed());
             fff.itemButton.addActionListener(e -> {
-                    fff.itemPressed();
+                    fff.inventory.setVisible(true);
                     itemMenuActivate();
                 });
             fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
@@ -131,8 +131,10 @@ public class ForestCon {
                 skill4();
             });
             fff.returnButton.addActionListener(e -> spellMenuInactive());
+            fff.returnButton.addActionListener(e -> fff.inventory.setVisible(false));
 
-            //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
+
+        //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
             fff.potion1.addActionListener(e -> usePotion(1));
             fff.potion2.addActionListener(e -> usePotion(2));
             fff.potion3.addActionListener(e -> usePotion(3));
