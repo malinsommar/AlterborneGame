@@ -127,4 +127,8 @@ public class Level {
     public void addEntity(Entity entity) {
         this.entities.add(entity); //call the Entity-class into the Level-class by adding the Player-object
     }
+
+    public Entity getEntity() {
+        return (Entity) entities;
+    }
 }

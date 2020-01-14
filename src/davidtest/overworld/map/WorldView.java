@@ -1,5 +1,6 @@
 package davidtest.overworld.map;
 
+import davidtest.overworld.entities.NPC;
 import davidtest.overworld.gfx.SpriteSheet;
 import davidtest.overworld.levels.Level;
 import davidtest.overworld.entities.Player;
@@ -27,6 +28,7 @@ public class WorldView extends Canvas {
     public Screen screen; //call the screen-class
     Level level; //call the level-class
     public Player player; //call the player-class
+    public NPC npc;
 
 
     public JFrame frame; //Call the JFrame
@@ -48,7 +50,9 @@ public class WorldView extends Canvas {
          screen = new Screen(WorldView.WIDTH, WorldView.HEIGHT, new SpriteSheet("/resources/spriteSheet/Sprite_sheet.png"));//call spriteSheet-object within the frames height and width
          level = new Level("/resources/maps/Map.png");//call map-object
          player = new Player(level, 230, 235, input, userName); //call Player-object and position it on map. Assign the input class to player
+         npc = new NPC(level, "fred",250, 225, 5); //call Player-object and position it on map. Assign the input class to player
          level.addEntity(player); //add player onto the screen
+         level.addEntity(npc);
          //frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         frame.setResizable(false);//Not resizable
