@@ -26,6 +26,8 @@ public class Player extends Mob {
     private boolean isOnCastlePath = false; // if player is on tile to enter Castle-combat
     private boolean EnterShop = false;  // if player is on tile to enter Shop (is not used)
     private boolean isOnWaterPath = false;
+    private boolean isOnCavePath = false;
+
 
 
     private int tickCount = 0; //counts the ticks since the last update
@@ -198,6 +200,9 @@ public class Player extends Mob {
             if (isCastlePathTile(xa,ya,x,yMin)) {
                 isOnCastlePath = true;
             }
+            if (isCavePathTile(xa,ya,x,yMin)) {
+                isOnCavePath = true;
+            }
         }
 
         for (int x = xMin; x < xMax; x++) {
@@ -248,4 +253,9 @@ public class Player extends Mob {
     public boolean hasEnteredWater() {
         return  isOnWaterPath;
     }
+
+    public boolean hasEnteredCave() {
+        return  isOnCavePath;
+    }
+
 }
