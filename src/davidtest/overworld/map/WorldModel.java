@@ -27,6 +27,9 @@ package davidtest.overworld.map;
             if (overWorldController.Entrance[0] == 6) {
                 return 6;
             }
+            if (overWorldController.Entrance[0] == 7) {
+                return 7; 
+            }
             return 0;
         }
 
