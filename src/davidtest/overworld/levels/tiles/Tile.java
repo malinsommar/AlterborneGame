@@ -50,10 +50,10 @@ public abstract class Tile {
     public static final Tile FIELDCHEST = new SolidTile(33, 1, 17, Colours.get(176,210,178,332), 0xFFab6a2c);
     public static final Tile MOUNTAINCHEST = new SolidTile(34, 2, 17, Colours.get(333,210,178,332), 0xFFab6a3c);
     public static final Tile SWAMPCHEST = new SolidTile(35, 3, 17, Colours.get(18,210,178,332), 0xFFab6a4c);
-    public static final Tile LEFTBOTTOMMOUNTAINCAVE = new MountainPathTile(36, 0, 21, Colours.get(1,2,333, -1), 0xFF672321);
-    public static final Tile RIGHTBOTTOMMOUNTAINCAVE = new MountainPathTile(37, 1, 21, Colours.get(1,2,333, -1), 0xFF672322);
-    public static final Tile LEFTOPMOUNTAINCAVE = new MountainPathTile(38, 2, 21, Colours.get(1,2,333,-1), 0xFF672323);
-    public static final Tile RIGHTTOPMOUNTAINCAVE = new MountainPathTile(39, 3, 21, Colours.get(1,2,333,-1), 0xFF672324);
+    public static final Tile LEFTBOTTOMMOUNTAINCAVE = new CavePathTile(36, 0, 21, Colours.get(1,5,313, -1), 0xFF672321);
+    public static final Tile RIGHTBOTTOMMOUNTAINCAVE = new CavePathTile(37, 1, 21, Colours.get(1,5,313, -1), 0xFF672322);
+    public static final Tile LEFTOPMOUNTAINCAVE = new CavePathTile(38, 2, 21, Colours.get(1,5,313,-1), 0xFF672323);
+    public static final Tile RIGHTTOPMOUNTAINCAVE = new CavePathTile(39, 3, 21, Colours.get(1,5,313,-1), 0xFF672324);
     public static final Tile LEFTBOTTOMFIELDCAVE = new FieldPathTile(40, 0, 23, Colours.get(1,2,210, 176), 0xFF672325);
     public static final Tile RIGHTBOTTOMMFIELDCAVE = new FieldPathTile(41, 1, 23, Colours.get(1,2,211, 176), 0xFF672326);
     public static final Tile LEFTOPFIELDCAVE = new FieldPathTile(42, 2, 23, Colours.get(1,2,212,176), 0xFF672327);
@@ -65,6 +65,13 @@ public abstract class Tile {
     public static final Tile SWAMPWOOD = new SolidTile(48, 8, 0, Colours.get(-1,222,228,-1), 0xFF785211);
     public static final Tile SWAMPLEAF = new AnimatedSolidTile(49, new int[][] {{ 0, 2}, { 1, 2}},
             Colours.get(-1, 11, 18, -1), 0xFF005200, 2000);
+    public static final Tile FENCE = new SolidTile(50, 1, 19, Colours.get(176, -1, 201, -1), 0xFFa56c68);
+    public static final Tile FENCESIDE = new SolidTile(51, 2, 19, Colours.get(176, -1, 201, -1), 0xFFa56c69);
+    public static final Tile LEFTBOTTOMMOUNTAINENTRANCE = new MountainPathTile(52, 0, 21, Colours.get(1,2,333, -1), 0xFF672333);
+    public static final Tile RIGHTBOTTOMMOUNTAINENTRANCE = new MountainPathTile(53, 1, 21, Colours.get(1,2,333, -1), 0xFF672334);
+    public static final Tile LEFTOPMOUNTAINENTRANCE = new MountainPathTile(54, 2, 21, Colours.get(1,2,333,-1), 0xFF672335);
+    public static final Tile RIGHTTOPMOUNTAINENTRANCE = new MountainPathTile(55, 3, 21, Colours.get(1,2,333,-1), 0xFF672336);
+
 
     //create the boolean values that will be assigned to to tiles depending on purpose
     protected byte id;
@@ -74,11 +81,12 @@ public abstract class Tile {
     boolean fieldPath;
     boolean swampPath;
     boolean castlePath;
+    boolean cavePath;
     boolean door;
     private int levelColour;
 
     //create the parameters for all tiles
-    Tile(int id, boolean isSolid, boolean isDoor, boolean isForestPath, boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCastlePath, int levelColour) {
+    Tile(int id, boolean isSolid, boolean isDoor, boolean isForestPath, boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCaveTile, boolean isCastlePath, int levelColour) {
         this.id = (byte) id;
         //if a tile-id has been used before: throw RuntimeException
         if (tiles[id] != null)
@@ -91,6 +99,7 @@ public abstract class Tile {
         this.fieldPath = isFieldPath;
         this.swampPath = isSwampPath;
         this.castlePath = isCastlePath;
+        this.cavePath = isCaveTile;
         this.door = isDoor;
         this.levelColour  = levelColour;
         tiles[id] = this;
@@ -121,8 +130,8 @@ public abstract class Tile {
     public boolean isSwampPath() {
         return swampPath;
     }
-    public boolean isCastlePath() { return castlePath;
-    }
+    public boolean isCastlePath() { return castlePath; }
+    public boolean isCavePath() {return cavePath;}
     public boolean isDoor() {
         return door;
     }

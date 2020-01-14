@@ -65,7 +65,7 @@ public abstract class Mob extends Entity {
         //if no difference is identified return false
     }
 
-    //Compare if tiles are a form of Path-Tile. Otherwise same as with the solid-path method
+    //Compare if tiles are a form of Path-Tile. If player interacts with these tiles the View is disposed and  Otherwise same as with the solid-path method
     protected boolean isDoorTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
@@ -126,7 +126,15 @@ public abstract class Mob extends Entity {
                 && CastlePathTile.isCastlePath();
     }
 
-
+    protected boolean isCavePathTile(int xa, int ya, int x, int y) {
+        if (level1 == null) {
+            return false;
+        }
+        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
+        Tile CavePathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(CavePathTile)
+                && CavePathTile.isCavePath();
+    }
     //get name
     public String getName() {
         return name;

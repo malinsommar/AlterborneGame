@@ -14,7 +14,7 @@ public class CastleView {
     JFrame inventory = new JFrame();
 
     //Create fonts
-    private Font pixelMplus;
+    Font pixelMplus;
 
     //Create buttons
     public JButton attackButton, blockButton, itemButton, skillButton, endTurnButton;
@@ -599,66 +599,65 @@ public class CastleView {
         playersHp.setFont(pixelMplus.deriveFont(30f));
         playersHp.setForeground(Color.black);
         Dimension playersHpSize = playersHp.getPreferredSize();
-        playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
+        playersHp.setBounds(30, 600, playersHpSize.width+50, playersHpSize.height);
 
         undead1Hp.setFont(pixelMplus.deriveFont(30f));
         undead1Hp.setForeground(Color.black);
         Dimension wolf1HpSize = undead1Hp.getPreferredSize();
-        undead1Hp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
+        undead1Hp.setBounds(640, 560, wolf1HpSize.width+50, wolf1HpSize.height);
 
         undead2Hp.setFont(pixelMplus.deriveFont(30f));
         undead2Hp.setForeground(Color.black);
         Dimension wolf2HpSize = undead2Hp.getPreferredSize();
-        undead2Hp.setBounds(640, 595, wolf2HpSize.width, wolf2HpSize.height);
+        undead2Hp.setBounds(640, 595, wolf2HpSize.width+50, wolf2HpSize.height);
 
         undead3Hp.setFont(pixelMplus.deriveFont(30f));
         undead3Hp.setForeground(Color.black);
         Dimension wolf3HpSize = undead3Hp.getPreferredSize();
-        undead3Hp.setBounds(640, 630, wolf3HpSize.width, wolf3HpSize.height);
+        undead3Hp.setBounds(640, 630, wolf3HpSize.width+50, wolf3HpSize.height);
 
         undead4Hp.setFont(pixelMplus.deriveFont(30f));
         undead4Hp.setForeground(Color.black);
         Dimension wolf4HpSize = undead4Hp.getPreferredSize();
-        undead4Hp.setBounds(640, 665, wolf4HpSize.width, wolf4HpSize.height);
+        undead4Hp.setBounds(640, 665, wolf4HpSize.width+50, wolf4HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
         Dimension player1HpSize = player1Hp.getPreferredSize();
-        player1Hp.setBounds(410, 560, player1HpSize.width, player1HpSize.height);
+        player1Hp.setBounds(410, 560, player1HpSize.width+50, player1HpSize.height);
 
         player2Hp.setFont(pixelMplus.deriveFont(30f));
         player2Hp.setForeground(Color.black);
         Dimension player2HpSize = player1Hp.getPreferredSize();
-        player2Hp.setBounds(410, 595, player2HpSize.width, player2HpSize.height);
+        player2Hp.setBounds(410, 595, player2HpSize.width+50, player2HpSize.height);
 
         player3Hp.setFont(pixelMplus.deriveFont(30f));
         player3Hp.setForeground(Color.black);
         Dimension player3HpSize = player3Hp.getPreferredSize();
-        player3Hp.setBounds(410, 630, player3HpSize.width, player3HpSize.height);
+        player3Hp.setBounds(410, 630, player3HpSize.width+50, player3HpSize.height);
 
         player4Hp.setFont(pixelMplus.deriveFont(30f));
         player4Hp.setForeground(Color.black);
         Dimension player4HpSize = player4Hp.getPreferredSize();
-        player4Hp.setBounds(410, 665, player4HpSize.width, player4HpSize.height);
+        player4Hp.setBounds(410, 665, player4HpSize.width+50, player4HpSize.height);
 
         energy = new JLabel("Energy: 5");
         energy.setFont(pixelMplus.deriveFont(30f));
         energy.setForeground(Color.black);
         Dimension energySize = energy.getPreferredSize();
-        energy.setBounds(30, 640, energySize.width, energySize.height);
+        energy.setBounds(30, 640, energySize.width+50, energySize.height);
 
         block.setFont(pixelMplus.deriveFont(30f));
         block.setForeground(Color.black);
         Dimension blockSize = energy.getPreferredSize();
-        block.setBounds(30, 670, blockSize.width, blockSize.height);
+        block.setBounds(30, 670, blockSize.width+50, blockSize.height);
 
         whosTurn = new JLabel("Warrior's turn");
         whosTurn.setFont(pixelMplus.deriveFont(30f));
         whosTurn.setForeground(Color.black);
         whosTurn.setBackground(Color.blue);
         Dimension whoSize = whosTurn.getPreferredSize();
-        //whosTurn.setMaximumSize(new Dimension(whoSize.width+100,whoSize.height+100));
-        whosTurn.setBounds(30, 560, whoSize.width, whoSize.height);
+        whosTurn.setBounds(30, 560, whoSize.width+50, whoSize.height);
     }
 
     //Set all stats for buttons.

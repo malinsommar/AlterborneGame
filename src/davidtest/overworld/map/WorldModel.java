@@ -34,6 +34,9 @@ public class WorldModel {
             if (overWorldController.Entrance[0] == 7) {
                 return 7; //call water
             }
+            if (overWorldController.Entrance[0] == 8) {
+                return 9; //call cave
+            }
             return 0;
         }
     }

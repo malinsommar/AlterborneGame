@@ -24,6 +24,6 @@ public class MouseClickSimulated {
         robot.mouseMove(x, y); //parameter names
         robot.delay(1); //delay between activation of method and the input
         robot.mousePress(MouseEvent.BUTTON1_MASK); //simulate a button-press
-        robot.mouseRelease(MouseEvent.BUTTON1_MASK); // simulate a button-release 
+        robot.mouseRelease(MouseEvent.BUTTON1_MASK); // simulate a button-release
     }
 }

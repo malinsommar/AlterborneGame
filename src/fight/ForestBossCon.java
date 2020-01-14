@@ -85,7 +85,7 @@ public class ForestBossCon {
 
     public int[] ownedPotions = new int[12];
 
-    private int forestBossHp = 200;
+    private int forestBossHp;
 
     /**
      *
@@ -94,7 +94,13 @@ public class ForestBossCon {
 
         MusicPick.musicStart("forest2", "music");
 
+        forestBossHp = 200;
+        turns = 1;
         currentEnergy = 5;
+        warriorEnergyInt = 5;
+        rangerEnergyInt = 0;
+        mageEnergyInt = 0;
+        healerEnergyInt = 0;
 
         setStartLabels();
         FBV.forestBossFightFrame();
@@ -483,6 +489,7 @@ public class ForestBossCon {
             FBV.skill2Button.setText("Slam (4)");
             FBV.skill3Button.setText("Battlecry (3)");
             FBV.skill4Button.setText("Demoralize (5)");
+            FBV.skill4Button.setFont(FBV.pixelMplus.deriveFont(27f));
         }
         //ranger
         if (turns == 2) {

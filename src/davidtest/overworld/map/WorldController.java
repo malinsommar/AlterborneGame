@@ -13,16 +13,6 @@ public class WorldController extends Canvas implements Runnable {
     private WorldView owf = new WorldView();
     public  int[] Entrance = new int[1];
 
-    //int-variables to handle Model-execution
-    private int ForestEntrance = 1;
-    private int ShopEntrance = 1;
-    private int MountainEntrance = 1;
-    private int FieldEntrance = 1;
-    private int SwampEntrance = 1;
-    private int CastleEntrance = 1;
-    private int WaterEntrance = 1;
-
-
     public void startWorldController(String userName) throws InterruptedException {
         owf.startWorldView(userName);
         start();//start the program
@@ -36,8 +26,11 @@ public class WorldController extends Canvas implements Runnable {
                 EnterSwamp();
                 EnterCastle();
                 EnterWater();
+                EnterCave();
         }
     }
+
+
     public synchronized void start() {
         running = true;//set the state of running to true
         new Thread(this).start(); //start thread. Threads are used to run multiple functionality at once
@@ -151,8 +144,10 @@ public class WorldController extends Canvas implements Runnable {
             Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Forest", owf.screen, 320, 258, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("1-3", owf.screen, 332, 280, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Cave", owf.screen, 16, 280, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("3-5", owf.screen, 19, 302, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Cave", owf.screen, 16, 40, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("???", owf.screen, 19, 62, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Mountain", owf.screen, 95, 218, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("3-5", owf.screen, 115, 240, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Field", owf.screen, 43, 450, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("5-8", owf.screen, 52, 472, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Swamp", owf.screen, 452, 103, Colours.get(000, -1, -1, 555), 1);
@@ -179,32 +174,27 @@ public class WorldController extends Canvas implements Runnable {
     //list of Methods to call back to WorldModel when a a new frame should be used and the WorldView should be disposed
     public synchronized void EnterShop() {
         if (owf.player.hasEnteredShop()) {
-            ShopEntrance++;
             Entrance[0] = 1;
         }
     }
     public synchronized void EnterForest() {
         if (owf.player.hasEnteredForest()) {
-                ForestEntrance++;
                 Entrance[0] = 2;
             }
         }
 
     public synchronized void EnterMountain() {
         if (owf.player.hasEnteredMountain()) {
-            MountainEntrance++;
             Entrance[0] = 3;
         }
     }
     public void EnterField() {
         if (owf.player.hasEnteredField()) {
-            FieldEntrance++;
             Entrance[0] = 4;
         }
     }
     private void EnterSwamp() {
         if (owf.player.hasEnteredSwamp()) {
-            SwampEntrance++;
             Entrance[0] = 5;
 
         }
@@ -212,15 +202,17 @@ public class WorldController extends Canvas implements Runnable {
 
     private void EnterCastle() {
         if (owf.player.hasEnteredCastle()) {
-            CastleEntrance++;
             Entrance[0] = 6;
         }
     }
     private void EnterWater() {
         if (owf.player.hasEnteredWater()) {
-            WaterEntrance++;
             Entrance[0] = 7;
         }
     }
-
+    private void EnterCave() {
+        if(owf.player.hasEnteredCave()) {
+            Entrance[0] = 8;
+        }
+    }
 }
