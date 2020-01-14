@@ -1,7 +1,8 @@
 package game;
 
-import java.util.Arrays;
-
+/**
+ * @author Malin Sommar
+ */
 public class ShopController {
 
     ShopView sv = new ShopView();
@@ -12,7 +13,23 @@ public class ShopController {
     boolean done = false;
     boolean itemBought = false;
 
-
+    /**
+     *
+     * @param getGold
+     * @param armorNames
+     * @param weaponNames
+     * @param weaponDamage
+     * @param currentArmorDamage
+     * @param armorBlock
+     * @param rareWeaponArmorNames
+     * @param epicWeaponArmorNames
+     * @param legendaryWeaponArmorNames
+     * @param rareWeaponArmorDamageBlock
+     * @param epicWeaponArmorDamageBlock
+     * @param legendaryWeaponArmorDamageBlock
+     * @param armorDamage
+     * @throws InterruptedException
+     */
     public void startShopView(int getGold, String[] armorNames, String[] weaponNames, int[] weaponDamage, int[] currentArmorDamage, int[] armorBlock, String[] rareWeaponArmorNames, String[] epicWeaponArmorNames, String[] legendaryWeaponArmorNames, int[] rareWeaponArmorDamageBlock, int[] epicWeaponArmorDamageBlock, int[] legendaryWeaponArmorDamageBlock, int[] armorDamage) throws InterruptedException {
 
         currentGold = getGold;
@@ -69,6 +86,10 @@ public class ShopController {
         sv.Exit.addActionListener(e->done = true);
     }
 
+    /**
+     *
+     * @param whatEquipment
+     */
     public void buyEquipment(int whatEquipment){
 
         //Warrior
@@ -339,6 +360,9 @@ public class ShopController {
         }
     }
 
+    /**
+     *
+     */
     private void hoverEffect() {
 
         //Minor health potion

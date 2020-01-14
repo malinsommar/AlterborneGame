@@ -1,5 +1,6 @@
 package davidtest.overworld.levels.tiles;
 
+//Animated tiles
 public class AnimatedTile extends BasicTile {
 
     private int[][] animationTileCoordinates;
@@ -15,7 +16,7 @@ public class AnimatedTile extends BasicTile {
         this.animationSwitchDelay = animationSwitchDelay;
 
     }
-    //moves the array from the first frame to the second and so on
+    //moves the array from the first frame to the second based on current time in milliseconds and so on
     public void tick() {
         if ((System.currentTimeMillis() - lastIterationTime) >= (animationSwitchDelay)) {
     lastIterationTime = System.currentTimeMillis();

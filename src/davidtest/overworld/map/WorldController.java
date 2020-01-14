@@ -21,35 +21,21 @@ public class WorldController extends Canvas implements Runnable {
     private int SwampEntrance = 1;
     private int CastleEntrance = 1;
     private int WaterEntrance = 1;
-    private int OpeningChest = 1;
 
 
     public void startWorldController(String userName) throws InterruptedException {
         owf.startWorldView(userName);
         start();//start the program
         new MouseClickSimulated();
+        //whileLoop to check that the entrance-array is less or equal to 0 before calling methods
         while (Entrance[0] <= 0) {
-            if (ForestEntrance == 1) {
                 EnterForest();
-            }
-            if (ShopEntrance == 1) {
                 EnterShop();
-            }
-            if (MountainEntrance == 1) {
                 EnterMountain();
-            }
-            if (FieldEntrance == 1) {
                 EnterField();
-            }
-            if(SwampEntrance == 1) {
                 EnterSwamp();
-            }
-            if(CastleEntrance == 1) {
                 EnterCastle();
-            }
-            if(WaterEntrance ==1) {
                 EnterWater();
-            }
         }
     }
     public synchronized void start() {
@@ -110,9 +96,8 @@ public class WorldController extends Canvas implements Runnable {
                 delta -= 1; // subtract the value of delta by 1 and repeats the update-loop endlessly
                 shouldRender = true;
             }
-
+            //A sleep-function that pauses the current thread to keep it from overloading the system. in this case the frames are lowered based on the assigned sleep-value
             try {
-                //A 'sleep' method that pauses the current thread to keep it from overloading the system. in this case the frames are lowered based on the assigned sleep-value
                 Thread.sleep(2);
 
             } catch (InterruptedException e) {
@@ -179,7 +164,7 @@ public class WorldController extends Canvas implements Runnable {
             //render the colours on the tiles within the screens width and height
             for (int y = 0; y < owf.screen.height; y++) {
                 for (int x = 0; x < owf.screen.width; x++) {
-                    int colourCode = owf.screen.pixels[x + y * owf.screen.width];
+                    int colourCode = owf.screen.pixels[x + y * owf.screen.width]; //combined value of all the colours in an int
                     if (colourCode < 255) //check so the colour is within the 255 parameter
                         owf.pixels[x + y * WorldView.WIDTH] = owf.colours[colourCode];
                 }
@@ -190,13 +175,14 @@ public class WorldController extends Canvas implements Runnable {
             g.dispose(); //free up space when the object is no longer needed
             bs.show();//show in JFrame
         }
+
+    //list of Methods to call back to WorldModel when a a new frame should be used and the WorldView should be disposed
     public synchronized void EnterShop() {
         if (owf.player.hasEnteredShop()) {
             ShopEntrance++;
             Entrance[0] = 1;
         }
     }
-    //list of Methods to call back to WorldModel when a a new frame should be used and the WorldView should be disposed
     public synchronized void EnterForest() {
         if (owf.player.hasEnteredForest()) {
                 ForestEntrance++;

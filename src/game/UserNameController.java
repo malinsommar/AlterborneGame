@@ -6,12 +6,18 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * @author Malin Sommar
+ */
 public class UserNameController {
 
     private UserNameView unw = new UserNameView();
     boolean done = false;
      TextField nameField;
 
+    /**
+     *
+     */
     void startUserNameFrame() {
         unw.userNameScreen();
         hover();
@@ -27,6 +33,9 @@ public class UserNameController {
     }
 
 
+    /**
+     *
+     */
     private void hover(){
         unw.continueButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
