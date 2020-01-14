@@ -65,6 +65,9 @@ public abstract class Tile {
     public static final Tile SWAMPWOOD = new SolidTile(48, 8, 0, Colours.get(-1,222,228,-1), 0xFF785211);
     public static final Tile SWAMPLEAF = new AnimatedSolidTile(49, new int[][] {{ 0, 2}, { 1, 2}},
             Colours.get(-1, 11, 18, -1), 0xFF005200, 2000);
+    public static final Tile FENCE = new SolidTile(50, 1, 19, Colours.get(176, -1, 201, -1), 0xFFa56c68);
+    public static final Tile FENCESIDE = new SolidTile(51, 2, 19, Colours.get(176, -1, 201, -1), 0xFFa56c69);
+
 
     //create the boolean values that will be assigned to to tiles depending on purpose
     protected byte id;

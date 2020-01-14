@@ -65,7 +65,7 @@ public abstract class Mob extends Entity {
         //if no difference is identified return false
     }
 
-    //Compare if tiles are a form of Path-Tile. Otherwise same as with the solid-path method
+    //Compare if tiles are a form of Path-Tile. If player interacts with these tiles the View is disposed and  Otherwise same as with the solid-path method
     protected boolean isDoorTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
