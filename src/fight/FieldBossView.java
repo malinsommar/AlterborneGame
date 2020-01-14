@@ -7,14 +7,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-
-/**
- * @author Simon Bengtsson, Malin Sommar
- */
-
-public class CaveBossView {
-
-        JFrame caveBossFightJFrame = new JFrame();
+public class FieldBossView {
+    
+        JFrame fieldBossFightJFrame = new JFrame();
         Potions potions = new Potions();
         JFrame inventory = new JFrame();
 
@@ -30,8 +25,8 @@ public class CaveBossView {
         //Create Labels
         public JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr ,potion1Label,potion2Label,potion3Label,potion4Label,potion5Label,potion6Label,potion7Label,potion8Label,potion9Label,potion10Label,potion11Label,potion12Label;
         public JLabel whosTurn, energy, block;
-        public JLabel caveBoss, caveBossflip;
-        public JLabel caveBossHp, goblin2Hp, goblin3Hp, goblin4Hp;
+        public JLabel fieldBoss, fieldBossflip;
+        public JLabel fieldBossHp;
         public JLabel warrior, mage, healer, ranger;
         public JLabel playersHp, player1Hp, player2Hp, player3Hp, player4Hp;
 
@@ -67,90 +62,90 @@ public class CaveBossView {
         /**
          *
          */
-        public void caveBossFightFrame(){
+        public void fieldBossFightFrame(){
 
-            caveBossFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            caveBossFightJFrame.setSize(1920, 1080);
-            caveBossFightJFrame.setLayout(null);
-            caveBossFightJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            caveBossFightJFrame.setUndecorated(true);
+            fieldBossFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            fieldBossFightJFrame.setSize(1920, 1080);
+            fieldBossFightJFrame.setLayout(null);
+            fieldBossFightJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            fieldBossFightJFrame.setUndecorated(true);
 
-            ImageIcon background = new ImageIcon("cave.png");
-            caveBossFightJFrame.setContentPane(new JLabel(background));
+            ImageIcon background = new ImageIcon("fielddone.jpg");
+            fieldBossFightJFrame.setContentPane(new JLabel(background));
 
             importFont();
             getInventory();
             importButtons();
             importLabels();
             importPartyGif();
-            importcaveBossGif();
+            importfieldBossGif();
             spellMenuStartup();
             animationStuff();
             healingTarget();
 
-            caveBossFightJFrame.add(energy);
-            caveBossFightJFrame.add(block);
-            caveBossFightJFrame.add(whosTurn);
+            fieldBossFightJFrame.add(energy);
+            fieldBossFightJFrame.add(block);
+            fieldBossFightJFrame.add(whosTurn);
 
-            caveBossFightJFrame.add(targetarrow);
+            fieldBossFightJFrame.add(targetarrow);
 
-            caveBossFightJFrame.add(attackButton);
-            caveBossFightJFrame.add(blockButton);
-            caveBossFightJFrame.add(itemButton);
-            caveBossFightJFrame.add(skillButton);
-            caveBossFightJFrame.add(endTurnButton);
+            fieldBossFightJFrame.add(attackButton);
+            fieldBossFightJFrame.add(blockButton);
+            fieldBossFightJFrame.add(itemButton);
+            fieldBossFightJFrame.add(skillButton);
+            fieldBossFightJFrame.add(endTurnButton);
 
-            caveBossFightJFrame.add(playersHp);
-            caveBossFightJFrame.add(caveBossHp);
-            caveBossFightJFrame.add(player1Hp);
-            caveBossFightJFrame.add(player2Hp);
-            caveBossFightJFrame.add(player3Hp);
-            caveBossFightJFrame.add(player4Hp);
+            fieldBossFightJFrame.add(playersHp);
+            fieldBossFightJFrame.add(fieldBossHp);
+            fieldBossFightJFrame.add(player1Hp);
+            fieldBossFightJFrame.add(player2Hp);
+            fieldBossFightJFrame.add(player3Hp);
+            fieldBossFightJFrame.add(player4Hp);
 
-            caveBossFightJFrame.add(skill1Button);
-            caveBossFightJFrame.add(skill2Button);
-            caveBossFightJFrame.add(skill3Button);
-            caveBossFightJFrame.add(skill4Button);
-            caveBossFightJFrame.add(returnButton);
+            fieldBossFightJFrame.add(skill1Button);
+            fieldBossFightJFrame.add(skill2Button);
+            fieldBossFightJFrame.add(skill3Button);
+            fieldBossFightJFrame.add(skill4Button);
+            fieldBossFightJFrame.add(returnButton);
 
-            caveBossFightJFrame.add(healWarriorButton);
-            caveBossFightJFrame.add(healRangerButton);
-            caveBossFightJFrame.add(healMageButton);
-            caveBossFightJFrame.add(healHealerButton);
+            fieldBossFightJFrame.add(healWarriorButton);
+            fieldBossFightJFrame.add(healRangerButton);
+            fieldBossFightJFrame.add(healMageButton);
+            fieldBossFightJFrame.add(healHealerButton);
 
-            caveBossFightJFrame.add(arrow);
-            caveBossFightJFrame.add(volley1);
-            caveBossFightJFrame.add(volley2);
-            caveBossFightJFrame.add(volley3);
-            caveBossFightJFrame.add(blast);
-            caveBossFightJFrame.add(fireStorm);
-            caveBossFightJFrame.add(flame);
-            caveBossFightJFrame.add(smallPyroBlast);
-            caveBossFightJFrame.add(mediumPyroBlast);
-            caveBossFightJFrame.add(bigPyroBlast);
-            caveBossFightJFrame.add(swordIcon);
-            caveBossFightJFrame.add(demoSword1);
-            caveBossFightJFrame.add(bomb);
-            caveBossFightJFrame.add(explode);
-            caveBossFightJFrame.add(stealthranger);
-            caveBossFightJFrame.add(trap);
-            caveBossFightJFrame.add(holyLight);
-            caveBossFightJFrame.add(smallHolyLight);
-            caveBossFightJFrame.add(groupHeal1);
-            caveBossFightJFrame.add(groupHeal2);
-            caveBossFightJFrame.add(groupHeal3);
-            caveBossFightJFrame.add(groupHeal4);
+            fieldBossFightJFrame.add(arrow);
+            fieldBossFightJFrame.add(volley1);
+            fieldBossFightJFrame.add(volley2);
+            fieldBossFightJFrame.add(volley3);
+            fieldBossFightJFrame.add(blast);
+            fieldBossFightJFrame.add(fireStorm);
+            fieldBossFightJFrame.add(flame);
+            fieldBossFightJFrame.add(smallPyroBlast);
+            fieldBossFightJFrame.add(mediumPyroBlast);
+            fieldBossFightJFrame.add(bigPyroBlast);
+            fieldBossFightJFrame.add(swordIcon);
+            fieldBossFightJFrame.add(demoSword1);
+            fieldBossFightJFrame.add(bomb);
+            fieldBossFightJFrame.add(explode);
+            fieldBossFightJFrame.add(stealthranger);
+            fieldBossFightJFrame.add(trap);
+            fieldBossFightJFrame.add(holyLight);
+            fieldBossFightJFrame.add(smallHolyLight);
+            fieldBossFightJFrame.add(groupHeal1);
+            fieldBossFightJFrame.add(groupHeal2);
+            fieldBossFightJFrame.add(groupHeal3);
+            fieldBossFightJFrame.add(groupHeal4);
 
             //enemies
-            caveBossFightJFrame.add(caveBoss);
-            caveBossFightJFrame.add(caveBossflip);
+            fieldBossFightJFrame.add(fieldBoss);
+            fieldBossFightJFrame.add(fieldBossflip);
             //player
-            caveBossFightJFrame.add(ranger);
-            caveBossFightJFrame.add(warrior);
-            caveBossFightJFrame.add(mage);
-            caveBossFightJFrame.add(healer);
+            fieldBossFightJFrame.add(ranger);
+            fieldBossFightJFrame.add(warrior);
+            fieldBossFightJFrame.add(mage);
+            fieldBossFightJFrame.add(healer);
 
-            caveBossFightJFrame.setVisible(true);
+            fieldBossFightJFrame.setVisible(true);
         }
 
         /**
@@ -619,10 +614,10 @@ public class CaveBossView {
             Dimension playersHpSize = playersHp.getPreferredSize();
             playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
 
-            caveBossHp.setFont(pixelMplus.deriveFont(30f));
-            caveBossHp.setForeground(Color.black);
-            Dimension wolf1HpSize = caveBossHp.getPreferredSize();
-            caveBossHp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
+            fieldBossHp.setFont(pixelMplus.deriveFont(30f));
+            fieldBossHp.setForeground(Color.black);
+            Dimension wolf1HpSize = fieldBossHp.getPreferredSize();
+            fieldBossHp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
 
             player1Hp.setFont(pixelMplus.deriveFont(30f));
             player1Hp.setForeground(Color.black);
@@ -747,15 +742,11 @@ public class CaveBossView {
          *
          */
         //Get goblin gif.
-        private void importcaveBossGif(){
-            caveBoss = new JLabel();
-            caveBoss.setIcon(new ImageIcon("cavebosstrue.gif"));
-            Dimension glarbSize = caveBoss.getPreferredSize();
-            caveBoss.setBounds(850, 300, glarbSize.width, glarbSize.height);
-
-            caveBossflip = new JLabel();
-            caveBossflip.setIcon(new ImageIcon("cavebossflip.gif"));
-            caveBossflip.setBounds(850, 300, glarbSize.width, glarbSize.height);
+        private void importfieldBossGif(){
+            fieldBoss = new JLabel();
+            fieldBoss.setIcon(new ImageIcon("dragontrue.gif"));
+            Dimension dragonSize = fieldBoss.getPreferredSize();
+            fieldBoss.setBounds(850, 300, dragonSize.width, dragonSize.height);
         }
 
         /**
@@ -768,4 +759,3 @@ public class CaveBossView {
             }
         }
     }
-    

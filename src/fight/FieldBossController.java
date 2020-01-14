@@ -2,19 +2,15 @@ package fight;
 
 import game.MusicPick;
 
-/**
- * @author Simon Bengtsson, Malin Sommar
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
-public class CaveBossController {
+public class FieldBossController {
 
-        CaveBossView CBV = new CaveBossView();
+    FieldBossView FBV = new FieldBossView();
 
         //Get hp, block and damage from OldClasses.party
         private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
@@ -41,8 +37,8 @@ public class CaveBossController {
         public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
         public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
 
-        public int caveBossX = 800, caveBossY = 100, caveBossStartX = caveBossX, caveBossStartY = caveBossY;
-        private int caveBossFlipX = -450, caveBossFlipStart = caveBossFlipX;
+        public int fieldBossX = 800, fieldBossY = 100, fieldBossStartX = fieldBossX, fieldBossStartY = fieldBossY;
+        private int fieldBossFlipX = -450, fieldBossFlipStart = fieldBossFlipX;
         private int attackPick;
         private int bossDamage;
         private int bossTarget;
@@ -86,71 +82,71 @@ public class CaveBossController {
 
         public int[] ownedPotions = new int[12];
 
-        private int caveBossHp = 200;
+        private int fieldBossHp = 200;
 
         /**
          *
          */
         public void startFight() {
 
-            MusicPick.musicStart("caveboss", "music");
+            MusicPick.musicStart("skyrim", "music");
 
             currentEnergy = 5;
 
             setStartLabels();
-            CBV.caveBossFightFrame();
+            FBV.fieldBossFightFrame();
             hoverEffect();
 
-            CBV.caveBoss.setLocation(caveBossX, caveBossY);
-            CBV.caveBossflip.setLocation(caveBossFlipStart, caveBossY);
+            FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
+            FBV.fieldBossflip.setLocation(fieldBossFlipStart, fieldBossY);
             bossDamage = 14;
 
             //ActionListeners
-            CBV.attackButton.addActionListener(e -> {
+            FBV.attackButton.addActionListener(e -> {
                 if (!animationPlaying) attackPressed();
             });
-            CBV.blockButton.addActionListener(e -> blockPressed());
-            CBV.itemButton.addActionListener(e -> {
-                CBV.itemPressed();
+            FBV.blockButton.addActionListener(e -> blockPressed());
+            FBV.itemButton.addActionListener(e -> {
+                FBV.itemPressed();
                 itemMenuActivate();
             });
-            CBV.skillButton.addActionListener(e -> {
+            FBV.skillButton.addActionListener(e -> {
                 if (!animationPlaying) spellMenuActive();
             }); //for now
-            CBV.endTurnButton.addActionListener(e -> {
+            FBV.endTurnButton.addActionListener(e -> {
                 if (!animationPlaying) startNewTurn();
             });
-            CBV.skill1Button.addActionListener(e -> {
+            FBV.skill1Button.addActionListener(e -> {
                 if (!animationPlaying) skill1();
             });
-            CBV.skill2Button.addActionListener(e -> {
+            FBV.skill2Button.addActionListener(e -> {
                 if (!animationPlaying) skill2();
             });
-            CBV.skill3Button.addActionListener(e -> {
+            FBV.skill3Button.addActionListener(e -> {
                 if (!animationPlaying) skill3();
             });
-            CBV.skill4Button.addActionListener(e -> {
+            FBV.skill4Button.addActionListener(e -> {
                 if (!animationPlaying) skill4();
             });
-            CBV.returnButton.addActionListener(e -> spellMenuInactive());
-            CBV.returnButton.addActionListener(e -> CBV.inventory.dispose());
+            FBV.returnButton.addActionListener(e -> spellMenuInactive());
+            FBV.returnButton.addActionListener(e -> FBV.inventory.dispose());
 
             //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
-            CBV.potion1.addActionListener(e -> usePotion(1));
-            CBV.potion2.addActionListener(e -> usePotion(2));
-            CBV.potion3.addActionListener(e -> usePotion(3));
-            CBV.potion4.addActionListener(e -> usePotion(4));
-            CBV.potion5.addActionListener(e -> usePotion(5));
-            CBV.potion6.addActionListener(e -> usePotion(6));
-            CBV.potion7.addActionListener(e -> usePotion(7));
-            CBV.potion8.addActionListener(e -> usePotion(8));
-            CBV.potion9.addActionListener(e -> usePotion(9));
-            CBV.potion10.addActionListener(e -> usePotion(10));
-            CBV.potion11.addActionListener(e -> usePotion(11));
-            CBV.potion12.addActionListener(e -> usePotion(12));
+            FBV.potion1.addActionListener(e -> usePotion(1));
+            FBV.potion2.addActionListener(e -> usePotion(2));
+            FBV.potion3.addActionListener(e -> usePotion(3));
+            FBV.potion4.addActionListener(e -> usePotion(4));
+            FBV.potion5.addActionListener(e -> usePotion(5));
+            FBV.potion6.addActionListener(e -> usePotion(6));
+            FBV.potion7.addActionListener(e -> usePotion(7));
+            FBV.potion8.addActionListener(e -> usePotion(8));
+            FBV.potion9.addActionListener(e -> usePotion(9));
+            FBV.potion10.addActionListener(e -> usePotion(10));
+            FBV.potion11.addActionListener(e -> usePotion(11));
+            FBV.potion12.addActionListener(e -> usePotion(12));
 
             //Dispose the item frame.
-            //CBV.returnButton.addActionListener(e -> CBV.inventory.dispose());
+            //FBV.returnButton.addActionListener(e -> FBV.inventory.dispose());
 
         }
 
@@ -170,10 +166,10 @@ public class CaveBossController {
                     warriorEnergyInt = 10;
                 }
                 //Update labels.
-                CBV.whosTurn.setText("Warrior's turn");
-                CBV.playersHp.setText("Hp: " + warriorCurrentHp);
-                CBV.energy.setText("Energy: " + warriorEnergyInt);
-                CBV.block.setText("Block: " + warriorBlock);
+                FBV.whosTurn.setText("Warrior's turn");
+                FBV.playersHp.setText("Hp: " + warriorCurrentHp);
+                FBV.energy.setText("Energy: " + warriorEnergyInt);
+                FBV.block.setText("Block: " + warriorBlock);
             }
             //If warrior is dead, skip.
             if (turns == 1 && warriorCurrentHp < 1) {
@@ -189,10 +185,10 @@ public class CaveBossController {
                 if (rangerEnergyInt > 10) {
                     rangerEnergyInt = 10;
                 }
-                CBV.whosTurn.setText("Ranger's turn");
-                CBV.playersHp.setText("Hp: " + rangerCurrentHp);
-                CBV.energy.setText("Energy: " + rangerEnergyInt);
-                CBV.block.setText("Block: " + rangerBlock);
+                FBV.whosTurn.setText("Ranger's turn");
+                FBV.playersHp.setText("Hp: " + rangerCurrentHp);
+                FBV.energy.setText("Energy: " + rangerEnergyInt);
+                FBV.block.setText("Block: " + rangerBlock);
             }
             //If ranger is dead, skip.
             if (turns == 2 && rangerCurrentHp < 1) {
@@ -208,10 +204,10 @@ public class CaveBossController {
                 if (mageEnergyInt > 10) {
                     mageEnergyInt = 10;
                 }
-                CBV.whosTurn.setText("Mage's turn");
-                CBV.playersHp.setText("Hp: " + mageCurrentHp);
-                CBV.energy.setText("Energy: " + mageEnergyInt);
-                CBV.block.setText("Block: " + mageBlock);
+                FBV.whosTurn.setText("Mage's turn");
+                FBV.playersHp.setText("Hp: " + mageCurrentHp);
+                FBV.energy.setText("Energy: " + mageEnergyInt);
+                FBV.block.setText("Block: " + mageBlock);
             }
             //If mage is dead, skip.
             if (turns == 3 && mageCurrentHp < 1) {
@@ -227,10 +223,10 @@ public class CaveBossController {
                 if (healerEnergyInt > 10) {
                     healerEnergyInt = 10;
                 }
-                CBV.whosTurn.setText("Healer's turn");
-                CBV.playersHp.setText("Hp: " + healerCurrentHp);
-                CBV.energy.setText("Energy: " + healerEnergyInt);
-                CBV.block.setText("Block: " + healerBlock);
+                FBV.whosTurn.setText("Healer's turn");
+                FBV.playersHp.setText("Hp: " + healerCurrentHp);
+                FBV.energy.setText("Energy: " + healerEnergyInt);
+                FBV.block.setText("Block: " + healerBlock);
 
             }
             //If healer is dead, skip.
@@ -239,10 +235,10 @@ public class CaveBossController {
             }
             //  ***ENEMIES TURN***
             if (turns == 5) {
-                CBV.whosTurn.setText(" ");
-                CBV.playersHp.setText(" ");
-                CBV.energy.setText(" ");
-                CBV.block.setText(" ");
+                FBV.whosTurn.setText(" ");
+                FBV.playersHp.setText(" ");
+                FBV.energy.setText(" ");
+                FBV.block.setText(" ");
 
 
                 attackPick = (int) (Math.random() * 4);
@@ -272,20 +268,20 @@ public class CaveBossController {
             if (turns == 1 && warriorEnergyInt > 2) {
                 warriorEnergyInt = warriorEnergyInt - 3;
                 currentEnergy = currentEnergy - 3;
-                CBV.energy.setText("Energy: " + warriorEnergyInt);
+                FBV.energy.setText("Energy: " + warriorEnergyInt);
                 charge.start();
             }
             if (turns == 2 && rangerEnergyInt > 3) {
                 rangerEnergyInt = rangerEnergyInt - 4;
                 currentEnergy = currentEnergy - 4;
-                CBV.energy.setText("Energy: " + rangerEnergyInt);
+                FBV.energy.setText("Energy: " + rangerEnergyInt);
                 volley.start();
             }
             if (turns == 3 && mageEnergyInt > 1) {
                 followup = true;
                 mageEnergyInt = mageEnergyInt - 2;
                 currentEnergy = currentEnergy - 2;
-                CBV.energy.setText("Energy: " + mageEnergyInt);
+                FBV.energy.setText("Energy: " + mageEnergyInt);
                 fireBall.start();
             }
             if (turns == 4 && healerEnergyInt > 1) {
@@ -300,13 +296,13 @@ public class CaveBossController {
             if (turns == 1 && warriorEnergyInt > 3) {
                 warriorEnergyInt = warriorEnergyInt - 4;
                 currentEnergy = currentEnergy - 4;
-                CBV.energy.setText("Energy: " + warriorEnergyInt);
+                FBV.energy.setText("Energy: " + warriorEnergyInt);
                 dunk.start();
             }
             if (turns == 2 && rangerEnergyInt > 2) {
                 rangerEnergyInt = rangerEnergyInt - 3;
                 currentEnergy = currentEnergy - 3;
-                CBV.energy.setText("Energy: " + rangerEnergyInt);
+                FBV.energy.setText("Energy: " + rangerEnergyInt);
                 bombthrow.start();
             }
             if (turns == 3) {
@@ -324,7 +320,7 @@ public class CaveBossController {
             if (turns == 1 && warriorEnergyInt > 2) {
                 warriorEnergyInt = warriorEnergyInt - 3;
                 currentEnergy = currentEnergy - 3;
-                CBV.energy.setText("Energy: " + warriorEnergyInt);
+                FBV.energy.setText("Energy: " + warriorEnergyInt);
                 followup = true;
                 shout.start();
             }
@@ -334,13 +330,13 @@ public class CaveBossController {
             if (turns == 3 && mageEnergyInt > 4) {
                 mageEnergyInt = mageEnergyInt - 5;
                 currentEnergy = currentEnergy - 5;
-                CBV.energy.setText("Energy: " + mageEnergyInt);
+                FBV.energy.setText("Energy: " + mageEnergyInt);
                 flameStrike.start();
             }
             if (turns == 4 && healerEnergyInt > 4) {
                 healerEnergyInt = healerEnergyInt - 5;
                 currentEnergy = currentEnergy - 5;
-                CBV.energy.setText("Energy: " + healerEnergyInt);
+                FBV.energy.setText("Energy: " + healerEnergyInt);
                 groupHealSpell.start();
             }
         }
@@ -352,19 +348,19 @@ public class CaveBossController {
             if (turns == 1 && warriorEnergyInt > 4) {
                 warriorEnergyInt = warriorEnergyInt - 5;
                 currentEnergy = currentEnergy - 5;
-                CBV.energy.setText("Energy: " + warriorEnergyInt);
+                FBV.energy.setText("Energy: " + warriorEnergyInt);
                 shout.start();
             }
             if (turns == 2 && rangerEnergyInt > 2) {
                 rangerEnergyInt = rangerEnergyInt - 3;
                 currentEnergy = currentEnergy - 3;
-                CBV.energy.setText("Energy: " + rangerEnergyInt);
+                FBV.energy.setText("Energy: " + rangerEnergyInt);
                 stealth();
             }
             if (turns == 3 && mageEnergyInt > 4) {
                 mageEnergyInt = mageEnergyInt - 5;
                 currentEnergy = currentEnergy - 5;
-                CBV.energy.setText("Energy: " + mageEnergyInt);
+                FBV.energy.setText("Energy: " + mageEnergyInt);
                 pyroBlast.start();
             }
             if (turns == 4) {
@@ -377,21 +373,21 @@ public class CaveBossController {
          * @param chosenSpell
          */
         private void healingTargetMenu(int chosenSpell) {
-            CBV.skill1Button.setVisible(false);
-            CBV.skill2Button.setVisible(false);
-            CBV.skill3Button.setVisible(false);
-            CBV.skill4Button.setVisible(false);
+            FBV.skill1Button.setVisible(false);
+            FBV.skill2Button.setVisible(false);
+            FBV.skill3Button.setVisible(false);
+            FBV.skill4Button.setVisible(false);
 
-            CBV.healWarriorButton.setVisible(true);
-            CBV.healRangerButton.setVisible(true);
-            CBV.healMageButton.setVisible(true);
-            CBV.healHealerButton.setVisible(true);
+            FBV.healWarriorButton.setVisible(true);
+            FBV.healRangerButton.setVisible(true);
+            FBV.healMageButton.setVisible(true);
+            FBV.healHealerButton.setVisible(true);
 
-            CBV.healWarriorButton.addActionListener(e -> {
+            FBV.healWarriorButton.addActionListener(e -> {
                 if (chosenSpell == 1 && healerEnergyInt > 3) {
                     healerEnergyInt = healerEnergyInt - 4;
                     currentEnergy = currentEnergy - 4;
-                    CBV.energy.setText("Energy: " + healerEnergyInt);
+                    FBV.energy.setText("Energy: " + healerEnergyInt);
                     healTarget = 1;
                     holyLightSpell.start();
                 }
@@ -399,55 +395,55 @@ public class CaveBossController {
                 if (chosenSpell == 2 && healerEnergyInt > 1) {
                     healerEnergyInt = healerEnergyInt - 2;
                     currentEnergy = currentEnergy - 2;
-                    CBV.energy.setText("Energy: " + healerEnergyInt);
+                    FBV.energy.setText("Energy: " + healerEnergyInt);
                     healTarget = 1;
                     smallHolyLightSpell.start();
                 }
             });
-            CBV.healRangerButton.addActionListener(e -> {
+            FBV.healRangerButton.addActionListener(e -> {
                 if (chosenSpell == 1 && healerEnergyInt > 3) {
                     healerEnergyInt = healerEnergyInt - 4;
                     currentEnergy = currentEnergy - 4;
-                    CBV.energy.setText("Energy: " + healerEnergyInt);
+                    FBV.energy.setText("Energy: " + healerEnergyInt);
                     healTarget = 2;
                     holyLightSpell.start();
                 }
                 if (chosenSpell == 2 && healerEnergyInt > 1) {
                     healerEnergyInt = healerEnergyInt - 2;
                     currentEnergy = currentEnergy - 2;
-                    CBV.energy.setText("Energy: " + healerEnergyInt);
+                    FBV.energy.setText("Energy: " + healerEnergyInt);
                     healTarget = 2;
                     smallHolyLightSpell.start();
                 }
             });
-            CBV.healMageButton.addActionListener(e -> {
+            FBV.healMageButton.addActionListener(e -> {
                 if (chosenSpell == 1 && healerEnergyInt > 3) {
                     healerEnergyInt = healerEnergyInt - 4;
                     currentEnergy = currentEnergy - 4;
-                    CBV.energy.setText("Energy: " + healerEnergyInt);
+                    FBV.energy.setText("Energy: " + healerEnergyInt);
                     healTarget = 3;
                     holyLightSpell.start();
                 }
                 if (chosenSpell == 2 && healerEnergyInt > 1) {
                     healerEnergyInt = healerEnergyInt - 2;
                     currentEnergy = currentEnergy - 2;
-                    CBV.energy.setText("Energy: " + healerEnergyInt);
+                    FBV.energy.setText("Energy: " + healerEnergyInt);
                     healTarget = 3;
                     smallHolyLightSpell.start();
                 }
             });
-            CBV.healHealerButton.addActionListener(e -> {
+            FBV.healHealerButton.addActionListener(e -> {
                 if (chosenSpell == 1 && healerEnergyInt > 3) {
                     healerEnergyInt = healerEnergyInt - 4;
                     currentEnergy = currentEnergy - 4;
-                    CBV.energy.setText("Energy: " + healerEnergyInt);
+                    FBV.energy.setText("Energy: " + healerEnergyInt);
                     healTarget = 4;
                     holyLightSpell.start();
                 }
                 if (chosenSpell == 2 && healerEnergyInt > 1) {
                     healerEnergyInt = healerEnergyInt - 2;
                     currentEnergy = currentEnergy - 2;
-                    CBV.energy.setText("Energy: " + healerEnergyInt);
+                    FBV.energy.setText("Energy: " + healerEnergyInt);
                     healTarget = 4;
                     smallHolyLightSpell.start();
                 }
@@ -458,53 +454,53 @@ public class CaveBossController {
          *
          */
         private void itemMenuActivate() {
-            CBV.endTurnButton.setVisible(false);
-            CBV.returnButton.setVisible(true);
+            FBV.endTurnButton.setVisible(false);
+            FBV.returnButton.setVisible(true);
         }
 
         /**
          *
          */
         private void spellMenuActive() {
-            CBV.attackButton.setVisible(false);
-            CBV.blockButton.setVisible(false);
-            CBV.itemButton.setVisible(false);
-            CBV.skillButton.setVisible(false);
-            CBV.endTurnButton.setVisible(false);
+            FBV.attackButton.setVisible(false);
+            FBV.blockButton.setVisible(false);
+            FBV.itemButton.setVisible(false);
+            FBV.skillButton.setVisible(false);
+            FBV.endTurnButton.setVisible(false);
 
-            CBV.skill1Button.setVisible(true);
-            CBV.skill2Button.setVisible(true);
-            CBV.skill3Button.setVisible(true);
-            CBV.skill4Button.setVisible(true);
-            CBV.returnButton.setVisible(true);
+            FBV.skill1Button.setVisible(true);
+            FBV.skill2Button.setVisible(true);
+            FBV.skill3Button.setVisible(true);
+            FBV.skill4Button.setVisible(true);
+            FBV.returnButton.setVisible(true);
 
             //warrior
             if (turns == 1) {
-                CBV.skill1Button.setText("Charge (3)");
-                CBV.skill2Button.setText("Slam (4)");
-                CBV.skill3Button.setText("Battlecry (3)");
-                CBV.skill4Button.setText("Demoralize (5)");
+                FBV.skill1Button.setText("Charge (3)");
+                FBV.skill2Button.setText("Slam (4)");
+                FBV.skill3Button.setText("Battlecry (3)");
+                FBV.skill4Button.setText("Demoralize (5)");
             }
             //ranger
             if (turns == 2) {
-                CBV.skill1Button.setText("Volley (4)");
-                CBV.skill2Button.setText("Bomb (3)");
-                CBV.skill3Button.setText(" ");
-                CBV.skill4Button.setText("Stealth (3)");
+                FBV.skill1Button.setText("Volley (4)");
+                FBV.skill2Button.setText("Bomb (3)");
+                FBV.skill3Button.setText(" ");
+                FBV.skill4Button.setText("Stealth (3)");
             }
             //mage
             if (turns == 3) {
-                CBV.skill1Button.setText("Fireball (2)");
-                CBV.skill2Button.setText(" ");
-                CBV.skill3Button.setText("Meteor (5)");
-                CBV.skill4Button.setText("Pyroblast (5)");
+                FBV.skill1Button.setText("Fireball (2)");
+                FBV.skill2Button.setText(" ");
+                FBV.skill3Button.setText("Meteor (5)");
+                FBV.skill4Button.setText("Pyroblast (5)");
             }
             //healer
             if (turns == 4) {
-                CBV.skill1Button.setText("Heal (4)");
-                CBV.skill2Button.setText("Bless (2)");
-                CBV.skill3Button.setText("Restore (5)");
-                CBV.skill4Button.setText(" ");
+                FBV.skill1Button.setText("Heal (4)");
+                FBV.skill2Button.setText("Bless (2)");
+                FBV.skill3Button.setText("Restore (5)");
+                FBV.skill4Button.setText(" ");
             }
         }
 
@@ -519,32 +515,32 @@ public class CaveBossController {
                 warriorEnergyInt = warriorEnergyInt - 2;
                 currentEnergy = currentEnergy - 2;
                 warriorBlock += 5;
-                CBV.energy.setText("Energy: " + warriorEnergyInt);
-                CBV.block.setText("Block: " + warriorBlock);
+                FBV.energy.setText("Energy: " + warriorEnergyInt);
+                FBV.block.setText("Block: " + warriorBlock);
             }
             //If its ranger's turn and player has 2 or more energy.
             else if (turns == 2 && rangerEnergyInt > 1) {
                 rangerEnergyInt = rangerEnergyInt - 2;
                 currentEnergy = currentEnergy - 2;
                 rangerBlock += 5;
-                CBV.energy.setText("Energy: " + rangerEnergyInt);
-                CBV.block.setText("Block: " + rangerBlock);
+                FBV.energy.setText("Energy: " + rangerEnergyInt);
+                FBV.block.setText("Block: " + rangerBlock);
             }
             //If its mage's turn and player has 2 or more energy.
             else if (turns == 3 && mageEnergyInt > 1) {
                 mageEnergyInt = mageEnergyInt - 2;
                 currentEnergy = currentEnergy - 2;
                 mageBlock += 5;
-                CBV.energy.setText("Energy: " + mageEnergyInt);
-                CBV.block.setText("Block: " + mageBlock);
+                FBV.energy.setText("Energy: " + mageEnergyInt);
+                FBV.block.setText("Block: " + mageBlock);
             }
             //If its healer's turn and player has 2 or more energy.
             else if (turns == 4 && healerEnergyInt > 1) {
                 healerEnergyInt = healerEnergyInt - 2;
                 currentEnergy = currentEnergy - 2;
                 healerBlock += 5;
-                CBV.energy.setText("Energy: " + healerEnergyInt);
-                CBV.block.setText("Block: " + healerBlock);
+                FBV.energy.setText("Energy: " + healerEnergyInt);
+                FBV.block.setText("Block: " + healerBlock);
             }
         }
 
@@ -558,28 +554,28 @@ public class CaveBossController {
             if (turns == 1 && warriorEnergyInt > 1) {
                 warriorEnergyInt = warriorEnergyInt - 2; //Energy -2.
                 currentEnergy = currentEnergy - 2; // Update currentEnergy.
-                CBV.energy.setText("Energy: " + warriorEnergyInt); //Update energyLabel
-                tackle.start(); //Warrior deals damage to a caveBoss.
+                FBV.energy.setText("Energy: " + warriorEnergyInt); //Update energyLabel
+                tackle.start(); //Warrior deals damage to a fieldBoss.
             }
             //If its ranger's turn and player has 2 or more energy.
             else if (turns == 2 && rangerEnergyInt > 1) {
                 rangerEnergyInt = rangerEnergyInt - 2;
                 currentEnergy = currentEnergy - 2;
-                CBV.energy.setText("Energy: " + rangerEnergyInt);
+                FBV.energy.setText("Energy: " + rangerEnergyInt);
                 shoot.start();
             }
             //If its mage's turn and player has 2 or more energy.
             else if (turns == 3 && mageEnergyInt > 1) {
                 mageEnergyInt = mageEnergyInt - 2;
                 currentEnergy = currentEnergy - 2;
-                CBV.energy.setText("Energy: " + mageEnergyInt);
+                FBV.energy.setText("Energy: " + mageEnergyInt);
                 blast.start();
             }
             //If its healer's turn and player has 2 or more energy.
             else if (turns == 4 && healerEnergyInt > 1) {
                 healerEnergyInt = healerEnergyInt - 2;
                 currentEnergy = currentEnergy - 2;
-                CBV.energy.setText("Energy: " + healerEnergyInt);
+                FBV.energy.setText("Energy: " + healerEnergyInt);
                 healerAttack.start();
             }
         }
@@ -590,15 +586,15 @@ public class CaveBossController {
         //Checks if all of the enemies or OldClasses.party-members are dead.
         private void isFightOver() {
             //If all of the wolves are dead. Open lootScreen.
-            if (caveBossHp < 1) {
+            if (fieldBossHp < 1) {
                 MusicPick.musicStop();
-                CBV.caveBossFightJFrame.dispose();
+                FBV.fieldBossFightJFrame.dispose();
                 fightWon = true;
 
             }
             //In the whole OldClasses.party is dead, game is over. Send to loseScreen.
             if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
-                CBV.caveBossFightJFrame.dispose();
+                FBV.fieldBossFightJFrame.dispose();
                 fightLost = true;
             }
             //If none of these are true, nothing happens and the fight goes on.
@@ -609,35 +605,35 @@ public class CaveBossController {
          */
         public void setStartLabels() {
 
-            CBV.potion1Label = new JLabel("" + ownedPotions[0]);
-            CBV.potion2Label = new JLabel("" + ownedPotions[1]);
-            CBV.potion3Label = new JLabel("" + ownedPotions[2]);
-            CBV.potion4Label = new JLabel("" + ownedPotions[3]);
-            CBV.potion5Label = new JLabel("" + ownedPotions[4]);
-            CBV.potion6Label = new JLabel("" + ownedPotions[5]);
-            CBV.potion7Label = new JLabel("" + ownedPotions[6]);
-            CBV.potion8Label = new JLabel("" + ownedPotions[7]);
-            CBV.potion9Label = new JLabel("" + ownedPotions[8]);
-            CBV.potion10Label = new JLabel("" + ownedPotions[9]);
-            CBV.potion11Label = new JLabel("" + ownedPotions[10]);
-            CBV.potion12Label = new JLabel("" + ownedPotions[11]);
+            FBV.potion1Label = new JLabel("" + ownedPotions[0]);
+            FBV.potion2Label = new JLabel("" + ownedPotions[1]);
+            FBV.potion3Label = new JLabel("" + ownedPotions[2]);
+            FBV.potion4Label = new JLabel("" + ownedPotions[3]);
+            FBV.potion5Label = new JLabel("" + ownedPotions[4]);
+            FBV.potion6Label = new JLabel("" + ownedPotions[5]);
+            FBV.potion7Label = new JLabel("" + ownedPotions[6]);
+            FBV.potion8Label = new JLabel("" + ownedPotions[7]);
+            FBV.potion9Label = new JLabel("" + ownedPotions[8]);
+            FBV.potion10Label = new JLabel("" + ownedPotions[9]);
+            FBV.potion11Label = new JLabel("" + ownedPotions[10]);
+            FBV.potion12Label = new JLabel("" + ownedPotions[11]);
 
-            CBV.caveBossHp = new JLabel("glarb: " + caveBossHp);
+            FBV.fieldBossHp = new JLabel("glarb: " + fieldBossHp);
 
-            CBV.playersHp = new JLabel("Hp: " + warriorCurrentHp);
-            CBV.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
-            CBV.player2Hp = new JLabel("Mage:    " + mageCurrentHp);
-            CBV.player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
-            CBV.player4Hp = new JLabel("Healer:  " + healerCurrentHp);
-            CBV.block = new JLabel("Block: " + warriorBlock);
+            FBV.playersHp = new JLabel("Hp: " + warriorCurrentHp);
+            FBV.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
+            FBV.player2Hp = new JLabel("Mage:    " + mageCurrentHp);
+            FBV.player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+            FBV.player4Hp = new JLabel("Healer:  " + healerCurrentHp);
+            FBV.block = new JLabel("Block: " + warriorBlock);
         }
 
         /**
          *
          * @param attack
          */
-        //When the caveBoss attacks.
-        private void caveBossAttack(String attack) {
+        //When the fieldBoss attacks.
+        private void fieldBossAttack(String attack) {
             //charge
             if (attack.equals("attack1")) {
                 int row = (int) (Math.random() * 2) + 1;
@@ -689,10 +685,10 @@ public class CaveBossController {
                     healerattacked = true;
                 }
             }
-            CBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
-            CBV.player2Hp.setText("Mage:    " + mageCurrentHp);
-            CBV.player3Hp.setText("Ranger:  " + rangerCurrentHp);
-            CBV.player4Hp.setText("Healer:  " + healerCurrentHp);
+            FBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
+            FBV.player2Hp.setText("Mage:    " + mageCurrentHp);
+            FBV.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+            FBV.player4Hp.setText("Healer:  " + healerCurrentHp);
             partyDeath();
             isFightOver();
 
@@ -704,9 +700,9 @@ public class CaveBossController {
         //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
         private void mobDeath() {
 
-            if (caveBossHp <= 0) {
-                CBV.caveBossHp.setText("glarb: ");
-                CBV.caveBoss.setVisible(false);
+            if (fieldBossHp <= 0) {
+                FBV.fieldBossHp.setText("glarb: ");
+                FBV.fieldBoss.setVisible(false);
             }
         }
 
@@ -718,23 +714,23 @@ public class CaveBossController {
 
             if (warriorCurrentHp <= 0) {
                 warriorCurrentHp = 0;
-                CBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
-                CBV.warrior.setVisible(false);
+                FBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
+                FBV.warrior.setVisible(false);
             }
             if (mageCurrentHp <= 0) {
                 mageCurrentHp = 0;
-                CBV.player2Hp.setText("Mage:    " + mageCurrentHp);
-                CBV.mage.setVisible(false);
+                FBV.player2Hp.setText("Mage:    " + mageCurrentHp);
+                FBV.mage.setVisible(false);
             }
             if (rangerCurrentHp <= 0) {
                 rangerCurrentHp = 0;
-                CBV.player3Hp.setText("Ranger:  " + rangerCurrentHp);
-                CBV.ranger.setVisible(false);
+                FBV.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+                FBV.ranger.setVisible(false);
             }
             if (healerCurrentHp <= 0) {
                 healerCurrentHp = 0;
-                CBV.player4Hp.setText("Healer:  " + healerCurrentHp);
-                CBV.healer.setVisible(false);
+                FBV.player4Hp.setText("Healer:  " + healerCurrentHp);
+                FBV.healer.setVisible(false);
             }
         }
 
@@ -742,17 +738,17 @@ public class CaveBossController {
          *
          */
         private void spellMenuInactive() {
-            CBV.attackButton.setVisible(true);
-            CBV.blockButton.setVisible(true);
-            CBV.itemButton.setVisible(true);
-            CBV.skillButton.setVisible(true);
-            CBV.endTurnButton.setVisible(true);
+            FBV.attackButton.setVisible(true);
+            FBV.blockButton.setVisible(true);
+            FBV.itemButton.setVisible(true);
+            FBV.skillButton.setVisible(true);
+            FBV.endTurnButton.setVisible(true);
 
-            CBV.skill1Button.setVisible(false);
-            CBV.skill2Button.setVisible(false);
-            CBV.skill3Button.setVisible(false);
-            CBV.skill4Button.setVisible(false);
-            CBV.returnButton.setVisible(false);
+            FBV.skill1Button.setVisible(false);
+            FBV.skill2Button.setVisible(false);
+            FBV.skill3Button.setVisible(false);
+            FBV.skill4Button.setVisible(false);
+            FBV.returnButton.setVisible(false);
         }
 
         /**
@@ -823,89 +819,89 @@ public class CaveBossController {
                     //If player own that potion.
                     if (ownedPotions[0] > 0) {
                         warriorCurrentHp += 10; //Heal warrior equals to the potions heal.
-                        CBV.playersHp.setText("Hp: " + warriorCurrentHp); //Update Warrior's hp Label.
-                        CBV.player1Hp.setText("Warrior: " + warriorCurrentHp); // Update currentPlayer Hp label.
+                        FBV.playersHp.setText("Hp: " + warriorCurrentHp); //Update Warrior's hp Label.
+                        FBV.player1Hp.setText("Warrior: " + warriorCurrentHp); // Update currentPlayer Hp label.
                         ownedPotions[0] -= 1;
-                        CBV.potion1Label.setText("" + ownedPotions[0]); //Update ownedPotion Label.
+                        FBV.potion1Label.setText("" + ownedPotions[0]); //Update ownedPotion Label.
                     }
                 } else if (potion == 2) {
                     if (ownedPotions[1] > 0) {
                         warriorCurrentHp += 30;
-                        CBV.playersHp.setText("Hp: " + warriorCurrentHp);
-                        CBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
+                        FBV.playersHp.setText("Hp: " + warriorCurrentHp);
+                        FBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
                         ownedPotions[1] -= 1;
-                        CBV.potion2Label.setText("" + ownedPotions[1]);
+                        FBV.potion2Label.setText("" + ownedPotions[1]);
                     }
                 } else if (potion == 3) {
                     if (ownedPotions[2] > 0) {
                         warriorCurrentHp += 60;
-                        CBV.playersHp.setText("Hp: " + warriorCurrentHp);
-                        CBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
+                        FBV.playersHp.setText("Hp: " + warriorCurrentHp);
+                        FBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
                         ownedPotions[2] -= 1;
-                        CBV.potion3Label.setText("" + ownedPotions[2]);
+                        FBV.potion3Label.setText("" + ownedPotions[2]);
                     }
                 } else if (potion == 4) {
                     if (ownedPotions[3] > 0) {
                         warriorBlock += 5;
-                        CBV.block.setText("Block: " + warriorBlock);
+                        FBV.block.setText("Block: " + warriorBlock);
                         ownedPotions[3] -= 1;
-                        CBV.potion4Label.setText("" + ownedPotions[3]);
+                        FBV.potion4Label.setText("" + ownedPotions[3]);
                     }
                 } else if (potion == 5) {
                     if (ownedPotions[4] > 0) {
                         warriorBlock += 20;
-                        CBV.block.setText("Block: " + warriorBlock);
+                        FBV.block.setText("Block: " + warriorBlock);
                         ownedPotions[4] -= 1;
-                        CBV.potion5Label.setText("" + ownedPotions[4]);
+                        FBV.potion5Label.setText("" + ownedPotions[4]);
                     }
                 } else if (potion == 6) {
                     if (ownedPotions[5] > 0) {
                         warriorBlock += 50;
-                        CBV.block.setText("Block: " + warriorBlock);
+                        FBV.block.setText("Block: " + warriorBlock);
                         ownedPotions[5] -= 1;
-                        CBV.potion6Label.setText("" + ownedPotions[5]);
+                        FBV.potion6Label.setText("" + ownedPotions[5]);
                     }
                 } else if (potion == 7) {
                     if (ownedPotions[6] > 0) {
                         warriorEnergyInt += 3;
-                        CBV.energy.setText("Energy: " + warriorEnergyInt);
+                        FBV.energy.setText("Energy: " + warriorEnergyInt);
                         ownedPotions[6] -= 1;
-                        CBV.potion7Label.setText("" + ownedPotions[6]);
+                        FBV.potion7Label.setText("" + ownedPotions[6]);
                     }
                 } else if (potion == 8) {
                     if (ownedPotions[7] > 0) {
                         warriorCurrentHp += 5;
-                        CBV.energy.setText("Energy: " + warriorEnergyInt);
+                        FBV.energy.setText("Energy: " + warriorEnergyInt);
                         ownedPotions[7] -= 1;
-                        CBV.potion8Label.setText("" + ownedPotions[7]);
+                        FBV.potion8Label.setText("" + ownedPotions[7]);
                     }
                 } else if (potion == 9) {
                     if (ownedPotions[8] > 0) {
                         warriorCurrentHp += 10;
-                        CBV.energy.setText("Energy: " + warriorEnergyInt);
+                        FBV.energy.setText("Energy: " + warriorEnergyInt);
                         ownedPotions[8] -= 1;
-                        CBV.potion9Label.setText("" + ownedPotions[8]);
+                        FBV.potion9Label.setText("" + ownedPotions[8]);
                     }
                 }
                 if (potion == 10) {
                     if (ownedPotions[9] > 0) {
                         buffDamage[turns - 1] += 5;
                         ownedPotions[9] -= 1;
-                        CBV.potion10Label.setText("" + ownedPotions[9]);
+                        FBV.potion10Label.setText("" + ownedPotions[9]);
                     }
                 }
                 if (potion == 11) {
                     if (ownedPotions[10] > 0) {
                         buffDamage [turns - 1] += 10;
                         ownedPotions[10] -= 1;
-                        CBV.potion11Label.setText("" + ownedPotions[10]);
+                        FBV.potion11Label.setText("" + ownedPotions[10]);
                     }
                 }
                 if (potion == 12) {
                     if (ownedPotions[11] > 0) {
                         buffDamage [turns - 1] += 20;
                         ownedPotions[11] -= 1;
-                        CBV.potion12Label.setText("" + ownedPotions[11]);
+                        FBV.potion12Label.setText("" + ownedPotions[11]);
                     }
                 }
             }
@@ -915,87 +911,87 @@ public class CaveBossController {
                 if (potion == 1) {
                     if (ownedPotions[0] > 0) {
                         rangerCurrentHp += 10;
-                        CBV.playersHp.setText("Hp: " + rangerCurrentHp);
-                        CBV.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                        FBV.playersHp.setText("Hp: " + rangerCurrentHp);
+                        FBV.player2Hp.setText("Ranger: " + rangerCurrentHp);
                         ownedPotions[0] -= 1;
-                        CBV.potion1Label.setText("" + ownedPotions[0]);
+                        FBV.potion1Label.setText("" + ownedPotions[0]);
                     }
                 } else if (potion == 2) {
                     if (ownedPotions[1] > 0) {
                         rangerCurrentHp += 30;
-                        CBV.playersHp.setText("Hp: " + rangerCurrentHp);
-                        CBV.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                        FBV.playersHp.setText("Hp: " + rangerCurrentHp);
+                        FBV.player2Hp.setText("Ranger: " + rangerCurrentHp);
                         ownedPotions[1] -= 1;
-                        CBV.potion2Label.setText("" + ownedPotions[1]);
+                        FBV.potion2Label.setText("" + ownedPotions[1]);
                     }
                 } else if (potion == 3) {
                     if (ownedPotions[2] > 0) {
                         rangerCurrentHp += 60;
-                        CBV.playersHp.setText("Hp: " + rangerCurrentHp);
-                        CBV.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                        FBV.playersHp.setText("Hp: " + rangerCurrentHp);
+                        FBV.player2Hp.setText("Ranger: " + rangerCurrentHp);
                         ownedPotions[2] -= 1;
-                        CBV.potion3Label.setText("" + ownedPotions[2]);
+                        FBV.potion3Label.setText("" + ownedPotions[2]);
                     }
                 } else if (potion == 4) {
                     if (ownedPotions[3] > 0) {
                         rangerBlock += 5;
-                        CBV.block.setText("Block: " + rangerBlock);
+                        FBV.block.setText("Block: " + rangerBlock);
                         ownedPotions[3] -= 1;
-                        CBV.potion4Label.setText("" + ownedPotions[3]);
+                        FBV.potion4Label.setText("" + ownedPotions[3]);
                     }
                 } else if (potion == 5) {
                     if (ownedPotions[4] > 0) {
                         rangerBlock += 20;
-                        CBV.block.setText("Block: " + rangerBlock);
+                        FBV.block.setText("Block: " + rangerBlock);
                         ownedPotions[4] -= 1;
-                        CBV.potion5Label.setText("" + ownedPotions[4]);
+                        FBV.potion5Label.setText("" + ownedPotions[4]);
                     }
                 } else if (potion == 6) {
                     if (ownedPotions[5] > 0) {
                         rangerBlock += 50;
-                        CBV.block.setText("Block: " + rangerBlock);
+                        FBV.block.setText("Block: " + rangerBlock);
                         ownedPotions[5] -= 1;
-                        CBV.potion6Label.setText("" + ownedPotions[5]);
+                        FBV.potion6Label.setText("" + ownedPotions[5]);
                     }
                 }
                 if (potion == 7) {
                     if (ownedPotions[6] > 0) {
                         rangerEnergyInt += 3;
-                        CBV.energy.setText("Energy: " + rangerEnergyInt);
+                        FBV.energy.setText("Energy: " + rangerEnergyInt);
                         ownedPotions[6] -= 1;
-                        CBV.potion7Label.setText("" + ownedPotions[6]);
+                        FBV.potion7Label.setText("" + ownedPotions[6]);
                     }
                 } else if (potion == 8) {
                     if (ownedPotions[7] > 0) {
                         rangerEnergyInt += 5;
-                        CBV.energy.setText("Energy: " + rangerEnergyInt);
+                        FBV.energy.setText("Energy: " + rangerEnergyInt);
                         ownedPotions[7] -= 1;
-                        CBV.potion8Label.setText("" + ownedPotions[7]);
+                        FBV.potion8Label.setText("" + ownedPotions[7]);
                     }
                 } else if (potion == 9) {
                     if (ownedPotions[8] > 0) {
                         rangerEnergyInt += 10;
-                        CBV.energy.setText("Energy: " + rangerEnergyInt);
+                        FBV.energy.setText("Energy: " + rangerEnergyInt);
                         ownedPotions[8] -= 1;
-                        CBV.potion9Label.setText("" + ownedPotions[8]);
+                        FBV.potion9Label.setText("" + ownedPotions[8]);
                     }
                 } else if (potion == 10) {
                     if (ownedPotions[9] > 0) {
                         buffDamage[turns - 1] += 5;
                         ownedPotions[9] -= 1;
-                        CBV.potion10Label.setText("" + ownedPotions[9]);
+                        FBV.potion10Label.setText("" + ownedPotions[9]);
                     }
                 } else if (potion == 11) {
                     if (ownedPotions[10] > 0) {
                         buffDamage[turns - 1] += 10;
                         ownedPotions[10] -= 1;
-                        CBV.potion11Label.setText("" + ownedPotions[10]);
+                        FBV.potion11Label.setText("" + ownedPotions[10]);
                     }
                 } else if (potion == 12) {
                     if (ownedPotions[11] > 0) {
                         buffDamage[turns - 1] += 20;
                         ownedPotions[11] -= 1;
-                        CBV.potion12Label.setText("" + ownedPotions[11]);
+                        FBV.potion12Label.setText("" + ownedPotions[11]);
                     }
                 }
             }
@@ -1004,87 +1000,87 @@ public class CaveBossController {
                 if (potion == 1) {
                     if (ownedPotions[0] > 0) {
                         mageCurrentHp += 10;
-                        CBV.playersHp.setText("Hp: " + mageCurrentHp);
-                        CBV.player3Hp.setText("Mage: " + mageCurrentHp);
+                        FBV.playersHp.setText("Hp: " + mageCurrentHp);
+                        FBV.player3Hp.setText("Mage: " + mageCurrentHp);
                         ownedPotions[0] -= 1;
-                        CBV.potion1Label.setText("" + ownedPotions[0]);
+                        FBV.potion1Label.setText("" + ownedPotions[0]);
                     }
                 } else if (potion == 2) {
                     if (ownedPotions[1] > 0) {
                         mageCurrentHp += 30;
-                        CBV.playersHp.setText("Hp: " + mageCurrentHp);
-                        CBV.player3Hp.setText("Mage: " + mageCurrentHp);
+                        FBV.playersHp.setText("Hp: " + mageCurrentHp);
+                        FBV.player3Hp.setText("Mage: " + mageCurrentHp);
                         ownedPotions[1] -= 1;
-                        CBV.potion2Label.setText("" + ownedPotions[1]);
+                        FBV.potion2Label.setText("" + ownedPotions[1]);
                     }
                 } else if (potion == 3) {
                     if (ownedPotions[2] > 0) {
                         rangerCurrentHp += 60;
-                        CBV.playersHp.setText("Hp: " + mageCurrentHp);
-                        CBV.player3Hp.setText("Mage: " + mageCurrentHp);
-                        CBV.potion3Label.setText("" + ownedPotions[2]);
+                        FBV.playersHp.setText("Hp: " + mageCurrentHp);
+                        FBV.player3Hp.setText("Mage: " + mageCurrentHp);
+                        FBV.potion3Label.setText("" + ownedPotions[2]);
                         ownedPotions[2] -= 1;
                     }
                 } else if (potion == 4) {
                     if (ownedPotions[3] > 0) {
                         mageBlock += 5;
-                        CBV.block.setText("Block: " + mageBlock);
+                        FBV.block.setText("Block: " + mageBlock);
                         ownedPotions[3] -= 1;
-                        CBV.potion4Label.setText("" + ownedPotions[3]);
+                        FBV.potion4Label.setText("" + ownedPotions[3]);
                     }
                 } else if (potion == 5) {
                     if (ownedPotions[4] > 0) {
                         mageBlock += 20;
-                        CBV.block.setText("Block: " + mageBlock);
+                        FBV.block.setText("Block: " + mageBlock);
                         ownedPotions[4] -= 1;
-                        CBV.potion5Label.setText("" + ownedPotions[4]);
+                        FBV.potion5Label.setText("" + ownedPotions[4]);
                     }
                 } else if (potion == 6) {
                     if (ownedPotions[5] > 0) {
                         mageBlock += 50;
-                        CBV.block.setText("Block: " + mageBlock);
+                        FBV.block.setText("Block: " + mageBlock);
                         ownedPotions[5] -= 1;
-                        CBV.potion6Label.setText("" + ownedPotions[5]);
+                        FBV.potion6Label.setText("" + ownedPotions[5]);
                     }
                 }
                 if (potion == 7) {
                     if (ownedPotions[6] > 0) {
                         mageEnergyInt += 3;
-                        CBV.energy.setText("Energy: " + mageEnergyInt);
+                        FBV.energy.setText("Energy: " + mageEnergyInt);
                         ownedPotions[6] -= 1;
-                        CBV.potion7Label.setText("" + ownedPotions[6]);
+                        FBV.potion7Label.setText("" + ownedPotions[6]);
                     }
                 } else if (potion == 8) {
                     if (ownedPotions[7] > 0) {
                         mageEnergyInt += 5;
-                        CBV.energy.setText("Energy: " + mageEnergyInt);
+                        FBV.energy.setText("Energy: " + mageEnergyInt);
                         ownedPotions[7] -= 1;
-                        CBV.potion8Label.setText("" + ownedPotions[7]);
+                        FBV.potion8Label.setText("" + ownedPotions[7]);
                     }
                 } else if (potion == 9) {
                     if (ownedPotions[8] > 0) {
                         mageEnergyInt += 10;
-                        CBV.energy.setText("Energy: " + mageEnergyInt);
+                        FBV.energy.setText("Energy: " + mageEnergyInt);
                         ownedPotions[8] -= 1;
-                        CBV.potion9Label.setText("" + ownedPotions[8]);
+                        FBV.potion9Label.setText("" + ownedPotions[8]);
                     }
                 } else if (potion == 10) {
                     if (ownedPotions[9] > 0) {
                         buffDamage[turns - 1] += 5;
                         ownedPotions[9] -= 1;
-                        CBV.potion10Label.setText("" + ownedPotions[9]);
+                        FBV.potion10Label.setText("" + ownedPotions[9]);
                     }
                 } else if (potion == 11) {
                     if (ownedPotions[10] > 0) {
                         buffDamage[turns - 1] += 10;
                         ownedPotions[10] -= 1;
-                        CBV.potion11Label.setText("" + ownedPotions[10]);
+                        FBV.potion11Label.setText("" + ownedPotions[10]);
                     }
                 } else if (potion == 12) {
                     if (ownedPotions[11] > 0) {
                         buffDamage[turns - 1] += 20;
                         ownedPotions[11] -= 1;
-                        CBV.potion12Label.setText("" + ownedPotions[11]);
+                        FBV.potion12Label.setText("" + ownedPotions[11]);
                     }
                 }
             }
@@ -1093,87 +1089,87 @@ public class CaveBossController {
                 if (potion == 1) {
                     if (ownedPotions[0] > 0) {
                         healerCurrentHp += 10;
-                        CBV.playersHp.setText("Hp: " + healerCurrentHp);
-                        CBV.player4Hp.setText("Mage: " + healerCurrentHp);
+                        FBV.playersHp.setText("Hp: " + healerCurrentHp);
+                        FBV.player4Hp.setText("Mage: " + healerCurrentHp);
                         ownedPotions[0] -= 1;
-                        CBV.potion1Label.setText("" + ownedPotions[0]);
+                        FBV.potion1Label.setText("" + ownedPotions[0]);
                     }
                 } else if (potion == 2) {
                     if (ownedPotions[1] > 0) {
                         healerCurrentHp += 30;
-                        CBV.playersHp.setText("Hp: " + healerCurrentHp);
-                        CBV.player4Hp.setText("Mage: " + healerCurrentHp);
+                        FBV.playersHp.setText("Hp: " + healerCurrentHp);
+                        FBV.player4Hp.setText("Mage: " + healerCurrentHp);
                         ownedPotions[1] -= 1;
-                        CBV.potion2Label.setText("" + ownedPotions[1]);
+                        FBV.potion2Label.setText("" + ownedPotions[1]);
                     }
                 } else if (potion == 3) {
                     if (ownedPotions[2] > 0) {
                         healerCurrentHp += 60;
-                        CBV.playersHp.setText("Hp: " + healerCurrentHp);
-                        CBV.player4Hp.setText("Mage: " + healerCurrentHp);
+                        FBV.playersHp.setText("Hp: " + healerCurrentHp);
+                        FBV.player4Hp.setText("Mage: " + healerCurrentHp);
                         ownedPotions[2] -= 1;
-                        CBV.potion3Label.setText("" + ownedPotions[2]);
+                        FBV.potion3Label.setText("" + ownedPotions[2]);
                     }
                 } else if (potion == 4) {
                     if (ownedPotions[3] > 0) {
                         healerBlock += 5;
-                        CBV.block.setText("Block: " + healerBlock);
+                        FBV.block.setText("Block: " + healerBlock);
                         ownedPotions[3] -= 1;
-                        CBV.potion4Label.setText("" + ownedPotions[3]);
+                        FBV.potion4Label.setText("" + ownedPotions[3]);
                     }
                 } else if (potion == 5) {
                     if (ownedPotions[4] > 0) {
                         healerBlock += 20;
-                        CBV.block.setText("Block: " + healerBlock);
+                        FBV.block.setText("Block: " + healerBlock);
                         ownedPotions[4] -= 1;
-                        CBV.potion5Label.setText("" + ownedPotions[4]);
+                        FBV.potion5Label.setText("" + ownedPotions[4]);
                     }
                 } else if (potion == 6) {
                     if (ownedPotions[5] > 0) {
                         healerBlock += 50;
-                        CBV.block.setText("Block: " + healerBlock);
+                        FBV.block.setText("Block: " + healerBlock);
                         ownedPotions[5] -= 1;
-                        CBV.potion6Label.setText("" + ownedPotions[5]);
+                        FBV.potion6Label.setText("" + ownedPotions[5]);
                     }
                 }
                 if (potion == 7) {
                     if (ownedPotions[6] > 0) {
                         healerEnergyInt += 3;
-                        CBV.energy.setText("Energy: " + healerEnergyInt);
+                        FBV.energy.setText("Energy: " + healerEnergyInt);
                         ownedPotions[6] -= 1;
-                        CBV.potion7Label.setText("" + ownedPotions[6]);
+                        FBV.potion7Label.setText("" + ownedPotions[6]);
                     }
                 } else if (potion == 8) {
                     if (ownedPotions[7] > 0) {
                         healerEnergyInt += 5;
-                        CBV.energy.setText("Energy: " + healerEnergyInt);
+                        FBV.energy.setText("Energy: " + healerEnergyInt);
                         ownedPotions[7] -= 1;
-                        CBV.potion8Label.setText("" + ownedPotions[7]);
+                        FBV.potion8Label.setText("" + ownedPotions[7]);
                     }
                 } else if (potion == 9) {
                     if (ownedPotions[8] > 0) {
                         healerEnergyInt += 10;
-                        CBV.energy.setText("Energy: " + healerEnergyInt);
+                        FBV.energy.setText("Energy: " + healerEnergyInt);
                         ownedPotions[8] -= 1;
-                        CBV.potion9Label.setText("" + ownedPotions[8]);
+                        FBV.potion9Label.setText("" + ownedPotions[8]);
                     }
                 } else if (potion == 10) {
                     if (ownedPotions[9] > 0) {
                         buffDamage[turns - 1] += 5;
                         ownedPotions[9] -= 1;
-                        CBV.potion10Label.setText("" + ownedPotions[9]);
+                        FBV.potion10Label.setText("" + ownedPotions[9]);
                     }
                 } else if (potion == 11) {
                     if (ownedPotions[10] > 0) {
                         buffDamage[turns - 1] += 10;
                         ownedPotions[10] -= 1;
-                        CBV.potion11Label.setText("" + ownedPotions[10]);
+                        FBV.potion11Label.setText("" + ownedPotions[10]);
                     }
                 } else if (potion == 12) {
                     if (ownedPotions[11] > 0) {
                         buffDamage[turns - 1] += 20;
                         ownedPotions[11] -= 1;
-                        CBV.potion12Label.setText("" + ownedPotions[11]);
+                        FBV.potion12Label.setText("" + ownedPotions[11]);
                     }
                 }
             }
@@ -1185,68 +1181,68 @@ public class CaveBossController {
         //Add hover effect to buttons.
         private void hoverEffect() {
             //Attack Hover
-            CBV.attackButton.addMouseListener(new MouseAdapter() {
+            FBV.attackButton.addMouseListener(new MouseAdapter() {
                 //Change button color while hovering depending on your current energy.
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
                     if (currentEnergy >= 2) {
-                        CBV.attackButton.setBackground(Color.lightGray);
+                        FBV.attackButton.setBackground(Color.lightGray);
                     }
                     if (currentEnergy < 2) {
-                        CBV.attackButton.setBackground(Color.pink);
+                        FBV.attackButton.setBackground(Color.pink);
                     }
                 }
 
                 //Change back when not hovering over button
                 public void mouseExited(java.awt.event.MouseEvent evt) {
-                    CBV.attackButton.setBackground(Color.white);
+                    FBV.attackButton.setBackground(Color.white);
                 }
             });
 
             //Block Hover
-            CBV.blockButton.addMouseListener(new MouseAdapter() {
+            FBV.blockButton.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
                     if (currentEnergy >= 2) {
-                        CBV.blockButton.setBackground(Color.lightGray);
+                        FBV.blockButton.setBackground(Color.lightGray);
                     }
                     if (currentEnergy < 2) {
-                        CBV.blockButton.setBackground(Color.pink);
+                        FBV.blockButton.setBackground(Color.pink);
                     }
                 }
 
                 public void mouseExited(java.awt.event.MouseEvent evt) {
-                    CBV.blockButton.setBackground(Color.white);
+                    FBV.blockButton.setBackground(Color.white);
                 }
             });
 
             //Item Hover
-            CBV.itemButton.addMouseListener(new MouseAdapter() {
+            FBV.itemButton.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    CBV.itemButton.setBackground(Color.lightGray);
+                    FBV.itemButton.setBackground(Color.lightGray);
                 }
 
                 public void mouseExited(java.awt.event.MouseEvent evt) {
-                    CBV.itemButton.setBackground(Color.white);
+                    FBV.itemButton.setBackground(Color.white);
                 }
             });
             //Skill Hover
-            CBV.skillButton.addMouseListener(new MouseAdapter() {
+            FBV.skillButton.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    CBV.skillButton.setBackground(Color.lightGray);
+                    FBV.skillButton.setBackground(Color.lightGray);
                 }
 
                 public void mouseExited(java.awt.event.MouseEvent evt) {
-                    CBV.skillButton.setBackground(Color.white);
+                    FBV.skillButton.setBackground(Color.white);
                 }
             });
 
             //End turn Hover
-            CBV.endTurnButton.addMouseListener(new MouseAdapter() {
+            FBV.endTurnButton.addMouseListener(new MouseAdapter() {
                 public void mouseEntered(java.awt.event.MouseEvent evt) {
-                    CBV.endTurnButton.setBackground(Color.lightGray);
+                    FBV.endTurnButton.setBackground(Color.lightGray);
                 }
 
                 public void mouseExited(java.awt.event.MouseEvent evt) {
-                    CBV.endTurnButton.setBackground(Color.white);
+                    FBV.endTurnButton.setBackground(Color.white);
                 }
             });
         }
@@ -1256,9 +1252,9 @@ public class CaveBossController {
         //damageTargets types: single, line, all
         public void spellDamageSystem(int unbuffedDamage, String damageTargets) {
             damage = unbuffedDamage + buffDamage[turns - 1];
-            caveBossHp -= damage;
+            fieldBossHp -= damage;
 
-            CBV.caveBossHp.setText("glarb: " + caveBossHp);
+            FBV.fieldBossHp.setText("glarb: " + fieldBossHp);
             mobDeath();
             isFightOver();
         }
@@ -1285,10 +1281,10 @@ public class CaveBossController {
             if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
             if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
             if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
-            CBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
-            CBV.player2Hp.setText("Ranger:  " + rangerCurrentHp);
-            CBV.player3Hp.setText("Mage:    " + mageCurrentHp);
-            CBV.player4Hp.setText("Healer:  " + healerCurrentHp);
+            FBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
+            FBV.player2Hp.setText("Ranger:  " + rangerCurrentHp);
+            FBV.player3Hp.setText("Mage:    " + mageCurrentHp);
+            FBV.player4Hp.setText("Healer:  " + healerCurrentHp);
         }
 
         /**
@@ -1302,16 +1298,16 @@ public class CaveBossController {
                     if (warriorX == 100) MusicPick.musicStart("warriorattack", "");
                     animationPlaying = true;
                     warriorX += 15;
-                    CBV.warrior.setLocation(warriorX, warriorY);
+                    FBV.warrior.setLocation(warriorX, warriorY);
                     if (warriorX > 200) {
                         phase = 1;
                     }
                 } else if (phase == 1) {
                     warriorX -= 15;
-                    CBV.warrior.setLocation(warriorX, warriorY);
+                    FBV.warrior.setLocation(warriorX, warriorY);
                     if (warriorX <= warriorStartX) {
                         warriorX = warriorStartX;
-                        CBV.warrior.setLocation(warriorX, warriorY);
+                        FBV.warrior.setLocation(warriorX, warriorY);
                         phase = 0;
                         tackle.stop();
                         spellDamageSystem(warriorDamage, "single");
@@ -1332,14 +1328,14 @@ public class CaveBossController {
                     phase = 1;
                 } else if (phase == 1) {
                     warriorX += 20;
-                    CBV.warrior.setLocation(warriorX, warriorY);
+                    FBV.warrior.setLocation(warriorX, warriorY);
                     if (warriorX > 2000) {
                         phase = 2;
                     }
                 } else if (phase == 2) {
                     warriorX = warriorStartX;
                     warriorY = warriorStartY;
-                    CBV.warrior.setLocation(warriorX, warriorY);
+                    FBV.warrior.setLocation(warriorX, warriorY);
                     phase = 0;
                     charge.stop();
                     spellDamageSystem(6, "line");
@@ -1362,7 +1358,7 @@ public class CaveBossController {
                     warriorMegaMath -= 2;
                     warriorX += 20;
                     warriorY -= warriorMegaMath;
-                    CBV.warrior.setLocation(warriorX, warriorY);
+                    FBV.warrior.setLocation(warriorX, warriorY);
                     if (warriorY > warriorStartY) {
                         phase = 2;
                     }
@@ -1371,7 +1367,7 @@ public class CaveBossController {
                     if (timePast == 30) {
                         warriorY = warriorStartY;
                         warriorX = warriorStartX;
-                        CBV.warrior.setLocation(warriorX, warriorY);
+                        FBV.warrior.setLocation(warriorX, warriorY);
                         timePast = 0;
                         warriorMegaMath = 30;
                         phase = 0;
@@ -1396,23 +1392,23 @@ public class CaveBossController {
                     animationPlaying = true;
                 } else if (phase == 1) {
                     warriorY -= 5;
-                    CBV.warrior.setLocation(warriorX, warriorY);
+                    FBV.warrior.setLocation(warriorX, warriorY);
                     if (warriorY < warriorStartY + 50) {
                         phase = 2;
                     }
                 } else if (phase == 2) {
                     if (warriorY < 50) {
                         warriorY = 50;
-                        CBV.warrior.setLocation(warriorX, warriorY);
+                        FBV.warrior.setLocation(warriorX, warriorY);
                     }
                     timePast++;
                     if (timePast < 50) {
                         if (timePast % 2 == 1) {
                             warriorX += 4;
-                            CBV.warrior.setLocation(warriorX, warriorY);
+                            FBV.warrior.setLocation(warriorX, warriorY);
                         } else {
                             warriorX -= 4;
-                            CBV.warrior.setLocation(warriorX, warriorY);
+                            FBV.warrior.setLocation(warriorX, warriorY);
                         }
                     }
                     if (timePast > 50) {
@@ -1421,11 +1417,11 @@ public class CaveBossController {
                     }
                 } else if (phase == 3) {
                     warriorY += 3;
-                    CBV.warrior.setLocation(warriorX, warriorY);
+                    FBV.warrior.setLocation(warriorX, warriorY);
                     if (warriorY > warriorStartY) {
                         warriorX = warriorStartX;
                         warriorY = warriorStartY;
-                        CBV.warrior.setLocation(warriorX, warriorY);
+                        FBV.warrior.setLocation(warriorX, warriorY);
                         phase = 0;
                         shout.stop();
                         if (followup) {
@@ -1445,10 +1441,10 @@ public class CaveBossController {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 timePast++;
-                CBV.swordIcon.setLocation(swordIconX, swordIconY);
+                FBV.swordIcon.setLocation(swordIconX, swordIconY);
                 if (phase == 0) {
                     if (upMegaMath == 1) MusicPick.musicStart("demoshout", "");
-                    CBV.swordIcon.setVisible(true);
+                    FBV.swordIcon.setVisible(true);
                     upMegaMath *= 2;
                     swordIconY -= upMegaMath;
                 }
@@ -1485,7 +1481,7 @@ public class CaveBossController {
                     }
                     swordIconX = 300;
                     swordIconY = 300;
-                    CBV.swordIcon.setVisible(false);
+                    FBV.swordIcon.setVisible(false);
                     timePast = 0;
                     upMegaMath = 1;
                     rightMegaMath = 1;
@@ -1504,14 +1500,14 @@ public class CaveBossController {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 timePast++;
-                CBV.demoSword1.setLocation(swordIconX + 550, swordIconY + 50);
-                CBV.demoSword2.setLocation(swordIconX + 650, swordIconY + 100);
-                CBV.demoSword3.setLocation(swordIconX + 750, swordIconY + 50);
-                CBV.demoSword4.setLocation(swordIconX + 850, swordIconY + 100);
+                FBV.demoSword1.setLocation(swordIconX + 550, swordIconY + 50);
+                FBV.demoSword2.setLocation(swordIconX + 650, swordIconY + 100);
+                FBV.demoSword3.setLocation(swordIconX + 750, swordIconY + 50);
+                FBV.demoSword4.setLocation(swordIconX + 850, swordIconY + 100);
 
 
                 if (phase == 0) {
-                    if (caveBossHp > 0) CBV.demoSword1.setVisible(true);
+                    if (fieldBossHp > 0) FBV.demoSword1.setVisible(true);
 
                     upMegaMath *= 2;
                     swordIconY -= upMegaMath;
@@ -1546,10 +1542,10 @@ public class CaveBossController {
                 if (timePast == 50) {
                     swordIconX = 300;
                     swordIconY = 300;
-                    CBV.demoSword1.setVisible(false);
-                    CBV.demoSword2.setVisible(false);
-                    CBV.demoSword3.setVisible(false);
-                    CBV.demoSword4.setVisible(false);
+                    FBV.demoSword1.setVisible(false);
+                    FBV.demoSword2.setVisible(false);
+                    FBV.demoSword3.setVisible(false);
+                    FBV.demoSword4.setVisible(false);
                     timePast = 0;
                     upMegaMath = 1;
                     rightMegaMath = 1;
@@ -1574,20 +1570,20 @@ public class CaveBossController {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (phase == 0) {
-                    CBV.arrow.setVisible(true);
+                    FBV.arrow.setVisible(true);
                     if (arrowX == 121) {
                         animationPlaying = true;
                         MusicPick.musicStart("ding", "");
                     }
                     arrowX += 30;
-                    CBV.arrow.setLocation(arrowX, arrowY);
+                    FBV.arrow.setLocation(arrowX, arrowY);
                     if (arrowX > 1000) {
                         phase = 1;
                     }
                 } else if (phase == 1) {
-                    CBV.arrow.setVisible(false);
+                    FBV.arrow.setVisible(false);
                     arrowX = arrowStartX;
-                    CBV.arrow.setLocation(arrowX, arrowY);
+                    FBV.arrow.setLocation(arrowX, arrowY);
                     phase = 0;
                     shoot.stop();
                     if (stealthed) {
@@ -1606,75 +1602,75 @@ public class CaveBossController {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 arrowX += 30;
-                CBV.volley1.setLocation(arrowX, arrowY);
-                CBV.volley2.setLocation(arrowX - 200, arrowY);
-                CBV.volley3.setLocation(arrowX - 400, arrowY);
+                FBV.volley1.setLocation(arrowX, arrowY);
+                FBV.volley2.setLocation(arrowX - 200, arrowY);
+                FBV.volley3.setLocation(arrowX - 400, arrowY);
                 if (phase == 0) {
-                    CBV.volley1.setVisible(true);
+                    FBV.volley1.setVisible(true);
                     MusicPick.musicStart("ding", "");
                     phase = 1;
                 } else if (phase == 1 && arrowX > arrowStartX + 300) {
-                    CBV.volley2.setVisible(true);
+                    FBV.volley2.setVisible(true);
                     MusicPick.musicStart("ding", "");
                     phase = 2;
                 } else if (phase == 2 && arrowX > arrowStartX + 600) {
-                    CBV.volley3.setVisible(true);
+                    FBV.volley3.setVisible(true);
                     MusicPick.musicStart("ding", "");
                     phase = 3;
                 } else if (phase == 3 && arrowX > 1000) {
-                    CBV.volley1.setVisible(false);
+                    FBV.volley1.setVisible(false);
                     phase = 4;
                 } else if (phase == 4 && arrowX > 1200) {
-                    CBV.volley2.setVisible(false);
+                    FBV.volley2.setVisible(false);
                     phase = 5;
                 } else if (phase == 5 && arrowX > 1400) {
-                    CBV.volley3.setVisible(false);
+                    FBV.volley3.setVisible(false);
                     phase = 6;
                 }
                 if (phase == 6) {
                     arrowX = 300;
-                    CBV.volley1.setVisible(true);
+                    FBV.volley1.setVisible(true);
                     MusicPick.musicStart("ding", "");
                     phase = 7;
                 } else if (phase == 7 && arrowX > arrowStartX + 300) {
-                    CBV.volley2.setVisible(true);
+                    FBV.volley2.setVisible(true);
                     MusicPick.musicStart("ding", "");
                     phase = 8;
                 } else if (phase == 8 && arrowX > arrowStartX + 600) {
-                    CBV.volley3.setVisible(true);
+                    FBV.volley3.setVisible(true);
                     MusicPick.musicStart("ding", "");
                     phase = 9;
                 } else if (phase == 9 && arrowX > 1000) {
-                    CBV.volley1.setVisible(false);
+                    FBV.volley1.setVisible(false);
                     phase = 10;
                 } else if (phase == 10 && arrowX > 1200) {
-                    CBV.volley2.setVisible(false);
+                    FBV.volley2.setVisible(false);
                     phase = 11;
                 } else if (phase == 11 && arrowX > 1400) {
-                    CBV.volley3.setVisible(false);
+                    FBV.volley3.setVisible(false);
                     phase = 12;
                     arrowX = 300;
                 }
                 if (phase == 12) {
-                    CBV.volley1.setVisible(true);
+                    FBV.volley1.setVisible(true);
                     MusicPick.musicStart("ding", "");
                     phase = 13;
                 } else if (phase == 13 && arrowX > arrowStartX + 300) {
-                    CBV.volley2.setVisible(true);
+                    FBV.volley2.setVisible(true);
                     MusicPick.musicStart("ding", "");
                     phase = 14;
                 } else if (phase == 14 && arrowX > arrowStartX + 600) {
-                    CBV.volley3.setVisible(true);
+                    FBV.volley3.setVisible(true);
                     MusicPick.musicStart("ding", "");
                     phase = 15;
                 } else if (phase == 15 && arrowX > 1000) {
-                    CBV.volley1.setVisible(false);
+                    FBV.volley1.setVisible(false);
                     phase = 16;
                 } else if (phase == 16 && arrowX > 1200) {
-                    CBV.volley2.setVisible(false);
+                    FBV.volley2.setVisible(false);
                     phase = 17;
                 } else if (phase == 17 && arrowX > 1400) {
-                    CBV.volley3.setVisible(false);
+                    FBV.volley3.setVisible(false);
                     phase = 18;
                 } else if (phase == 18) {
                     arrowX = 270;
@@ -1697,8 +1693,8 @@ public class CaveBossController {
         public void stealth() {
             if (!stealthed) {
                 MusicPick.musicStart("stealth", "");
-                CBV.ranger.setVisible(false);
-                CBV.stealthranger.setVisible(true);
+                FBV.ranger.setVisible(false);
+                FBV.stealthranger.setVisible(true);
                 stealthed = true;
             }
         }
@@ -1709,8 +1705,8 @@ public class CaveBossController {
         public void unstealth() {
             if (stealthed) {
                 MusicPick.musicStart("unstealth", "");
-                CBV.ranger.setVisible(true);
-                CBV.stealthranger.setVisible(false);
+                FBV.ranger.setVisible(true);
+                FBV.stealthranger.setVisible(false);
                 stealthed = false;
             }
         }
@@ -1724,13 +1720,13 @@ public class CaveBossController {
                 if (phase == 0) {
                     animationPlaying = true;
                     phase = 1;
-                    CBV.bomb.setVisible(true);
+                    FBV.bomb.setVisible(true);
                 }
                 if (phase == 1) {
                     bombMegaMath -= 2;
                     bombX += 20;
                     bombY -= bombMegaMath;
-                    CBV.bomb.setLocation(bombX, bombY);
+                    FBV.bomb.setLocation(bombX, bombY);
                     if (bombY > bombStartY) {
                         phase = 2;
                     }
@@ -1739,15 +1735,15 @@ public class CaveBossController {
                     if (timePast == 30) {
                         bombY = bombStartY;
                         bombX = bombStartX;
-                        CBV.bomb.setLocation(bombX, bombY);
-                        CBV.bomb.setVisible(false);
-                        CBV.explode.setVisible(true);
+                        FBV.bomb.setLocation(bombX, bombY);
+                        FBV.bomb.setVisible(false);
+                        FBV.explode.setVisible(true);
                         MusicPick.musicStart("Explosion", "");
                     }
                     if (timePast == 60) {
                         bombMegaMath = 36;
-                        CBV.bomb.setVisible(false);
-                        CBV.explode.setVisible(false);
+                        FBV.bomb.setVisible(false);
+                        FBV.explode.setVisible(false);
                         timePast = 0;
                         phase = 0;
                         bombthrow.stop();
@@ -1772,19 +1768,19 @@ public class CaveBossController {
             public void actionPerformed(ActionEvent ae) {
                 if (phase == 0) {
                     animationPlaying = true;
-                    CBV.blast.setVisible(true);
+                    FBV.blast.setVisible(true);
                     if (blastY == 121) {
                         MusicPick.musicStart("fireball", "");
                     }
                     blastX += 30;
-                    CBV.blast.setLocation(blastX, blastY);
+                    FBV.blast.setLocation(blastX, blastY);
                     if (blastX > 1000) {
                         phase = 1;
                     }
                 } else if (phase == 1) {
-                    CBV.blast.setVisible(false);
+                    FBV.blast.setVisible(false);
                     blastX = blastStartX;
-                    CBV.blast.setLocation(blastX, blastY);
+                    FBV.blast.setLocation(blastX, blastY);
                     phase = 0;
                     spellDamageSystem(mageDamage, "single");
                     blast.stop();
@@ -1802,38 +1798,38 @@ public class CaveBossController {
                 timePast++;
                 if (timePast < 100) {
                     animationPlaying = true;
-                    CBV.smallPyroBlast.setVisible(true);
+                    FBV.smallPyroBlast.setVisible(true);
                 } else if (timePast < 200) {
-                    CBV.smallPyroBlast.setVisible(false);
-                    CBV.mediumPyroBlast.setVisible(true);
+                    FBV.smallPyroBlast.setVisible(false);
+                    FBV.mediumPyroBlast.setVisible(true);
                 } else if (timePast < 350) {
-                    CBV.mediumPyroBlast.setVisible(false);
-                    CBV.bigPyroBlast.setVisible(true);
+                    FBV.mediumPyroBlast.setVisible(false);
+                    FBV.bigPyroBlast.setVisible(true);
                     pyroBlastX = 45;
                     pyroblastY = 200;
-                    CBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                    FBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
                 } else if (timePast < 400) {
                     pyroBlastX += 3;
                     pyroblastY -= 1;
-                    CBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                    FBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
                 } else if (timePast < 460) {
                     pyroBlastX += 3;
                     pyroblastY += 1;
-                    CBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                    FBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
                 } else if (timePast < 530) {
                     pyroBlastX += 3;
                     pyroblastY -= 1;
-                    CBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                    FBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
                 } else if (timePast < 590) {
                     pyroBlastX += 4;
                     pyroblastY += 1;
-                    CBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                    FBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
                 } else {
-                    CBV.bigPyroBlast.setVisible(false);
+                    FBV.bigPyroBlast.setVisible(false);
                     timePast = 0;
                     pyroBlastX = 90;
                     pyroblastY = 300;
-                    CBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                    FBV.bigPyroBlast.setLocation(pyroBlastX, pyroblastY);
                     spellDamageSystem(20, "single");
                     pyroBlast.stop();
                     animationPlaying = false;
@@ -1854,31 +1850,31 @@ public class CaveBossController {
                     phase = 1;
                 } else if (phase == 1) {
                     mageY -= 3;
-                    CBV.mage.setLocation(mageX, mageY);
+                    FBV.mage.setLocation(mageX, mageY);
                     if (mageY < 50) {
                         phase = 2;
                     }
                 } else if (phase == 2) {
                     if (mageY < 50) {
                         mageY = 50;
-                        CBV.mage.setLocation(mageX, mageY);
+                        FBV.mage.setLocation(mageX, mageY);
                     }
                     timePast++;
                     if (timePast < 100) {
                         if (timePast % 2 == 1) {
                             mageX += 6;
-                            CBV.mage.setLocation(mageX, mageY);
+                            FBV.mage.setLocation(mageX, mageY);
                             flameStrikeY += 13;
-                            CBV.flame.setLocation(900, flameStrikeY);
+                            FBV.flame.setLocation(900, flameStrikeY);
                         } else {
                             mageX -= 6;
-                            CBV.mage.setLocation(mageX, mageY);
+                            FBV.mage.setLocation(mageX, mageY);
                         }
                     }
                     if (timePast == 102) {
-                        CBV.mage.setLocation(mageX, mageY);
+                        FBV.mage.setLocation(mageX, mageY);
                         flameStrikeY = -400;
-                        CBV.flame.setLocation(700, flameStrikeY);
+                        FBV.flame.setLocation(700, flameStrikeY);
                         spellDamageSystem(5, "all");
                     }
                     if (timePast > 130) {
@@ -1887,11 +1883,11 @@ public class CaveBossController {
                     }
                 } else if (phase == 3) {
                     mageY += 3;
-                    CBV.mage.setLocation(mageX, mageY);
+                    FBV.mage.setLocation(mageX, mageY);
                     if (mageY > mageStartY) {
                         mageX = mageStartX;
                         mageY = mageStartY;
-                        CBV.mage.setLocation(mageX, mageY);
+                        FBV.mage.setLocation(mageX, mageY);
                         phase = 4;
                     }
                 } else if (phase == 4) {
@@ -1914,14 +1910,14 @@ public class CaveBossController {
             public void actionPerformed(ActionEvent ae) {
                 timePast++;
                 pyroBlastX += 16;
-                CBV.smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                FBV.smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
                 animationPlaying = true;
                 if (followup) {
                     MusicPick.musicStart("fireball", "");
                     followup = false;
                 }
                 if (phase == 0) {
-                    CBV.smallPyroBlast.setVisible(true);
+                    FBV.smallPyroBlast.setVisible(true);
                     upMegaMath *= 2;
                     pyroblastY -= upMegaMath;
                 }
@@ -1955,7 +1951,7 @@ public class CaveBossController {
                 if (timePast == 50) {
                     pyroblastY = 300;
                     pyroBlastX = 90;
-                    CBV.smallPyroBlast.setVisible(false);
+                    FBV.smallPyroBlast.setVisible(false);
                     timePast = 0;
                     upMegaMath = 1;
                     rightMegaMath = 1;
@@ -1965,7 +1961,7 @@ public class CaveBossController {
                     fireBall.stop();
                     spellDamageSystem(8, "single");
                     animationPlaying = false;
-                    CBV.smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
+                    FBV.smallPyroBlast.setLocation(pyroBlastX, pyroblastY);
                 }
             }
         });
@@ -1980,18 +1976,18 @@ public class CaveBossController {
                 timePast++;
                 if (phase == 0) {
                     animationPlaying = true;
-                    if (healTarget == 1) CBV.holyLight.setLocation(warriorStartX - 220, warriorStartY - 500);
-                    if (healTarget == 2) CBV.holyLight.setLocation(rangerStartX - 220, rangerStartY - 450);
-                    if (healTarget == 3) CBV.holyLight.setLocation(mageStartX - 220, mageStartY - 450);
-                    if (healTarget == 4) CBV.holyLight.setLocation(healerStartX - 220, healerStartY - 500);
+                    if (healTarget == 1) FBV.holyLight.setLocation(warriorStartX - 220, warriorStartY - 500);
+                    if (healTarget == 2) FBV.holyLight.setLocation(rangerStartX - 220, rangerStartY - 450);
+                    if (healTarget == 3) FBV.holyLight.setLocation(mageStartX - 220, mageStartY - 450);
+                    if (healTarget == 4) FBV.holyLight.setLocation(healerStartX - 220, healerStartY - 500);
                     MusicPick.musicStart("holylight", "");
-                    CBV.holyLight.setVisible(true);
+                    FBV.holyLight.setVisible(true);
                     phase = 1;
                 }
                 if (timePast == 100) {
                     spellHealSystem(30, "single");
                     timePast = 0;
-                    CBV.holyLight.setVisible(false);
+                    FBV.holyLight.setVisible(false);
                     holyLightSpell.stop();
                     phase = 0;
                     animationPlaying = false;
@@ -2008,18 +2004,18 @@ public class CaveBossController {
                 timePast++;
                 if (phase == 0) {
                     animationPlaying = true;
-                    if (healTarget == 1) CBV.smallHolyLight.setLocation(warriorStartX - 225, warriorStartY - 500);
-                    if (healTarget == 2) CBV.smallHolyLight.setLocation(rangerStartX - 225, rangerStartY - 500);
-                    if (healTarget == 3) CBV.smallHolyLight.setLocation(mageStartX - 225, mageStartY - 500);
-                    if (healTarget == 4) CBV.smallHolyLight.setLocation(healerStartX - 225, healerStartY - 500);
+                    if (healTarget == 1) FBV.smallHolyLight.setLocation(warriorStartX - 225, warriorStartY - 500);
+                    if (healTarget == 2) FBV.smallHolyLight.setLocation(rangerStartX - 225, rangerStartY - 500);
+                    if (healTarget == 3) FBV.smallHolyLight.setLocation(mageStartX - 225, mageStartY - 500);
+                    if (healTarget == 4) FBV.smallHolyLight.setLocation(healerStartX - 225, healerStartY - 500);
                     MusicPick.musicStart("holylight", "");
-                    CBV.smallHolyLight.setVisible(true);
+                    FBV.smallHolyLight.setVisible(true);
                     phase = 1;
                 }
                 if (timePast > 100) {
                     spellHealSystem(15, "single");
                     timePast = 0;
-                    CBV.smallHolyLight.setVisible(false);
+                    FBV.smallHolyLight.setVisible(false);
                     smallHolyLightSpell.stop();
                     phase = 0;
                     animationPlaying = false;
@@ -2036,23 +2032,23 @@ public class CaveBossController {
                 timePast++;
                 if (phase == 0) {
                     animationPlaying = true;
-                    CBV.groupHeal1.setLocation(warriorStartX + 75, warriorStartY - 500);
-                    CBV.groupHeal2.setLocation(rangerStartX + 75, rangerStartY - 500);
-                    CBV.groupHeal3.setLocation(mageStartX + 75, mageStartY - 500);
-                    CBV.groupHeal4.setLocation(healerStartX + 75, healerStartY - 500);
+                    FBV.groupHeal1.setLocation(warriorStartX + 75, warriorStartY - 500);
+                    FBV.groupHeal2.setLocation(rangerStartX + 75, rangerStartY - 500);
+                    FBV.groupHeal3.setLocation(mageStartX + 75, mageStartY - 500);
+                    FBV.groupHeal4.setLocation(healerStartX + 75, healerStartY - 500);
                     MusicPick.musicStart("groupheal", "");
-                    CBV.groupHeal1.setVisible(true);
-                    CBV.groupHeal2.setVisible(true);
-                    CBV.groupHeal3.setVisible(true);
-                    CBV.groupHeal4.setVisible(true);
+                    FBV.groupHeal1.setVisible(true);
+                    FBV.groupHeal2.setVisible(true);
+                    FBV.groupHeal3.setVisible(true);
+                    FBV.groupHeal4.setVisible(true);
                     phase = 1;
                 }
                 if (timePast > 400) {
                     timePast = 0;
-                    CBV.groupHeal1.setVisible(false);
-                    CBV.groupHeal2.setVisible(false);
-                    CBV.groupHeal3.setVisible(false);
-                    CBV.groupHeal4.setVisible(false);
+                    FBV.groupHeal1.setVisible(false);
+                    FBV.groupHeal2.setVisible(false);
+                    FBV.groupHeal3.setVisible(false);
+                    FBV.groupHeal4.setVisible(false);
                     groupHealSpell.stop();
                     phase = 0;
                     spellHealSystem(10, "all");
@@ -2071,16 +2067,16 @@ public class CaveBossController {
                     animationPlaying = true;
                     if (healerX == 100) MusicPick.musicStart("ding", "");
                     healerX += 15;
-                    CBV.healer.setLocation(healerX, healerY);
+                    FBV.healer.setLocation(healerX, healerY);
                     if (healerX > 200) {
                         phase = 1;
                     }
                 } else if (phase == 1) {
                     healerX -= 15;
-                    CBV.healer.setLocation(healerX, healerY);
+                    FBV.healer.setLocation(healerX, healerY);
                     if (healerX <= healerStartX) {
                         healerX = healerStartX;
-                        CBV.healer.setLocation(healerX, healerY);
+                        FBV.healer.setLocation(healerX, healerY);
                         phase = 0;
                         spellDamageSystem(healerDamage, "single");
                         healerAttack.stop();
@@ -2100,20 +2096,20 @@ public class CaveBossController {
             public void actionPerformed(ActionEvent ae) {
                 timePast++;
                 animationPlaying = true;
-                CBV.endTurnButton.setVisible(false);
+                FBV.endTurnButton.setVisible(false);
                 if (timePast < 50) {
-                    caveBossX -= 30;
-                    CBV.caveBoss.setLocation(caveBossX, caveBossY);
+                    fieldBossX -= 30;
+                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
                 } else if (timePast < 60) {
-                    caveBossX += 30;
-                    CBV.caveBoss.setLocation(caveBossX, caveBossY);
+                    fieldBossX += 30;
+                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
                 } else if (timePast < 110) {
-                    caveBossX = caveBossStartX;
-                    CBV.caveBoss.setLocation(caveBossX, caveBossY);
-                    caveBossAttack("attack1");
+                    fieldBossX = fieldBossStartX;
+                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
+                    fieldBossAttack("attack1");
                     timePast = 0;
                     bossAttack1.stop();
-                    CBV.endTurnButton.setVisible(true);
+                    FBV.endTurnButton.setVisible(true);
                     animationPlaying = false;
                     takeDamage.start();
                     animationPlaying = false;
@@ -2130,32 +2126,32 @@ public class CaveBossController {
             public void actionPerformed(ActionEvent ae) {
                 if (phase == 0) {
                     animationPlaying = true;
-                    CBV.endTurnButton.setVisible(false);
+                    FBV.endTurnButton.setVisible(false);
                     MusicPick.musicStart("glarbsound", "");
                     phase = 1;
                 }
                 if (phase == 1) {
                     bossMegaMath -= 2;
-                    caveBossX -= 15;
-                    caveBossY -= bossMegaMath;
-                    CBV.caveBoss.setLocation(caveBossX, caveBossY);
-                    if (caveBossY > caveBossStartY) {
-                        caveBossY = caveBossStartY;
-                        CBV.caveBoss.setLocation(caveBossX, caveBossY);
+                    fieldBossX -= 15;
+                    fieldBossY -= bossMegaMath;
+                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
+                    if (fieldBossY > fieldBossStartY) {
+                        fieldBossY = fieldBossStartY;
+                        FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
                         phase = 2;
                     }
                 } else if (phase == 2) {
                     timePast++;
                     if (timePast == 90) {
-                        caveBossY = caveBossStartY;
-                        caveBossX = caveBossStartX;
-                        CBV.caveBoss.setLocation(caveBossX, caveBossY);
+                        fieldBossY = fieldBossStartY;
+                        fieldBossX = fieldBossStartX;
+                        FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
                         timePast = 0;
                         bossMegaMath = 50;
                         phase = 0;
                         bossAttack2.stop();
-                        caveBossAttack("attack2");
-                        CBV.endTurnButton.setVisible(true);
+                        fieldBossAttack("attack2");
+                        FBV.endTurnButton.setVisible(true);
                         animationPlaying = false;
                         takeDamage.start();
 
@@ -2173,27 +2169,27 @@ public class CaveBossController {
             public void actionPerformed(ActionEvent ae) {
                 timePast++;
                 animationPlaying = true;
-                CBV.endTurnButton.setVisible(false);
+                FBV.endTurnButton.setVisible(false);
                 if (timePast < 40) {
-                    caveBossX += 30;
-                    caveBossY -= 20;
-                    CBV.caveBoss.setLocation(caveBossX, caveBossY);
+                    fieldBossX += 30;
+                    fieldBossY -= 20;
+                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
                 } else if (timePast < 48) {
-                    caveBossY = caveBossStartY;
-                    caveBossFlipX += 60;
-                    CBV.caveBossflip.setLocation(caveBossFlipX, caveBossY);
+                    fieldBossY = fieldBossStartY;
+                    fieldBossFlipX += 60;
+                    FBV.fieldBossflip.setLocation(fieldBossFlipX, fieldBossY);
                 } else if (timePast < 56) {
-                    caveBossFlipX -= 60;
-                    CBV.caveBossflip.setLocation(caveBossFlipX, caveBossY);
+                    fieldBossFlipX -= 60;
+                    FBV.fieldBossflip.setLocation(fieldBossFlipX, fieldBossY);
                 } else if (timePast < 150) {
-                    caveBossX = caveBossStartX;
-                    caveBossFlipX = caveBossFlipStart;
-                    CBV.caveBoss.setLocation(caveBossX, caveBossY);
-                    caveBossAttack("attack3");
+                    fieldBossX = fieldBossStartX;
+                    fieldBossFlipX = fieldBossFlipStart;
+                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
+                    fieldBossAttack("attack3");
                     timePast = 0;
                     bossAttack3.stop();
                     takeDamage.start();
-                    CBV.endTurnButton.setVisible(true);
+                    FBV.endTurnButton.setVisible(true);
                     animationPlaying = false;
                     bossDamage +=5;
                 }
@@ -2210,24 +2206,24 @@ public class CaveBossController {
                 timePast++;
                 if (timePast == 1) {
                     animationPlaying = true;
-                    CBV.endTurnButton.setVisible(false);
+                    FBV.endTurnButton.setVisible(false);
                 } else if (timePast < 10) {
-                    caveBossX -= 10;
-                    CBV.caveBoss.setLocation(caveBossX, caveBossY);
+                    fieldBossX -= 10;
+                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
                 } else if (timePast == 10) {
                     MusicPick.musicStart("wolfhowl", "");
                 } else if (timePast < 90) {
                     //nothing
                 } else if (timePast < 100) {
-                    caveBossX += 5;
-                    CBV.caveBoss.setLocation(caveBossX, caveBossY);
+                    fieldBossX += 5;
+                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
                 } else if (timePast < 120) {
-                    caveBossY = caveBossStartY;
-                    caveBossX = caveBossStartX;
-                    CBV.caveBoss.setLocation(caveBossX, caveBossY);
+                    fieldBossY = fieldBossStartY;
+                    fieldBossX = fieldBossStartX;
+                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
                     timePast = 0;
                     bossAttack4.stop();
-                    CBV.endTurnButton.setVisible(true);
+                    FBV.endTurnButton.setVisible(true);
                     animationPlaying = false;
                     startNewTurn();
                 }
@@ -2245,25 +2241,25 @@ public class CaveBossController {
                 if (timePastTakeDamage == 1) {
 
                 } else if (timePastTakeDamage == 10) {
-                    if (warriorattacked && warriorCurrentHp > 0) CBV.warrior.setVisible(false);
-                    if (rangerattacked && rangerCurrentHp > 0) CBV.ranger.setVisible(false);
-                    if (mageattacked && mageCurrentHp > 0) CBV.mage.setVisible(false);
-                    if (healerattacked && healerCurrentHp > 0) CBV.healer.setVisible(false);
+                    if (warriorattacked && warriorCurrentHp > 0) FBV.warrior.setVisible(false);
+                    if (rangerattacked && rangerCurrentHp > 0) FBV.ranger.setVisible(false);
+                    if (mageattacked && mageCurrentHp > 0) FBV.mage.setVisible(false);
+                    if (healerattacked && healerCurrentHp > 0) FBV.healer.setVisible(false);
                 } else if (timePastTakeDamage == 20) {
-                    if (warriorattacked && warriorCurrentHp > 0) CBV.warrior.setVisible(true);
-                    if (rangerattacked && rangerCurrentHp > 0) CBV.ranger.setVisible(true);
-                    if (mageattacked && mageCurrentHp > 0) CBV.mage.setVisible(true);
-                    if (healerattacked && healerCurrentHp > 0) CBV.healer.setVisible(true);
+                    if (warriorattacked && warriorCurrentHp > 0) FBV.warrior.setVisible(true);
+                    if (rangerattacked && rangerCurrentHp > 0) FBV.ranger.setVisible(true);
+                    if (mageattacked && mageCurrentHp > 0) FBV.mage.setVisible(true);
+                    if (healerattacked && healerCurrentHp > 0) FBV.healer.setVisible(true);
                 } else if (timePastTakeDamage == 30) {
-                    if (warriorattacked && warriorCurrentHp > 0) CBV.warrior.setVisible(false);
-                    if (rangerattacked && rangerCurrentHp > 0) CBV.ranger.setVisible(false);
-                    if (mageattacked  && mageCurrentHp > 0) CBV.mage.setVisible(false);
-                    if (healerattacked  && healerCurrentHp > 0) CBV.healer.setVisible(false);
+                    if (warriorattacked && warriorCurrentHp > 0) FBV.warrior.setVisible(false);
+                    if (rangerattacked && rangerCurrentHp > 0) FBV.ranger.setVisible(false);
+                    if (mageattacked  && mageCurrentHp > 0) FBV.mage.setVisible(false);
+                    if (healerattacked  && healerCurrentHp > 0) FBV.healer.setVisible(false);
                 } else if (timePastTakeDamage == 40) {
-                    if (warriorattacked  && warriorCurrentHp > 0) CBV.warrior.setVisible(true);
-                    if (rangerattacked  && rangerCurrentHp > 0) CBV.ranger.setVisible(true);
-                    if (mageattacked  && mageCurrentHp > 0) CBV.mage.setVisible(true);
-                    if (healerattacked  && healerCurrentHp > 0) CBV.healer.setVisible(true);
+                    if (warriorattacked  && warriorCurrentHp > 0) FBV.warrior.setVisible(true);
+                    if (rangerattacked  && rangerCurrentHp > 0) FBV.ranger.setVisible(true);
+                    if (mageattacked  && mageCurrentHp > 0) FBV.mage.setVisible(true);
+                    if (healerattacked  && healerCurrentHp > 0) FBV.healer.setVisible(true);
                 } else if (timePastTakeDamage > 45) {
                     warriorattacked = false;
                     rangerattacked = false;
@@ -2277,4 +2273,3 @@ public class CaveBossController {
             }
         });
     }
-
