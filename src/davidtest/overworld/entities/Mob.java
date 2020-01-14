@@ -6,11 +6,11 @@ import davidtest.overworld.levels.tiles.Tile;
 
 public abstract class Mob extends Entity {
 
-    protected String name; //name
-    protected int speed; //movement-speed
-    protected int numSteps = 0; //counted numbers of steps taken by mob
-    protected boolean isMoving; //boolean if mob is moving
-    protected int movingDir = 1; //assign the direction the mob is facing
+    private String name; //name
+    private int speed; //movement-speed
+    int numSteps = 0; //counted numbers of steps taken by mob
+    boolean isMoving; //boolean if mob is moving
+    int movingDir = 1; //assign the direction the mob is facing
 
     //create parameter for mob-extensions
     public Mob(Level level1, String name, int x, int y, int speed) {

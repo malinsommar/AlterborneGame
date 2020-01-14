@@ -33,13 +33,14 @@ public class Level {
         }
     }
 
+    //load the map onto the screen
     private void loadLevelFromFile() {
         try {
-            this.image = ImageIO.read(Level.class.getResource(this.imagePath));
-            this.width = image.getWidth();
-            this.height = image.getHeight();
-            tiles = new byte[width* height];
-            this.loadTiles();
+            this.image = ImageIO.read(Level.class.getResource(this.imagePath)); //read the map using an ImageIO
+            this.width = image.getWidth(); //get width
+            this.height = image.getHeight(); //get height
+            tiles = new byte[width* height]; //multiply both to get the tiles
+            this.loadTiles(); //Load tiles onto the map
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,7 +55,8 @@ public class Level {
             for (int x = 0; x < width; x++) {
                 //loop through all the possible tiles located in the "tiles"-variable
                 for (Tile t : Tile.tiles) {
-                    if (t != null && t.getLevelColour() == tileColours[x + y * width]) {
+                    if (t != null && t.getLevelColour() == tileColours[x + y * width])
+                    {
                         this.tiles[x + y * width] = t.getId();
                         break;
                     }
@@ -63,6 +65,7 @@ public class Level {
         }
     }
 
+    //save level as a png if needed (not used)
     private void saveLevelToFile() {
         try {
             ImageIO.write(image, "png", new File(java.util.logging.Level.class.getResource(this.imagePath).getFile()));
@@ -70,16 +73,17 @@ public class Level {
             e.printStackTrace();
         }
     }
+    //method to change tiles if needed (not used)
     public void alterTile(int x, int y, Tile newTile) {
         this.tiles[x+y*width] = newTile.getId();
         image.setRGB(x,y,newTile.getLevelColour());
     }
 
+    //update the level based on tick-count
     public void tick() {
         for (Entity e : entities) {
             e.tick();
         }
-
         for (Tile t : Tile.tiles) {
             if (t == null) {
                 break;
