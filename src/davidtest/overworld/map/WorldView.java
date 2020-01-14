@@ -5,6 +5,8 @@ import davidtest.overworld.levels.Level;
 import davidtest.overworld.entities.Player;
 import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.map.Functionality.InputHandler;
+import game.MasterModel;
+import game.UserNameController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,7 +47,7 @@ public class WorldView extends Canvas {
          InputHandler input = new InputHandler(this); //call input-object
          screen = new Screen(WorldView.WIDTH, WorldView.HEIGHT, new SpriteSheet("/resources/spriteSheet/Sprite_sheet.png"));//call spriteSheet-object within the frames height and width
          level = new Level("/resources/maps/Map.png");//call map-object
-         player = new Player(level, 230, 235, input, JOptionPane.showInputDialog(this, "please enter a username")); //call Player-object and position it on map. Assign the input class to player
+         player = new Player(level, 230, 235, input, MasterModel.userName); //call Player-object and position it on map. Assign the input class to player
          level.addEntity(player); //add player onto the screen
 
 

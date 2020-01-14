@@ -28,7 +28,7 @@ public class MasterModel {
     private int[] healerLevelUpStats = new int[3];
     private int[] rangerLevelUpStats = new int[3];
 
-    private String userName;
+    public static String userName;
 
     //Warrior weapon/armor things
 
@@ -113,13 +113,14 @@ public class MasterModel {
         masterLoop1();
     }
 
-    public void enterUserName() throws InterruptedException {
+    public String enterUserName() throws InterruptedException {
         unc.startUserNameFrame();
         masterLoop1();
 
         userName = unc.nameField.getText();
-        System.out.println("namn " + userName);
+        System.out.println("Name " + userName);
         startWorldModel();
+        return userName;
     }
 
     //This method open the overWorld screen. Depending on where the player goes on the map it returns a variable that opens different fights of shop screen.

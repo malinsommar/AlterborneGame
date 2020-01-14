@@ -8,6 +8,8 @@ import davidtest.overworld.gfx.Screen;
 import davidtest.overworld.map.Functionality.InputHandler;
 import davidtest.overworld.map.Functionality.RandomEncounter;
 
+import java.awt.*;
+
 public class Player extends Mob {
 
 
@@ -27,14 +29,13 @@ public class Player extends Mob {
 
 
     private int tickCount = 0; //counts the ticks since the last update
-    private String username; //username
+     private String username; //username
 
     public Player(Level level1, int x, int y, InputHandler input, String username) {
         super(level1, "Player", x, y, 1);
-        this.input = input; //assign the input-method onto the player
+        this.input = input; //assign the input-class onto the player
         this.username = username;
     }
-
 
     @Override
     //updates isPressed method based on player-input every time the tick counts up by one
