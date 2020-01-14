@@ -265,7 +265,7 @@ public class FieldController{
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 1;
-                fv.targetarrow.setLocation(850, 225);
+                fv.targetarrow.setLocation(850, 175);
                 fv.targetarrow.setVisible(true);
             }
         });
@@ -273,7 +273,7 @@ public class FieldController{
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 2;
-                fv.targetarrow.setLocation(1025, 225);
+                fv.targetarrow.setLocation(1025, 175);
                 fv.targetarrow.setVisible(true);
             }
         });
@@ -281,7 +281,7 @@ public class FieldController{
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 3;
-                fv.targetarrow.setLocation(925, 300);
+                fv.targetarrow.setLocation(925, 250);
                 fv.targetarrow.setVisible(true);
             }
         });
@@ -289,7 +289,7 @@ public class FieldController{
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 4;
-                fv.targetarrow.setLocation(1100, 300);
+                fv.targetarrow.setLocation(1100, 250);
                 fv.targetarrow.setVisible(true);
             }
         });

@@ -88,7 +88,7 @@ public class CastleController{
 
     public void startFight() {
 
-        MusicPick.musicStart("inferno", "music");
+        MusicPick.musicStart("spooky", "music");
 
         currentEnergy = 5;
 

@@ -15,6 +15,7 @@ public class MasterModel {
     private LevelUpController luc = new LevelUpController();
     private LootController lc = new LootController();
     private ForestCon forestCon = new ForestCon();
+    private SwampController swampcon = new SwampController();
     private ForestBossCon forestBossCon = new ForestBossCon();
     private CaveController caveCon = new CaveController();
     private FieldController fieldCon = new FieldController();
@@ -260,8 +261,12 @@ public class MasterModel {
      *
      */
     //This method starts the swamp fight and send necessary variables to SwampController.
-    private void startSwampFight(){
+    private void startSwampFight() throws InterruptedException {
+        swampcon.getInventory(ownedPotions);
+        swampcon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        swampcon.startFight();
 
+        masterLoop1();
     }
 
     /**
