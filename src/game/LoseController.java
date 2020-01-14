@@ -24,12 +24,11 @@ public class LoseController {
         loseScreen.loseScreen();
         hover();
 
-        loseScreen.continueButton.addActionListener(e -> this.name = loseScreen.name.getText());
+            loseScreen.continueButton.addActionListener(e -> this.name = loseScreen.name.getText());
+            loseScreen.continueButton.addActionListener(e -> System.out.println("hejehejhe" + name));
+            loseScreen.continueButton.addActionListener(e -> loseScreen.loseFrame.dispose());
+            loseScreen.continueButton.addActionListener(e -> dataBase());
 
-        loseScreen.continueButton.addActionListener(e -> System.out.println("hejehejhe"+name));
-
-        loseScreen.continueButton.addActionListener(e -> loseScreen.loseFrame.dispose());
-        loseScreen.continueButton.addActionListener(e -> dataBase());
     }
 
     private void dataBase(){
@@ -40,7 +39,6 @@ public class LoseController {
             stmt.executeUpdate("INSERT INTO abtable " +  "VALUES ('"+name+"', "+xp+")");
 
             conn.close();
-
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

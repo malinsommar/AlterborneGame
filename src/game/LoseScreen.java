@@ -15,6 +15,7 @@ public class LoseScreen {
     TextField name;
 
     public void loseScreen() {
+
         loseFrame.setLayout(null);
         loseFrame.setSize(1920, 1080);
         loseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,8 +30,8 @@ public class LoseScreen {
         loseFrame.add(name);
         loseFrame.add(continueButton);
 
-        loseFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        loseFrame.setUndecorated(true);
+        //loseFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //loseFrame.setUndecorated(true);
         loseFrame.setVisible(true);
     }
 
@@ -52,15 +53,6 @@ public class LoseScreen {
         kingdom.setFont(pixelMplus.deriveFont(30f));
         Dimension kingdomSize = kingdom.getPreferredSize();
         kingdom.setBounds(200, 300, kingdomSize.width, kingdomSize.height);
-
-        who = new JLabel("What is your name, hero?");
-        who.setForeground(Color.black);
-        who.setFont(pixelMplus.deriveFont(30f));
-        Dimension whoSize = who.getPreferredSize();
-        who.setBounds(460, 400, whoSize.width, whoSize.height);
-
-        name = new TextField();
-        name.setBounds(530,460,200,30);
 
         continueButton = new JButton("Fade away");
         continueButton.setSize(300, 100);
