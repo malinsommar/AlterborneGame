@@ -27,7 +27,7 @@ public class Screen {
         pixels = new int[width * height]; //make the pixel-array hold the values of the spriteSheets width and height
     }
 
-        //render the tiles and colours depending on the screen.
+    //render the tiles and colours depending on the screen.
     public void render(int xPos, int yPos, int tile, int colour, int mirrorDir, int scale) {
         //control the position of the SpriteSheet within the frame.
         xPos -= xOffset;
@@ -58,7 +58,7 @@ public class Screen {
                 if (mirrorX) //if mirrorX is true
                     xSheet = 7 - x; //variable to flip the x-pixels, same as with the y-pixel
 
-                int xPixel = x + xPos + (x * scaleMap) - ((scaleMap << 3) /2);//identify the pixels on the x-row of the tiles
+                int xPixel = x + xPos + (x * scaleMap) - ((scaleMap << 3) / 2);//identify the pixels on the x-row of the tiles
 
 
                 /*create a colour variable that will be used to check within the 8x8 tile what colours are being used
@@ -67,21 +67,22 @@ public class Screen {
 
 
                 if (col < 255) //verify the colours aren't outside the spectrum and therefor transparent
-                    for (int yScale = 0; yScale < scale; yScale++)
-                    {
+                    for (int yScale = 0; yScale < scale; yScale++) {
                         //if colour is higher or lower positioned than the tile height: ignore
                         if (yPixel + yScale < 0 || y + yPos >= height)
                             continue;
                         for (int xScale = 0; xScale < scale; xScale++) {
                             //if colour is higher or lower than the tiles width: ignore
+
                             if (xPixel + xScale < 0 || xPixel + xScale >= width)
                                 continue;
                             pixels[(xPixel + xScale) + (yPixel + yScale) * width] = col; //setting the pixel-data
                         }
                     }
-                }
             }
         }
+    }
+
         //"camera positioning" set in parameters
     public void setOffset(int xOffset, int yOffset) {
         this.xOffset = xOffset;

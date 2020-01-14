@@ -1,7 +1,5 @@
 package davidtest.overworld.map;
 
-import davidtest.overworld.map.WorldController;
-
     public class WorldModel {
         private WorldController overWorldController = new WorldController();
 
@@ -9,7 +7,7 @@ import davidtest.overworld.map.WorldController;
             overWorldController.startWorldController();
             HandleOverWorld();
         }
-        public int HandleOverWorld() throws InterruptedException{
+        public int HandleOverWorld() {
 
             if (overWorldController.Entrance[0] == 1) {
                 return 1;
@@ -28,6 +26,9 @@ import davidtest.overworld.map.WorldController;
             }
             if (overWorldController.Entrance[0] == 6) {
                 return 6;
+            }
+            if (overWorldController.Entrance[0] == 7) {
+                return 7; 
             }
             return 0;
         }

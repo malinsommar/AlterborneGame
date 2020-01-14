@@ -10,6 +10,7 @@ import davidtest.overworld.map.Functionality.RandomEncounter;
 
 public class Player extends Mob {
 
+
     private InputHandler input;
     private int colour = Colours.get(-1, 111, 111, 332); //Assign colour for character which will be calculated within the Colours-class
     private boolean isSwimming = false; //assign the isSwimming value as natively false
@@ -21,15 +22,16 @@ public class Player extends Mob {
     private boolean isOnSwampPath = false; // if player is on tile to enter Swamp-combat
     private boolean isOnCastlePath = false; // if player is on tile to enter Castle-combat
     private boolean isOpeningChest = false; // if player is touching a chest-tile
-    private boolean EnterShop = false;  // if player is on tile to enter Shop
+    private boolean EnterShop = false;  // if player is on tile to enter Shop (is not used)
+    private boolean isOnWaterPath = false;
 
 
     private int tickCount = 0; //counts the ticks since the last update
-    private String username; //username (not used in game)
+    private String username; //username
 
-    public Player(Level level1, int x, int y, InputHandler input) {
+    public Player(Level level1, int x, int y, InputHandler input, String username) {
         super(level1, "Player", x, y, 1);
-        this.input = input;
+        this.input = input; //assign the input-method onto the player
         this.username = username;
     }
 
@@ -67,37 +69,30 @@ public class Player extends Mob {
             //identify if player is swimming
             if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 3) {
                 isSwimming = true;
+
                 RandomEncounter randomEncounter = new RandomEncounter();
                 System.out.println(randomEncounter.randomNr);
                 if (randomEncounter.randomNr == 69) {
-                    isOnForestPath = true;
+                    isOnWaterPath = true;
                 }
             }
             //identify if player is not swimming
-            else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() != 3) {
+             else {
                 isSwimming = false;
             }
 
             if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 8) {
                 isSwampSwimming = true;
+
                 RandomEncounter randomEncounter = new RandomEncounter();
                 if (randomEncounter.randomNr == 5) {
-                    isOnForestPath = true;
+                    isOnWaterPath = true;
                 }
             }
-            //identify if player is not swimming
-            else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() != 8) {
-                isSwampSwimming = false;
-            }
 
-            if (level1.getTile( this.x + x >> 4,this.y >> 3).getId() ==5) {
-                /*RandomEncounter randomEncounter = new RandomEncounter();
-                if (randomEncounter.randomNr == 1) {
-                    //isOnForestPath = true;
-                }*/
-            }
-            else if (level1.getTile(this.x + x >> 3, this.y >> 3).getId() !=5) {
-                //isOnForestPath = false;
+            //identify if player is not swimming
+            else {
+                isSwampSwimming = false;
             }
                 tickCount++; //adds to tick whenever a move is made
         }
@@ -123,26 +118,30 @@ public class Player extends Mob {
             xTile += 4 + ((numSteps >> walkingSpeed) & 1) * 2;
             flipTop = (movingDir - 1) % 2;
         }
-        int scale = 1; //assign scale to character
+        //assign scale to character
+        int scale = 1;
         int modifier = 8 * scale;
         int xOffset = x - modifier / 2;
         int yOffset = y - modifier / 2 - 4;
-        if (isSwimming || isSwampSwimming) {
-            int waterColour = 0; //call the wave-effect while swimming
-            yOffset += 2;//lowers the position while in the water
 
-            //assign whenever during the ticCount the sprites will be played
+        //set the render-effect of swimming
+        if (isSwimming || isSwampSwimming) {
+            int waterColour; //call the wave-effect while swimming
+            yOffset += 1;//lowers the player-position while in the water
+
+            //assign whenever during the ticCount the water-sprites will be played
             if (tickCount % 60 < 15) {
-                waterColour = Colours.get(-1, -1, 225, -1);//
+                waterColour = Colours.get(-1, -1, 225, -1);//assign colours to the first player-wave frame
             } else if (tickCount % 60 < 30) {
-                yOffset -= 1;//lowers the position of the character to create a bop-effect
-                waterColour = Colours.get(-1, 225, 115, -1);
+                yOffset -= 1;//lowers the position of the character to create a bop-effect when in water
+                waterColour = Colours.get(-1, 225, 115, -1);//the second frame
             } else if (tickCount % 60 < 45) {
                 yOffset -= 2;//more bop
-                waterColour = Colours.get(-1, 115, -1, 225);
+                waterColour = Colours.get(-1, 115, -1, 225); //the third frame
             } else {
-                waterColour = Colours.get(-1, 225, 115, -1);
+                waterColour = Colours.get(-1, 225, 115, -1); //the second again
             }
+
             screen.render(xOffset, yOffset + 3, 27 * 32, waterColour, 0x00, 1);
             screen.render(xOffset + 8, yOffset + 3, 27 * 32, waterColour, 0x01, 1);
 
@@ -154,11 +153,9 @@ public class Player extends Mob {
         if (!isSwimming && !isSwampSwimming) {
             screen.render(xOffset + (modifier * flipBottom), yOffset + modifier, xTile + (yTile + 1) * 32, colour, flipBottom, scale);
             screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour, flipBottom, scale);
-
         }
-        //add text above player
         if (username != null) {
-            Fonts.render(username,screen, xOffset - ((username.length() - 1) / 2 * 8),yOffset - 10, Colours.get(-1,-1,-1,555), 1);
+            Fonts.render(username, screen, xOffset -((username.length()- 1) / 2 * 8), yOffset - 10, Colours.get(-1,-1,1, 555), 1);
         }
     }
 
@@ -177,6 +174,7 @@ public class Player extends Mob {
         /*Now 4 loops will be made between the coordinates of the box, indicating where on the body of the player there
          should be a reaction*/
 
+        //set boolean-values as true if they collide with specific tile
         for (int x = xMin; x < xMax; x++) {
             if (isSolidTile(xa, ya, x, yMin)) {
                 return true;
@@ -203,16 +201,19 @@ public class Player extends Mob {
                 isOpeningChest = true;
             }
         }
+
         for (int x = xMin; x < xMax; x++) {
             if (isSolidTile(xa, ya, x, yMax)) {
                 return true;
             }
         }
+
         for (int y = yMin; y < yMax; y++) {
             if (isSolidTile(xa,ya,xMin,y)) {
                 return true;
             }
         }
+
         for (int y = yMin; y < yMax; y++) {
             if (isDoorTile(xa, ya, xMax, y) || isSolidTile(xa,ya,xMax,y)) {
                 return true;
@@ -221,6 +222,7 @@ public class Player extends Mob {
         return false;
     }
 
+    //boolean values that will return whether a tile-collision has been made
     public boolean hasEnteredShop() {
         return EnterShop;
     }
@@ -247,5 +249,9 @@ public class Player extends Mob {
 
     public boolean hasOpenedChest() {
         return  isOpeningChest;
+    }
+
+    public boolean hasEnteredWater() {
+        return  isOnWaterPath;
     }
 }
