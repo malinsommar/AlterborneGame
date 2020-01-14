@@ -7,9 +7,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class FieldView {
+public class SwampView {
 
-    JFrame fieldFightJFrame = new JFrame();
+    JFrame swampFightJFrame = new JFrame();
     Potions potions = new Potions();
     JPanel inventory = new JPanel();
 
@@ -23,10 +23,10 @@ public class FieldView {
     public JButton healWarriorButton, healRangerButton, healMageButton, healHealerButton; //healing target button
 
     //Create Labels
-    public JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr ,potion1Label,potion2Label,potion3Label,potion4Label,potion5Label,potion6Label,potion7Label,potion8Label,potion9Label,potion10Label,potion11Label,potion12Label;
+    public JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr, potion1Label, potion2Label, potion3Label, potion4Label, potion5Label, potion6Label, potion7Label, potion8Label, potion9Label, potion10Label, potion11Label, potion12Label;
     public JLabel whosTurn, energy, block;
-    public JLabel scarecrow1, scarecrow2, scarecrow3, scarecrow4;
-    public JLabel scarecrow1Hp, scarecrow2Hp, scarecrow3Hp, scarecrow4Hp;
+    public JLabel trunk1, trunk2, trunk3, trunk4;
+    public JLabel trunk1Hp, trunk2Hp, trunk3Hp, trunk4Hp;
     public JLabel warrior, mage, healer, ranger;
     public JLabel playersHp, player1Hp, player2Hp, player3Hp, player4Hp;
 
@@ -59,103 +59,102 @@ public class FieldView {
     public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
 
 
-    public void fieldFightFrame(){
+    public void swampFightFrame() {
 
-        fieldFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        fieldFightJFrame.setSize(1920, 1080);
-        fieldFightJFrame.setLayout(null);
-        fieldFightJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        fieldFightJFrame.setUndecorated(true);
+        swampFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        swampFightJFrame.setSize(1920, 1080);
+        swampFightJFrame.setLayout(null);
+        swampFightJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        swampFightJFrame.setUndecorated(true);
 
-        ImageIcon background = new ImageIcon("fielddone.jpg");
-        fieldFightJFrame.setContentPane(new JLabel(background));
+        ImageIcon background = new ImageIcon("swamptrue.jpg");
+        swampFightJFrame.setContentPane(new JLabel(background));
 
         inventory.setLayout(null);
-        inventory.setSize(1920, 300);
-        inventory.setLocation(0,538);
+        inventory.setSize(1920, 170);
+        inventory.setLocation(0, 0);
 
         importFont();
         getInventory();
         importButtons();
         importLabels();
         importPartyGif();
-        importscarecrowGif();
+        importtrunkGif();
         spellMenuStartup();
         animationStuff();
         healingTarget();
         getInventory();
 
-        fieldFightJFrame.add(energy);
-        fieldFightJFrame.add(block);
-        fieldFightJFrame.add(whosTurn);
+        swampFightJFrame.add(energy);
+        swampFightJFrame.add(block);
+        swampFightJFrame.add(whosTurn);
 
-        fieldFightJFrame.add(targetarrow);
+        swampFightJFrame.add(targetarrow);
 
-        fieldFightJFrame.add(attackButton);
-        fieldFightJFrame.add(blockButton);
-        fieldFightJFrame.add(itemButton);
-        fieldFightJFrame.add(skillButton);
-        fieldFightJFrame.add(endTurnButton);
+        swampFightJFrame.add(attackButton);
+        swampFightJFrame.add(blockButton);
+        swampFightJFrame.add(itemButton);
+        swampFightJFrame.add(skillButton);
+        swampFightJFrame.add(endTurnButton);
 
-        fieldFightJFrame.add(playersHp);
-        fieldFightJFrame.add(scarecrow1Hp);
-        fieldFightJFrame.add(scarecrow2Hp);
-        fieldFightJFrame.add(scarecrow3Hp);
-        fieldFightJFrame.add(scarecrow4Hp);
-        fieldFightJFrame.add(player1Hp);
-        fieldFightJFrame.add(player2Hp);
-        fieldFightJFrame.add(player3Hp);
-        fieldFightJFrame.add(player4Hp);
+        swampFightJFrame.add(playersHp);
+        swampFightJFrame.add(trunk1Hp);
+        swampFightJFrame.add(trunk2Hp);
+        swampFightJFrame.add(trunk3Hp);
+        swampFightJFrame.add(trunk4Hp);
+        swampFightJFrame.add(player1Hp);
+        swampFightJFrame.add(player2Hp);
+        swampFightJFrame.add(player3Hp);
+        swampFightJFrame.add(player4Hp);
 
-        fieldFightJFrame.add(skill1Button);
-        fieldFightJFrame.add(skill2Button);
-        fieldFightJFrame.add(skill3Button);
-        fieldFightJFrame.add(skill4Button);
-        fieldFightJFrame.add(returnButton);
+        swampFightJFrame.add(skill1Button);
+        swampFightJFrame.add(skill2Button);
+        swampFightJFrame.add(skill3Button);
+        swampFightJFrame.add(skill4Button);
+        swampFightJFrame.add(returnButton);
 
-        fieldFightJFrame.add(healWarriorButton);
-        fieldFightJFrame.add(healRangerButton);
-        fieldFightJFrame.add(healMageButton);
-        fieldFightJFrame.add(healHealerButton);
+        swampFightJFrame.add(healWarriorButton);
+        swampFightJFrame.add(healRangerButton);
+        swampFightJFrame.add(healMageButton);
+        swampFightJFrame.add(healHealerButton);
 
-        fieldFightJFrame.add(arrow);
-        fieldFightJFrame.add(volley1);
-        fieldFightJFrame.add(volley2);
-        fieldFightJFrame.add(volley3);
-        fieldFightJFrame.add(blast);
-        fieldFightJFrame.add(fireStorm);
-        fieldFightJFrame.add(flame);
-        fieldFightJFrame.add(smallPyroBlast);
-        fieldFightJFrame.add(mediumPyroBlast);
-        fieldFightJFrame.add(bigPyroBlast);
-        fieldFightJFrame.add(swordIcon);
-        fieldFightJFrame.add(demoSword1);
-        fieldFightJFrame.add(demoSword2);
-        fieldFightJFrame.add(demoSword3);
-        fieldFightJFrame.add(demoSword4);
-        fieldFightJFrame.add(bomb);
-        fieldFightJFrame.add(explode);
-        fieldFightJFrame.add(stealthranger);
-        fieldFightJFrame.add(trap);
-        fieldFightJFrame.add(holyLight);
-        fieldFightJFrame.add(smallHolyLight);
-        fieldFightJFrame.add(groupHeal1);
-        fieldFightJFrame.add(groupHeal2);
-        fieldFightJFrame.add(groupHeal3);
-        fieldFightJFrame.add(groupHeal4);
+        swampFightJFrame.add(arrow);
+        swampFightJFrame.add(volley1);
+        swampFightJFrame.add(volley2);
+        swampFightJFrame.add(volley3);
+        swampFightJFrame.add(blast);
+        swampFightJFrame.add(fireStorm);
+        swampFightJFrame.add(flame);
+        swampFightJFrame.add(smallPyroBlast);
+        swampFightJFrame.add(mediumPyroBlast);
+        swampFightJFrame.add(bigPyroBlast);
+        swampFightJFrame.add(swordIcon);
+        swampFightJFrame.add(demoSword1);
+        swampFightJFrame.add(demoSword2);
+        swampFightJFrame.add(demoSword3);
+        swampFightJFrame.add(demoSword4);
+        swampFightJFrame.add(bomb);
+        swampFightJFrame.add(explode);
+        swampFightJFrame.add(stealthranger);
+        swampFightJFrame.add(trap);
+        swampFightJFrame.add(holyLight);
+        swampFightJFrame.add(smallHolyLight);
+        swampFightJFrame.add(groupHeal1);
+        swampFightJFrame.add(groupHeal2);
+        swampFightJFrame.add(groupHeal3);
+        swampFightJFrame.add(groupHeal4);
 
         //enemies
-        fieldFightJFrame.add(scarecrow3);
-        fieldFightJFrame.add(scarecrow4);
-        fieldFightJFrame.add(scarecrow1);
-        fieldFightJFrame.add(scarecrow2);
+        swampFightJFrame.add(trunk3);
+        swampFightJFrame.add(trunk4);
+        swampFightJFrame.add(trunk1);
+        swampFightJFrame.add(trunk2);
         //player
-        fieldFightJFrame.add(ranger);
-        fieldFightJFrame.add(warrior);
-        fieldFightJFrame.add(mage);
-        fieldFightJFrame.add(healer);
+        swampFightJFrame.add(ranger);
+        swampFightJFrame.add(warrior);
+        swampFightJFrame.add(mage);
+        swampFightJFrame.add(healer);
 
-        //Add all labels//buttons.
         inventory.add(potion1);
         inventory.add(potion2);
         inventory.add(potion3);
@@ -185,13 +184,13 @@ public class FieldView {
         inventory.add(potion11Label);
         inventory.add(potion12Label);
 
-        fieldFightJFrame.add(inventory);
+        swampFightJFrame.add(inventory);
 
         inventory.setVisible(false);
-        fieldFightJFrame.setVisible(true);
+        swampFightJFrame.setVisible(true);
     }
 
-    public void animationStuff(){
+    public void animationStuff() {
 
         Dimension arrowSize = arrow.getPreferredSize();
         arrow.setSize(arrowSize.width, arrowSize.height);
@@ -318,7 +317,7 @@ public class FieldView {
 
     }
 
-    public void spellMenuStartup(){
+    public void spellMenuStartup() {
 
         //button 1
         skill1Button = new JButton("error skill 1           ");
@@ -368,7 +367,7 @@ public class FieldView {
     }
 
     //to select target for healing
-    public void healingTarget(){
+    public void healingTarget() {
 
         //button 1
         healWarriorButton = new JButton("Warrior");
@@ -582,31 +581,31 @@ public class FieldView {
     }
 
     //Set al "stats" for labels.
-    private void importLabels(){
+    private void importLabels() {
         playersHp.setFont(pixelMplus.deriveFont(30f));
         playersHp.setForeground(Color.black);
         Dimension playersHpSize = playersHp.getPreferredSize();
         playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
 
-        scarecrow1Hp.setFont(pixelMplus.deriveFont(24f));
-        scarecrow1Hp.setForeground(Color.black);
-        Dimension wolf1HpSize = scarecrow1Hp.getPreferredSize();
-        scarecrow1Hp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
+        trunk1Hp.setFont(pixelMplus.deriveFont(30f));
+        trunk1Hp.setForeground(Color.black);
+        Dimension wolf1HpSize = trunk1Hp.getPreferredSize();
+        trunk1Hp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
 
-        scarecrow2Hp.setFont(pixelMplus.deriveFont(24f));
-        scarecrow2Hp.setForeground(Color.black);
-        Dimension wolf2HpSize = scarecrow2Hp.getPreferredSize();
-        scarecrow2Hp.setBounds(640, 595, wolf2HpSize.width, wolf2HpSize.height);
+        trunk2Hp.setFont(pixelMplus.deriveFont(30f));
+        trunk2Hp.setForeground(Color.black);
+        Dimension wolf2HpSize = trunk2Hp.getPreferredSize();
+        trunk2Hp.setBounds(640, 595, wolf2HpSize.width, wolf2HpSize.height);
 
-        scarecrow3Hp.setFont(pixelMplus.deriveFont(24f));
-        scarecrow3Hp.setForeground(Color.black);
-        Dimension wolf3HpSize = scarecrow3Hp.getPreferredSize();
-        scarecrow3Hp.setBounds(640, 630, wolf3HpSize.width, wolf3HpSize.height);
+        trunk3Hp.setFont(pixelMplus.deriveFont(30f));
+        trunk3Hp.setForeground(Color.black);
+        Dimension wolf3HpSize = trunk3Hp.getPreferredSize();
+        trunk3Hp.setBounds(640, 630, wolf3HpSize.width, wolf3HpSize.height);
 
-        scarecrow4Hp.setFont(pixelMplus.deriveFont(24f));
-        scarecrow4Hp.setForeground(Color.black);
-        Dimension wolf4HpSize = scarecrow4Hp.getPreferredSize();
-        scarecrow4Hp.setBounds(640, 665, wolf4HpSize.width, wolf4HpSize.height);
+        trunk4Hp.setFont(pixelMplus.deriveFont(30f));
+        trunk4Hp.setForeground(Color.black);
+        Dimension wolf4HpSize = trunk4Hp.getPreferredSize();
+        trunk4Hp.setBounds(640, 665, wolf4HpSize.width, wolf4HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
@@ -649,7 +648,7 @@ public class FieldView {
     }
 
     //Set all stats for buttons.
-    private void importButtons(){
+    private void importButtons() {
         //Attack button
         attackButton = new JButton("Attack");
         attackButton.setSize(200, 70);
@@ -697,7 +696,7 @@ public class FieldView {
     }
 
     //Get all OldClasses.party-gif's.
-    private void importPartyGif(){
+    private void importPartyGif() {
         warrior = new JLabel();
         warrior.setIcon(new ImageIcon("warrior.gif"));
 
@@ -721,24 +720,24 @@ public class FieldView {
         mage.setBounds(-110, 290, mageSize.width, mageSize.height);
     }
 
-    //Get scarecrow gif.
-    private void importscarecrowGif(){
-        scarecrow1 = new JLabel();
-        scarecrow1.setIcon(new ImageIcon("scarecrowdone.gif"));
-        Dimension scarecrowSize = scarecrow1.getPreferredSize();
-        scarecrow1.setBounds(850, 250, scarecrowSize.width, scarecrowSize.height);
+    //Get trunk gif.
+    private void importtrunkGif() {
+        trunk1 = new JLabel();
+        trunk1.setIcon(new ImageIcon("stumptrue.gif"));
+        Dimension trunkSize = trunk1.getPreferredSize();
+        trunk1.setBounds(750, 300, trunkSize.width, trunkSize.height);
 
-        scarecrow2 = new JLabel();
-        scarecrow2.setIcon(new ImageIcon("scarecrowdone.gif"));
-        scarecrow2.setBounds(1030, 250, scarecrowSize.width, scarecrowSize.height);
+        trunk2 = new JLabel();
+        trunk2.setIcon(new ImageIcon("stumptrue.gif"));
+        trunk2.setBounds(970, 300, trunkSize.width, trunkSize.height);
 
-        scarecrow3 = new JLabel();
-        scarecrow3.setIcon(new ImageIcon("scarecrowdone.gif"));
-        scarecrow3.setBounds(920, 320, scarecrowSize.width, scarecrowSize.height);
+        trunk3 = new JLabel();
+        trunk3.setIcon(new ImageIcon("stumptrue.gif"));
+        trunk3.setBounds(840, 370, trunkSize.width, trunkSize.height);
 
-        scarecrow4 = new JLabel();
-        scarecrow4.setIcon(new ImageIcon("scarecrowdone.gif"));
-        scarecrow4.setBounds(1100, 320, scarecrowSize.width, scarecrowSize.height);
+        trunk4 = new JLabel();
+        trunk4.setIcon(new ImageIcon("stumptrue.gif"));
+        trunk4.setBounds(1080, 370, trunkSize.width, trunkSize.height);
     }
 
     private void importFont() {
