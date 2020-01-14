@@ -18,6 +18,8 @@ public class MasterModel {
     private SwampController swampcon = new SwampController();
     private ForestBossCon forestBossCon = new ForestBossCon();
     private CaveController caveCon = new CaveController();
+    private CaveBossController caveBossCon = new CaveBossController();
+
     private FieldController fieldCon = new FieldController();
     private CastleController castleCon = new CastleController();
     private ShopController sc = new ShopController();
@@ -153,7 +155,7 @@ public class MasterModel {
         //Cave
         else if (worldModel.HandleOverWorld() == 3) {
 
-            if(ran > 10){
+            if(ran > 99){
                 startCaveFight();
             }
             else {
@@ -233,8 +235,12 @@ public class MasterModel {
      *
      */
     //This method starts the cave boss fight and send necessary variables to the controller.
-    private void startCaveBossFight(){
+    private void startCaveBossFight() throws InterruptedException {
+        caveBossCon.getInventory(ownedPotions);
+        caveBossCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        caveBossCon.startFight();
 
+        masterLoop1();
     }
 
     /**
