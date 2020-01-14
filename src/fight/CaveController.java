@@ -1,14 +1,10 @@
 package fight;
 
-import game.LoseScreen;
 import game.MusicPick;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.EventListener;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
 public class CaveController{
 
@@ -22,7 +18,7 @@ public class CaveController{
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
     private boolean debuffed = false;
-    int goblinDamage;
+    private int enemyDamage, enemyRandomDamage = 15, enemyBaseDamage = 20;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -105,7 +101,7 @@ public class CaveController{
 
         //ActionListeners
         cv.attackButton.addActionListener(e -> {
-            if (!animationPlaying) attackPressed();
+            if (!animationPlaying && cv.targetarrow.isVisible()) attackPressed();
         });
         cv.blockButton.addActionListener(e -> blockPressed());
         cv.itemButton.addActionListener(e -> {
@@ -383,7 +379,6 @@ public class CaveController{
             stealth();
         }
         if (turns == 3 && mageEnergyInt > 4 && cv.targetarrow.isVisible()) {
-            followup = true;
             mageEnergyInt = mageEnergyInt - 5;
             currentEnergy = currentEnergy - 5;
             cv.energy.setText("Energy: " + mageEnergyInt);
@@ -406,9 +401,9 @@ public class CaveController{
         cv.healHealerButton.setVisible(true);
 
         cv.healWarriorButton.addActionListener(e -> {
-            if (chosenSpell == 1 && healerEnergyInt > 1) {
-                healerEnergyInt = healerEnergyInt - 2;
-                currentEnergy = currentEnergy - 2;
+            if (chosenSpell == 1 && healerEnergyInt > 3) {
+                healerEnergyInt = healerEnergyInt - 4;
+                currentEnergy = currentEnergy - 4;
                 cv.energy.setText("Energy: " + healerEnergyInt);
                 healTarget = 1;
                 holyLightSpell.start();
@@ -423,9 +418,9 @@ public class CaveController{
             }
         });
         cv.healRangerButton.addActionListener(e -> {
-            if (chosenSpell == 1 && healerEnergyInt > 1) {
-                healerEnergyInt = healerEnergyInt - 2;
-                currentEnergy = currentEnergy - 2;
+            if (chosenSpell == 1 && healerEnergyInt > 3) {
+                healerEnergyInt = healerEnergyInt - 4;
+                currentEnergy = currentEnergy - 4;
                 cv.energy.setText("Energy: " + healerEnergyInt);
                 healTarget = 2;
                 holyLightSpell.start();
@@ -439,9 +434,9 @@ public class CaveController{
             }
         });
         cv.healMageButton.addActionListener(e -> {
-            if (chosenSpell == 1 && healerEnergyInt > 1) {
-                healerEnergyInt = healerEnergyInt - 2;
-                currentEnergy = currentEnergy - 2;
+            if (chosenSpell == 1 && healerEnergyInt > 3) {
+                healerEnergyInt = healerEnergyInt - 4;
+                currentEnergy = currentEnergy - 4;
                 cv.energy.setText("Energy: " + healerEnergyInt);
                 healTarget = 3;
                 holyLightSpell.start();
@@ -455,9 +450,9 @@ public class CaveController{
             }
         });
         cv.healHealerButton.addActionListener(e -> {
-            if (chosenSpell == 1 && healerEnergyInt > 1) {
-                healerEnergyInt = healerEnergyInt - 2;
-                currentEnergy = currentEnergy - 2;
+            if (chosenSpell == 1 && healerEnergyInt > 3) {
+                healerEnergyInt = healerEnergyInt - 4;
+                currentEnergy = currentEnergy - 4;
                 cv.energy.setText("Energy: " + healerEnergyInt);
                 healTarget = 4;
                 holyLightSpell.start();
@@ -638,11 +633,9 @@ public class CaveController{
     //When the goblin attacks.
     private void goblinAttack() {
         target = (int) (Math.random() * 4); //Random target, 0-3.
-        if (debuffed) {
-            goblinDamage = (int) (Math.random() * 10) + 5;} //Generate random damage, 15-25.
-        if (!debuffed) {
-            goblinDamage = (int) (Math.random() * 10) + 15;} //Generate random damage, 15-25.
 
+        enemyDamage = (int) (Math.random() * enemyRandomDamage) + enemyBaseDamage; //Generate random damage, 15-25.
+        if (debuffed) enemyDamage -= 10;
 
         //Loops until it reaches an alive OldClasses.party-member.
         while (true) {
@@ -651,13 +644,14 @@ public class CaveController{
             if (target == 0) {
                 //If warrior is dead, target=1.
                 if (warriorCurrentHp < 1) {
-                    target = 1;
+                    if (stealthed) target = 2;
+                    else target = 1;
                 }
                 //If warrior is alive.
                 if (warriorCurrentHp > 0) {
                     warriorattacked = true;
-                    goblinDamage = goblinDamage - warriorBlock; //Warrior take damage equal to goblin damage.
-                    warriorCurrentHp = warriorCurrentHp - goblinDamage; //Update warrior hp.
+                    enemyDamage = enemyDamage - warriorBlock; //Warrior take damage equal to goblin damage.
+                    warriorCurrentHp = warriorCurrentHp - enemyDamage; //Update warrior hp.
                     cv.player1Hp.setText("Warrior: " + warriorCurrentHp); //Update hp Label.
                     break;
                 }
@@ -671,8 +665,8 @@ public class CaveController{
                 //If mage is alive.
                 if (mageCurrentHp > 0) {
                     mageattacked = true;
-                    goblinDamage = goblinDamage - mageBlock;
-                    mageCurrentHp = mageCurrentHp - goblinDamage;
+                    enemyDamage = enemyDamage - mageBlock;
+                    mageCurrentHp = mageCurrentHp - enemyDamage;
                     cv.player2Hp.setText("Mage:    " + mageCurrentHp);
                     break;
                 }
@@ -682,19 +676,20 @@ public class CaveController{
                 //If ranger is dead, target=3.
 
                 //will not be attacked if stealthed
-                if (stealthed){
-                    //prevents following else ifs
+                if (stealthed && (mageCurrentHp > 0 || healerCurrentHp > 0 || warriorCurrentHp > 0)){
+                    target = 0;
                 }
 
                 else if (rangerCurrentHp < 1) {
                     target = 2;
                 }
                 //If ranger is alive.
-                else if (rangerCurrentHp > 0) {
+                else {
                     rangerattacked = true;
-                    goblinDamage = goblinDamage - rangerBlock;
-                    rangerCurrentHp = rangerCurrentHp - goblinDamage;
+                    enemyDamage = enemyDamage - rangerBlock;
+                    rangerCurrentHp = rangerCurrentHp - enemyDamage;
                     cv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+                    unstealth();
                     break;
                 }
             }
@@ -707,8 +702,8 @@ public class CaveController{
                 //If healer is alive.
                 if (healerCurrentHp > 0) {
                     healerattacked = true;
-                    goblinDamage = goblinDamage - healerBlock;
-                    healerCurrentHp = healerCurrentHp - goblinDamage;
+                    enemyDamage = enemyDamage - healerBlock;
+                    healerCurrentHp = healerCurrentHp - enemyDamage;
                     cv.player4Hp.setText("Healer:   " + healerCurrentHp);
                     break;
                 }
@@ -1521,10 +1516,10 @@ public class CaveController{
 
 
             if (phase == 0) {
-                cv.demoSword1.setVisible(true);
-                cv.demoSword2.setVisible(true);
-                cv.demoSword3.setVisible(true);
-                cv.demoSword4.setVisible(true);
+                if (goblinHp[0] > 0) cv.demoSword1.setVisible(true);
+                if (goblinHp[2] > 0) cv.demoSword2.setVisible(true);
+                if (goblinHp[1] > 0) cv.demoSword3.setVisible(true);
+                if (goblinHp[3] > 0) cv.demoSword4.setVisible(true);
                 upMegaMath *= 2;
                 swordIconY -= upMegaMath;
             }
@@ -1972,6 +1967,7 @@ public class CaveController{
                 phase = 1;
             }
             if (timePast == 100) {
+                spellHealSystem(30, "single");
                 timePast = 0;
                 cv.holyLight.setVisible(false);
                 holyLightSpell.stop();
@@ -1996,6 +1992,7 @@ public class CaveController{
                 phase = 1;
             }
             if (timePast > 100) {
+                spellHealSystem(15, "single");
                 timePast = 0;
                 cv.smallHolyLight.setVisible(false);
                 smallHolyLightSpell.stop();
@@ -2070,6 +2067,7 @@ public class CaveController{
             timePast++;
             animationPlaying = true;
             cv.endTurnButton.setVisible(false);
+            cv.targetarrow.setVisible(false);
             if (timePast < 50) {
                 if (goblinHp[0] < 1) timePast += 100;
             } else if (timePast < 60) {

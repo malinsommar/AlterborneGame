@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class LoseController {
 
-    private LoseScreen loseScreen = new LoseScreen();
+    private LoseView loseView = new LoseView();
 
     private final String USERNAME = "Alterborne";
     private final String PASSWORD = "YEET";
@@ -16,19 +16,17 @@ public class LoseController {
     private String name;
     private int xp;
 
-     void startLoseScreen(int getXp) {
+     void startLoseScreen(int getXp, String getName) {
 
         MusicPick.musicStart("gwyn","music");
 
-        xp = getXp;
-        loseScreen.loseScreen();
-        hover();
+         name = getName;
+         xp = getXp;
+         dataBase();
+         loseView.loseScreen();
+         hover();
 
-            loseScreen.continueButton.addActionListener(e -> this.name = loseScreen.name.getText());
-            loseScreen.continueButton.addActionListener(e -> System.out.println("hejehejhe" + name));
-            loseScreen.continueButton.addActionListener(e -> loseScreen.loseFrame.dispose());
-            loseScreen.continueButton.addActionListener(e -> dataBase());
-
+        loseView.continueButton.addActionListener(e-> System.exit(0));
     }
 
     private void dataBase(){
@@ -46,13 +44,13 @@ public class LoseController {
     }
 
     private void hover(){
-        loseScreen.continueButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        loseView.continueButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                loseScreen.continueButton.setBackground(Color.gray);
+                loseView.continueButton.setBackground(Color.gray);
             }
 
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                loseScreen.continueButton.setBackground(Color.darkGray);
+                loseView.continueButton.setBackground(Color.darkGray);
             }
         });
     }

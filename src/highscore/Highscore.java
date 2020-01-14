@@ -1,10 +1,5 @@
 package highscore;
 
-import OldClasses.LevelUp;
-import game.LevelUpController;
-import game.LoseScreen;
-
-import java.sql.*;
 /*
 public class Highscore {
     private static final String USERNAME = "Alterborne";
