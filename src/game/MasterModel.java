@@ -206,8 +206,12 @@ public class MasterModel {
     }
 
     //This method starts the field fight and send necessary variables to FieldController.
-    private void startFieldFight() {
+    private void startFieldFight() throws InterruptedException {
+        fieldCon.getInventory(ownedPotions);
+        fieldCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        fieldCon.startFight();
 
+        masterLoop1();
     }
 
     //This method starts the field boss fight and send necessary variables to the controller.
