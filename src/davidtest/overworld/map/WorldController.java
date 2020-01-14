@@ -21,6 +21,7 @@ public class WorldController extends Canvas implements Runnable {
     private int FieldEntrance = 1;
     private int SwampEntrance = 1;
     private int CastleEntrance = 1;
+    private int WaterEntrance = 1;
     private int OpeningChest = 1;
 
 
@@ -45,6 +46,9 @@ public class WorldController extends Canvas implements Runnable {
             }
             if(CastleEntrance == 1) {
                 EnterCastle();
+            }
+            if(WaterEntrance ==1) {
+                EnterWater();
             }
             if (OpeningChest == 1) {
                 OpenChest();
@@ -232,6 +236,12 @@ public class WorldController extends Canvas implements Runnable {
     private void OpenChest() {
         if (owf.player.hasOpenedChest()) {
             OpeningChest++;
+        }
+    }
+    private void EnterWater() {
+        if (owf.player.hasEnteredWater()) {
+            WaterEntrance++;
+            Entrance[0] = 7;
         }
     }
 

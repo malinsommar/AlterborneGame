@@ -10,6 +10,7 @@ import davidtest.overworld.map.Functionality.RandomEncounter;
 
 public class Player extends Mob {
 
+
     private InputHandler input;
     private int colour = Colours.get(-1, 111, 111, 332); //Assign colour for character which will be calculated within the Colours-class
     private boolean isSwimming = false; //assign the isSwimming value as natively false
@@ -22,12 +23,13 @@ public class Player extends Mob {
     private boolean isOnCastlePath = false; // if player is on tile to enter Castle-combat
     private boolean isOpeningChest = false; // if player is touching a chest-tile
     private boolean EnterShop = false;  // if player is on tile to enter Shop (is not used)
+    private boolean isOnWaterPath = false;
 
 
     private int tickCount = 0; //counts the ticks since the last update
-    private String username; //username (not used in game)
+    private String username; //username
 
-    public Player(Level level1, int x, int y, InputHandler input) {
+    public Player(Level level1, int x, int y, InputHandler input, String username) {
         super(level1, "Player", x, y, 1);
         this.input = input; //assign the input-method onto the player
         this.username = username;
@@ -71,7 +73,7 @@ public class Player extends Mob {
                 RandomEncounter randomEncounter = new RandomEncounter();
                 System.out.println(randomEncounter.randomNr);
                 if (randomEncounter.randomNr == 69) {
-                    isOnForestPath = true;
+                    isOnWaterPath = true;
                 }
             }
             //identify if player is not swimming
@@ -84,7 +86,7 @@ public class Player extends Mob {
 
                 RandomEncounter randomEncounter = new RandomEncounter();
                 if (randomEncounter.randomNr == 5) {
-                    isOnForestPath = true;
+                    isOnWaterPath = true;
                 }
             }
 
@@ -151,7 +153,9 @@ public class Player extends Mob {
         if (!isSwimming && !isSwampSwimming) {
             screen.render(xOffset + (modifier * flipBottom), yOffset + modifier, xTile + (yTile + 1) * 32, colour, flipBottom, scale);
             screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour, flipBottom, scale);
-
+        }
+        if (username != null) {
+            Fonts.render(username, screen, xOffset -((username.length()- 1) / 2 * 8), yOffset - 10, Colours.get(-1,-1,1, 555), 1);
         }
     }
 
@@ -245,5 +249,9 @@ public class Player extends Mob {
 
     public boolean hasOpenedChest() {
         return  isOpeningChest;
+    }
+
+    public boolean hasEnteredWater() {
+        return  isOnWaterPath;
     }
 }
