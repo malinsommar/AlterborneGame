@@ -7,12 +7,11 @@ public class UserNameController {
     UserNameView unw = new UserNameView();
 
     boolean done = false;
-    TextField nameField;
+     public TextField nameField;
 
     public void startUserNameFrame() {
         unw.userNameScreen();
         hover();
-
         nameField = new TextField();
         nameField.setBounds(150,200,200,30);
         nameField.setFont(unw.pixelMplus.deriveFont(28f));

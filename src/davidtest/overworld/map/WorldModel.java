@@ -1,10 +1,12 @@
 package davidtest.overworld.map;
 
-    public class WorldModel {
+import game.UserNameController;
+
+public class WorldModel {
         private WorldController overWorldController = new WorldController();
 
-        public WorldModel() throws InterruptedException {
-            overWorldController.startWorldController();
+        public WorldModel(String userName) throws InterruptedException {
+            overWorldController.startWorldController(userName);
             HandleOverWorld();
         }
         public int HandleOverWorld() {
@@ -28,12 +30,8 @@ package davidtest.overworld.map;
                 return 6;
             }
             if (overWorldController.Entrance[0] == 7) {
-                return 7; 
+                return 7;
             }
             return 0;
-        }
-
-        public static void main(String[] args) throws InterruptedException {
-            new WorldModel();
         }
     }

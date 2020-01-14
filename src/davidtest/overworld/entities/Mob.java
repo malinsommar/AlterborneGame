@@ -137,7 +137,7 @@ public abstract class Mob extends Entity {
     }
 
 
-    //get name(not in use )
+    //get name
     public String getName() {
         return name;
     }
