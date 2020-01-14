@@ -20,7 +20,7 @@ public class WorldModel {
                 return 2; //call forest
             }
             if (overWorldController.Entrance[0] == 3) {
-                return 3; //call mountain
+                return 3; //call cave
             }
             if (overWorldController.Entrance[0] == 4) {
                 return 4; //call field
@@ -35,7 +35,7 @@ public class WorldModel {
                 return 7; //call water
             }
             if (overWorldController.Entrance[0] == 8) {
-                return 9; //call cave
+                return 9; //call mountain
             }
             return 0;
         }
