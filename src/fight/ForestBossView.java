@@ -7,6 +7,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Simon Bengtsson, Malin Sommar
+ */
 public class ForestBossView {
 
     JFrame forestBossFightJFrame = new JFrame();
@@ -59,6 +62,9 @@ public class ForestBossView {
     public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
 
 
+    /**
+     *
+     */
     public void forestBossFightFrame(){
 
         forestBossFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -145,6 +151,9 @@ public class ForestBossView {
         forestBossFightJFrame.setVisible(true);
     }
 
+    /**
+     *
+     */
     public void animationStuff(){
 
         Dimension arrowSize = arrow.getPreferredSize();
@@ -272,6 +281,9 @@ public class ForestBossView {
 
     }
 
+    /**
+     *
+     */
     public void spellMenuStartup(){
 
         //button 1
@@ -321,6 +333,9 @@ public class ForestBossView {
 
     }
 
+    /**
+     *
+     */
     //to select target for healing
     public void healingTarget(){
 
@@ -362,6 +377,9 @@ public class ForestBossView {
 
     }
 
+    /**
+     *
+     */
     //This method triggers when you press the "Item button". It opens up another JFrame that covers the hud.
     public void itemPressed(){
 
@@ -413,6 +431,9 @@ public class ForestBossView {
         inventory.setVisible(true);
     }
 
+    /**
+     *
+     */
     private void getInventory() {
 
         //Minor Health Potion
@@ -586,6 +607,9 @@ public class ForestBossView {
         potion12Label.setBounds(1070, 125, potion12LabelSize.width, potion12LabelSize.height);
     }
 
+    /**
+     *
+     */
     //Set al "stats" for labels.
     private void importLabels(){
         playersHp.setFont(pixelMplus.deriveFont(30f));
@@ -638,6 +662,9 @@ public class ForestBossView {
         whosTurn.setBounds(30, 560, whoSize.width, whoSize.height);
     }
 
+    /**
+     *
+     */
     //Set all stats for buttons.
     private void importButtons(){
         //Attack button
@@ -686,6 +713,9 @@ public class ForestBossView {
         endTurnButton.setFocusPainted(false);//Remove border around text in button
     }
 
+    /**
+     *
+     */
     //Get all OldClasses.party-gif's.
     private void importPartyGif(){
         warrior = new JLabel();
@@ -711,6 +741,9 @@ public class ForestBossView {
         mage.setBounds(-110, 290, mageSize.width, mageSize.height);
     }
 
+    /**
+     *
+     */
     //Get goblin gif.
     private void importForestBossGif(){
         forestBoss = new JLabel();
@@ -723,6 +756,9 @@ public class ForestBossView {
         forestBossflip.setBounds(850, 300, werewolfSize.width - 50, werewolfSize.height);
     }
 
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));

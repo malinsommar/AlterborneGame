@@ -82,13 +82,13 @@ public class CastleController{
     public boolean fightWon = false;
     public boolean fightLost = false;
 
-    private int[] ownedPotions = new int[12];
+    public int[] ownedPotions = new int[12];
 
     private int[] undeadHp = {30, 30, 30, 30};
 
     public void startFight() {
 
-        MusicPick.musicStart("inferno", "music");
+        MusicPick.musicStart("spooky", "music");
 
         currentEnergy = 5;
 

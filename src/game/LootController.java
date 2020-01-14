@@ -590,6 +590,68 @@ public class LootController {
                 getMajorBlockPotion();
             }
         }
+        //Boss fights
+        else if(fight==10 || fight==20 || fight==30 || fight == 40 || fight == 50||fight == 100){
+            int xpUp = (int)(Math.random()*200)+200;
+            int xpBefore = xpInt;
+            xpInt += xpUp;
+            lf.xp.setText("Xp: "+xpBefore+" --> "+xpInt);
+
+            int newGold = (int) (Math.random() * 50) + 50;
+            lf.gold.setText("Gold: "+goldInt+" --> "+(newGold+goldInt));
+            goldInt += newGold;
+
+            if ( ranLoot == 0 || ranLoot == 1){
+                lf.item.setText("     No items found.");
+                lf.hideLabels();
+            }
+
+            else if(ranLoot == 2){
+                if (ran==1){
+                    getLegendaryWarriorArmor();
+                }
+                if (ran==2){
+                    getLegendaryWarriorWeapon();
+                }
+            }
+            else if(ranLoot == 3){
+                if (ran==1){
+                    getLegendaryRangerArmor();
+                }
+                if (ran==2){
+                    getLegendaryRangerWeapon();
+                }
+            }
+            else if(ranLoot == 4){
+                if (ran==1){
+                    getLegendaryMageArmor();
+                }
+                if (ran==2){
+                    getLegendaryMageWeapon();
+                }
+            }
+            else if(ranLoot == 5){
+                if (ran==1){
+                    getLegendaryHealerArmor();
+                }
+                if (ran==2){
+                    getLegendaryHealerWeapon();
+                }
+            }
+            else if(ranLoot == 6){
+                getMajorHealingPotion();
+            }
+            else if(ranLoot == 7){
+                getMajorStrengthPotion();
+            }
+            else if(ranLoot == 8){
+                getMajorEnergyPotion();
+            }
+            else if(ranLoot == 9){
+                getMajorBlockPotion();
+            }
+        }
+
     }
 
     /**

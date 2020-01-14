@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 /**
- * @author Malin Sommar
+ * @author lydia marcondes, Malin Sommar
  */
 public class LoseController {
 

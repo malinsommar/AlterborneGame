@@ -588,22 +588,22 @@ public class FieldView {
         Dimension playersHpSize = playersHp.getPreferredSize();
         playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
 
-        scarecrow1Hp.setFont(pixelMplus.deriveFont(30f));
+        scarecrow1Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow1Hp.setForeground(Color.black);
         Dimension wolf1HpSize = scarecrow1Hp.getPreferredSize();
         scarecrow1Hp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
 
-        scarecrow2Hp.setFont(pixelMplus.deriveFont(30f));
+        scarecrow2Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow2Hp.setForeground(Color.black);
         Dimension wolf2HpSize = scarecrow2Hp.getPreferredSize();
         scarecrow2Hp.setBounds(640, 595, wolf2HpSize.width, wolf2HpSize.height);
 
-        scarecrow3Hp.setFont(pixelMplus.deriveFont(30f));
+        scarecrow3Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow3Hp.setForeground(Color.black);
         Dimension wolf3HpSize = scarecrow3Hp.getPreferredSize();
         scarecrow3Hp.setBounds(640, 630, wolf3HpSize.width, wolf3HpSize.height);
 
-        scarecrow4Hp.setFont(pixelMplus.deriveFont(30f));
+        scarecrow4Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow4Hp.setForeground(Color.black);
         Dimension wolf4HpSize = scarecrow4Hp.getPreferredSize();
         scarecrow4Hp.setBounds(640, 665, wolf4HpSize.width, wolf4HpSize.height);
@@ -724,21 +724,21 @@ public class FieldView {
     //Get scarecrow gif.
     private void importscarecrowGif(){
         scarecrow1 = new JLabel();
-        scarecrow1.setIcon(new ImageIcon("scarecrow.gif"));
+        scarecrow1.setIcon(new ImageIcon("scarecrowdone.gif"));
         Dimension scarecrowSize = scarecrow1.getPreferredSize();
-        scarecrow1.setBounds(850, 300, scarecrowSize.width+50, scarecrowSize.height);
+        scarecrow1.setBounds(850, 250, scarecrowSize.width, scarecrowSize.height);
 
         scarecrow2 = new JLabel();
-        scarecrow2.setIcon(new ImageIcon("scarecrow.gif"));
-        scarecrow2.setBounds(1030, 300, scarecrowSize.width+50, scarecrowSize.height);
+        scarecrow2.setIcon(new ImageIcon("scarecrowdone.gif"));
+        scarecrow2.setBounds(1030, 250, scarecrowSize.width, scarecrowSize.height);
 
         scarecrow3 = new JLabel();
-        scarecrow3.setIcon(new ImageIcon("scarecrow.gif"));
-        scarecrow3.setBounds(920, 370, scarecrowSize.width+50, scarecrowSize.height);
+        scarecrow3.setIcon(new ImageIcon("scarecrowdone.gif"));
+        scarecrow3.setBounds(920, 320, scarecrowSize.width, scarecrowSize.height);
 
         scarecrow4 = new JLabel();
-        scarecrow4.setIcon(new ImageIcon("scarecrow.gif"));
-        scarecrow4.setBounds(1100, 370, scarecrowSize.width+50, scarecrowSize.height);
+        scarecrow4.setIcon(new ImageIcon("scarecrowdone.gif"));
+        scarecrow4.setBounds(1100, 320, scarecrowSize.width, scarecrowSize.height);
     }
 
     private void importFont() {
