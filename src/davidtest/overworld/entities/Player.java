@@ -25,8 +25,9 @@ public class Player extends Mob {
     private boolean isOnSwampPath = false; // if player is on tile to enter Swamp-combat
     private boolean isOnCastlePath = false; // if player is on tile to enter Castle-combat
     private boolean EnterShop = false;  // if player is on tile to enter Shop (is not used)
-    private boolean isOnWaterPath = false;
-    private boolean isOnCavePath = false;
+    private boolean isOnWaterPath = false; //if player is on tile to enter Water-combat
+    private boolean isOnCavePath = false; //if player is on tile to enter Cave-combat
+    private boolean isBumpingIntoNpc = false;
 
 
 
@@ -108,6 +109,7 @@ public class Player extends Mob {
         int yTile = 28;
         int walkingSpeed = 4;//character walk speed
         //the value of the top part of the 8x8 sprite
+
         int flipTop = (numSteps >> walkingSpeed) & 1;
         //the value of the bottom part of the 8x8 sprite
         int flipBottom = (numSteps >> walkingSpeed) & 1;
@@ -203,6 +205,9 @@ public class Player extends Mob {
             if (isCavePathTile(xa,ya,x,yMin)) {
                 isOnCavePath = true;
             }
+            /*if (isNpcMob(xa,ya,x,yMin)) {
+                isBumpingIntoNpc = true;
+            }*/
         }
 
         for (int x = xMin; x < xMax; x++) {
@@ -257,5 +262,7 @@ public class Player extends Mob {
     public boolean hasEnteredCave() {
         return  isOnCavePath;
     }
-
+    public boolean hasBumpedIntoNPC() {
+        return isBumpingIntoNpc;
+    }
 }
