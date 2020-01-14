@@ -725,19 +725,19 @@ public class SwampView {
         trunk1 = new JLabel();
         trunk1.setIcon(new ImageIcon("stumptrue.gif"));
         Dimension trunkSize = trunk1.getPreferredSize();
-        trunk1.setBounds(750, 300, trunkSize.width, trunkSize.height);
+        trunk1.setBounds(750, 270, trunkSize.width, trunkSize.height);
 
         trunk2 = new JLabel();
         trunk2.setIcon(new ImageIcon("stumptrue.gif"));
-        trunk2.setBounds(970, 300, trunkSize.width, trunkSize.height);
+        trunk2.setBounds(970, 270, trunkSize.width, trunkSize.height);
 
         trunk3 = new JLabel();
         trunk3.setIcon(new ImageIcon("stumptrue.gif"));
-        trunk3.setBounds(840, 370, trunkSize.width, trunkSize.height);
+        trunk3.setBounds(840, 340, trunkSize.width, trunkSize.height);
 
         trunk4 = new JLabel();
         trunk4.setIcon(new ImageIcon("stumptrue.gif"));
-        trunk4.setBounds(1080, 370, trunkSize.width, trunkSize.height);
+        trunk4.setBounds(1080, 340, trunkSize.width, trunkSize.height);
     }
 
     private void importFont() {

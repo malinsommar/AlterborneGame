@@ -25,7 +25,7 @@ public class FieldBossView {
         //Create Labels
         public JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr ,potion1Label,potion2Label,potion3Label,potion4Label,potion5Label,potion6Label,potion7Label,potion8Label,potion9Label,potion10Label,potion11Label,potion12Label;
         public JLabel whosTurn, energy, block;
-        public JLabel fieldBoss, fieldBossflip;
+        public JLabel fieldBoss;
         public JLabel fieldBossHp;
         public JLabel warrior, mage, healer, ranger;
         public JLabel playersHp, player1Hp, player2Hp, player3Hp, player4Hp;
@@ -138,7 +138,7 @@ public class FieldBossView {
 
             //enemies
             fieldBossFightJFrame.add(fieldBoss);
-            fieldBossFightJFrame.add(fieldBossflip);
+
             //player
             fieldBossFightJFrame.add(ranger);
             fieldBossFightJFrame.add(warrior);

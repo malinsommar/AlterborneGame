@@ -98,7 +98,6 @@ public class FieldBossController {
             hoverEffect();
 
             FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-            FBV.fieldBossflip.setLocation(fieldBossFlipStart, fieldBossY);
             bossDamage = 14;
 
             //ActionListeners
@@ -241,11 +240,10 @@ public class FieldBossController {
                 FBV.block.setText(" ");
 
 
-                attackPick = (int) (Math.random() * 4);
+                attackPick = (int) (Math.random() * 3);
                 if (attackPick == 0) bossAttack1.start();
                 if (attackPick == 1) bossAttack2.start();
                 if (attackPick == 2) bossAttack3.start();
-                if (attackPick == 3) bossAttack4.start();
 
 
                 //removes temporary damage buffs at the end of turn
@@ -2163,44 +2161,8 @@ public class FieldBossController {
         /**
          *
          */
-        //attack 3, single target backstab
-        private Timer bossAttack3 = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                timePast++;
-                animationPlaying = true;
-                FBV.endTurnButton.setVisible(false);
-                if (timePast < 40) {
-                    fieldBossX += 30;
-                    fieldBossY -= 20;
-                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                } else if (timePast < 48) {
-                    fieldBossY = fieldBossStartY;
-                    fieldBossFlipX += 60;
-                    FBV.fieldBossflip.setLocation(fieldBossFlipX, fieldBossY);
-                } else if (timePast < 56) {
-                    fieldBossFlipX -= 60;
-                    FBV.fieldBossflip.setLocation(fieldBossFlipX, fieldBossY);
-                } else if (timePast < 150) {
-                    fieldBossX = fieldBossStartX;
-                    fieldBossFlipX = fieldBossFlipStart;
-                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                    fieldBossAttack("attack3");
-                    timePast = 0;
-                    bossAttack3.stop();
-                    takeDamage.start();
-                    FBV.endTurnButton.setVisible(true);
-                    animationPlaying = false;
-                    bossDamage +=5;
-                }
-            }
-        });
-
-        /**
-         *
-         */
         //attack 4, buff boss damage
-        private Timer bossAttack4 = new Timer(10, new ActionListener() {
+        private Timer bossAttack3 = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 timePast++;
@@ -2222,7 +2184,7 @@ public class FieldBossController {
                     fieldBossX = fieldBossStartX;
                     FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
                     timePast = 0;
-                    bossAttack4.stop();
+                    bossAttack3.stop();
                     FBV.endTurnButton.setVisible(true);
                     animationPlaying = false;
                     startNewTurn();
