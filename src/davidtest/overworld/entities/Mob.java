@@ -6,46 +6,49 @@ import davidtest.overworld.levels.tiles.Tile;
 
 public abstract class Mob extends Entity {
 
-    protected String name;
-    protected int speed;
-    protected int numSteps = 0;
-    protected boolean isMoving;
+    protected String name; //name
+    protected int speed; //movement-speed
+    protected int numSteps = 0; //counted numbers of steps taken by mob
+    protected boolean isMoving; //boolean if mob is moving
     protected int movingDir = 1; //assign the direction the mob is facing
 
+    //create parameter for mob-extensions
     public Mob(Level level1, String name, int x, int y, int speed) {
-        super(level1);
-        this.name = name;
-        this.x = x;
-        this.y = y;
-        this.speed = speed;
+        super(level1); //map
+        this.name = name; //Mobs name
+        this.x = x; //x-position
+        this.y = y; //y-position
+        this.speed = speed; //movement-speed
     }
 
     //method to indicate where the mob is moving.
     public void move(int xa, int ya) {
         //if either xa or ya:s value is above 0 movement is set to 0 zero
-        if (xa != 0 && ya != 0) {
+        if (xa != 0 && ya != 0)
+        {
             move(0, 0);
             numSteps--; //when moving it will automatically count as two moves, and therefor we add a subtraction.
             return;
         }
         numSteps++;
 
-
-        //Collision detection
-        if (!hasCollided(xa, ya)) {
+        //Control the mobs movement
+        if (!hasCollided(xa, ya)) //if player has not Collided
+        {
             if (ya < 0)
-                movingDir = 0;
+                movingDir = 0; //set the mobs point of view moving up
             if (ya > 0)
-                movingDir = 1;
+                movingDir = 1;  //set the mobs point of view if moving down
             if (xa < 0)
-                movingDir = 2;
+                movingDir = 2;  //set the mobs point of view if moving left
             if (xa > 0)
-                movingDir = 3;
-            x += xa * speed;
-            y += ya * speed;
+                movingDir = 3;  //set the mobs point of view if moving right
+            x += xa * speed; //handle movement left and right
+            y += ya * speed; //handle movement up and down
         }
     }
 
+    //create a hasCollided method used within the the player-class
     public abstract boolean hasCollided(int xa, int ya);
 
 
@@ -67,7 +70,6 @@ public abstract class Mob extends Entity {
         if (level1 == null) {
             return false;
         }
-        //the solid path tiles
         Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
         Tile doorTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
         return !lastTile.equals(doorTile)
@@ -135,7 +137,7 @@ public abstract class Mob extends Entity {
     }
 
 
-
+    //get name
     public String getName() {
         return name;
     }

@@ -16,6 +16,8 @@ public class MasterModel {
     private FieldController fieldCon = new FieldController();
     private ShopController sc = new ShopController();
     private LoseController loseController = new LoseController();
+    private UserNameController unc = new UserNameController();
+
 
     private int[] warriorStats = new int[3];
     private int[] mageStats = new int[3];
@@ -26,10 +28,9 @@ public class MasterModel {
     private int[] healerLevelUpStats = new int[3];
     private int[] rangerLevelUpStats = new int[3];
 
+    private static String userName;
+
     //Warrior weapon/armor things
-
-    //TODO sänk levelupstats
-
     private String warriorRareWeaponName = "Iron sword", warriorEpicWeaponName = "Tempered steel blade", warriorLegendaryWeaponName = "Sword of a thousand truths", warriorRareArmorName = "Shiny Armor", warriorEpicArmorName = "Hardened Armor", warriorLegendaryArmorName = "Royal Enchanted Armor";
     private int warriorRareWeaponDamage = 8, warriorEpicWeaponDamage = 15, warriorLegendaryWeaponDamage = 27, warriorRareArmorBlock = 6, warriorEpicArmorBlock = 10, warriorLegendaryArmorBlock;
 
@@ -40,7 +41,6 @@ public class MasterModel {
     private int currentWarriorArmorBlock = 3;
 
     //Ranger weapon/armor things
-
     private String rangerRareWeaponName = "Elven bow", rangerEpicWeaponName = "Dragonslayer's bow", rangerLegendaryWeaponName = "Bullseye bow", rangerRareArmorName = "Fine leather armor", rangerEpicArmorName = "Elven leather armor", rangerLegendaryArmorName = "Demonskin armor";
     private int rangerRareWeaponDamage = 8, rangerEpicWeaponDamage = 16, rangerLegendaryWeaponDamage = 26, rangerRareArmorBlock = 5, rangerEpicArmorBlock = 11, rangerLegendaryArmorBlock = 18;
 
@@ -51,7 +51,6 @@ public class MasterModel {
     private int currentRangerArmorBlock = 0;
 
     //Mage weapon/armor stuff
-
     private String mageRareWeaponName = "Ivory fire wand", mageEpicWeaponName = "Enchanted mana wand", mageLegendaryWeaponName = "Pyromaniac's tinderbox", mageRareArmorName = "Mooncloth robe", mageEpicArmorName = "Enchanted robe", mageLegendaryArmorName = "Robe of the archmage";
     private int mageRareWeaponDamage = 7, mageEpicWeaponDamage = 15, mageLegendaryWeaponDamage = 30, mageRareArmorBlock = 2, mageEpicArmorBlock = 4, mageLegendaryArmorBlock = 6, mageRareArmorDamage = 4, mageEpicArmorDamage = 10, mageLegendaryArmorDamage = 20;
 
@@ -63,7 +62,6 @@ public class MasterModel {
     private int currentMageArmorDamage = 0;
 
     //Healer weapon/armor stuff
-
     private String healerRareWeaponName = "Stick of truth", healerEpicWeaponName = "Cleric's blessed walking stick", healerLegendaryWeaponName = "Root of the world tree", healerRareArmorName = "Priests robe", healerEpicArmorName = "Clerics armor", healerLegendaryArmorName = "Plate armor of Parl'ont the crusader";
     private int healerRareWeaponDamage = 7, healerEpicWeaponDamage = 13, healerLegendaryWeaponDamage = 23, healerRareArmorBlock = 2, healerEpicArmorBlock = 8, healerLegendaryArmorBlock = 13, healerRareArmorDamage = 3, healerEpicArmorDamage = 7, healerLegendaryArmorDamage = 15;
 
@@ -74,7 +72,7 @@ public class MasterModel {
     private int currentHealerArmorBlock = 5;
     private int currentHealerArmorDamage = 0;
 
-    //Array that keeps track of how many potions you own, use this to . 1-3 = Healing potions. 4-6 = block potions. 7-9 = energy potions. 10-12 = str potions.
+    //Array that keeps track of how many potions you own.(Minor, lesser, major) 1-3 = Healing potions. 4-6 = block potions. 7-9 = energy potions. 10-12 = str potions.
     private int[] ownedPotions = new int[12];
 
     private int currentXp;
@@ -101,143 +99,160 @@ public class MasterModel {
     private int[] legendaryWeaponArmorDamageBlock = new int[18];
     private int[] armorDamage = new int[6];
 
-
     //Get user input from ConHub to start game of exit game.
     void startGame() throws InterruptedException {
 
         setStartNumbers();
-        hubController.test();
-
-        if (hubController.choice[0] == 1) {
-            startWorldModel();
-        } else if (hubController.choice[0] == 2) {
-            tc.startTutorial();
-            tutorialLoop1();
-        } else if (hubController.choice[0] == 3) {
-            System.exit(0);
-        }
+        hubController.startHubScreen();
+        masterLoop1();
     }
 
-    public void startWorldModel() throws InterruptedException {
-        WorldModel worldModel = new WorldModel();
+    private void enterUserName() throws InterruptedException {
+        unc.startUserNameFrame();
+        masterLoop1();
+
+        userName = unc.nameField.getText();
+        System.out.println("Name " + userName);
+        startWorldModel();
+    }
+
+    //This method open the overWorld screen. Depending on where the player goes on the map it returns a variable that opens different fights of shop screen.
+    private void startWorldModel() throws InterruptedException {
+        WorldModel worldModel = new WorldModel(userName);
+        int ran = (int)(Math.random()*100)+1;
+
+        //Shop
         if (worldModel.HandleOverWorld() == 1) {
             startShop();
         }
+        //Forest
         else if (worldModel.HandleOverWorld() == 2) {
-            startForestFight();
+
+            if(ran > 10){
+                startForestFight();
+            }
+            else {
+                startForestBossFight();
+            }
         }
+        //Cave
         else if (worldModel.HandleOverWorld() == 3) {
-            startCaveFight();
+
+            if(ran > 10){
+                startCaveFight();
+            }
+            else {
+                startCaveBossFight();
+            }
         }
+        //Field
         else if (worldModel.HandleOverWorld() == 4) {
-            startFieldFight();
+            if(ran > 10){
+                startFieldFight();
+            }
+            else {
+                startFieldBossFight();
+            }
         }
+        //Swamp
         else if (worldModel.HandleOverWorld() == 5) {
-            //startSwampFight();
+            if(ran > 10){
+                startSwampFight();
+            }
+            else {
+                startSwampBossFight();
+            }
         }
+        //Castle
         else if (worldModel.HandleOverWorld() == 6) {
-            //startCastleFight
+            if(ran > 10){
+                startCastleFight();
+            }
+            else {
+                startCastleBossFight();
+            }
+        }
+        else if (worldModel.HandleOverWorld() == 7) {
+            startSecretFight();
         }
     }
 
-    private void setStartNumbers() {
-
-        warriorStats[0] = 130;
-        warriorStats[1] = 3 + currentWarriorArmorBlock;
-        warriorStats[2] = 2 + currentWarriorWeaponDamage;
-
-        rangerStats[0] = 80;
-        rangerStats[1] = 0 + currentRangerArmorBlock;
-        rangerStats[2] = 3 + currentRangerWeaponDamage;
-
-        mageStats[0] = 70;
-        mageStats[1] = 0 + currentMageArmorBlock;
-        mageStats[2] = 4 +currentMageArmorDamage + currentMageWeaponDamage;
-
-        healerStats[0] = 100;
-        healerStats[1] = 1 + currentHealerArmorBlock;
-        healerStats[2] = 0 +currentHealerArmorDamage + currentHealerWeaponDamage;
-
-        //TODO ändra
-
-        warriorStats[0]=1;
-        mageStats[0]=1;
-        rangerStats[0]=1;
-        healerStats[0]=1;
-
-
-        currentXp = 0;
-        currentLevel = 1;
-        currentGold = 20;
-
-        ownedPotions[0] = 1;
-        ownedPotions[1] = 0;
-        ownedPotions[2] = 0;
-
-        ownedPotions[3] = 1;
-        ownedPotions[4] = 0;
-        ownedPotions[5] = 0;
-
-        ownedPotions[6] = 1;
-        ownedPotions[7] = 0;
-        ownedPotions[8] = 0;
-
-        ownedPotions[9] = 1;
-        ownedPotions[10] = 0;
-        ownedPotions[11] = 0;
-
-        //0 = HP, 1 = block, 2 = damage
-        warriorLevelUpStats[0] = 5;
-        warriorLevelUpStats[1] = 2;
-        warriorLevelUpStats[2] = 2;
-
-        rangerLevelUpStats[0] = 3;
-        rangerLevelUpStats[1] = 4;
-        rangerLevelUpStats[2] = 2;
-
-        mageLevelUpStats[0] = 2;
-        mageLevelUpStats[1] = 6;
-        mageLevelUpStats[2] = 1;
-
-        healerLevelUpStats[0] = 5;
-        healerLevelUpStats[1] = 2;
-        healerLevelUpStats[2] = 3;
-    }
-
-    //Fight methods starts here
-
-    //This method imports all stats that the battle will need and start ForestFightController.
-    public void startForestFight() throws InterruptedException {
+    //This method starts the forest fight and send necessary variables to ForestController.
+    private void startForestFight() throws InterruptedException {
         forestCon.getInventory(ownedPotions);
         forestCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
         forestCon.startFight();
 
-        forestFightLoop1();
+        masterLoop1();
     }
 
-    public void startCaveFight() throws InterruptedException {
+    //This method starts the forest boss fight and send necessary variables to the controller.
+    private void startForestBossFight(){
+
+    }
+
+    //This method starts the cave fight and send necessary variables to CaveController.
+    private void startCaveFight() throws InterruptedException {
         caveCon.getInventory(ownedPotions);
         caveCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
         caveCon.startFight();
 
-        caveFightLoop1();
+        masterLoop1();
     }
 
-    public void startFieldFight() {
+    //This method starts the cave boss fight and send necessary variables to the controller.
+    private void startCaveBossFight(){
 
     }
 
-  /*  private void startWorldModel() throws InterruptedException {
-        WorldModel worldModel = new WorldModel();
-        if (worldModel.HandleOverWorld() == 1) {
-            startForestFight();
-        }
-    }*/
-  
-  public void startShop() throws InterruptedException {
+    //This method starts the field fight and send necessary variables to FieldController.
+    private void startFieldFight() {
+
+    }
+
+    //This method starts the field boss fight and send necessary variables to the controller.
+    private void startFieldBossFight(){
+
+    }
+
+    //This method starts the swamp fight and send necessary variables to SwampController.
+    private void startSwampFight(){
+
+    }
+
+    //This method starts the swamp boss fight and send necessary variables to the controller.
+    private void startSwampBossFight(){
+
+    }
+
+    //This method starts the castle fight and send necessary variables to CastleController.
+    private void startCastleFight(){
+
+    }
+
+    //This method starts the castle boss fight and send necessary variables to the controller.
+    private void startCastleBossFight(){
+
+    }
+
+    //This method starts the secret fight and send necessary variables to SecretFightController. The secret fight has a low chance to randomly activates when swimming in water.
+    private void startSecretFight(){
+
+    }
+
+  private void startTutorial() throws InterruptedException {
+      tc.startTutorial();
+      masterLoop1();
+
+      startGame();
+  }
+
+    //This method starts the shop and send necessary variables to ShopController.
+  private void startShop() throws InterruptedException {
       sc.startShopView(currentGold, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
 
-      shopLoop1();
+      masterLoop1();
+      startWorldModel();
   }
 
     //Here starts lootFrame stuff
@@ -246,70 +261,71 @@ public class MasterModel {
     private void startLootController(int whatFight) throws InterruptedException {
         getEquipment();
         lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
-
         lc.startLootScreen(whatFight);
-
-        lootLoop1();
+        masterLoop1();
+        addLoot();
     }
 
+    //When player gets xp this methods check if player will level up.
     private void startLevelUp() throws InterruptedException {
 
         if (currentXp>15 && currentLevel == 1){
             currentLevel = 2;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
-            levelUpLoop1();
+            masterLoop1();
         }
         if (currentXp>40 && currentLevel == 2){
             currentLevel = 3;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
-            levelUpLoop1();
+            masterLoop1();
         }
         else if (currentXp>80 && currentLevel == 3){
             currentLevel = 4;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
-            levelUpLoop1();
+            masterLoop1();
         }
         else if(currentXp>160 && currentLevel == 4){
             currentLevel = 5;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
-            levelUpLoop1();
+            masterLoop1();
         }
         else if(currentXp>300 && currentLevel == 5){
             currentLevel = 6;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
-            levelUpLoop1();
+            masterLoop1();
         }
         else if(currentXp>500 && currentLevel == 6){
             currentLevel = 7;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
-            levelUpLoop1();
+            masterLoop1();
         }
         else if(currentXp>1000 && currentLevel == 7){
             currentLevel = 8;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
-            levelUpLoop1();
+            masterLoop1();
         }
         else if(currentXp>2000 && currentLevel == 8){
             currentLevel = 9;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
-            levelUpLoop1();
+            masterLoop1();
         }
         else if(currentXp>4000 && currentLevel == 9){
             currentLevel = 10;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
-            levelUpLoop1();
+            masterLoop1();
         }
     }
-    
+
+    //This method levels up all stats when player levels up. For each level the reward gets bigger.
     private void levelUpStats(){
 
         warriorStats[0] += warriorLevelUpStats[0];
@@ -345,8 +361,9 @@ public class MasterModel {
         healerLevelUpStats[2] += healerLevelUpStats[2];
     }
 
-    public void startLoseScreen(){
-      loseController.startLoseScreen(currentXp);
+    //This method opens up the LoseController when the player dies.
+    private void startLoseScreen(){
+      loseController.startLoseScreen(currentXp, userName);
     }
 
     //This method saves gold, xp and weapon/armor that player got from lootController.
@@ -437,7 +454,71 @@ public class MasterModel {
         startWorldModel();
     }
 
-    //Collects information about armor, weapons etc.
+    //This method sets all beginning stats such as hp, damage etc.
+    private void setStartNumbers() {
+
+        warriorStats[0] = 130;
+        warriorStats[1] = 3 + currentWarriorArmorBlock;
+        warriorStats[2] = 2 + currentWarriorWeaponDamage;
+
+        rangerStats[0] = 80;
+        rangerStats[1] = 0 + currentRangerArmorBlock;
+        rangerStats[2] = 3 + currentRangerWeaponDamage;
+
+        mageStats[0] = 70;
+        mageStats[1] = 0 + currentMageArmorBlock;
+        mageStats[2] = 4 +currentMageArmorDamage + currentMageWeaponDamage;
+
+        healerStats[0] = 100;
+        healerStats[1] = 1 + currentHealerArmorBlock;
+        healerStats[2] = 0 +currentHealerArmorDamage + currentHealerWeaponDamage;
+
+        //TODO ändra
+
+        warriorStats[0]=1;
+        mageStats[0]=1;
+        rangerStats[0]=1;
+        healerStats[0]=1;
+
+        currentXp = 0;
+        currentLevel = 1;
+        currentGold = 20;
+
+        ownedPotions[0] = 1;
+        ownedPotions[1] = 0;
+        ownedPotions[2] = 0;
+
+        ownedPotions[3] = 1;
+        ownedPotions[4] = 0;
+        ownedPotions[5] = 0;
+
+        ownedPotions[6] = 1;
+        ownedPotions[7] = 0;
+        ownedPotions[8] = 0;
+
+        ownedPotions[9] = 1;
+        ownedPotions[10] = 0;
+        ownedPotions[11] = 0;
+
+        //0 = HP, 1 = block, 2 = damage
+        warriorLevelUpStats[0] = 5;
+        warriorLevelUpStats[1] = 2;
+        warriorLevelUpStats[2] = 2;
+
+        rangerLevelUpStats[0] = 3;
+        rangerLevelUpStats[1] = 4;
+        rangerLevelUpStats[2] = 2;
+
+        mageLevelUpStats[0] = 2;
+        mageLevelUpStats[1] = 6;
+        mageLevelUpStats[2] = 1;
+
+        healerLevelUpStats[0] = 5;
+        healerLevelUpStats[1] = 2;
+        healerLevelUpStats[2] = 3;
+    }
+
+    //Puts variables into arrays so that it is easier to send to other classes.
     private void getEquipment() {
         armorNames[0] = currentWarriorArmorName;
         armorNames[1] = currentMageArmorName;
@@ -524,6 +605,7 @@ public class MasterModel {
         armorDamage[5] = healerLegendaryArmorDamage;
     }
 
+    //This method adds the item player bought in the store to inventory or equips armor or weapons.
     private void addLootFromShop(int whatLoot){
         if (whatLoot == 1){
             warriorRareArmor();
@@ -636,65 +718,18 @@ public class MasterModel {
         }
     }
 
-    //Loops
+    //This method loops the program until 'something' happens. Use this on all fights and frames that waits for input. Works like a homemade thread.
+    private void masterLoop1() throws InterruptedException {
+      int loops = 0;
+      boolean broken = false;
+        System.out.println("Loop 1");
 
-    private void forestFightLoop1() throws InterruptedException {
-        int loops = 0;
-        boolean broken = false;
+        while (true){
+            System.out.println("Running loop 1");
 
-        System.out.println("forest loop1");
-        while (true) {
-            System.out.println("run forest 1");
-
-            if (forestCon.fightWon) {
-                System.out.println("fightWon");
-
-                forestCon.fightWon = false;
-
-                forestCon.ownedPotions[0] = ownedPotions[0];
-                forestCon.ownedPotions[1] = ownedPotions[1];
-                forestCon.ownedPotions[2] = ownedPotions[2];
-
-                forestCon.ownedPotions[3] = ownedPotions[3];
-                forestCon.ownedPotions[4] = ownedPotions[4];
-                forestCon.ownedPotions[5] = ownedPotions[5];
-
-                forestCon.ownedPotions[6] = ownedPotions[6];
-                forestCon.ownedPotions[7] = ownedPotions[7];
-                forestCon.ownedPotions[8] = ownedPotions[8];
-
-                forestCon.ownedPotions[9] = ownedPotions[9];
-                forestCon.ownedPotions[10] = ownedPotions[10];
-                forestCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(1);
-                broken = true;
-                break;
-            } if (forestCon.fightLost) {
-                System.out.println("fightLost loop 1");
-                broken = true;
-                startLoseScreen();
-                break;
-            } else if (loops == 100000) {
-                break;
-            }
-            loops++;
-        }
-        if (!broken) {
-            forestFightLoop2();
-        }
-    }
-
-    private void forestFightLoop2() throws InterruptedException {
-        int loops = 0;
-        boolean broken = false;
-        System.out.println("forest loop2");
-
-        while (true) {
-            System.out.println("run forest 2");
-
-            if (forestCon.fightWon) {
-                System.out.println("fightWon");
+            //ForestFight
+            if (forestCon.fightWon){
+                System.out.println("Forest fight won");
 
                 forestCon.fightWon = false;
 
@@ -719,30 +754,109 @@ public class MasterModel {
                 break;
             }
             else if (forestCon.fightLost) {
-                System.out.println("fightLost loop 2");
+                System.out.println("fightLost loop 1");
                 broken = true;
                 startLoseScreen();
                 break;
-            } else if (loops == 100000) {
+            }
+            //CaveFight
+            else if (caveCon.fightWon){
+                System.out.println("Cave fight won");
+
+                caveCon.fightWon = false;
+
+                caveCon.ownedPotions[0] = ownedPotions[0];
+                caveCon.ownedPotions[1] = ownedPotions[1];
+                caveCon.ownedPotions[2] = ownedPotions[2];
+
+                caveCon.ownedPotions[3] = ownedPotions[3];
+                caveCon.ownedPotions[4] = ownedPotions[4];
+                caveCon.ownedPotions[5] = ownedPotions[5];
+
+                caveCon.ownedPotions[6] = ownedPotions[6];
+                caveCon.ownedPotions[7] = ownedPotions[7];
+                caveCon.ownedPotions[8] = ownedPotions[8];
+
+                caveCon.ownedPotions[9] = ownedPotions[9];
+                caveCon.ownedPotions[10] = ownedPotions[10];
+                caveCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(2);
+                broken = true;
+                break;
+            }
+            //FieldFight
+            /*else if (caveCon.fightWon){
+                System.out.println("field fight won");
+
+                fieldCon.fightWon = false;
+
+                fieldCon.ownedPotions[0] = ownedPotions[0];
+                fieldCon.ownedPotions[1] = ownedPotions[1];
+                fieldCon.ownedPotions[2] = ownedPotions[2];
+
+                fieldCon.ownedPotions[3] = ownedPotions[3];
+                fieldCon.ownedPotions[4] = ownedPotions[4];
+                fieldCon.ownedPotions[5] = ownedPotions[5];
+
+                fieldCon.ownedPotions[6] = ownedPotions[6];
+                fieldCon.ownedPotions[7] = ownedPotions[7];
+                fieldCon.ownedPotions[8] = ownedPotions[8];
+
+                fieldCon.ownedPotions[9] = ownedPotions[9];
+                fieldCon.ownedPotions[10] = ownedPotions[10];
+                fieldCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(3);
+                broken = true;
+                break;
+            }*/
+            else if (caveCon.fightLost) {
+                System.out.println("Cave fight lost");
+                startLoseScreen();
+                broken = true;
+                break;
+            }
+            //Loot, tutorial, shop, levelUp,
+            else if (lc.done||tc.done||sc.done||luc.done) {
+                System.out.println("Done");
+                luc.done = false;
+                sc.done = false;
+                tc.done = false;
+                lc.done = false;
+                broken = true;
+                break;
+            }
+            //Bought item
+            else if (sc.itemBought){
+                System.out.println("Player bought something");
+                addLootFromShop(sc.whatItemBought);
+                currentGold = sc.currentGold;
+                sc.itemBought = false;
+            }
+            else if (loops == 100000) {
                 break;
             }
             loops++;
         }
         if (!broken) {
-            forestFightLoop1();
+            masterLoop2();
         }
-    }
+  }
 
-    private void caveFightLoop1() throws InterruptedException {
+    private void masterLoop2() throws InterruptedException {
         int loops = 0;
         boolean broken = false;
+        System.out.println("Loop 2");
 
-        System.out.println("loop1");
-        while (true) {
-            System.out.println("running cave 1");
+        while (true){
+            System.out.println("Running loop 2");
 
-            if (caveCon.fightWon) {
-                System.out.println("fightWon");
+            //ForestFight
+            if (forestCon.fightWon){
+                System.out.println("Forest fight won");
+
+                forestCon.fightWon = false;
 
                 forestCon.ownedPotions[0] = ownedPotions[0];
                 forestCon.ownedPotions[1] = ownedPotions[1];
@@ -763,136 +877,101 @@ public class MasterModel {
                 startLootController(1);
                 broken = true;
                 break;
-            } else if (caveCon.fightLost) {
-                System.out.println("fightLost");
+            }
+            else if (forestCon.fightLost) {
+                System.out.println("fightLost loop 1");
+                broken = true;
+                startLoseScreen();
+                break;
+            }
+            //CaveFight
+            else if (caveCon.fightWon){
+                System.out.println("Cave fight won");
+
+                caveCon.fightWon = false;
+
+                caveCon.ownedPotions[0] = ownedPotions[0];
+                caveCon.ownedPotions[1] = ownedPotions[1];
+                caveCon.ownedPotions[2] = ownedPotions[2];
+
+                caveCon.ownedPotions[3] = ownedPotions[3];
+                caveCon.ownedPotions[4] = ownedPotions[4];
+                caveCon.ownedPotions[5] = ownedPotions[5];
+
+                caveCon.ownedPotions[6] = ownedPotions[6];
+                caveCon.ownedPotions[7] = ownedPotions[7];
+                caveCon.ownedPotions[8] = ownedPotions[8];
+
+                caveCon.ownedPotions[9] = ownedPotions[9];
+                caveCon.ownedPotions[10] = ownedPotions[10];
+                caveCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(2);
+                broken = true;
+                break;
+            }
+            //FieldFight
+            /*else if (caveCon.fightWon){
+                System.out.println("field fight won");
+
+                fieldCon.fightWon = false;
+
+                fieldCon.ownedPotions[0] = ownedPotions[0];
+                fieldCon.ownedPotions[1] = ownedPotions[1];
+                fieldCon.ownedPotions[2] = ownedPotions[2];
+
+                fieldCon.ownedPotions[3] = ownedPotions[3];
+                fieldCon.ownedPotions[4] = ownedPotions[4];
+                fieldCon.ownedPotions[5] = ownedPotions[5];
+
+                fieldCon.ownedPotions[6] = ownedPotions[6];
+                fieldCon.ownedPotions[7] = ownedPotions[7];
+                fieldCon.ownedPotions[8] = ownedPotions[8];
+
+                fieldCon.ownedPotions[9] = ownedPotions[9];
+                fieldCon.ownedPotions[10] = ownedPotions[10];
+                fieldCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(3);
+                broken = true;
+                break;
+            }*/
+            else if (caveCon.fightLost) {
+                System.out.println("Cave fight lost");
                 startLoseScreen();
                 broken = true;
                 break;
-            } else if (loops == 100000) {
-                break;
             }
-            loops++;
-        }
-        if (!broken) {
-            caveFightLoop2();
-        }
-    }
-
-    private void caveFightLoop2() throws InterruptedException {
-        int loops = 0;
-        boolean broken = false;
-        System.out.println("loop2");
-
-        while (true) {
-            System.out.println("running cave 2");
-
-            if (caveCon.fightWon) {
-                System.out.println("fightWon");
-
-                forestCon.ownedPotions[0] = ownedPotions[0];
-                forestCon.ownedPotions[1] = ownedPotions[1];
-                forestCon.ownedPotions[2] = ownedPotions[2];
-
-                forestCon.ownedPotions[3] = ownedPotions[3];
-                forestCon.ownedPotions[4] = ownedPotions[4];
-                forestCon.ownedPotions[5] = ownedPotions[5];
-
-                forestCon.ownedPotions[6] = ownedPotions[6];
-                forestCon.ownedPotions[7] = ownedPotions[7];
-                forestCon.ownedPotions[8] = ownedPotions[8];
-
-                forestCon.ownedPotions[9] = ownedPotions[9];
-                forestCon.ownedPotions[10] = ownedPotions[10];
-                forestCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(1);
-                broken = true;
-                break;
-            } else if (caveCon.fightLost) {
-                System.out.println("fightLost");
-                startLoseScreen();
-                broken = true;
-                break;
-            } else if (loops == 100000) {
-                break;
-            }
-            loops++;
-        }
-        if (!broken) {
-            caveFightLoop1();
-        }
-    }
-
-    private void levelUpLoop1() throws InterruptedException {
-
-        int loops = 0;
-        boolean broken = false;
-        System.out.println("level loop1");
-
-        while (true) {
-            System.out.println("running levelUp loop 1");
-
-            if (luc.done) {
-                System.out.println("xp ready");
+            //Loot, tutorial, shop, levelUp, username.
+            else if (lc.done||tc.done||sc.done||luc.done||unc.done) {
+                System.out.println("Done");
+                unc.done = false;
                 luc.done = false;
-                broken = true;
-                break;
-            } else if (luc.playerNotLevelUp) {
-                System.out.println("Didnt level up");
-                broken = true;
-                break;
-            } else if (loops == 100000) {
-                break;
-            }
-            loops++;
-        }
-        if (!broken) {
-            levelUpLoop2();
-        }
-    }
-
-    private void levelUpLoop2() throws InterruptedException {
-
-        int loops = 0;
-        boolean broken = false;
-        System.out.println("level loop1");
-
-        while (true) {
-            System.out.println("running levelUp loop 1");
-
-            if (luc.done) {
-                System.out.println("loot ready, start loot");
-                luc.done = false;
-                broken = true;
-                break;
-            } else if (luc.playerNotLevelUp) {
-                System.out.println("Didnt level up");
-                broken = true;
-                break;
-            } else if (loops == 100000) {
-                break;
-            }
-            loops++;
-        }
-        if (!broken) {
-            levelUpLoop1();
-        }
-    }
-    
-    private void shopLoop1() throws InterruptedException {
-        int loops = 0;
-        boolean broken = false;
-        System.out.println("ShopLoop1");
-
-        while (true) {
-            System.out.println("running shop loop 1");
-
-            if (sc.done) {
-                System.out.println("loot ready, start loot");
+                sc.done = false;
+                tc.done = false;
+                lc.done = false;
                 broken = true;
                 break;
             }
+            //Hub
+            else if (hubController.gameDone){
+                hubController.gameDone =false;
+                enterUserName();
+                broken = true;
+                break;
+            }
+            else if (hubController.tutorialDone){
+                hubController.tutorialDone = false;
+                startTutorial();
+                broken = true;
+                break;
+            }
+            else if (hubController.exitDone){
+                System.exit(0);
+            }
+            //Bought item
             else if (sc.itemBought){
+                System.out.println("Player bought something");
                 addLootFromShop(sc.whatItemBought);
                 currentGold = sc.currentGold;
                 sc.itemBought = false;
@@ -903,139 +982,11 @@ public class MasterModel {
             loops++;
         }
         if (!broken) {
-            shopLoop2();
+            masterLoop1();
         }
-        sc.done = false;
-        startWorldModel();
     }
 
-    private void shopLoop2() throws InterruptedException {
-        int loops = 0;
-        boolean broken = false;
-        System.out.println("ShopLoop2");
-
-        while (true) {
-            System.out.println("running shop loop 2");
-
-            if (sc.done) {
-                System.out.println("loot ready, start loot");
-                broken = true;
-                break;
-            }
-            else if (sc.itemBought){
-                addLootFromShop(sc.whatItemBought);
-                currentGold = sc.currentGold;
-                sc.itemBought = false;
-            }
-            else if (loops == 100000) {
-                break;
-            }
-            loops++;
-        }
-        if (!broken) {
-            shopLoop1();
-        }
-        sc.done = false;
-        startWorldModel();
-    }
-
-    private void lootLoop1() throws InterruptedException {
-        int loops = 0;
-        boolean broken = false;
-        System.out.println("loot loop1");
-
-        while (true) {
-            System.out.println("running loot loop 1");
-
-            if (lc.done) {
-                System.out.println("loot ready, start loot");
-                addLoot();
-                broken = true;
-                break;
-            } else if (loops == 100000) {
-                break;
-            }
-            loops++;
-        }
-        if (!broken) {
-            lootLoop2();
-        }
-        lc.done = false;
-    }
-
-    private void lootLoop2() throws InterruptedException {
-
-        int loops = 0;
-        boolean broken = false;
-        System.out.println("loot loop2");
-
-        while (true) {
-            System.out.println("running loot loop 2");
-
-            if (lc.done) {
-                System.out.println("loot ready, start loot");
-                addLoot();
-                broken = true;
-                break;
-            } else if (loops == 100000) {
-                break;
-            }
-            loops++;
-        }
-        if (!broken) {
-            lootLoop1();
-        }
-        lc.done = false;
-    }
-
-    private void tutorialLoop1() throws InterruptedException {
-        int loops = 0;
-        boolean broken = false;
-        System.out.println("tutorial loop1");
-
-        while (true) {
-            System.out.println("running tut loop 1");
-
-            if (tc.done) {
-                broken = true;
-                startWorldModel();
-                break;
-            } else if (loops == 100000) {
-                break;
-            }
-            loops++;
-        }
-            if (!broken) {
-                tutorialLoop2();
-            }
-            tc.done = false;
-        }
-
-    private void tutorialLoop2() throws InterruptedException {
-        int loops = 0;
-        boolean broken = false;
-        System.out.println("tutorial loop1");
-
-        while (true) {
-            System.out.println("running tut loop 2");
-
-            if (tc.done) {
-                broken = true;
-                startWorldModel();
-                break;
-            } else if (loops == 100000) {
-                break;
-            }
-            loops++;
-        }
-        if (!broken) {
-            tutorialLoop1();
-        }
-        tc.done = false;
-    }
-
-    //Equip weapon/armors
-
+    //The following methods equip new weapons or armors to party members.
     private void warriorRareWeapon() {
         currentWarriorWeaponName = warriorRareWeaponName;
         currentWarriorWeaponDamage = warriorRareWeaponDamage;

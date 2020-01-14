@@ -4,6 +4,7 @@ import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Fonts;
 import davidtest.overworld.map.Functionality.MouseClickSimulated;
 import game.MusicPick;
+import game.UserNameController;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -21,10 +22,12 @@ public class WorldController extends Canvas implements Runnable {
     private int FieldEntrance = 1;
     private int SwampEntrance = 1;
     private int CastleEntrance = 1;
+    private int WaterEntrance = 1;
     private int OpeningChest = 1;
 
 
-    public void startWorldController() throws InterruptedException {
+    public void startWorldController(String userName) throws InterruptedException {
+        owf.startWorldView(userName);
         start();//start the program
         new MouseClickSimulated();
         while (Entrance[0] <= 0) {
@@ -45,6 +48,9 @@ public class WorldController extends Canvas implements Runnable {
             }
             if(CastleEntrance == 1) {
                 EnterCastle();
+            }
+            if(WaterEntrance ==1) {
+                EnterWater();
             }
             if (OpeningChest == 1) {
                 OpenChest();
@@ -163,15 +169,15 @@ public class WorldController extends Canvas implements Runnable {
 
             //render sign into the game
             Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Forest", owf.screen, 400, 440, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("1-3", owf.screen, 412, 465, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Cave", owf.screen, 18, 280, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("3-5", owf.screen, 18, 302, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Field", owf.screen, 45, 450, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("5-8", owf.screen, 45, 472, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Swamp", owf.screen, 450, 103, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("8-12", owf.screen, 450, 128, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Final Boss", owf.screen, 130, 8, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Forest", owf.screen, 320, 258, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("1-3", owf.screen, 332, 280, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Cave", owf.screen, 16, 280, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("3-5", owf.screen, 19, 302, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Field", owf.screen, 43, 450, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("5-8", owf.screen, 52, 472, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Swamp", owf.screen, 452, 103, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("8-12", owf.screen, 456, 128, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Castle", owf.screen, 147, 8, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("???", owf.screen, 160, 50, Colours.get(000, -1, -1, 555), 1);
 
 
@@ -232,6 +238,12 @@ public class WorldController extends Canvas implements Runnable {
     private void OpenChest() {
         if (owf.player.hasOpenedChest()) {
             OpeningChest++;
+        }
+    }
+    private void EnterWater() {
+        if (owf.player.hasEnteredWater()) {
+            WaterEntrance++;
+            Entrance[0] = 7;
         }
     }
 

@@ -212,8 +212,343 @@ public class LootController {
                 getMinorBlockPotion();
             }
         }
-        else if (fight == 2){
-            //cave fight
+        //If player comes from cave fight.
+        else if(fight==2){
+            ranLoot = (int) (Math.random() * 18);
+
+            int xpUp = (int)(Math.random()*20)+20;
+            int xpBefore = xpInt;
+            xpInt += xpUp;
+            lf.xp.setText("Xp: "+xpBefore+" --> "+xpInt);
+
+            int newGold = (int) (Math.random() * 20) + 20;
+            lf.gold.setText("Gold: "+goldInt+" --> "+(newGold+goldInt));
+            goldInt += newGold;
+
+            if ( ranLoot == 0 || ranLoot == 1){
+                lf.item.setText("     No items found.");
+                lf.hideLabels();
+            }
+
+            else if(ranLoot == 2){
+                if (ran==1){
+                    getEpicWarriorArmor();
+                }
+                if (ran==2){
+                    getEpicWarriorWeapon();
+                }
+            }
+            else if(ranLoot == 3){
+                if (ran==1){
+                    getEpicRangerArmor();
+                }
+                if (ran==2){
+                    getEpicRangerWeapon();
+                }
+            }
+            else if(ranLoot == 4){
+                if (ran==1){
+                    getEpicMageArmor();
+                }
+                if (ran==2){
+                    getEpicMageWeapon();
+                }
+            }
+            else if(ranLoot == 5){
+                if (ran==1){
+                    getEpicHealerArmor();
+                }
+                if (ran==2){
+                    getEpicHealerWeapon();
+                }
+            }
+            else if(ranLoot == 6){
+                getLesserHealingPotion();
+            }
+            else if(ranLoot == 7){
+                getLesserStrengthPotion();
+            }
+            else if(ranLoot == 8){
+                getLesserEnergyPotion();
+            }
+            else if(ranLoot == 9){
+                getLesserBlockPotion();
+            }
+
+            else if(ranLoot == 10){
+                if (ran==1){
+                    getRareWarriorArmor();
+                }
+                if (ran==2){
+                    getRareWarriorWeapon();
+                }
+            }
+            else if(ranLoot == 11){
+                if (ran==1){
+                    getRareRangerArmor();
+                }
+                if (ran==2){
+                    getRareRangerWeapon();
+                }
+            }
+            else if(ranLoot == 12){
+                if (ran==1){
+                    getRareMageArmor();
+                }
+                if (ran==2){
+                    getRareMageWeapon();
+                }
+            }
+            else if(ranLoot == 13){
+                if (ran==1){
+                    getRareHealerArmor();
+                }
+                if (ran==2){
+                    getRareHealerWeapon();
+                }
+            }
+            else if(ranLoot == 14){
+                getMinorHealingPotion();
+            }
+            else if(ranLoot == 15){
+                getMinorStrengthPotion();
+            }
+            else if(ranLoot == 16){
+                getMinorEnergyPotion();
+            }
+            else if(ranLoot == 17){
+                getMinorBlockPotion();
+            }
+        }
+        //If player comes from field fight.
+        else if(fight==3){
+            int xpUp = (int)(Math.random()*30)+30;
+            int xpBefore = xpInt;
+            xpInt += xpUp;
+            lf.xp.setText("Xp: "+xpBefore+" --> "+xpInt);
+
+            int newGold = (int) (Math.random() * 30) + 30;
+            lf.gold.setText("Gold: "+goldInt+" --> "+(newGold+goldInt));
+            goldInt += newGold;
+
+            if ( ranLoot == 0 || ranLoot == 1){
+                lf.item.setText("     No items found.");
+                lf.hideLabels();
+            }
+
+            else if(ranLoot == 2){
+                if (ran==1){
+                    getEpicWarriorArmor();
+                }
+                if (ran==2){
+                    getEpicWarriorWeapon();
+                }
+            }
+            else if(ranLoot == 3){
+                if (ran==1){
+                    getEpicRangerArmor();
+                }
+                if (ran==2){
+                    getEpicRangerWeapon();
+                }
+            }
+            else if(ranLoot == 4){
+                if (ran==1){
+                    getEpicMageArmor();
+                }
+                if (ran==2){
+                    getEpicMageWeapon();
+                }
+            }
+            else if(ranLoot == 5){
+                if (ran==1){
+                    getEpicHealerArmor();
+                }
+                if (ran==2){
+                    getEpicHealerWeapon();
+                }
+            }
+            else if(ranLoot == 6){
+                getLesserHealingPotion();
+            }
+            else if(ranLoot == 7){
+                getLesserStrengthPotion();
+            }
+            else if(ranLoot == 8){
+                getLesserEnergyPotion();
+            }
+            else if(ranLoot == 9){
+                getLesserBlockPotion();
+            }
+        }
+        //If player comes from swamp fight.
+        else if(fight==4){
+            ranLoot = (int) (Math.random() * 18);
+
+            int xpUp = (int)(Math.random()*50)+50;
+            int xpBefore = xpInt;
+            xpInt += xpUp;
+            lf.xp.setText("Xp: "+xpBefore+" --> "+xpInt);
+
+            int newGold = (int) (Math.random() * 40) + 40;
+            lf.gold.setText("Gold: "+goldInt+" --> "+(newGold+goldInt));
+            goldInt += newGold;
+
+            if ( ranLoot == 0 || ranLoot == 1){
+                lf.item.setText("     No items found.");
+                lf.hideLabels();
+            }
+
+            else if(ranLoot == 2){
+                if (ran==1){
+                    getEpicWarriorArmor();
+                }
+                if (ran==2){
+                    getEpicWarriorWeapon();
+                }
+            }
+            else if(ranLoot == 3){
+                if (ran==1){
+                    getEpicRangerArmor();
+                }
+                if (ran==2){
+                    getEpicRangerWeapon();
+                }
+            }
+            else if(ranLoot == 4){
+                if (ran==1){
+                    getEpicMageArmor();
+                }
+                if (ran==2){
+                    getEpicMageWeapon();
+                }
+            }
+            else if(ranLoot == 5){
+                if (ran==1){
+                    getEpicHealerArmor();
+                }
+                if (ran==2){
+                    getEpicHealerWeapon();
+                }
+            }
+            else if(ranLoot == 6){
+                getLesserHealingPotion();
+            }
+            else if(ranLoot == 7){
+                getLesserStrengthPotion();
+            }
+            else if(ranLoot == 8){
+                getLesserEnergyPotion();
+            }
+            else if(ranLoot == 9){
+                getLesserBlockPotion();
+            }
+
+            else if(ranLoot == 10){
+                if (ran==1){
+                    getLegendaryWarriorArmor();
+                }
+                if (ran==2){
+                    getLegendaryWarriorWeapon();
+                }
+            }
+            else if(ranLoot == 11){
+                if (ran==1){
+                    getLegendaryRangerArmor();
+                }
+                if (ran==2){
+                    getLegendaryRangerWeapon();
+                }
+            }
+            else if(ranLoot == 12){
+                if (ran==1){
+                    getLegendaryMageArmor();
+                }
+                if (ran==2){
+                    getLegendaryMageWeapon();
+                }
+            }
+            else if(ranLoot == 13){
+                if (ran==1){
+                    getLegendaryHealerArmor();
+                }
+                if (ran==2){
+                    getLegendaryHealerWeapon();
+                }
+            }
+            else if(ranLoot == 14){
+                getMajorHealingPotion();
+            }
+            else if(ranLoot == 15){
+                getMajorStrengthPotion();
+            }
+            else if(ranLoot == 16){
+                getMajorEnergyPotion();
+            }
+            else if(ranLoot == 17){
+                getMajorBlockPotion();
+            }
+        }
+        //If player comes from castle fight.
+        else if(fight==5){
+            int xpUp = (int)(Math.random()*100)+100;
+            int xpBefore = xpInt;
+            xpInt += xpUp;
+            lf.xp.setText("Xp: "+xpBefore+" --> "+xpInt);
+
+            int newGold = (int) (Math.random() * 50) + 50;
+            lf.gold.setText("Gold: "+goldInt+" --> "+(newGold+goldInt));
+            goldInt += newGold;
+
+            if ( ranLoot == 0 || ranLoot == 1){
+                lf.item.setText("     No items found.");
+                lf.hideLabels();
+            }
+
+            else if(ranLoot == 2){
+                if (ran==1){
+                    getLegendaryWarriorArmor();
+                }
+                if (ran==2){
+                    getLegendaryWarriorWeapon();
+                }
+            }
+            else if(ranLoot == 3){
+                if (ran==1){
+                    getLegendaryRangerArmor();
+                }
+                if (ran==2){
+                    getLegendaryRangerWeapon();
+                }
+            }
+            else if(ranLoot == 4){
+                if (ran==1){
+                    getLegendaryMageArmor();
+                }
+                if (ran==2){
+                    getLegendaryMageWeapon();
+                }
+            }
+            else if(ranLoot == 5){
+                if (ran==1){
+                    getLegendaryHealerArmor();
+                }
+                if (ran==2){
+                    getLegendaryHealerWeapon();
+                }
+            }
+            else if(ranLoot == 6){
+                getMajorHealingPotion();
+            }
+            else if(ranLoot == 7){
+                getMajorStrengthPotion();
+            }
+            else if(ranLoot == 8){
+                getMajorEnergyPotion();
+            }
+            else if(ranLoot == 9){
+                getMajorBlockPotion();
+            }
         }
     }
 

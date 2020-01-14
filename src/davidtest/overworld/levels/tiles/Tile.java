@@ -4,9 +4,8 @@ import davidtest.overworld.levels.Level;
 import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Screen;
 
-//Create all the variables that will be used in the levels
+//Create all the Tiles that will be used in the levels
 public abstract class Tile {
-//176 LIGHT yellow, 141 light green, 16 dark green, 4 blue, 333 gray, 332 dark yellow, 58 dark purple, 424 pink, 265 bright purple
     public static final Tile[] tiles = new Tile[256];
     public static final Tile VOID = new SolidTile(0, 0, 0,/*position of the 8x8 tile on the sprite-sheet*/ Colours.get(000, -1, -1, -1) /**/, 0xFF000000 /*the colour assigned to the map-sprite*/);
     public static final Tile STONE = new SolidTile(1, 1, 0, Colours.get(-1, 333, -1, -1), 0xFF555555);
@@ -18,10 +17,10 @@ public abstract class Tile {
     public static final Tile MOUNTAIN = new BasicTile(6,5,0, Colours.get(-1, 333, 11, -1), 0xFF3f3f3f);
     public static final Tile FIELD = new BasicTile(7,6,0, Colours.get(-1, 176, 142, -1), 0xFFa3ff00);
     public static final Tile SWAMPWATER = new AnimatedTile(8, new int[][] { {0, 5}, { 1, 5}, { 2, 5 }, { 1, 5 } },
-            Colours.get(-1, 12, 21, -1), 0xFF005c81, 1200);
+            Colours.get(-1, 12, 21, -1), 0xFF005c81, 1800);
     public static final Tile SWAMP = new BasicTile(9, 7, 0, Colours.get(-1, 18, 41, -1), 0xFF00a956);
     public static final Tile WOOD = new SolidTile(10, 8, 0, Colours.get(-1,220,221,-1), 0xFF8d6525);
-    public static final Tile LEAF = new AnimatedSolidTile(11, new int[][] {{ 0, 3}, { 1, 3}},
+    public static final Tile LEAF = new AnimatedSolidTile(11, new int[][] {{ 0, 2}, { 1, 2}},
             Colours.get(-1, 16, 141, -1), 0xFF008d00, 1000);
     public static final Tile LEFTBOTTOMHOUSE = new DoorTile(12, 0, 4, Colours.get(1,210,131, 141), 0xFF8d3026);
     public static final Tile RIGHTBOTTOMHOUSE = new DoorTile(13, 1, 4, Colours.get(1,210,131, 141), 0xFF8d3027);
@@ -39,7 +38,7 @@ public abstract class Tile {
     public static final Tile MIDDLECASTLE = new CastlePathTile(25, 2, 11, Colours.get(-1,1,333,-1), 0xFF785558);
     public static final Tile FIRE = new AnimatedSolidTile(26, new int[][] {{ 0, 13}, { 1, 13},{2,13}},
             Colours.get(220, 200, 1, 332), 0xFFed8100, 500);
-    public static final Tile SHEEPBODY = new SolidTile(27, 0, 15, Colours.get(-1,334,333,-1), 0xFF7a8b51);
+    public static final Tile SHEEPBODY = new SolidTile(27, 0, 15, Colours.get(176,334,333,1), 0xFF7a8b51);
     public static final Tile SHEEPHEAD = new AnimatedSolidTile(28, new int[][] {{ 1, 15}, { 2, 15},},
             Colours.get(176, 334, 333, 1), 0xFF7a8b53, 2000);
     public static final Tile SHEEPLEGS = new SolidTile(29, 3, 15, Colours.get(176,3,1,2), 0xFF7a8b52);
@@ -64,8 +63,11 @@ public abstract class Tile {
     public static final Tile RIGHTBOTTOMSWAMPCAVE = new SwampPathTile(45, 1, 25, Colours.get(1,2,333, 18), 0xFF672330);
     public static final Tile LEFTOPSWAMPCAVE = new SwampPathTile(46, 2, 25, Colours.get(1,2,333,18), 0xFF672331);
     public static final Tile RIGHTTOPSWAMPCAVE = new SwampPathTile(47, 3, 25, Colours.get(1,2,333,18), 0xFF672332);
+    public static final Tile SWAMPWOOD = new SolidTile(48, 8, 0, Colours.get(-1,222,228,-1), 0xFF785211);
+    public static final Tile SWAMPLEAF = new AnimatedSolidTile(49, new int[][] {{ 0, 2}, { 1, 2}},
+            Colours.get(-1, 11, 18, -1), 0xFF005200, 2000);
 
-
+    //create the boolean values that will be assigned to to tiles depending on purpose
     protected byte id;
     boolean solid;
     private boolean emitter;
@@ -78,10 +80,14 @@ public abstract class Tile {
     boolean chest;
     private int levelColour;
 
+    //create the parameters for all tiles
     Tile(int id, boolean isSolid, boolean isEmitter, boolean isDoor, boolean isForestPath, boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCastlePath, boolean isChestTile, int levelColour) {
         this.id = (byte) id;
+        //if a tile-id has been used before: throw RuntimeException
         if (tiles[id] != null)
             throw new RuntimeException("Duplicate tile id on" + id);
+
+        //Indicate that all the variables within the parameter are the same as these variables
         this.solid = isSolid;
         this.emitter = isEmitter;
         this.forestPath = isForestPath;
@@ -98,6 +104,8 @@ public abstract class Tile {
             FORESTCHEST = new ChestTile(32, 0, 19, Colours.get(16,210,178,332), 0xFFab6a1c);
         }
     }
+
+    //return theses booleans as true if the tile has been identified with it
     public byte getId() {
         return id;
     }
@@ -135,7 +143,9 @@ public abstract class Tile {
     public boolean isChest() {
         return chest;}
 
+        //update the values with every tick
     public abstract void tick();
 
+    //render the the tiles onto the level
     public abstract void render(Screen screen, Level level, int x, int y);
 }
