@@ -83,7 +83,7 @@ public class NPC extends Mob {
         }
         //assign scale to character
         int scale = 1;
-        int modifier = 8 * scale;
+        int modifier = 7 * scale;
         int xOffset = x - modifier / 2;
         int yOffset = y - modifier / 2 - 4;
 

@@ -144,9 +144,9 @@ public class WorldController extends Canvas implements Runnable {
             Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Forest", owf.screen, 320, 258, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("1-3", owf.screen, 332, 280, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Mountain", owf.screen, 16, 40, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("???", owf.screen, 19, 62, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Cave", owf.screen, 95, 218, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Mountain", owf.screen, 4, 40, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("???", owf.screen, 20, 62, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Cave", owf.screen, 112, 218, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("3-5", owf.screen, 115, 240, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Field", owf.screen, 43, 450, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("5-8", owf.screen, 52, 472, Colours.get(000, -1, -1, 555), 1);
