@@ -12,9 +12,9 @@ public class ForestBossCon {
 
     ForestBossView FBV = new ForestBossView();
 
-
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
+    private int warriorMaxHp, mageMaxHp, healerMaxHp, rangerMaxHp;
     private int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
@@ -737,6 +737,11 @@ public class ForestBossCon {
         rangerCurrentHp = ranger[0];
         rangerStartBlock = ranger[1];
         rangerStartDamage = ranger[2];
+
+        warriorMaxHp =warriorCurrentHp;
+        mageMaxHp = mageCurrentHp;
+        healerMaxHp = healerCurrentHp;
+        rangerMaxHp = rangerCurrentHp;
     }
 
     //Get the effect from potions.
@@ -1200,6 +1205,10 @@ public class ForestBossCon {
             rangerCurrentHp += healing;
             mageCurrentHp += healing;
         }
+        if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
+        if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
+        if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
+        if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
         FBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
         FBV.player2Hp.setText("Ranger:  " + rangerCurrentHp);
         FBV.player3Hp.setText("Mage:    " + mageCurrentHp);

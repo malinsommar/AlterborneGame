@@ -14,6 +14,7 @@ public class FieldController{
 
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
+    private int warriorMaxHp, mageMaxHp, healerMaxHp, rangerMaxHp;
     private int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
@@ -819,6 +820,11 @@ public class FieldController{
         rangerCurrentHp = ranger[0];
         rangerStartBlock = ranger[1];
         rangerStartDamage = ranger[2];
+
+        warriorMaxHp =warriorCurrentHp;
+        mageMaxHp = mageCurrentHp;
+        healerMaxHp = healerCurrentHp;
+        rangerMaxHp = rangerCurrentHp;
     }
 
     //Get the effect from potions.
@@ -1302,6 +1308,10 @@ public class FieldController{
             rangerCurrentHp += healing;
             mageCurrentHp += healing;
         }
+        if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
+        if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
+        if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
+        if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
         fv.player1Hp.setText("Warrior: " + warriorCurrentHp);
         fv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
         fv.player3Hp.setText("Mage:    " + mageCurrentHp);

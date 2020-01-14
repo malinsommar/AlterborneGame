@@ -14,6 +14,7 @@ public class CaveController{
 
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
+    private int warriorMaxHp, mageMaxHp, healerMaxHp, rangerMaxHp;
     private int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
@@ -819,6 +820,11 @@ public class CaveController{
         rangerCurrentHp = ranger[0];
         rangerStartBlock = ranger[1];
         rangerStartDamage = ranger[2];
+
+        warriorMaxHp =warriorCurrentHp;
+        mageMaxHp = mageCurrentHp;
+        healerMaxHp = healerCurrentHp;
+        rangerMaxHp = rangerCurrentHp;
     }
 
     //Get the effect from potions.
@@ -1302,6 +1308,10 @@ public class CaveController{
             rangerCurrentHp += healing;
             mageCurrentHp += healing;
         }
+        if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
+        if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
+        if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
+        if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
         cv.player1Hp.setText("Warrior: " + warriorCurrentHp);
         cv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
         cv.player3Hp.setText("Mage:    " + mageCurrentHp);
