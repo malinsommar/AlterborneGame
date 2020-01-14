@@ -17,7 +17,7 @@ public class CastleController{
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
     private boolean debuffed = false;
-    private int enemyDamage, enemyRandomDamage = 20, enemyBaseDamage = 25;
+    private int enemyDamage, enemyRandomDamage = 30, enemyBaseDamage = 40;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
