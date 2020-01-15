@@ -57,6 +57,7 @@ public class FieldBossView {
         public JLabel groupHeal4 = new JLabel(new ImageIcon("smallholylight.png"));
         public JLabel targetarrow = new JLabel(new ImageIcon("targetarrow.png"));
         public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
+        public JLabel dragonfire = new JLabel(new ImageIcon("dragonfire.gif"));
 
 
         /**
@@ -138,6 +139,7 @@ public class FieldBossView {
 
             //enemies
             fieldBossFightJFrame.add(fieldBoss);
+            fieldBossFightJFrame.add(dragonfire);
 
             //player
             fieldBossFightJFrame.add(ranger);
@@ -275,6 +277,11 @@ public class FieldBossView {
             targetarrow.setSize(targetarrowSize.width, targetarrowSize.height);
             targetarrow.setLocation(200, 500);
             targetarrow.setVisible(false);
+
+            Dimension dragonfireSize = dragonfire.getPreferredSize();
+            dragonfire.setSize(dragonfireSize.width, dragonfireSize.height);
+            dragonfire.setLocation(100, 121);
+            dragonfire.setVisible(false);
 
         }
 

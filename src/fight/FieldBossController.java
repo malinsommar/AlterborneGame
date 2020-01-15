@@ -38,8 +38,10 @@ public class FieldBossController {
         public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
 
         public int fieldBossX = 800, fieldBossY = 100, fieldBossStartX = fieldBossX, fieldBossStartY = fieldBossY;
-        private int fieldBossFlipX = -450, fieldBossFlipStart = fieldBossFlipX;
-        private int attackPick;
+        public int dragonfireX = 700, dragonfireY = 100, dragonfireStartX = dragonfireX, dragonfireStartY = dragonfireY;
+        private boolean flying = false;
+
+    private int attackPick;
         private int bossDamage;
         private int bossTarget;
 
@@ -239,11 +241,7 @@ public class FieldBossController {
                 FBV.energy.setText(" ");
                 FBV.block.setText(" ");
 
-
-                attackPick = (int) (Math.random() * 3);
-                if (attackPick == 0) bossAttack1.start();
-                if (attackPick == 1) bossAttack2.start();
-                if (attackPick == 2) bossAttack3.start();
+                land.start(); //undoes attack 2 if active and then selects an attack
 
 
                 //removes temporary damage buffs at the end of turn
@@ -616,51 +614,22 @@ public class FieldBossController {
             FBV.potion11Label = new JLabel("" + ownedPotions[10]);
             FBV.potion12Label = new JLabel("" + ownedPotions[11]);
 
-            FBV.fieldBossHp = new JLabel("glarb: " + fieldBossHp);
+            FBV.fieldBossHp = new JLabel("Dragon: " + fieldBossHp);
 
             FBV.playersHp = new JLabel("Hp: " + warriorCurrentHp);
             FBV.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
-            FBV.player2Hp = new JLabel("Mage:    " + mageCurrentHp);
-            FBV.player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+            FBV.player3Hp = new JLabel("Mage:    " + mageCurrentHp);
+            FBV.player2Hp = new JLabel("Ranger:  " + rangerCurrentHp);
             FBV.player4Hp = new JLabel("Healer:  " + healerCurrentHp);
             FBV.block = new JLabel("Block: " + warriorBlock);
         }
 
         /**
          *
-         * @param attack
+         * @param //attack
          */
         //When the fieldBoss attacks.
-        private void fieldBossAttack(String attack) {
-            //charge
-            if (attack.equals("attack1")) {
-                int row = (int) (Math.random() * 2) + 1;
-                if (row == 1) {
-                    warriorCurrentHp -= bossDamage * 2;
-                    healerCurrentHp -= bossDamage * 2;
-                    warriorattacked = true;
-                    healerattacked = true;
-                }
-                if (row == 2) {
-                    rangerCurrentHp -= bossDamage * 2;
-                    mageCurrentHp -= bossDamage * 2;
-                    rangerattacked = true;
-                    mageattacked = true;
-                }
-            }
-            //dunk
-            if (attack.equals("attack2")) {
-                warriorCurrentHp -= bossDamage;
-                rangerCurrentHp -= bossDamage;
-                mageCurrentHp -= bossDamage;
-                healerCurrentHp -= bossDamage;
-                warriorattacked = true;
-                rangerattacked = true;
-                mageattacked = true;
-                healerattacked = true;
-            }
-            //single target
-            if (attack.equals("attack3")) {
+        private void fieldBossAttack() {
                 while (true) {
                     bossTarget = (int) (Math.random() * 4) + 1;
                     if (bossTarget == 1 && warriorCurrentHp > 0) break;
@@ -682,10 +651,9 @@ public class FieldBossController {
                     healerCurrentHp -= bossDamage*4;
                     healerattacked = true;
                 }
-            }
             FBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
-            FBV.player2Hp.setText("Mage:    " + mageCurrentHp);
-            FBV.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+            FBV.player3Hp.setText("Mage:    " + mageCurrentHp);
+            FBV.player2Hp.setText("Ranger:  " + rangerCurrentHp);
             FBV.player4Hp.setText("Healer:  " + healerCurrentHp);
             partyDeath();
             isFightOver();
@@ -699,7 +667,7 @@ public class FieldBossController {
         private void mobDeath() {
 
             if (fieldBossHp <= 0) {
-                FBV.fieldBossHp.setText("glarb: ");
+                FBV.fieldBossHp.setText("Dragon: ");
                 FBV.fieldBoss.setVisible(false);
             }
         }
@@ -717,12 +685,12 @@ public class FieldBossController {
             }
             if (mageCurrentHp <= 0) {
                 mageCurrentHp = 0;
-                FBV.player2Hp.setText("Mage:    " + mageCurrentHp);
+                FBV.player3Hp.setText("Mage:    " + mageCurrentHp);
                 FBV.mage.setVisible(false);
             }
             if (rangerCurrentHp <= 0) {
                 rangerCurrentHp = 0;
-                FBV.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+                FBV.player2Hp.setText("Ranger:  " + rangerCurrentHp);
                 FBV.ranger.setVisible(false);
             }
             if (healerCurrentHp <= 0) {
@@ -1250,9 +1218,9 @@ public class FieldBossController {
         //damageTargets types: single, line, all
         public void spellDamageSystem(int unbuffedDamage, String damageTargets) {
             damage = unbuffedDamage + buffDamage[turns - 1];
-            fieldBossHp -= damage;
+            if (!flying) fieldBossHp -= damage;
 
-            FBV.fieldBossHp.setText("glarb: " + fieldBossHp);
+            FBV.fieldBossHp.setText("Dragon: " + fieldBossHp);
             mobDeath();
             isFightOver();
         }
@@ -2085,30 +2053,62 @@ public class FieldBossController {
             }
         });
 
+
+    private Timer land = new Timer(10, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent ae) {
+            if (phase == 0) {
+                animationPlaying = true;
+                FBV.endTurnButton.setVisible(false);
+                phase = 1;
+            }
+            if (phase == 1 && flying) {
+                fieldBossY += 5;
+                FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
+            }
+            if (fieldBossY >= fieldBossStartY) {
+                flying = false;
+            }
+            if (!flying){
+                fieldBossY = fieldBossStartY;
+                FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
+                phase = 0;
+                attackPick = (int) (Math.random() * 4);
+                if (attackPick < 3) {bossAttack1.start();}
+                if (attackPick == 3) {bossAttack2.start();}
+                land.stop();
+            }
+        }
+    });
+
         /**
          *
          */
-        //charge, hits 2 targets
+        //firebreath
         private Timer bossAttack1 = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 timePast++;
-                animationPlaying = true;
+
+                FBV.dragonfire.setVisible(true);
                 FBV.endTurnButton.setVisible(false);
-                if (timePast < 50) {
-                    fieldBossX -= 30;
-                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                } else if (timePast < 60) {
-                    fieldBossX += 30;
-                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                } else if (timePast < 110) {
-                    fieldBossX = fieldBossStartX;
-                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                    fieldBossAttack("attack1");
+                if (phase < 50) {
+                    dragonfireX -= 45;
+                    dragonfireY += 15;
+                    FBV.dragonfire.setLocation(dragonfireX, dragonfireY);
+                }
+                if (dragonfireY > 300){
+                    dragonfireX = dragonfireStartX;
+                    dragonfireY = dragonfireStartY;
+                    FBV.dragonfire.setLocation(dragonfireX, dragonfireY);
+                    phase++;
+                } else if (phase > 10) {
+                    fieldBossAttack();
                     timePast = 0;
+                    phase = 0;
                     bossAttack1.stop();
                     FBV.endTurnButton.setVisible(true);
-                    animationPlaying = false;
+                    FBV.dragonfire.setVisible(false);
                     takeDamage.start();
                     animationPlaying = false;
                 }
@@ -2118,80 +2118,32 @@ public class FieldBossController {
         /**
          *
          */
-        //leap, hits all
+        //dodge/fly/buff
         private Timer bossAttack2 = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (phase == 0) {
                     animationPlaying = true;
                     FBV.endTurnButton.setVisible(false);
-                    MusicPick.musicStart("glarbsound", "");
+                    MusicPick.musicStart("make a sound", "");
                     phase = 1;
                 }
                 if (phase == 1) {
-                    bossMegaMath -= 2;
-                    fieldBossX -= 15;
-                    fieldBossY -= bossMegaMath;
+                    fieldBossY -= 5;
                     FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                    if (fieldBossY > fieldBossStartY) {
-                        fieldBossY = fieldBossStartY;
-                        FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                        phase = 2;
-                    }
-                } else if (phase == 2) {
-                    timePast++;
-                    if (timePast == 90) {
-                        fieldBossY = fieldBossStartY;
-                        fieldBossX = fieldBossStartX;
-                        FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                        timePast = 0;
-                        bossMegaMath = 50;
+                }
+                if (fieldBossY < -300) {
                         phase = 0;
+                        timePast = 0;
                         bossAttack2.stop();
-                        fieldBossAttack("attack2");
+                        flying = true;
                         FBV.endTurnButton.setVisible(true);
                         animationPlaying = false;
-                        takeDamage.start();
-
-                    }
+                        bossDamage += 10;
+                        startNewTurn();
                 }
             }
         });
-
-        /**
-         *
-         */
-        //attack 4, buff boss damage
-        private Timer bossAttack3 = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                timePast++;
-                if (timePast == 1) {
-                    animationPlaying = true;
-                    FBV.endTurnButton.setVisible(false);
-                } else if (timePast < 10) {
-                    fieldBossX -= 10;
-                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                } else if (timePast == 10) {
-                    MusicPick.musicStart("wolfhowl", "");
-                } else if (timePast < 90) {
-                    //nothing
-                } else if (timePast < 100) {
-                    fieldBossX += 5;
-                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                } else if (timePast < 120) {
-                    fieldBossY = fieldBossStartY;
-                    fieldBossX = fieldBossStartX;
-                    FBV.fieldBoss.setLocation(fieldBossX, fieldBossY);
-                    timePast = 0;
-                    bossAttack3.stop();
-                    FBV.endTurnButton.setVisible(true);
-                    animationPlaying = false;
-                    startNewTurn();
-                }
-            }
-        });
-
 
         /**
          *

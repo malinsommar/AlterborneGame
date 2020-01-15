@@ -71,8 +71,8 @@ public class FieldView {
         fieldFightJFrame.setContentPane(new JLabel(background));
 
         inventory.setLayout(null);
-        inventory.setSize(1920, 300);
-        inventory.setLocation(0,538);
+        inventory.setSize(1920, 170);
+        inventory.setLocation(0,0);
 
         importFont();
         getInventory();
