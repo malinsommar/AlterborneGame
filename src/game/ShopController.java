@@ -6,12 +6,12 @@ package game;
  * @author Malin Sommar
  * @version 1
  */
-public class ShopController {
+class ShopController {
 
-    ShopView sv = new ShopView();
+    private ShopView sv = new ShopView();
 
     int currentGold;
-    public int whatItemBought;
+    int whatItemBought;
 
     boolean done = false;
     boolean itemBought = false;
@@ -21,7 +21,7 @@ public class ShopController {
      *
      * @param getGold Current gold
      */
-    public void startShopView(int getGold){
+    void startShopView(int getGold){
 
         currentGold = getGold;
 
@@ -82,7 +82,7 @@ public class ShopController {
      *
      * @param whatEquipment What item player presses
      */
-    public void buyEquipment(int whatEquipment){
+    private void buyEquipment(int whatEquipment){
 
         //Warrior
         if (whatEquipment==1 && currentGold>49){
@@ -266,7 +266,7 @@ public class ShopController {
      *
      * @param whatPotion Clicked potion/ potion that player want to buy
      */
-    public void buyPotion(int whatPotion){
+    private void buyPotion(int whatPotion){
 
         if (whatPotion==1 && currentGold>9){
             currentGold-=10;

@@ -11,7 +11,7 @@ public class CastleView {
 
     JFrame CastleFightJFrame = new JFrame();
     Potions potions = new Potions();
-    JFrame inventory = new JFrame();
+    JPanel inventory = new JPanel();
 
     //Create fonts
     Font pixelMplus;
@@ -70,6 +70,11 @@ public class CastleView {
         ImageIcon background = new ImageIcon("castle.png");
         CastleFightJFrame.setContentPane(new JLabel(background));
 
+        //Frame settings
+        inventory.setLayout(null);
+        inventory.setSize(1920, 300);
+        inventory.setLocation(0,538);
+
         importFont();
         getInventory();
         importButtons();
@@ -79,6 +84,7 @@ public class CastleView {
         spellMenuStartup();
         animationStuff();
         healingTarget();
+        getInventory();
 
         CastleFightJFrame.add(energy);
         CastleFightJFrame.add(block);
@@ -149,6 +155,38 @@ public class CastleView {
         CastleFightJFrame.add(warrior);
         CastleFightJFrame.add(mage);
         CastleFightJFrame.add(healer);
+
+        //Add all labels//buttons.
+        inventory.add(potion1);
+        inventory.add(potion2);
+        inventory.add(potion3);
+        inventory.add(potion4);
+        inventory.add(potion5);
+        inventory.add(potion6);
+        inventory.add(potion7);
+        inventory.add(potion8);
+        inventory.add(potion9);
+        inventory.add(potion10);
+        inventory.add(potion11);
+        inventory.add(potion12);
+        inventory.add(inventoryHealth);
+        inventory.add(inventoryBlock);
+        inventory.add(inventoryEnergy);
+        inventory.add(inventoryStr);
+        inventory.add(potion1Label);
+        inventory.add(potion2Label);
+        inventory.add(potion3Label);
+        inventory.add(potion4Label);
+        inventory.add(potion5Label);
+        inventory.add(potion6Label);
+        inventory.add(potion7Label);
+        inventory.add(potion8Label);
+        inventory.add(potion9Label);
+        inventory.add(potion10Label);
+        inventory.add(potion11Label);
+        inventory.add(potion12Label);
+
+        inventory.setVisible(true);
 
         CastleFightJFrame.setVisible(true);
     }
@@ -368,57 +406,6 @@ public class CastleView {
         healHealerButton.setBorder(null); //Remove border around button
         healHealerButton.setFocusPainted(false);//Remove border around text in button
 
-    }
-
-    //This method triggers when you press the "Item button". It opens up another JFrame that covers the hud.
-    public void itemPressed(){
-
-        //Frame settings
-        inventory = new JFrame();
-        inventory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inventory.setLayout(null);
-        inventory.setSize(1920, 300);
-        inventory.setTitle("Inventory");
-        inventory.setLocation(0,538);
-
-        getInventory();
-
-        //Background
-        ImageIcon backgroundInventory = new ImageIcon("white.jpg");
-        inventory.setContentPane(new JLabel(backgroundInventory));
-
-        //Add all labels//buttons.
-        inventory.add(potion1);
-        inventory.add(potion2);
-        inventory.add(potion3);
-        inventory.add(potion4);
-        inventory.add(potion5);
-        inventory.add(potion6);
-        inventory.add(potion7);
-        inventory.add(potion8);
-        inventory.add(potion9);
-        inventory.add(potion10);
-        inventory.add(potion11);
-        inventory.add(potion12);
-        inventory.add(inventoryHealth);
-        inventory.add(inventoryBlock);
-        inventory.add(inventoryEnergy);
-        inventory.add(inventoryStr);
-        inventory.add(potion1Label);
-        inventory.add(potion2Label);
-        inventory.add(potion3Label);
-        inventory.add(potion4Label);
-        inventory.add(potion5Label);
-        inventory.add(potion6Label);
-        inventory.add(potion7Label);
-        inventory.add(potion8Label);
-        inventory.add(potion9Label);
-        inventory.add(potion10Label);
-        inventory.add(potion11Label);
-        inventory.add(potion12Label);
-
-        inventory.setUndecorated(true);
-        inventory.setVisible(true);
     }
 
     private void getInventory() {

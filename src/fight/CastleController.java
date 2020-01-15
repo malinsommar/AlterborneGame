@@ -108,7 +108,7 @@ public class CastleController{
         });
         cv.blockButton.addActionListener(e -> blockPressed());
         cv.itemButton.addActionListener(e -> {
-            cv.itemPressed();
+            cv.inventory.setVisible(true);
             itemMenuActivate();
         });
         cv.skillButton.addActionListener(e ->{
@@ -130,7 +130,7 @@ public class CastleController{
             if (!animationPlaying) skill4();
         });
         cv.returnButton.addActionListener(e -> spellMenuInactive());
-        cv.returnButton.addActionListener(e -> cv.inventory.dispose());
+        cv.returnButton.addActionListener(e -> cv.inventory.setVisible(false));
 
         //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
         cv.potion1.addActionListener(e -> usePotion(1));

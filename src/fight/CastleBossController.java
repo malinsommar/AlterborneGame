@@ -105,7 +105,7 @@ public class CastleBossController {
             });
             CastleBV.blockButton.addActionListener(e -> blockPressed());
             CastleBV.itemButton.addActionListener(e -> {
-                CastleBV.itemPressed();
+                CastleBV.inventory.setVisible(true);
                 itemMenuActivate();
             });
             CastleBV.skillButton.addActionListener(e -> {
@@ -127,7 +127,7 @@ public class CastleBossController {
                 if (!animationPlaying) skill4();
             });
             CastleBV.returnButton.addActionListener(e -> spellMenuInactive());
-            CastleBV.returnButton.addActionListener(e -> CastleBV.inventory.dispose());
+            CastleBV.returnButton.addActionListener(e -> CastleBV.inventory.setVisible(false));
 
             //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
             CastleBV.potion1.addActionListener(e -> usePotion(1));
@@ -143,8 +143,6 @@ public class CastleBossController {
             CastleBV.potion11.addActionListener(e -> usePotion(11));
             CastleBV.potion12.addActionListener(e -> usePotion(12));
 
-            //Dispose the item frame.
-            //CastleBV.returnButton.addActionListener(e -> CastleBV.inventory.dispose());
 
         }
 

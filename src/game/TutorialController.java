@@ -27,7 +27,7 @@ public class TutorialController {
     /**
      *Start tutorialView and set actionListeners.
      */
-    public void startTutorial(){
+    void startTutorial(){
         tv.tutorialFrame();
 
         tv.nextPic.addActionListener(e ->nextPicture());

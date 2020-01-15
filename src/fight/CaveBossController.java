@@ -111,7 +111,7 @@ public class CaveBossController {
             });
             CBV.blockButton.addActionListener(e -> blockPressed());
             CBV.itemButton.addActionListener(e -> {
-                CBV.itemPressed();
+                CBV.inventory.setVisible(true);
                 itemMenuActivate();
             });
             CBV.skillButton.addActionListener(e -> {
@@ -133,7 +133,7 @@ public class CaveBossController {
                 if (!animationPlaying) skill4();
             });
             CBV.returnButton.addActionListener(e -> spellMenuInactive());
-            CBV.returnButton.addActionListener(e -> CBV.inventory.dispose());
+            CBV.returnButton.addActionListener(e -> CBV.inventory.setVisible(false));
 
             //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
             CBV.potion1.addActionListener(e -> usePotion(1));
