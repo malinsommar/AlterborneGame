@@ -42,9 +42,6 @@ public class WorldModel {
             if (overWorldController.Entrance[0] == 6) {
                 return 6; //call castle 8-9
             }
-            if (overWorldController.Entrance[0] == 7) {
-                return 7; //call water
-            }
             return 0;
         }
     }

@@ -14,10 +14,11 @@ import java.awt.image.BufferStrategy;
  */
 public class WorldController extends Canvas implements Runnable {
     private WorldView owf = new WorldView();
-    public  int[] Entrance = new int[1];
+    public int[] Entrance = new int[1];
 
     /**
      * method start the program
+     *
      * @param userName name that will be used for the player
      */
     public void startWorldController(String userName) {
@@ -26,13 +27,12 @@ public class WorldController extends Canvas implements Runnable {
         new MouseClickSimulated();
         //whileLoop to check that the entrance-array is less or equal to 0 before calling methods
         while (Entrance[0] <= 0) {
-                EnterForest();
-                EnterShop();
-                EnterField();
-                EnterSwamp();
-                EnterCastle();
-                EnterWater();
-                EnterCave();
+            EnterForest();
+            EnterShop();
+            EnterField();
+            EnterSwamp();
+            EnterCastle();
+            EnterCave();
         }
     }
 
@@ -48,7 +48,7 @@ public class WorldController extends Canvas implements Runnable {
 
 
     /**
-     *  Initiate colours
+     * Initiate colours
      */
     private void init() {
         int index = 0;
@@ -126,6 +126,7 @@ public class WorldController extends Canvas implements Runnable {
 
     /**
      * Updates the logic of the game within all the active classes within the period of time assigned within the method
+     *
      * @throws InterruptedException if the thread where to be interrupted
      */
     private synchronized void tick() throws InterruptedException {
@@ -133,60 +134,59 @@ public class WorldController extends Canvas implements Runnable {
         if (Entrance[0] > 0) { //if the Entrance array is assigned anything other than zero: call whatever is inside the braces
             owf.frame.dispose(); //dispose the OverWorld-frame
         }
-            //FIXME thread delay/pause
-            // - start Malin work
-            // - thread resume
-        }
+        //FIXME thread delay/pause
+        // - start Malin work
+        // - thread resume
+    }
 
     /**
      * Prints out what the logic in the tick-function has stated should be printed out
      */
-    private void render()
-        {
-            BufferStrategy bs = owf.getBufferStrategy(); //an Object to organize the data in the canvas
-            //if a bufferStrategy hasn't been created: make one
-            if (bs == null) {
-                owf.createBufferStrategy(3); //reducing tearing in the image. Higher value would require higher processing-power
-                return;
-            }
-
-            int xOffset = owf.player.x - (owf.screen.width / 2); //Players position in accordance with the screens width
-            int yOffset = owf.player.y - (owf.screen.height / 2);  //Players position in accordance with the screens height
-
-            //render the map into the game
-            owf.level.renderTiles(owf.screen, xOffset, yOffset);
-
-            //render the available mobs into to game
-            owf.level.renderEntities(owf.screen);
-
-            //render signs into the game
-            Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Forest", owf.screen, 320, 258, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("1-3", owf.screen, 332, 280, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Cave", owf.screen, 15, 40, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("1-3", owf.screen, 20, 62, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Field", owf.screen, 43, 450, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("5-8", owf.screen, 52, 472, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Swamp", owf.screen, 452, 103, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("8-12", owf.screen, 456, 128, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Castle", owf.screen, 147, 8, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("???", owf.screen, 160, 50, Colours.get(000, -1, -1, 555), 1);
-
-
-            //render the colours on the tiles within the screens width and height
-            for (int y = 0; y < owf.screen.height; y++) {
-                for (int x = 0; x < owf.screen.width; x++) {
-                    int colourCode = owf.screen.pixels[x + y * owf.screen.width]; //combined value of all the colours in an int
-                    if (colourCode < 255) //check so the colour is within the 255 parameter
-                        owf.pixels[x + y * WorldView.WIDTH] = owf.colours[colourCode];
-                }
-            }
-
-            Graphics g = bs.getDrawGraphics(); //a graphic-object. without it the screen would just stay white
-            g.drawImage(owf.image, 0, 0, owf.getWidth(), owf.getHeight(), null); //draws the image on the screen
-            g.dispose(); //free up space when the object is no longer needed
-            bs.show();//show in JFrame
+    private void render() {
+        BufferStrategy bs = owf.getBufferStrategy(); //an Object to organize the data in the canvas
+        //if a bufferStrategy hasn't been created: make one
+        if (bs == null) {
+            owf.createBufferStrategy(3); //reducing tearing in the image. Higher value would require higher processing-power
+            return;
         }
+
+        int xOffset = owf.player.x - (owf.screen.width / 2); //Players position in accordance with the screens width
+        int yOffset = owf.player.y - (owf.screen.height / 2);  //Players position in accordance with the screens height
+
+        //render the map into the game
+        owf.level.renderTiles(owf.screen, xOffset, yOffset);
+
+        //render the available mobs into to game
+        owf.level.renderEntities(owf.screen);
+
+        //render signs into the game
+        Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
+        Fonts.render("Forest", owf.screen, 320, 258, Colours.get(000, -1, -1, 555), 1);
+        Fonts.render("1-3", owf.screen, 332, 280, Colours.get(000, -1, -1, 555), 1);
+        Fonts.render("Cave", owf.screen, 15, 40, Colours.get(000, -1, -1, 555), 1);
+        Fonts.render("1-3", owf.screen, 20, 62, Colours.get(000, -1, -1, 555), 1);
+        Fonts.render("Field", owf.screen, 43, 450, Colours.get(000, -1, -1, 555), 1);
+        Fonts.render("5-8", owf.screen, 52, 472, Colours.get(000, -1, -1, 555), 1);
+        Fonts.render("Swamp", owf.screen, 452, 103, Colours.get(000, -1, -1, 555), 1);
+        Fonts.render("8-12", owf.screen, 456, 128, Colours.get(000, -1, -1, 555), 1);
+        Fonts.render("Castle", owf.screen, 147, 8, Colours.get(000, -1, -1, 555), 1);
+        Fonts.render("???", owf.screen, 160, 50, Colours.get(000, -1, -1, 555), 1);
+
+
+        //render the colours on the tiles within the screens width and height
+        for (int y = 0; y < owf.screen.height; y++) {
+            for (int x = 0; x < owf.screen.width; x++) {
+                int colourCode = owf.screen.pixels[x + y * owf.screen.width]; //combined value of all the colours in an int
+                if (colourCode < 255) //check so the colour is within the 255 parameter
+                    owf.pixels[x + y * WorldView.WIDTH] = owf.colours[colourCode];
+            }
+        }
+
+        Graphics g = bs.getDrawGraphics(); //a graphic-object. without it the screen would just stay white
+        g.drawImage(owf.image, 0, 0, owf.getWidth(), owf.getHeight(), null); //draws the image on the screen
+        g.dispose(); //free up space when the object is no longer needed
+        bs.show();//show in JFrame
+    }
 
     /**
      * List of Methods to call back to WorldModel when a a new frame should be used and the WorldView should be disposed
@@ -196,22 +196,25 @@ public class WorldController extends Canvas implements Runnable {
             Entrance[0] = 1;
         }
     }
+
     public synchronized void EnterForest() {
         if (owf.player.hasEnteredForest()) {
-                Entrance[0] = 2;
-            }
+            Entrance[0] = 2;
         }
+    }
 
     public synchronized void EnterCave() {
         if (owf.player.hasEnteredCave()) {
             Entrance[0] = 3;
         }
     }
+
     public void EnterField() {
         if (owf.player.hasEnteredField()) {
             Entrance[0] = 4;
         }
     }
+
     private void EnterSwamp() {
         if (owf.player.hasEnteredSwamp()) {
             Entrance[0] = 5;
@@ -224,9 +227,4 @@ public class WorldController extends Canvas implements Runnable {
             Entrance[0] = 6;
         }
     }
-    private void EnterWater() {
-        if (owf.player.hasEnteredWater()) {
-            Entrance[0] = 7;
-        }
-    }
-    }
+}
