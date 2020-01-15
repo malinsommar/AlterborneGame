@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * UsernameView contains all swing variables to start UserNameView.
+ *
  * @author Malin Sommar
+ * @version 1
  */
 public class UserNameView {
 
@@ -16,7 +19,7 @@ public class UserNameView {
     JLabel enterLabel;
 
     /**
-     *
+     * Starts the username JFrame and calls private methods needed for the frame.
      */
     public void userNameScreen(){
 
@@ -38,7 +41,7 @@ public class UserNameView {
     }
 
     /**
-     *
+     * Set info for all JLabels and buttons
      */
     public void addButtonsLabels(){
 
@@ -47,7 +50,6 @@ public class UserNameView {
         enterLabel.setFont((pixelMplus.deriveFont(30f)));
         Dimension size = enterLabel.getPreferredSize();
         enterLabel.setBounds(130, 30, size.width, size.height);
-
 
         continueButton = new JButton("Onwards!");
         continueButton.setSize(300, 100);
@@ -60,7 +62,7 @@ public class UserNameView {
     }
 
     /**
-     *
+     * Import font pixelMplus
      */
     private void importFont() {
         try {

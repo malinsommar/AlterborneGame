@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * TutorialView contains all swing variables to start TutorialFrame.
+ *
  * @author Malin Sommar
+ * @version 1
  */
 public class TutorialView {
 
@@ -17,7 +20,7 @@ public class TutorialView {
     JLabel picture,text1,text2,text3;
 
     /**
-     *
+     * Starts the tutorial JFrame and calls private methods needed for the frame.
      */
     public void tutorialFrame(){
 
@@ -28,7 +31,7 @@ public class TutorialView {
         tutorialJFrame.setUndecorated(true);
 
         importFont();
-        addLabels();
+        addLabelsButtons();
 
         ImageIcon background = new ImageIcon("fight.png");
         picture = new JLabel(background);
@@ -44,9 +47,9 @@ public class TutorialView {
     }
 
     /**
-     *
+     * Set info for all JLabels and buttons
      */
-    public void addLabels(){
+    private void addLabelsButtons(){
 
         nextPic = new JButton("Next");
         nextPic.setSize(300, 100);
@@ -78,7 +81,7 @@ public class TutorialView {
     }
 
     /**
-     *
+     * Imports font pixelMplus
      */
     private void importFont() {
         try {

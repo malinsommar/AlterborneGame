@@ -1275,17 +1275,17 @@ public class ForestBossCon {
      * @param healingTargets
      */
     public void spellHealSystem(int healing, String healingTargets) {
-        if (healingTargets.equals("single")) {
-            if (healTarget == 1) warriorCurrentHp += healing;
-            if (healTarget == 2) rangerCurrentHp += healing;
-            if (healTarget == 3) mageCurrentHp += healing;
-            if (healTarget == 4) healerCurrentHp += healing;
+        if (healingTargets.equals("single")){
+            if (healTarget == 1 && warriorCurrentHp > 0) warriorCurrentHp += healing;
+            if (healTarget == 2 && rangerCurrentHp > 0) rangerCurrentHp += healing;
+            if (healTarget == 3 && mageCurrentHp > 0) mageCurrentHp += healing;
+            if (healTarget == 4 && healerCurrentHp > 0) healerCurrentHp += healing;
         }
-        if (healingTargets.equals("all")) {
-            warriorCurrentHp += healing;
-            healerCurrentHp += healing;
-            rangerCurrentHp += healing;
-            mageCurrentHp += healing;
+        if (healingTargets.equals("all")){
+            if (warriorCurrentHp > 0) warriorCurrentHp += healing;
+            if (rangerCurrentHp > 0) rangerCurrentHp += healing;
+            if (mageCurrentHp > 0) mageCurrentHp += healing;
+            if (healerCurrentHp > 0) healerCurrentHp += healing;
         }
         if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
         if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;

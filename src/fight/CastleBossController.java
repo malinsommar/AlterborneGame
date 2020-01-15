@@ -37,7 +37,7 @@ public class CastleBossController {
         public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
         public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
 
-        public int castleBossX = 750, castleBossY = 200, castleBossStartX = castleBossX, castleBossStartY = castleBossY;
+        public int castleBossX = 450, castleBossY = -120, castleBossStartX = castleBossX, castleBossStartY = castleBossY;
         private int attackPick;
         private int bossDamage;
         private int bossTarget;
@@ -81,14 +81,14 @@ public class CastleBossController {
 
         public int[] ownedPotions = new int[12];
 
-        private int castleBossHp = 200;
+        private int castleBossHp = 2000;
 
         /**
          *
          */
         public void startFight() {
 
-            MusicPick.musicStart("castleboss", "music");
+            MusicPick.musicStart("newinferno1", "music");
 
             currentEnergy = 5;
 
@@ -97,7 +97,7 @@ public class CastleBossController {
             hoverEffect();
 
             CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-            bossDamage = 14;
+            bossDamage = 30;
 
             //ActionListeners
             CastleBV.attackButton.addActionListener(e -> {
@@ -239,11 +239,10 @@ public class CastleBossController {
                 CastleBV.block.setText(" ");
 
 
-                attackPick = (int) (Math.random() * 4);
+                attackPick = (int) (Math.random() * 3);
                 if (attackPick == 0) bossAttack1.start();
                 if (attackPick == 1) bossAttack2.start();
                 if (attackPick == 2) bossAttack3.start();
-                if (attackPick == 3) bossAttack4.start();
 
 
                 //removes temporary damage buffs at the end of turn
@@ -699,7 +698,7 @@ public class CastleBossController {
         private void mobDeath() {
 
             if (castleBossHp <= 0) {
-                CastleBV.castleBossHp.setText("glarb: ");
+                CastleBV.castleBossHp.setText("Lich: ");
                 CastleBV.castleBoss.setVisible(false);
             }
         }
@@ -1252,7 +1251,7 @@ public class CastleBossController {
             damage = unbuffedDamage + buffDamage[turns - 1];
             castleBossHp -= damage;
 
-            CastleBV.castleBossHp.setText("glarb: " + castleBossHp);
+            CastleBV.castleBossHp.setText("Lich: " + castleBossHp);
             mobDeath();
             isFightOver();
         }
@@ -1263,17 +1262,17 @@ public class CastleBossController {
          * @param healingTargets
          */
         public void spellHealSystem(int healing, String healingTargets) {
-            if (healingTargets.equals("single")) {
-                if (healTarget == 1) warriorCurrentHp += healing;
-                if (healTarget == 2) rangerCurrentHp += healing;
-                if (healTarget == 3) mageCurrentHp += healing;
-                if (healTarget == 4) healerCurrentHp += healing;
+            if (healingTargets.equals("single")){
+                if (healTarget == 1 && warriorCurrentHp > 0) warriorCurrentHp += healing;
+                if (healTarget == 2 && rangerCurrentHp > 0) rangerCurrentHp += healing;
+                if (healTarget == 3 && mageCurrentHp > 0) mageCurrentHp += healing;
+                if (healTarget == 4 && healerCurrentHp > 0) healerCurrentHp += healing;
             }
-            if (healingTargets.equals("all")) {
-                warriorCurrentHp += healing;
-                healerCurrentHp += healing;
-                rangerCurrentHp += healing;
-                mageCurrentHp += healing;
+            if (healingTargets.equals("all")){
+                if (warriorCurrentHp > 0) warriorCurrentHp += healing;
+                if (rangerCurrentHp > 0) rangerCurrentHp += healing;
+                if (mageCurrentHp > 0) mageCurrentHp += healing;
+                if (healerCurrentHp > 0) healerCurrentHp += healing;
             }
             if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
             if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
@@ -2085,71 +2084,29 @@ public class CastleBossController {
             }
         });
 
-        /**
-         *
-         */
-        //charge, hits 2 targets
-        private Timer bossAttack1 = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                timePast++;
-                animationPlaying = true;
-                CastleBV.endTurnButton.setVisible(false);
-                if (timePast < 50) {
-                    castleBossX -= 30;
-                    CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-                } else if (timePast < 60) {
-                    castleBossX += 30;
-                    CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-                } else if (timePast < 110) {
-                    castleBossX = castleBossStartX;
-                    CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-                    castleBossAttack("attack1");
-                    timePast = 0;
-                    bossAttack1.stop();
-                    CastleBV.endTurnButton.setVisible(true);
-                    animationPlaying = false;
-                    takeDamage.start();
-                    animationPlaying = false;
-                }
-            }
-        });
 
         /**
          *
          */
-        //leap, hits all
-        private Timer bossAttack2 = new Timer(10, new ActionListener() {
+        //spell, hits all
+        private Timer bossAttack1 = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (phase == 0) {
                     animationPlaying = true;
                     CastleBV.endTurnButton.setVisible(false);
+                    CastleBV.bossAOE.setVisible(true);
                     MusicPick.musicStart("empty", "");
                     phase = 1;
-                }
-                if (phase == 1) {
-                    bossMegaMath -= 2;
-                    castleBossX -= 15;
-                    castleBossY -= bossMegaMath;
-                    CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-                    if (castleBossY > castleBossStartY) {
-                        castleBossY = castleBossStartY;
-                        CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-                        phase = 2;
-                    }
-                } else if (phase == 2) {
+                } else if (phase == 1) {
                     timePast++;
                     if (timePast == 90) {
-                        castleBossY = castleBossStartY;
-                        castleBossX = castleBossStartX;
-                        CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
                         timePast = 0;
-                        bossMegaMath = 50;
                         phase = 0;
-                        bossAttack2.stop();
+                        bossAttack1.stop();
                         castleBossAttack("attack2");
                         CastleBV.endTurnButton.setVisible(true);
+                        CastleBV.bossAOE.setVisible(false);
                         animationPlaying = false;
                         takeDamage.start();
 
@@ -2161,29 +2118,31 @@ public class CastleBossController {
         /**
          *
          */
-        //attack 3, single target backstab
-        private Timer bossAttack3 = new Timer(10, new ActionListener() {
+        //attack 3, single target
+        private Timer bossAttack2 = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 timePast++;
                 animationPlaying = true;
                 CastleBV.endTurnButton.setVisible(false);
-                if (timePast < 40) {
-                    castleBossX += 30;
-                    castleBossY -= 20;
-                    CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-                } else if (timePast < 48) {
-                    castleBossY = castleBossStartY;
+                CastleBV.bossAttack.setVisible(true);
 
-                } else if (timePast < 56) {
-
-                } else if (timePast < 150) {
-                    castleBossX = castleBossStartX;
-                    CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-                    castleBossAttack("attack3");
+                CastleBV.bossAttack.setLocation(warriorStartX + 100, warriorStartY);
+                if (timePast == 10) {
+                    target = (int)(Math.random() * 4);
+                    if (target == 0){warriorCurrentHp -= bossDamage * 4; warriorattacked = true;
+                        CastleBV.bossAttack.setLocation(warriorStartX + 100, warriorStartY);}
+                    if (target == 1){rangerCurrentHp -= bossDamage * 4; rangerattacked = true;
+                        CastleBV.bossAttack.setLocation(rangerStartX + 100, rangerStartY);}
+                    if (target == 2){mageCurrentHp -= bossDamage * 4; mageattacked = true;
+                        CastleBV.bossAttack.setLocation(mageStartX + 100, mageStartY);}
+                    if (target == 3){healerCurrentHp -= bossDamage * 4; healerattacked = true;
+                        CastleBV.bossAttack.setLocation(healerStartX + 100, healerStartY);}
+                } else if (timePast > 1000) {
                     timePast = 0;
-                    bossAttack3.stop();
+                    bossAttack2.stop();
                     takeDamage.start();
+                    CastleBV.bossAttack.setVisible(false);
                     CastleBV.endTurnButton.setVisible(true);
                     animationPlaying = false;
                 }
@@ -2193,31 +2152,22 @@ public class CastleBossController {
         /**
          *
          */
-        //attack 4, buff boss damage
-        private Timer bossAttack4 = new Timer(10, new ActionListener() {
+        //attack 4, buff boss damage, heals
+        private Timer bossAttack3 = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 timePast++;
                 if (timePast == 1) {
                     animationPlaying = true;
                     CastleBV.endTurnButton.setVisible(false);
-                } else if (timePast < 10) {
-                    castleBossX -= 10;
-                    CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-                } else if (timePast == 10) {
-                    MusicPick.musicStart("wolfhowl", "");
-                } else if (timePast < 90) {
-                    //nothing
-                } else if (timePast < 100) {
-                    castleBossX += 5;
-                    CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-                } else if (timePast < 120) {
-                    castleBossY = castleBossStartY;
-                    castleBossX = castleBossStartX;
-                    CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
+                    CastleBV.bossHeal.setVisible(true);
+                } else if (timePast == 200) {
+                    castleBossHp += 300;
+                    bossDamage += 20;
                     timePast = 0;
-                    bossAttack4.stop();
+                    bossAttack3.stop();
                     CastleBV.endTurnButton.setVisible(true);
+                    CastleBV.bossHeal.setVisible(false);
                     animationPlaying = false;
                     startNewTurn();
                     bossDamage +=5;

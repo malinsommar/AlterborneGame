@@ -61,6 +61,9 @@ public class CastleBossView {
         public JLabel groupHeal4 = new JLabel(new ImageIcon("smallholylight.png"));
         public JLabel targetarrow = new JLabel(new ImageIcon("targetarrow.png"));
         public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
+        public JLabel bossAttack = new JLabel(new ImageIcon("lichattack5.png"));
+        public JLabel bossHeal = new JLabel(new ImageIcon("lichattack6.png"));
+        public JLabel bossAOE = new JLabel(new ImageIcon("lichattack7.png"));
 
 
         /**
@@ -141,6 +144,9 @@ public class CastleBossView {
             castleBossFightJFrame.add(groupHeal4);
 
             //enemies
+            castleBossFightJFrame.add(bossAOE);
+            castleBossFightJFrame.add(bossAttack);
+            castleBossFightJFrame.add(bossHeal);
             castleBossFightJFrame.add(castleBoss);
             //player
             castleBossFightJFrame.add(ranger);
@@ -278,6 +284,21 @@ public class CastleBossView {
             targetarrow.setSize(targetarrowSize.width, targetarrowSize.height);
             targetarrow.setLocation(200, 500);
             targetarrow.setVisible(false);
+
+            Dimension bossAttackSize = bossAttack.getPreferredSize();
+            bossAttack.setSize(bossAttackSize.width, bossAttackSize.height);
+            bossAttack.setLocation(70, 290);
+            bossAttack.setVisible(false);
+
+            Dimension bossHealSize = bossHeal.getPreferredSize();
+            bossHeal.setSize(bossHealSize.width, bossHealSize.height);
+            bossHeal.setLocation(800, 10);
+            bossHeal.setVisible(false);
+
+            Dimension bossAOESize = bossAOE.getPreferredSize();
+            bossAOE.setSize(bossAOESize.width, bossAOESize.height);
+            bossAOE.setLocation(-200, -200);
+            bossAOE.setVisible(false);
 
         }
 
@@ -747,9 +768,9 @@ public class CastleBossView {
         //Get goblin gif.
         private void importcastleBossGif(){
             castleBoss = new JLabel();
-            castleBoss.setIcon(new ImageIcon("lich.gif"));
+            castleBoss.setIcon(new ImageIcon("giantlich.gif"));
             Dimension LichSize = castleBoss.getPreferredSize();
-            castleBoss.setBounds(850, 300, LichSize.width, LichSize.height);
+            castleBoss.setBounds(100, 100, LichSize.width, LichSize.height);
         }
 
         /**
