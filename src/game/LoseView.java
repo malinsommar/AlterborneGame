@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * LoseView contains all swing variables to start LoseFrame.
+ *
  * @author Malin Sommar
  */
 public class LoseView {
@@ -17,7 +19,7 @@ public class LoseView {
     private Font pixelMplus;
 
     /**
-     *
+     *Starts the lose JFrame and calls private methods needed for the frame.
      */
     public void loseScreen() {
 
@@ -50,7 +52,7 @@ public class LoseView {
     }
 
     /**
-     *
+     * Set info for all JLabels
      */
     private void importLabels(){
         died = new JLabel("You Died");
@@ -149,7 +151,7 @@ public class LoseView {
     }
 
     /**
-     *
+     * Import font pixelMplus
      */
     private void importFont() {
         try {

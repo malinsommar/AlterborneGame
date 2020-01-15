@@ -697,6 +697,7 @@ public class ForestCon {
     }
 
     /**
+     *Gets ownedPotions from masterModel.
      *
      * @param potions
      */
@@ -717,11 +718,12 @@ public class ForestCon {
     }
 
     /**
+     * Gets all the party-stats from masterModel.
      *
-     * @param warrior
-     * @param mage
-     * @param healer
-     * @param ranger
+     * @param warrior Warrior current stats
+     * @param mage Mage current stats
+     * @param healer Healer current stats
+     * @param ranger Ranger current stats
      */
     public void getPlayerStats(int[] warrior, int[] mage, int[] healer, int[] ranger){
 
