@@ -11,12 +11,13 @@ import java.awt.event.MouseAdapter;
 import java.util.Arrays;
 
 /**
+ * ForestCon controls the lowest level fight and contain more specific comment than the other
+ *
  * @author Simon Bengtsson, Malin Sommar
+ *
+ * @version 1
  */
 public class ForestCon {
-
-    //TODO fix potions (labels uppdateras inte,går en stänga framen, fixa till panel)
-    //TODO gör en metod som skickar en owned potions array till mastermodel.
 
     ForestFightFrame fff = new ForestFightFrame();
 
@@ -25,9 +26,9 @@ public class ForestCon {
     private int warriorMaxHp, mageMaxHp, healerMaxHp, rangerMaxHp;
     public int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
-    private int buffDamage[] = new int[4];
-    private boolean debuffed = false;
-    private int enemyDamage, enemyRandomDamage = 10, enemyBaseDamage = 15;
+    private int buffDamage[] = new int[4]; //Damage increase provided by strength potion and warrior's battlecry
+    private boolean debuffed = false; //Damage decrease from warrior's demoralize
+    private int enemyDamage, enemyRandomDamage = 10, enemyBaseDamage = 15; //In this case an attack deals 15-24 damage
     
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -38,12 +39,12 @@ public class ForestCon {
     private int warriorEnergyInt=5, mageEnergyInt, rangerEnergyInt, healerEnergyInt;
 
     //Animation variables
-    //player
+    //player position
     public int warriorStartX = 170, warriorStartY = 210, warriorX = warriorStartX, warriorY = warriorStartY;
     public int rangerStartX = 70, rangerStartY = 290, rangerX = rangerStartX, rangerY = rangerStartY;
     public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
     public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
-    //enemy
+    //enemy position
     private int wolf1X = 850, wolf1Y = 320, wolf1StartX = wolf1X, wolf1StartY = wolf1Y;
     private int wolf2X = 1030, wolf2Y = 320, wolf2StartX = wolf2X, wolf2StartY = wolf2Y;
     private int wolf3X = 900, wolf3Y = 400, wolf3StartX = wolf3X, wolf3StartY = wolf3Y;
@@ -53,17 +54,7 @@ public class ForestCon {
     public int swordIconX = 300, swordIconY = 300;
     public int arrowX = 120, arrowY = 360, arrowStartX = arrowX;
     public int blastX = 120, blastY = 360, blastStartX = arrowX;
-
     public int flameStrikeY = -400;
-
-
-    public int warriorMegaMath = 30; //används för halv cirkel anitamationer, PLEASE FOR THE LOVE OF GOD RENAME THIS MONSTOSITY
-    public int bombMegaMath = 36;
-    public int upMegaMath = 1;
-    public int rightMegaMath = 1;
-    public int downMegaMath = 1;
-    public int leftMegaMath = 1;
-
     public int pyroBlastX = 90;
     public int pyroblastY = 300;
     public int bombX = 250;
@@ -71,18 +62,28 @@ public class ForestCon {
     public int bombStartX = 250;
     public int bombStartY = 300;
 
+    //MegaMaths are ints used in algorithms to make curved animations
+    public int warriorMegaMath = 30;
+    public int bombMegaMath = 36;
+    public int upMegaMath = 1;
+    public int rightMegaMath = 1;
+    public int downMegaMath = 1;
+    public int leftMegaMath = 1;
+
     boolean warriorattacked = false, rangerattacked = false, mageattacked = false, healerattacked = false;
+
+    //Used to track animation time
+    private int phase = 0;
+    private int timePast = 0;
 
     //Another timePast to avoid conflict when they run simultaneously.
     public int timePastTakeDamage = 0;
 
     private int target;
-    private int phase = 0;
-    private int timePast = 0;
     private int healTarget = 0;
+    private boolean stealthed = false;
     private boolean followup = false;
     private boolean animationPlaying = false;
-    private boolean stealthed = false;
 
     int[] wolfHp = new int[4];
     int wolfMaxHp = 25;
@@ -93,7 +94,7 @@ public class ForestCon {
     public int[] ownedPotions = new int[12];
 
     /**
-     *
+     * starts the fight, sets necessary startup variables, starts listeners
      */
     public void startFight(){
 
@@ -106,10 +107,10 @@ public class ForestCon {
         mageEnergyInt = 0;
         healerEnergyInt = 0;
 
-        wolfHp[0] = 25;
-        wolfHp[1] = 25;
-        wolfHp[2] = 25;
-        wolfHp[3] = 25;
+        wolfHp[0] = wolfMaxHp;
+        wolfHp[1] = wolfMaxHp;
+        wolfHp[2] = wolfMaxHp;
+        wolfHp[3] = wolfMaxHp;
 
         setStartLabels();
         fff.forestFightFrame();
@@ -162,7 +163,7 @@ public class ForestCon {
         }
 
     /**
-     *
+     * Starts the next character's turn, restores block and energy
      */
     //When you press "end turn" button.
     public void startNewTurn(){
@@ -173,7 +174,7 @@ public class ForestCon {
             warriorEnergyInt+=5; //Get energy
             currentEnergy=warriorEnergyInt; //Update energy.
             warriorBlock=warriorStartBlock; //Update block, reset extra block.
-            warriorDamage = warriorStartDamage; //Update damage, reset extra block.
+            warriorDamage = warriorStartDamage; //Update damage
 
             //Energy cant go over 10.
             if (warriorEnergyInt>10){
@@ -262,6 +263,10 @@ public class ForestCon {
                 }
             }
 
+
+    /**
+     *makes each living wolf attack and check if it killed a player
+     */
             private void enemyDamage(){
                 for (int i = 0; i < wolfHp.length; i++) {
                     if (wolfHp[i] > 0) {
@@ -273,7 +278,7 @@ public class ForestCon {
             }
 
     /**
-     *
+     * first spell, cast different spells based on character, manages cost, might require a target <br> not usable if an animation is playing
      */
     private void skill1(){
         if (turns == 1 && warriorEnergyInt>2 && fff.targetarrow.isVisible() && !animationPlaying){
@@ -300,7 +305,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     *second spell, cast different spells based on character, manages cost, might require a target <br> not usable if an animation is playing
      */
     private void skill2(){
         if (turns == 1 && warriorEnergyInt>3 && !animationPlaying){
@@ -324,7 +329,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * third spell, cast different spells based on character, manages cost, might require a target <br> not usable if an animation is playing
      */
     private void skill3(){
         if (turns == 1 && warriorEnergyInt>2 && !animationPlaying){
@@ -352,7 +357,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * forth spell, cast different spells based on character, manages cost, might require a target <br> not usable if an animation is playing
      */
     private void skill4(){
         if (turns == 1 && warriorEnergyInt>4 && !animationPlaying){
@@ -379,7 +384,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * switches the endturn button to the return button
      */
     private void itemMenuActivate(){
         fff.endTurnButton.setVisible(false);
@@ -387,7 +392,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * replace the standard actionbuttons with skillbuttons, set button text appropriate to skill it casts
      */
     private void spellMenuActive(){
         fff.attackButton.setVisible(false);
@@ -434,7 +439,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * increase block for current character
      */
     //When player press block
     private void blockPressed(){
@@ -474,7 +479,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * use standard attack, every character has this but damage differ, always single target and costs 2 energy
      */
     //When you press the "attack button".
     private void attackPressed() {
@@ -510,7 +515,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * checks if all players or all enemies are dead
      */
     //Checks if all of the enemies or OldClasses.party-members are dead.
     private void isFightOver(){
@@ -530,7 +535,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     *  wolf attacks random living player, can only hit stealthed ranger if everybody else is dead
      */
     //When the wolf attacks.
     public void wolfAttack() {
@@ -612,7 +617,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     *  check for dead wolf and remove any, also removes targetarrow if pointed at dead wolf
      */
     //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
     public void mobDeath(){
@@ -652,7 +657,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     *  check for dead players and remove any
      */
     //Checks if any OldClasses.party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     public void partyDeath(){
@@ -680,7 +685,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * switches skillbuttons to standard action buttons
      */
     private void spellMenuInactive(){
         fff.attackButton.setVisible(true);
@@ -697,6 +702,7 @@ public class ForestCon {
     }
 
     /**
+     *Gets ownedPotions from masterModel.
      *
      * @param potions
      */
@@ -717,11 +723,12 @@ public class ForestCon {
     }
 
     /**
+     * Gets all the party-stats from masterModel.
      *
-     * @param warrior
-     * @param mage
-     * @param healer
-     * @param ranger
+     * @param warrior Warrior current stats
+     * @param mage Mage current stats
+     * @param healer Healer current stats
+     * @param ranger Ranger current stats
      */
     public void getPlayerStats(int[] warrior, int[] mage, int[] healer, int[] ranger){
 
@@ -751,7 +758,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * set all HUD label text including potions
      */
     public void setStartLabels(){
 
@@ -782,7 +789,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     *  add hover effect to standard action buttons
      */
     //Add hover effect to buttons.
     private void hoverEffect() {
@@ -849,8 +856,8 @@ public class ForestCon {
     }
 
     /**
-     *
-     * @param potion
+     * use potion and applies it's effect to current player
+     * @param potion compares to ownedPotions array to see what type the potion is, and thus it's effect
      */
     //Get the effect from potions.
     private void usePotion(int potion) {
@@ -1231,7 +1238,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * listener. if you click an enemy it is selected as a target for further attacks and an arrow appears above it
      */
     public void targetSystem(){
 
@@ -1270,8 +1277,8 @@ public class ForestCon {
     }
 
     /**
-     *
-     * @param chosenSpell
+     * switches the skill menu to a menu with friendly targets to heal
+     * @param chosenSpell used to track which spell called the method
      */
     private void healingTargetMenu(int chosenSpell) {
         fff.skill1Button.setVisible(false);
@@ -1361,9 +1368,9 @@ public class ForestCon {
 
 
     /**
-     *
-     * @param unbuffedDamage
-     * @param damageTargets
+     * dishes out damage to the appropriate enemy/enemies, and check if it's dead
+     * @param unbuffedDamage standard damage value
+     * @param damageTargets who should take damage, one, two or all four enemies by sending single line or all respectively <br> line is always the target and the enemy in front of it or behind
      */
     //called from spells to deal damage to enemies
     //damageTargets types: single, line, all
@@ -1397,23 +1404,23 @@ public class ForestCon {
     }
 
     /**
-     *
-     * @param healing
-     * @param healingTargets
+     * restores health to appropriate player(s)
+     * @param healing how much health the healing spell should restore
+     * @param healingTargets if the spell heals one or all players
      */
     //fixa denna
     public void spellHealSystem(int healing, String healingTargets){
         if (healingTargets.equals("single")){
-            if (healTarget == 1) warriorCurrentHp += healing;
-            if (healTarget == 2) rangerCurrentHp += healing;
-            if (healTarget == 3) mageCurrentHp += healing;
-            if (healTarget == 4) healerCurrentHp += healing;
+            if (healTarget == 1 && warriorCurrentHp > 0) warriorCurrentHp += healing;
+            if (healTarget == 2 && rangerCurrentHp > 0) rangerCurrentHp += healing;
+            if (healTarget == 3 && mageCurrentHp > 0) mageCurrentHp += healing;
+            if (healTarget == 4 && healerCurrentHp > 0) healerCurrentHp += healing;
         }
         if (healingTargets.equals("all")){
-            warriorCurrentHp += healing;
-            healerCurrentHp += healing;
-            rangerCurrentHp += healing;
-            mageCurrentHp += healing;
+            if (warriorCurrentHp > 0) warriorCurrentHp += healing;
+            if (rangerCurrentHp > 0) rangerCurrentHp += healing;
+            if (mageCurrentHp > 0) mageCurrentHp += healing;
+            if (healerCurrentHp > 0) healerCurrentHp += healing;
         }
         if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
         if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
@@ -1426,7 +1433,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * warrior's standard attack, moves to the right and then left quickly
      */
     //warrior
     public Timer tackle = new Timer(10, new ActionListener() {
@@ -1456,7 +1463,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * warrior spell, charges the enemies then instantly returns to it's starting location, hits the target and one more
      */
     public Timer charge = new Timer(10, new ActionListener() {
         @Override
@@ -1486,7 +1493,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * warrior spell, uses MegaMath to form a curved path to the enemies, simulating a jump
      */
     public Timer dunk = new Timer(10, new ActionListener() {
         @Override
@@ -1523,7 +1530,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * start of both warrior shout animations, moves rapidly right and left,
      */
     public Timer shout = new Timer(10, new ActionListener() {
         @Override
@@ -1581,7 +1588,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * warrior shout animation, sword icon spins in circles at warrior, boost entire parties damage until end of turn
      */
     public Timer battlecry = new Timer(20, new ActionListener() {
         @Override
@@ -1641,7 +1648,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * warrior shout animation, sword icons spins in circles at all enemies, decreases all enemies damage until end of turn
      */
     public Timer demoralized = new Timer(20, new ActionListener() {
         @Override
@@ -1711,7 +1718,7 @@ public class ForestCon {
     //ranger
 
     /**
-     *
+     * standard ranger attack, fires an arrow
      */
     Timer shoot = new Timer(10, new ActionListener() {
         @Override
@@ -1745,7 +1752,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * ranger spell, fires multiple arrows at a single enemy
      */
     public Timer volley = new Timer(10, new ActionListener() {
         @Override
@@ -1854,7 +1861,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * ranger spell, ranger goes into stealth, turns grey and become untargetable by enemies under most conditions
      */
     public void stealth() {
         if (!stealthed) {
@@ -1866,7 +1873,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * ranger goes out of stealth, becoming normal
      */
     public void unstealth(){
         if (stealthed){
@@ -1878,7 +1885,7 @@ public class ForestCon {
     }
 
     /**
-     *
+     * ranger spell, throws a bomb that deal damage to all enemies
      */
     public Timer bombthrow = new Timer(10, new ActionListener() {
         @Override
@@ -1928,7 +1935,7 @@ public class ForestCon {
 
 
     /**
-     *
+     * standard mage attack
      */
     //mage
     Timer blast = new Timer(10, new ActionListener() {
@@ -1958,7 +1965,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * mage spell, charges i giant fireball and launch it slowly at the enemy, dealing high damage
      */
     public Timer pyroBlast = new Timer(10, new ActionListener() {
         @Override
@@ -2013,7 +2020,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * mage spell, fly into the air and call down a meteor at the enemies
      */
     public Timer flameStrike = new Timer(10, new ActionListener() {
         @Override
@@ -2079,7 +2086,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * mage spell, fast moving ball of fire, spinning in cicles while flying toward the enemy
      */
     public Timer fireBall = new Timer(15, new ActionListener() {
         @Override
@@ -2140,7 +2147,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * healer spell, wide beam that heals the target alot
      */
     //healer
     public Timer holyLightSpell = new Timer(10, new ActionListener() {
@@ -2168,7 +2175,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * healer spell, thin beam that heals the target a little
      */
     public Timer smallHolyLightSpell = new Timer(10, new ActionListener() {
         @Override
@@ -2195,7 +2202,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * create a thin beam at all friendly targets and heal them
      */
     public Timer groupHealSpell = new Timer(10, new ActionListener() {
         @Override
@@ -2229,7 +2236,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * standard healer attack
      */
     public Timer healerAttack = new Timer(10, new ActionListener() {
         @Override
@@ -2259,7 +2266,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * enemy attack animation, wolves take turns to move slightly to the left and then back
      */
     //enemy
     private Timer enemyTurnTimer = new Timer(7, new ActionListener() {
@@ -2332,7 +2339,7 @@ public class ForestCon {
     });
 
     /**
-     *
+     * player characters that took damage this turn blinks for a short time
      */
     private Timer takeDamage = new Timer(10, new ActionListener() {
         @Override

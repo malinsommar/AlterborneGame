@@ -1,33 +1,49 @@
 package davidtest.overworld.gfx;
 
 
-//The
+/**
+ * Screen class representing what will be shown within the frame
+ */
 public class Screen {
 
     private static final byte BIT_MIRROR_X = 0x01;
     private static final byte BIT_MIRROR_Y = 0x02;
 
-    public int[] pixels; //store the pixel-data
+    public int[] pixels; //Store the pixel-data
 
-    //variables to give a "cameraPoint"
+    //Variables to give a "cameraPoint"
     private int xOffset = 0;
     private int yOffset = 0;
 
-    public int width; //screen width
-    public int height; //screen height
+    public int width; //Screen width
+    public int height; //Screen height
 
-    private SpriteSheet sheet; //move the sheet to make it local with the screen.
+    private SpriteSheet sheet; //Move the sheet to make it local with the screen.
 
-    //Assign "these" variables into the constructors parameters and then call them in WorldView with its values
+    /**
+     * Assign "these" variables into the constructors parameters and then call them in WorldView with its values
+     * @param width of screen
+     * @param height of screen
+     * @param sheet what SpriteSheet will be used as basis for it
+     */
     public Screen(int width, int height, SpriteSheet sheet) {
         this.width = width;
         this.height = height;
         this.sheet = sheet;
 
-        pixels = new int[width * height]; //make the pixel-array hold the values of the spriteSheets width and height
+        pixels = new int[width * height]; //Make the pixel-array hold the values of the spriteSheets width and height
     }
 
-    //render the tiles and colours depending on the screen.
+
+    /**
+     * Render the tiles and colours depending on the screen.
+     * @param xPos position of SpriteSheet within x-axis
+     * @param yPos position of SpriteSheet within the y-axis
+     * @param tile tiles used
+     * @param colour colours used
+     * @param mirrorDir direction of sprite
+     * @param scale size of sprite
+     */
     public void render(int xPos, int yPos, int tile, int colour, int mirrorDir, int scale) {
         //control the position of the SpriteSheet within the frame.
         xPos -= xOffset;
@@ -83,7 +99,12 @@ public class Screen {
         }
     }
 
-        //"camera positioning" set in parameters
+
+    /**
+     * "camera positioning" set in parameters
+     * @param xOffset means the same as this xOffset
+     * @param yOffset means the same as this yOffset
+     */
     public void setOffset(int xOffset, int yOffset) {
         this.xOffset = xOffset;
         this.yOffset = yOffset;

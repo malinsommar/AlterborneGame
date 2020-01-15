@@ -11,13 +11,17 @@ import game.UserNameController;
 
 import java.awt.*;
 
+/**
+ * Class to create the player used in the game. Extends the values of mob as basis
+ * @author David Furby
+ * @version 1
+ */
 public class Player extends Mob {
 
 
-    private InputHandler input;
+    private InputHandler input; //assign the input-system onto the player
     private int colour = Colours.get(-1, 111, 111, 332); //Assign colour for character which will be calculated within the Colours-class
     private boolean isSwimming = false; //assign the isSwimming value as natively false
-
     private boolean isSwampSwimming = false;//assign the isSwampSwimming value as natively false
     private boolean isOnForestPath = false; // if player is on tile to enter forest-combat
     private boolean isOnMountainPath = false; // if player is on tile to enter mountain-combat
@@ -27,21 +31,27 @@ public class Player extends Mob {
     private boolean EnterShop = false;  // if player is on tile to enter Shop (is not used)
     private boolean isOnWaterPath = false; //if player is on tile to enter Water-combat
     private boolean isOnCavePath = false; //if player is on tile to enter Cave-combat
-    //private boolean isBumpingIntoNpc = false;
-
-
-
     private int tickCount = 0; //counts the ticks since the last update
      private String username; //username
 
+    /**
+     * Constructor for player with the necessary variables to be inserted into the view
+     * @param level1  Assign which level the player is used on
+     * @param x Assign position of the player on x-axis
+     * @param y Assign position of the player on y-axis
+     * @param input Assign input-variable for movement
+     * @param username Assign username
+     */
     public Player(Level level1, int x, int y, InputHandler input, String username) {
-        super(level1, "Player", x, y, 1);
+        super(level1, "Player", x, y, 1); //
         this.input = input; //assign the input-class onto the player
-        this.username = username;
+        this.username = username; //This username is the same as the username within the parameters
     }
 
+    /**
+     * updates isPressed method based on player-input every time the tick counts up by one
+     */
     @Override
-    //updates isPressed method based on player-input every time the tick counts up by one
     public void tick() {
 
         /*up, down, left and right are identified with keyboard-inputs the xa or ya based on axel. When an assigned
@@ -102,8 +112,11 @@ public class Player extends Mob {
         }
     }
 
+    /**
+     * Render character on screen
+     * @param screen Parameter to add the entities onto it
+     */
     @Override
-    //render character on screen
     public void render(Screen screen) {
         int xTile = 0;
         int yTile = 28;
@@ -164,9 +177,12 @@ public class Player extends Mob {
         }
     }
 
-    @Override
 
-    //create a collisionBox on the player that will react if they collide with a solid tile
+    /**
+     * Create a collisionBox on the player that will react if they collide with a solid tile
+     * @return Set boolean-values as true if they collide with specific tile
+     */
+    @Override
     public boolean hasCollided(int xa, int ya) {
         //top left corner
         int xMin = 0;
@@ -179,7 +195,6 @@ public class Player extends Mob {
         /*Now 4 loops will be made between the coordinates of the box, indicating where on the body of the player there
          should be a reaction*/
 
-        //set boolean-values as true if they collide with specific tile
         for (int x = xMin; x < xMax; x++) {
             if (isSolidTile(xa, ya, x, yMin)) {
                 return true;
@@ -189,9 +204,6 @@ public class Player extends Mob {
             }
             if (isForestPathTile(xa,ya,x,yMin)) {
                 isOnForestPath = true;
-            }
-            if (isMountainPathTile(xa,ya,x,yMin)) {
-                isOnMountainPath = true;
             }
             if (isFieldPathTile(xa,ya,x,yMin)) {
                 isOnFieldPath = true;
@@ -205,11 +217,7 @@ public class Player extends Mob {
             if (isCavePathTile(xa,ya,x,yMin)) {
                 isOnCavePath = true;
             }
-            /*if (isNpcMob(xa,ya,x,yMin)) {
-                isBumpingIntoNpc = true;
-            }*/
         }
-
         for (int x = xMin; x < xMax; x++) {
             if (isSolidTile(xa, ya, x, yMax)) {
                 return true;
@@ -230,39 +238,32 @@ public class Player extends Mob {
         return false;
     }
 
-    //boolean values that will return whether a tile-collision has been made
+    /**
+     * Method to return value if tile is identified as certain tiles, and their respective controllers should start
+     * @return the values if the identified tile fits the category
+     */
     public boolean hasEnteredShop() {
         return EnterShop;
     }
-
     public boolean hasEnteredForest() {
                 return isOnForestPath;
     }
-
     public boolean hasEnteredMountain() {
         return isOnMountainPath;
     }
-
     public boolean hasEnteredField() {
         return isOnFieldPath;
     }
-
     public boolean hasEnteredSwamp() {
         return isOnSwampPath;
     }
-
     public boolean hasEnteredCastle() {
         return  isOnCastlePath;
     }
-
     public boolean hasEnteredWater() {
         return  isOnWaterPath;
     }
-
     public boolean hasEnteredCave() {
         return  isOnCavePath;
     }
-    /*public boolean hasBumpedIntoNPC() {
-        return isBumpingIntoNpc;
-    }*/
 }

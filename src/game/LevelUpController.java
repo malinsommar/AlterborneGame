@@ -2,6 +2,12 @@ package game;
 
 import javax.swing.*;
 
+/**
+ * This method contains all methods needed to start levelUpFrame and display party's stat differences between levels.
+ *
+ * @author Malin Sommar
+ * @version 1
+ */
 public class LevelUpController {
 
     LevelUpView luv;
@@ -23,19 +29,19 @@ public class LevelUpController {
     boolean playerNotLevelUp = false;
 
     /**
+     * Start levelupView and get all data from masterModel to display level'd up stats.
      *
-     * @param getXp
-     * @param getLevel
-     * @param wUp
-     * @param rUp
-     * @param mUp
-     * @param hUp
-     * @param wStat
-     * @param rStat
-     * @param mStat
-     * @param hStat
+     * @param getXp Current Xp
+     * @param getLevel Current Level
+     * @param wUp Warrior level up stat
+     * @param rUp Ranger level up stat
+     * @param mUp Mage level up stat
+     * @param hUp Healer level up stat
+     * @param wStat Warrior current stats
+     * @param rStat Ranger current stats
+     * @param mStat Mage current stats
+     * @param hStat Healer current stats
      */
-    //This method checks OldClasses.party xp and level OldClasses.party up. Use this method after every fight.
     public void didPlayerLevelUp(int getXp, int getLevel, int[] wUp, int[] rUp, int[] mUp, int[] hUp, int[] wStat, int[] rStat, int[] mStat, int[] hStat){
         luv = new LevelUpView();
 
@@ -84,7 +90,7 @@ public class LevelUpController {
     }
 
     /**
-     *
+     * Set labels depending on party's stats.
      */
     public void setLabels(){
 

@@ -6,7 +6,10 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 /**
+ * This method contains all methods needed to start LoseFrame and sends data to database.
+ *
  * @author lydia marcondes, Malin Sommar
+ * @version 1
  */
 public class LoseController {
 
@@ -20,9 +23,10 @@ public class LoseController {
     private int xp;
 
     /**
+     * Send info about xp and username to dataBase. Open losescreen.
      *
-     * @param getXp
-     * @param getName
+     * @param getXp Final xp
+     * @param getName UserName
      */
      void startLoseScreen(int getXp, String getName) {
 
@@ -38,7 +42,7 @@ public class LoseController {
     }
 
     /**
-     *
+     * Sends xp and username to database.
      */
     private void dataBase(){
         try {
@@ -55,7 +59,7 @@ public class LoseController {
     }
 
     /**
-     *
+     * Add all mouseListeners to buttons.
      */
     private void hover(){
         loseView.continueButton.addMouseListener(new java.awt.event.MouseAdapter() {

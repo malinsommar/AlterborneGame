@@ -7,9 +7,12 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * LootView contains all swing variables to start LootFrame.
+ *
  * @author Malin Sommar
+ * @version 1
  */
-public class LootFrame {
+public class LootView {
 
     JFrame lootScreenJFrame = new JFrame();
 
@@ -19,7 +22,7 @@ public class LootFrame {
     public JLabel vicTitle, item, xp, gold, currentEquipment, currentEquipmentStats, currentEquipmentName, newEquipment, newEquipmentStats, newEquipmentName;
 
     /**
-     *
+     *Starts the loot JFrame and calls private methods needed for the frame.
      */
     public void lootScreenFrame(){
 
@@ -41,7 +44,7 @@ public class LootFrame {
     }
 
     /**
-     *
+     * This is called is player doesn't get an armor or weapon to hide labels.
      */
     //Set text in labels to " " when they are not supposed to show.
     void hideLabels(){
@@ -54,7 +57,7 @@ public class LootFrame {
     }
 
     /**
-     *
+     *  Set info for all JLabels and buttons
      */
     //Add all buttons and labels
     private void addButtonsLabels(){
@@ -140,7 +143,7 @@ public class LootFrame {
     }
 
     /**
-     *
+     * Import font pixelMplus
      */
     private void importFont() {
         try {

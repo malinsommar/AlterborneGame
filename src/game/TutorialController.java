@@ -3,45 +3,40 @@ package game;
 import javax.swing.*;
 
 /**
+ * This method contains all methods needed to start TutorialFrame and changes the pictures and labels between the slides.
+ *
  * @author Simon Bengtsson, Malin Sommar
+ * @version 1
  */
 public class TutorialController {
 
-    TutorialView tv = new TutorialView();
-    int pics = 1;
+    private TutorialView tv = new TutorialView();
+    private int pics = 1;
     public boolean done = false;
 
-    ImageIcon bild1 = new ImageIcon("turn.png");
-    ImageIcon bild2 = new ImageIcon("hp.png");
-    ImageIcon bild3 = new ImageIcon("attack.png");
-    ImageIcon bild4 = new ImageIcon("block.png");
-    ImageIcon bild5 = new ImageIcon("spells.png");
-    ImageIcon bild6 = new ImageIcon("item.png");
-    ImageIcon bild7 = new ImageIcon("potion.png");
-    ImageIcon bild8 = new ImageIcon("endturn.png");
-    ImageIcon bild9 = new ImageIcon("fight.png");
+    private ImageIcon bild1 = new ImageIcon("turn.png");
+    private ImageIcon bild2 = new ImageIcon("hp.png");
+    private ImageIcon bild3 = new ImageIcon("attack.png");
+    private ImageIcon bild4 = new ImageIcon("block.png");
+    private ImageIcon bild5 = new ImageIcon("spells.png");
+    private ImageIcon bild6 = new ImageIcon("item.png");
+    private ImageIcon bild7 = new ImageIcon("potion.png");
+    private ImageIcon bild8 = new ImageIcon("endturn.png");
+    private ImageIcon bild9 = new ImageIcon("fight.png");
 
     /**
-     *
+     *Start tutorialView and set actionListeners.
      */
     public void startTutorial(){
         tv.tutorialFrame();
 
-        tv.nextPic.addActionListener(e -> {
-            try {
-                nextPicture();
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        });
+        tv.nextPic.addActionListener(e ->nextPicture());
     }
 
     /**
-     *
-     * @throws InterruptedException
+     * Changes the picture and labels when the "next" button is pressed.
      */
-    public void nextPicture() throws InterruptedException {
-        System.out.println("test");
+    private void nextPicture() {
 
         if (pics == 1){
             tv.picture.setIcon(bild1);

@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * LevelUpView contains all swing variables to start LevelUpFrame.
+ *
  * @author Malin Sommar
+ * @version 1
  */
 public class LevelUpView {
 
@@ -17,7 +20,7 @@ public class LevelUpView {
     JButton continueButton;
 
     /**
-     *
+     *Starts the levelUp JFrame and calls private methods needed for the frame.
      */
     public void levelUpFrame(){
 
@@ -52,7 +55,7 @@ public class LevelUpView {
     }
 
     /**
-     *
+     * Set info for all JLabels
      */
     public void importLabels(){
 
@@ -156,7 +159,7 @@ public class LevelUpView {
     }
 
     /**
-     *
+     * Imports font pixelMplus
      */
     private void importFont() {
         try {

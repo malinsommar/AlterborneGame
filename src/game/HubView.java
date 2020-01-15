@@ -5,6 +5,13 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * HubView contains all swing variables to start hubFrame.
+ *
+ * @author Malin Sommar
+ *
+ * @version 1
+ */
 public class HubView extends JPanel {
 
     public JFrame hubJFrame = new JFrame();
@@ -20,7 +27,7 @@ public class HubView extends JPanel {
     private Font pixelMplus;
 
     /**
-     *
+     *Starts the hub JFrame and calls private methods needed for the frame.
      */
     //This method open Menu panel or backstory panel.
     public void hubFrame(){
@@ -74,7 +81,7 @@ public class HubView extends JPanel {
     }
 
     /**
-     *
+     * Set info for all JLabels
      */
     //Import buttons and labels for the hub/main menu.
     private void importHubButtonsLabels(){
@@ -116,7 +123,7 @@ public class HubView extends JPanel {
     }
 
     /**
-     *
+     * Import gifs of party members.
      */
     //Import buttons and labels for the .
     private void importBackstoryGifs(){
@@ -146,7 +153,7 @@ public class HubView extends JPanel {
     }
 
     /**
-     *
+     * Set labels on backstoryPanel
      */
     private void importBackstoryButtonsLabels(){
 
@@ -205,7 +212,7 @@ public class HubView extends JPanel {
     }
 
     /**
-     *
+     * Adds mousListeners to buttons
      */
     private void hover(){
 
@@ -244,7 +251,7 @@ public class HubView extends JPanel {
     }
 
     /**
-     *
+     * Import font pixelMplus.
      */
     private void importFont() {
         try {
