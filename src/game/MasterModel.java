@@ -120,10 +120,9 @@ public class MasterModel {
      * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     void startGame() throws InterruptedException {
-startCastleBossFight();
-        /*setStartNumbers();
+        setStartNumbers();
         hubController.startHubScreen();
-        masterLoop1();*/
+        masterLoop1();
     }
 
     /**
