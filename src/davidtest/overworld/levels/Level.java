@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-//Build the map around everything in the Tile-class
+/**
+ * Build the map around everything in the Tile-class
+ */
 public class Level {
 
     private byte[] tiles; //an ArrayList for where the tiles are
@@ -21,7 +23,11 @@ public class Level {
     private String imagePath;
     private BufferedImage image;
 
-    //Assign all the variables in the constructor
+
+    /**
+     *     Assign all the variables in the constructor
+     * @param imagePath saved value of the map
+     */
     public Level(String imagePath) {
         if (imagePath != null) {
             this.imagePath = imagePath;
@@ -33,7 +39,10 @@ public class Level {
         }
     }
 
-    //load the map onto the screen
+
+    /**
+     *  load the map onto the screen
+     */
     private void loadLevelFromFile() {
         try {
             this.image = ImageIO.read(Level.class.getResource(this.imagePath)); //read the map using an ImageIO
@@ -46,7 +55,10 @@ public class Level {
         }
     }
 
-    //loads the tiles from the image
+
+    /**
+     * loads the tiles from the image
+     */
     private void loadTiles() {
         //translate the image data into an int-array
         int[] tileColours = this.image.getRGB(0,0,width,height,null,0,width);
@@ -65,21 +77,10 @@ public class Level {
         }
     }
 
-    //save level as a png if needed (not used)
-    private void saveLevelToFile() {
-        try {
-            ImageIO.write(image, "png", new File(java.util.logging.Level.class.getResource(this.imagePath).getFile()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    //method to change tiles if needed (not used)
-    public void alterTile(int x, int y, Tile newTile) {
-        this.tiles[x+y*width] = newTile.getId();
-        image.setRGB(x,y,newTile.getLevelColour());
-    }
 
-    //update the level based on tick-count
+    /**
+     * Update the level based on tick-count
+     */
     public void tick() {
         for (Entity e : entities) {
             e.tick();
@@ -92,7 +93,13 @@ public class Level {
         }
     }
 
-    //render the tiles on the screen.
+
+    /**
+     * Render the tiles on the screen.
+     * @param screen to be used
+     * @param xOffset position on the screen
+     * @param yOffset position on the screen
+     */
     public void renderTiles(Screen screen, int xOffset, int yOffset) {
         if (xOffset < 0) xOffset = 0;
         if (xOffset > ((width << 3) - screen.width)) xOffset = ((width << 3) - screen.width);
@@ -109,13 +116,23 @@ public class Level {
         }
     }
 
-    //render the entities/mobs above the tiles so they'll stay visible
+
+    /**
+     * render the entities/mobs above the tiles so they'll stay visible
+     * @param screen to be used
+     */
     public void renderEntities(Screen screen) {
         for (Entity e : entities) {
             e.render(screen);
         }
     }
 
+    /**
+     * method to get the value of tile for further use
+     * @param x position of tile
+     * @param y position of tile
+     * @return the value x and y
+     */
     public Tile getTile (int x, int y) {
         //if no tile has been added call the Void-tile natively
         if (0 > x || x >= width || 0 > y || y >= height)
@@ -124,10 +141,18 @@ public class Level {
         return Tile.tiles[tiles[x + y * height]];
     }
 
+    /**
+     * Call the Entity-class into the Level-class by adding the Player-object
+     * @param entity added to be used in getEntity
+     */
     public void addEntity(Entity entity) {
-        this.entities.add(entity); //call the Entity-class into the Level-class by adding the Player-object
+        this.entities.add(entity);
     }
 
+    /**
+     * get Entity to use when need
+     * @return the value of entity
+     */
     public Entity getEntity() {
         return (Entity) entities;
     }

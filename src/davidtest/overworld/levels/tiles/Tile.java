@@ -4,11 +4,21 @@ import davidtest.overworld.levels.Level;
 import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Screen;
 
-//Create all the Tiles that will be used in the levels
+
+/**
+ * Create all the Tiles that will be used in the levels
+ */
 public abstract class Tile {
-    //Create all the tiles
+    /**
+     * Obects for every tile
+     * int id = the identification of the tile
+     * int x = tiles x-position on the SpriteSheet
+     * int y = tiles y-position on the SpriteSheet
+     * int tileColour = colour of the tiles within the screen
+     * int levelColour = ColourCode assigned to the colour within the map
+     */
     public static final Tile[] tiles = new Tile[256];
-    public static final Tile VOID = new SolidTile /*What type if tile it is*/(0, 0, 0,/*position of the 8x8 tile on the sprite-sheet*/ Colours.get(000, -1, -1, -1) /*colours used in the frame*/, 0xFF000000 /*the colour that the tile is identified to on the map*/);
+    public static final Tile VOID = new SolidTile(0, 0, 0,/*position of the 8x8 tile on the sprite-sheet*/ Colours.get(000, -1, -1, -1) /*colours used in the frame*/, 0xFF000000 /*the colour that the tile is identified to on the map*/);
     public static final Tile STONE = new SolidTile(1, 1, 0, Colours.get(-1, 333, -1, -1), 0xFF555555);
     public static final Tile GRASS = new BasicTile(2, 2, 0, Colours.get(-1, 131, 141, -1), 0xFF00FF00);
     public static final Tile WATER = new AnimatedTile(3, new int[][] { {0, 5}, { 1, 5}, { 2, 5 }, { 1, 5 } },
@@ -50,10 +60,6 @@ public abstract class Tile {
     public static final Tile FIELDCHEST = new SolidTile(33, 1, 17, Colours.get(176,210,178,332), 0xFFab6a2c);
     public static final Tile MOUNTAINCHEST = new SolidTile(34, 2, 17, Colours.get(333,210,178,332), 0xFFab6a3c);
     public static final Tile SWAMPCHEST = new SolidTile(35, 3, 17, Colours.get(18,210,178,332), 0xFFab6a4c);
-    public static final Tile LEFTBOTTOMMOUNTAINENTRANCE = new MountainPathTile(36, 0, 21, Colours.get(1,5,313, -1), 0xFF672321);
-    public static final Tile RIGHTBOTTOMMOUNTAINENTRANCE= new MountainPathTile(37, 1, 21, Colours.get(1,5,313, -1), 0xFF672322);
-    public static final Tile LEFTOPMOUNTAINENTRANCE = new SolidTile(38, 2, 21, Colours.get(1,5,313,-1), 0xFF672323);
-    public static final Tile RIGHTTOPMOUNTAINENTRANCE = new SolidTile(39, 3, 21, Colours.get(1,5,313,-1), 0xFF672324);
     public static final Tile LEFTBOTTOMFIELDCAVE = new FieldPathTile(40, 0, 23, Colours.get(1,2,210, 176), 0xFF672325);
     public static final Tile RIGHTBOTTOMMFIELDCAVE = new FieldPathTile(41, 1, 23, Colours.get(1,2,211, 176), 0xFF672326);
     public static final Tile LEFTOPFIELDCAVE = new SolidTile(42, 2, 23, Colours.get(1,2,212,176), 0xFF672327);
@@ -77,7 +83,6 @@ public abstract class Tile {
     protected byte id;
     boolean solid;
     boolean forestPath;
-    boolean mountainPath;
     boolean fieldPath;
     boolean swampPath;
     boolean castlePath;
@@ -85,8 +90,19 @@ public abstract class Tile {
     boolean door;
     private int levelColour;
 
-    //create the parameters for all tiles
-    Tile(int id, boolean isSolid, boolean isDoor, boolean isForestPath, boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCaveTile, boolean isCastlePath, int levelColour) {
+    /**
+     * create the parameters for all tiles
+     * @param id tile-identification
+     * @param isSolid if the tile is solid
+     * @param isDoor if the tile is a door
+     * @param isForestPath if th tile is a path to forest
+     * @param isFieldPath if the tile is a path to field
+     * @param isSwampPath if the tile is a path to swamp
+     * @param isCaveTile if the tile is a path to cave
+     * @param isCastlePath if the tile is a path to castle
+     * @param levelColour ColourCode for tile on map
+     */
+    Tile(int id, boolean isSolid, boolean isDoor, boolean isForestPath, boolean isFieldPath, boolean isSwampPath, boolean isCaveTile, boolean isCastlePath, int levelColour) {
         this.id = (byte) id;
         //if a tile-id has been used before: throw RuntimeException
         if (tiles[id] != null)
@@ -95,7 +111,6 @@ public abstract class Tile {
         //Indicate that all the variables within the parameter are the same as these variables
         this.solid = isSolid;
         this.forestPath = isForestPath;
-        this.mountainPath = isMountainPath;
         this.fieldPath = isFieldPath;
         this.swampPath = isSwampPath;
         this.castlePath = isCastlePath;
@@ -105,7 +120,11 @@ public abstract class Tile {
         tiles[id] = this;
     }
 
-    //return theses booleans as true if the tile has been identified with it
+
+    /**
+     * return theses booleans as true if the tile has been identified with it
+     * @return variable
+     */
     public byte getId() {
         return id;
     }
@@ -121,9 +140,6 @@ public abstract class Tile {
     public boolean isForestPath() {
         return forestPath;
     }
-    public boolean isMountainPath() {
-        return mountainPath;
-    }
     public boolean isFieldPath() {
         return fieldPath;
     }
@@ -131,14 +147,24 @@ public abstract class Tile {
         return swampPath;
     }
     public boolean isCastlePath() { return castlePath; }
+
     public boolean isCavePath() {return cavePath;}
+
     public boolean isDoor() {
         return door;
     }
 
-        //update the values with every tick
+    /**
+     * Method to update the values with every tick
+     */
     public abstract void tick();
 
-    //render the the tiles onto the level
+    /**
+     * Render tiles onto the screen
+     * @param screen to be used
+     * @param level to be used
+     * @param x position
+     * @param y position
+     */
     public abstract void render(Screen screen, Level level, int x, int y);
 }

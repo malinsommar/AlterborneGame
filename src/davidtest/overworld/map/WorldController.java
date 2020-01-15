@@ -7,12 +7,19 @@ import game.MusicPick;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
-//Canvas is a basic graphic component in java used for drawing within the frame
-//Runnable is used to automatically call the "run" method, which is necessary for the thread to work
+
+/**
+ * Canvas is a basic graphic component in java used for drawing within the frame
+ * Runnable is used to automatically call the "run" method, which is necessary for the thread to work
+ */
 public class WorldController extends Canvas implements Runnable {
     private WorldView owf = new WorldView();
     public  int[] Entrance = new int[1];
 
+    /**
+     * method start the program
+     * @param userName name that will be used for the player
+     */
     public void startWorldController(String userName) {
         owf.startWorldView(userName);
         start();//start the program
@@ -21,7 +28,6 @@ public class WorldController extends Canvas implements Runnable {
         while (Entrance[0] <= 0) {
                 EnterForest();
                 EnterShop();
-                EnterMountain();
                 EnterField();
                 EnterSwamp();
                 EnterCastle();
@@ -30,7 +36,9 @@ public class WorldController extends Canvas implements Runnable {
         }
     }
 
-
+    /**
+     * start-method that is called within StartWorldController and activates the thread
+     */
     public synchronized void start() {
         running = true;//set the state of running to true
         new Thread(this).start(); //start thread. Threads are used to run multiple functionality at once
@@ -38,7 +46,10 @@ public class WorldController extends Canvas implements Runnable {
 
     private boolean running = false; //if program ends up outside start, set programs running state
 
-    //initiate colours
+
+    /**
+     *  Initiate colours
+     */
     private void init() {
         int index = 0;
         //red
@@ -57,7 +68,10 @@ public class WorldController extends Canvas implements Runnable {
             }
         }
     }
-    //run game
+
+    /**
+     * run game
+     */
     public void run() {
         MusicPick.musicStart("intofreeshort", "music"); //implement music
         long lastTime = System.nanoTime(); //the current value of nanoseconds
@@ -109,7 +123,11 @@ public class WorldController extends Canvas implements Runnable {
         }
     }
 
-    //Updates the logic of the game within all the active classes within the period of time assigned within the method
+
+    /**
+     * Updates the logic of the game within all the active classes within the period of time assigned within the method
+     * @throws InterruptedException if the thread where to be interrupted
+     */
     private synchronized void tick() throws InterruptedException {
         owf.level.tick(); //updates the screen with every tick. Without it, image will be completely frozen
         if (Entrance[0] > 0) { //if the Entrance array is assigned anything other than zero: call whatever is inside the braces
@@ -120,7 +138,10 @@ public class WorldController extends Canvas implements Runnable {
             // - thread resume
         }
 
-        private void render() //prints out what the logic in the tick-function has stated should be printed out
+    /**
+     * Prints out what the logic in the tick-function has stated should be printed out
+     */
+    private void render()
         {
             BufferStrategy bs = owf.getBufferStrategy(); //an Object to organize the data in the canvas
             //if a bufferStrategy hasn't been created: make one
@@ -142,10 +163,8 @@ public class WorldController extends Canvas implements Runnable {
             Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Forest", owf.screen, 320, 258, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("1-3", owf.screen, 332, 280, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Mountain", owf.screen, 4, 40, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("???", owf.screen, 20, 62, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Cave", owf.screen, 112, 218, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("3-5", owf.screen, 115, 240, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Cave", owf.screen, 15, 40, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("1-3", owf.screen, 20, 62, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Field", owf.screen, 43, 450, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("5-8", owf.screen, 52, 472, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Swamp", owf.screen, 452, 103, Colours.get(000, -1, -1, 555), 1);
@@ -169,7 +188,9 @@ public class WorldController extends Canvas implements Runnable {
             bs.show();//show in JFrame
         }
 
-    //list of Methods to call back to WorldModel when a a new frame should be used and the WorldView should be disposed
+    /**
+     * List of Methods to call back to WorldModel when a a new frame should be used and the WorldView should be disposed
+     */
     public synchronized void EnterShop() {
         if (owf.player.hasEnteredShop()) {
             Entrance[0] = 1;
@@ -208,9 +229,4 @@ public class WorldController extends Canvas implements Runnable {
             Entrance[0] = 7;
         }
     }
-    private void EnterMountain() {
-        if(owf.player.hasEnteredMountain()) {
-            Entrance[0] = 8;
-        }
     }
-}

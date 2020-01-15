@@ -1,7 +1,18 @@
 package davidtest.overworld.gfx;
 
+/**
+ * Fonts for text used within the WorldMap
+ */
 public class Fonts {
-
+    /**
+     * create render-method for the fonts
+     * @param msg the text shown
+     * @param screen what screen it should be displayed on
+     * @param x the fonts x-axis position
+     * @param y the fonts y-axis position
+     * @param colour colours used in the font
+     * @param scale size of font
+     */
     public static void render (String msg, Screen screen, int x, int y, int colour, int scale) {
         msg = msg.toUpperCase();
 
