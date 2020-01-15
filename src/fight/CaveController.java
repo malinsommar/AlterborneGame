@@ -726,7 +726,7 @@ public class CaveController{
                     mageattacked = true;
                     enemyDamage = enemyDamage - mageBlock;
                     mageCurrentHp = mageCurrentHp - enemyDamage;
-                    cv.player3Hp = new JLabel("Mage:  " + mageCurrentHp);
+                    cv.player3Hp.setText("Mage:  " + mageCurrentHp);
                     break;
                 }
             }
@@ -1190,7 +1190,7 @@ public class CaveController{
                 if (ownedPotions[0] > 0) {
                     healerCurrentHp += 10;
                     cv.playersHp.setText("Hp: " + healerCurrentHp);
-                    cv.player4Hp.setText("Mage: " + healerCurrentHp);
+                    cv.player4Hp.setText("Healer: " + healerCurrentHp);
                     ownedPotions[0] -= 1;
                     cv.potion1Label.setText("" + ownedPotions[0]);
                 }
@@ -1198,7 +1198,7 @@ public class CaveController{
                 if (ownedPotions[1] > 0) {
                     healerCurrentHp += 30;
                     cv.playersHp.setText("Hp: " + healerCurrentHp);
-                    cv.player4Hp.setText("Mage: " + healerCurrentHp);
+                    cv.player4Hp.setText("healer: " + healerCurrentHp);
                     ownedPotions[1] -= 1;
                     cv.potion2Label.setText("" + ownedPotions[1]);
                 }
@@ -1206,7 +1206,7 @@ public class CaveController{
                 if (ownedPotions[2] > 0) {
                     healerCurrentHp += 60;
                     cv.playersHp.setText("Hp: " + healerCurrentHp);
-                    cv.player4Hp.setText("Mage: " + healerCurrentHp);
+                    cv.player4Hp.setText("Healer: " + healerCurrentHp);
                     ownedPotions[2] -= 1;
                     cv.potion3Label.setText("" + ownedPotions[2]);
                 }
@@ -1385,17 +1385,17 @@ public class CaveController{
      * @param healingTargets
      */
     public void spellHealSystem(int healing, String healingTargets) {
-        if (healingTargets.equals("single")) {
-            if (healTarget == 1) warriorCurrentHp += healing;
-            if (healTarget == 2) rangerCurrentHp += healing;
-            if (healTarget == 3) mageCurrentHp += healing;
-            if (healTarget == 4) healerCurrentHp += healing;
+        if (healingTargets.equals("single")){
+            if (healTarget == 1 && warriorCurrentHp > 0) warriorCurrentHp += healing;
+            if (healTarget == 2 && rangerCurrentHp > 0) rangerCurrentHp += healing;
+            if (healTarget == 3 && mageCurrentHp > 0) mageCurrentHp += healing;
+            if (healTarget == 4 && healerCurrentHp > 0) healerCurrentHp += healing;
         }
-        if (healingTargets.equals("all")) {
-            warriorCurrentHp += healing;
-            healerCurrentHp += healing;
-            rangerCurrentHp += healing;
-            mageCurrentHp += healing;
+        if (healingTargets.equals("all")){
+            if (warriorCurrentHp > 0) warriorCurrentHp += healing;
+            if (rangerCurrentHp > 0) rangerCurrentHp += healing;
+            if (mageCurrentHp > 0) mageCurrentHp += healing;
+            if (healerCurrentHp > 0) healerCurrentHp += healing;
         }
         if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
         if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
