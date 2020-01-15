@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * musicPick plays music or soundeffects when called
+ *
  * @author Simon Bengtsson
  */
 public class MusicPick {
@@ -14,8 +16,10 @@ public class MusicPick {
     private static boolean first = true;
 
     /**
-     * @param pick
-     * @param soundType
+     *
+     * @param pick soundfile name (must be .wav)
+     * @param soundType music types stop previous music when called <br> non-music does not and is reserved for soundeffects <br> lowvol are soundeffects that need increased volume
+     *
      */
     public static void musicStart(String pick, String soundType) {
         try {
@@ -30,7 +34,7 @@ public class MusicPick {
                 FloatControl gainControl = (FloatControl) musicClip.getControl(FloatControl.Type.MASTER_GAIN);
                 gainControl.setValue(-40.0f); //change volume
                 musicClip.start();
-                //clip.loop(Clip.LOOP_CONTINUOUSLY);
+                //clip.loop(Clip.LOOP_CONTINUOUSLY); //loops music
                 first = false;
             }
 
@@ -53,7 +57,7 @@ public class MusicPick {
     }
 
     /**
-     *
+     * stop current music without starting a new one
      */
     public static void musicStop(){
         musicClip.stop();
