@@ -15,13 +15,15 @@ public class MasterModel {
     private LevelUpController luc = new LevelUpController();
     private LootController lc = new LootController();
     private ForestCon forestCon = new ForestCon();
-    private SwampController swampcon = new SwampController();
     private ForestBossCon forestBossCon = new ForestBossCon();
     private CaveController caveCon = new CaveController();
     private CaveBossController caveBossCon = new CaveBossController();
     private FieldController fieldCon = new FieldController();
     private FieldBossController fieldBossCon = new FieldBossController();
+    private SwampController swampcon = new SwampController();
+    private SwampBossController swampbosscon = new SwampBossController();
     private CastleController castleCon = new CastleController();
+    private CastleBossController castleBossCon = new CastleBossController();
     private ShopController sc = new ShopController();
     private LoseController loseController = new LoseController();
     private UserNameController unc = new UserNameController();
@@ -182,7 +184,7 @@ public class MasterModel {
         }
         //Castle
         else if (worldModel.HandleOverWorld() == 6) {
-            if(ran > 10){
+            if(ran > 99){
                 startCastleFight();
             }
             else {
@@ -283,8 +285,12 @@ public class MasterModel {
      *
      */
     //This method starts the swamp boss fight and send necessary variables to the controller.
-    private void startSwampBossFight(){
+    private void startSwampBossFight() throws InterruptedException {
+        swampbosscon.getInventory(ownedPotions);
+        swampbosscon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        swampbosscon.startFight();
 
+        masterLoop1();
     }
 
     //This method starts the castle fight and send necessary variables to CastleController.
@@ -300,8 +306,12 @@ public class MasterModel {
      *
      */
     //This method starts the castle boss fight and send necessary variables to the controller.
-    private void startCastleBossFight(){
+    private void startCastleBossFight() throws InterruptedException {
+        castleBossCon.getInventory(ownedPotions);
+        castleBossCon.getPlayerStats(warriorStats, mageStats, healerStats, rangerStats);
+        castleBossCon.startFight();
 
+        masterLoop1();
     }
 
     /**

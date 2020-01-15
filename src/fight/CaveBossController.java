@@ -2195,7 +2195,6 @@ public class CaveBossController {
                     takeDamage.start();
                     CBV.endTurnButton.setVisible(true);
                     animationPlaying = false;
-                    bossDamage +=5;
                 }
             }
         });
@@ -2226,6 +2225,7 @@ public class CaveBossController {
                     caveBossX = caveBossStartX;
                     CBV.caveBoss.setLocation(caveBossX, caveBossY);
                     timePast = 0;
+                    bossDamage +=5;
                     bossAttack4.stop();
                     CBV.endTurnButton.setVisible(true);
                     animationPlaying = false;
