@@ -2,16 +2,27 @@ package davidtest.overworld.map;
 
 import game.UserNameController;
 
+/**
+ * call OverWorldController
+ */
 public class WorldModel {
-    //call OverWorldController
         private WorldController overWorldController = new WorldController();
 
-        //set userName in parameters from the MasterModel
+
+    /**
+     * //set userName in parameters from the MasterModel
+     * @param userName based on the value assigned by UserNameController
+     * @throws InterruptedException if the Thread is stopped this exception is thrown
+     */
         public WorldModel(String userName) throws InterruptedException {
             overWorldController.startWorldController(userName);
             HandleOverWorld();
         }
-        //return int-values to MasterModel to identify which Controller should be called
+
+    /**
+     * return int-values to MasterModel to identify which Controller should be called
+     * @return the int value to MasterModel depending on what Controller should be activated
+     */
         public int HandleOverWorld() {
             if (overWorldController.Entrance[0] == 1) {
                 return 1; //call shop
@@ -33,9 +44,6 @@ public class WorldModel {
             }
             if (overWorldController.Entrance[0] == 7) {
                 return 7; //call water
-            }
-            if (overWorldController.Entrance[0] == 8) {
-                return 9; //call mountain 6-7
             }
             return 0;
         }

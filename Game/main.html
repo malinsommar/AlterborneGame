@@ -1,0 +1,58 @@
+<!--HTML5 is called-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Linking the stylesheet-->
+    <link rel="stylesheet" href="style.css">
+    <!--Setting a favicon-->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <title>Alterborne</title>
+</head>
+<body>
+    
+    <h1>Alterborne</h1>
+    <!--Creating a navbar-->
+<div class="topnav" id="myTopNav">
+        <a href="main.html" class="active">HOME</a>
+        <a href="rules.html">GAME</a>
+         <!--Creating a dropdown menu in the navbar for the character pages-->
+        <div class="dropdown">
+                <!--A button is created which will open up to a dropdown menu-->
+                <button class="dropbtn">CHARACTERS</button>
+                <div class="dropdown-content">
+                  <a href="warrior.html">WARRIOR</a>
+                  <a href="ranger.html">RANGER</a>
+                  <a href="mage.html">MAGE</a>
+                  <a href="healer.html">HEALER</a>
+                </div>
+              </div>
+        <a href="score.html">HIGHSCORES</a>
+        <a href="about.html">ABOUT</a>
+        <a href="more.html">MORE</a>
+        <!--Creates a "hamburger" icon on the right side of the navbar which contains all links except for Home when the screen is resized to small-->
+       <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+</div>
+
+<div class="text-container">
+    <h2 class="main-title">Welcome to Alterborne</h2>
+    <!--Creating clickable images-->
+    <a href="warrior.html"><img id="warrior" src="warrior.gif" alt="Warrior"></a>
+    <a href="ranger.html"><img id="ranger" src="ranger.gif" alt="Ranger"></a>
+    <a href="mage.html"><img id="mage" src="mage.gif" alt="Mage"></a>
+    <a href="healer.html"><img id="healer" src="healer.gif" alt="Healer"></a>
+
+    <!--<p> tag with a short backstory-->
+<p>In the heart the great land of Geru'xelm, the seat of power is in danger.
+    <br>There was a foe of a thousand demons, who paved the way for your damnation. 
+    <br>189 soldiers, in the service of the king. Protecting the kingdom.
+    <br>Gave their lives for glory. Only 4 survived.
+<br><b>This is your party.</b></p>
+</div>
+
+<footer>Freaks & Geeks 2020</footer>
+
+</body>
+</html>

@@ -5,8 +5,10 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-/*The spriteSheet is the image made to draw the sprites seen within the OverWorld. This class is made to call
-them within the program*/
+/**
+ * The spriteSheet is the image made to draw the sprites seen within the OverWorld. This class is made to call
+ * them within the program
+ */
 public class SpriteSheet {
     public String path; //path to the image
     public int width; //the width of the SpriteSheet
@@ -14,7 +16,11 @@ public class SpriteSheet {
 
     public int[] pixels; //handle the pixelData within the SpriteSheet
 
-    //set the "path" variable within the parenthesis so when the method is called it can be assigned the image
+
+    /**
+     * set the "path" variable within the parenthesis so when the method is called it can be assigned the image
+     * @param path image
+     */
     public SpriteSheet(String path) {
         BufferedImage image = null; //a buffer to contain image-data
         InputStream myImage;
