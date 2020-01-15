@@ -5,6 +5,9 @@ import davidtest.overworld.map.WorldModel;
 import fight.*;
 
 /**
+ * This is the "main class", this is where all variables that needs to be saved between fight are stored. <br>
+ * This is also where most of the methods that generate loot, gold, xp, fight etc is located.
+ *
  * @author Malin Sommar
  * @version 1
  */
@@ -109,9 +112,10 @@ public class MasterModel {
     private int[] armorDamage = new int[6];
 
     /**
-     * @throws InterruptedException
+     * Open hubController. Start masterLoop and await changes to start game, tutorial or exit game.
+     *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
-    //Get user input from ConHub to start game of exit game.
     void startGame() throws InterruptedException {
 
         setStartNumbers();
@@ -120,7 +124,10 @@ public class MasterModel {
     }
 
     /**
-     * @throws InterruptedException
+     * Open userNameController. Start masterLoop and await actionListener to get userName. UserName is used in highscore.<br>
+     * When this is done, call startWorldModel();
+     *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     private void enterUserName() throws InterruptedException {
         unc.startUserNameFrame();
@@ -133,7 +140,8 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method open the overWorld screen. Depending on where the player goes on the map it returns a variable that opens different fights of shop screen.
     private void startWorldModel() throws InterruptedException {
@@ -184,7 +192,7 @@ public class MasterModel {
         }
         //Castle
         else if (worldModel.HandleOverWorld() == 6) {
-            if(ran > 99){
+            if(ran > 10){
                 startCastleFight();
             }
             else {
@@ -197,7 +205,7 @@ public class MasterModel {
     }
 
     /**
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the forest fight and send necessary variables to ForestController.
     private void startForestFight() throws InterruptedException {
@@ -210,7 +218,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the forest boss fight and send necessary variables to the controller.
     private void startForestBossFight() throws InterruptedException {
@@ -223,7 +231,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the cave fight and send necessary variables to CaveController.
     private void startCaveFight() throws InterruptedException {
@@ -236,7 +244,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the cave boss fight and send necessary variables to the controller.
     private void startCaveBossFight() throws InterruptedException {
@@ -249,7 +257,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the field fight and send necessary variables to FieldController.
     private void startFieldFight() throws InterruptedException {
@@ -262,7 +270,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the field boss fight and send necessary variables to the controller.
     private void startFieldBossFight() throws InterruptedException {
@@ -275,7 +283,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the swamp fight and send necessary variables to SwampController.
     private void startSwampFight() throws InterruptedException {
@@ -288,6 +296,7 @@ public class MasterModel {
 
     /**
      *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the swamp boss fight and send necessary variables to the controller.
     private void startSwampBossFight() throws InterruptedException {
@@ -300,7 +309,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the castle fight and send necessary variables to CastleController.
     private void startCastleFight() throws InterruptedException {
@@ -313,6 +322,7 @@ public class MasterModel {
 
     /**
      *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the castle boss fight and send necessary variables to the controller.
     private void startCastleBossFight() throws InterruptedException {
@@ -333,7 +343,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     private void startTutorial() throws InterruptedException {
       tc.startTutorial();
@@ -344,7 +354,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the shop and send necessary variables to ShopController.
   private void startShop() throws InterruptedException {
@@ -355,11 +365,13 @@ public class MasterModel {
   }
 
     /**
+     * This method sends away all information lootController is going to need and starts it.
      *
-     * @param whatFight
-     * @throws InterruptedException
+     * @param whatFight har koll på vilken fight player kommer ifrån
+     *
+     * @throws InterruptedException pga overworld
+     *
      */
-    //This method sends away all information lootController is going to need and starts it.
     private void startLootController(int whatFight) throws InterruptedException {
         getEquipment();
         lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
@@ -370,7 +382,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //When player gets xp this methods check if player will level up.
     private void startLevelUp() throws InterruptedException {
@@ -471,7 +483,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method saves gold, xp and weapon/armor that player got from lootController.
     private void addLoot() throws InterruptedException {
@@ -830,7 +842,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method loops the program until 'something' happens. Use this on all fights and frames that waits for input. Works like a homemade thread.
     private void masterLoop1() throws InterruptedException {
@@ -1154,7 +1166,7 @@ public class MasterModel {
 
     /**
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     private void masterLoop2() throws InterruptedException {
         int loops = 0;
