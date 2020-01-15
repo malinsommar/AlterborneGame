@@ -1050,8 +1050,60 @@ public class MasterModel {
                 broken = true;
                 break;
             }
+            //SwampBoss
+            else if (swampbosscon.fightWon){
+                System.out.println("forestBoss fight won");
+
+                swampbosscon.fightWon = false;
+
+                swampbosscon.ownedPotions[0] = ownedPotions[0];
+                swampbosscon.ownedPotions[1] = ownedPotions[1];
+                swampbosscon.ownedPotions[2] = ownedPotions[2];
+
+                swampbosscon.ownedPotions[3] = ownedPotions[3];
+                swampbosscon.ownedPotions[4] = ownedPotions[4];
+                swampbosscon.ownedPotions[5] = ownedPotions[5];
+
+                swampbosscon.ownedPotions[6] = ownedPotions[6];
+                swampbosscon.ownedPotions[7] = ownedPotions[7];
+                swampbosscon.ownedPotions[8] = ownedPotions[8];
+
+                swampbosscon.ownedPotions[9] = ownedPotions[9];
+                swampbosscon.ownedPotions[10] = ownedPotions[10];
+                swampbosscon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(40);
+                broken = true;
+                break;
+            }
+            //CastleBoss
+            else if (castleBossCon.fightWon){
+                System.out.println("forestBoss fight won");
+
+                castleBossCon.fightWon = false;
+
+                castleBossCon.ownedPotions[0] = ownedPotions[0];
+                castleBossCon.ownedPotions[1] = ownedPotions[1];
+                castleBossCon.ownedPotions[2] = ownedPotions[2];
+
+                castleBossCon.ownedPotions[3] = ownedPotions[3];
+                castleBossCon.ownedPotions[4] = ownedPotions[4];
+                castleBossCon.ownedPotions[5] = ownedPotions[5];
+
+                castleBossCon.ownedPotions[6] = ownedPotions[6];
+                castleBossCon.ownedPotions[7] = ownedPotions[7];
+                castleBossCon.ownedPotions[8] = ownedPotions[8];
+
+                castleBossCon.ownedPotions[9] = ownedPotions[9];
+                castleBossCon.ownedPotions[10] = ownedPotions[10];
+                castleBossCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(50);
+                broken = true;
+                break;
+            }
             //Fights lost
-            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||caveBossCon.fightLost||fieldCon.fightLost||fieldBossCon.fightLost||swampcon.fightLost||castleCon.fightLost) {
+            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||caveBossCon.fightLost||fieldCon.fightLost||fieldBossCon.fightLost||swampcon.fightLost||swampbosscon.fightLost||castleCon.fightLost||castleBossCon.fightLost) {
                 System.out.println("fightLost loop 1");
                 broken = true;
                 loseController.startLoseScreen(currentXp, userName);
@@ -1321,8 +1373,60 @@ public class MasterModel {
                 broken = true;
                 break;
             }
+            //SwampBoss
+            else if (swampbosscon.fightWon){
+                System.out.println("forestBoss fight won");
+
+                swampbosscon.fightWon = false;
+
+                swampbosscon.ownedPotions[0] = ownedPotions[0];
+                swampbosscon.ownedPotions[1] = ownedPotions[1];
+                swampbosscon.ownedPotions[2] = ownedPotions[2];
+
+                swampbosscon.ownedPotions[3] = ownedPotions[3];
+                swampbosscon.ownedPotions[4] = ownedPotions[4];
+                swampbosscon.ownedPotions[5] = ownedPotions[5];
+
+                swampbosscon.ownedPotions[6] = ownedPotions[6];
+                swampbosscon.ownedPotions[7] = ownedPotions[7];
+                swampbosscon.ownedPotions[8] = ownedPotions[8];
+
+                swampbosscon.ownedPotions[9] = ownedPotions[9];
+                swampbosscon.ownedPotions[10] = ownedPotions[10];
+                swampbosscon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(40);
+                broken = true;
+                break;
+            }
+            //CastleBoss
+            else if (castleBossCon.fightWon){
+                System.out.println("forestBoss fight won");
+
+                castleBossCon.fightWon = false;
+
+                castleBossCon.ownedPotions[0] = ownedPotions[0];
+                castleBossCon.ownedPotions[1] = ownedPotions[1];
+                castleBossCon.ownedPotions[2] = ownedPotions[2];
+
+                castleBossCon.ownedPotions[3] = ownedPotions[3];
+                castleBossCon.ownedPotions[4] = ownedPotions[4];
+                castleBossCon.ownedPotions[5] = ownedPotions[5];
+
+                castleBossCon.ownedPotions[6] = ownedPotions[6];
+                castleBossCon.ownedPotions[7] = ownedPotions[7];
+                castleBossCon.ownedPotions[8] = ownedPotions[8];
+
+                castleBossCon.ownedPotions[9] = ownedPotions[9];
+                castleBossCon.ownedPotions[10] = ownedPotions[10];
+                castleBossCon.ownedPotions[11] = ownedPotions[11];
+
+                startLootController(50);
+                broken = true;
+                break;
+            }
             //Fights lost
-            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||caveBossCon.fightLost||fieldCon.fightLost||fieldBossCon.fightLost||swampcon.fightLost||castleCon.fightLost) {
+            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||caveBossCon.fightLost||fieldCon.fightLost||fieldBossCon.fightLost||swampcon.fightLost||swampbosscon.fightLost||castleCon.fightLost||castleBossCon.fightLost) {
                 System.out.println("fightLost loop 1");
                 broken = true;
                 loseController.startLoseScreen(currentXp, userName);
