@@ -1,0 +1,88 @@
+<!--HTML comments are in main.html-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <title>Alterborne</title>
+</head>
+<body>
+    <h1>Alterborne</h1>
+    <div class="topnav" id="myTopNav">
+            <a href="main.html">HOME</a>
+            <a href="rules.html">GAME</a>
+            <div class="dropdown">
+                    <button class="dropbtn">CHARACTERS</button>
+                    <div class="dropdown-content">
+                      <a href="warrior.html">WARRIOR</a>
+                      <a href="ranger.html">RANGER</a>
+                      <a href="mage.html">MAGE</a>
+                      <a href="healer.html">HEALER</a>
+    
+    
+                    </div>
+                  </div>
+            <a href="score.html">HIGHSCORES</a>
+            <a href="about.html">ABOUT</a>
+            <a href="more.html" class="active">MORE</a>
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+    </div>
+<div class="text-container">
+        <h3>Functional programming</h3>
+        <p>The imperative programming style is a sort of list for the program to follow. When a code is made, it's required that the code will
+          be read from the top down. Otherwise the thing won't work.<br><br>
+          
+          Functional programming is a declarative type of programming. Meaning it's more freeflowing than the imperative style.
+          The main defining difference between the two styles is how the imperative style is about "<i>how</i> to solve" while the declarative
+          is about "<i>what</i> to solve". <br>
+          In the case of functional programming it uses expressions instead of statement. An expression produces value,
+          while a statement assigns a variable. <br><br>
+          
+          The fundamental concepts within Functional programming are: <br>
+         <b> Pure Functions <br>
+          Recursion <br>
+          Referential Transparency <br>
+          Functions are First-Class and can be Higher-Order <br>
+          Variables are immutable</b>
+          
+          <br><br>
+          The most basic part of functional programming is the <b>pure function</b>. A pure function is defined by two properties. Firstly, it returns the
+          same result if given the same argument. Secondly, it doesn't cause any side-effects. The latter is called "immutability", meaning it only
+          affects the value it returns. <br>
+          This makes functional programming easy to debug, while also making it easier to use in parallel with other extensions. Using a smart compiler,
+          the program can be frozen while remembering the result of the code. Since values won't change until code has been changed, it can be set on hold
+          until the value becomes necessary. <br>
+          It's therefore not necessary within functional programming to have a "list" of code, since the expressions work independently.
+          <br> <br>
+          <b>Recursion</b> is the Functional programming's alternative to for-loops. A recursive function is instead simply called repeatedly until
+          its base case is reached. <br><br>
+          
+          <b>Referential Transparency</b> is about how every value in essence is constant. Once a value has been declared a value, it can't be changed.
+          This decreases chances of side-effects for the program.
+          <br><br>
+          <b>Functions are First-Class and can be Higher-Order. </b>This basically means a function can be passed into another function's parameter. They can also
+          be returned from from a function and be saved into data-structures.
+          <br><br>
+          <b>Variables are immutable</b> means that all variables defined can't be changed. They are a constant natively. Coding can therefore be done
+          without worrying about values not changing.
+          <br><br>
+          All of these factors make Functional programming an all-around easier to read and follow coding experience. With constant
+          variables and values its easier to work around new concept without the worry of interrupting previous code.
+          The big drawback of Functional programming is the possible decrease in performance when new values and variables have to be
+          created. Therefore it's most likely best suited for smaller projects.
+          <br><br>
+          Functional programming is mainly used for "mathematical computations"/arithmetics and parallel coding.
+          <br><br>
+          Functional programming is based on the Lambda Calculus framework, developed by Alonzo Church, to study the use of functions
+          within programming. It forms a theoretical framework for how functions work within coding, and forms a basis for almost
+          all functional programming.
+          One of Church's students was Alan Turing.</p>
+    </div>
+    
+
+</body>
+<footer>Freaks & Geeks 2020</footer>
+</html>
