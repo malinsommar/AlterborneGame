@@ -199,9 +199,6 @@ public class MasterModel {
                 startCastleBossFight();
             }
         }
-        else if (worldModel.HandleOverWorld() == 7) {
-            startSecretFight();
-        }
     }
 
     /**
@@ -552,17 +549,6 @@ public class MasterModel {
         castleBossCon.ownedPotions[11] = ownedPotions[11];
 
         startLootController(50);
-    }
-
-    /**
-     * This method is called when player encounter the secret boss. Send ownedPotions and playerStats to secretController and start fight.<br>
-     * Await for the fight to be won or lost, update potions and start LootScreen.
-     *
-     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
-     */
-    //This method starts the secret fight and send necessary variables to SecretFightController. The secret fight has a low chance to randomly activates when swimming in water.
-    private void startSecretFight(){
-
     }
 
     /**
