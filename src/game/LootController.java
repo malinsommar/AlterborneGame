@@ -701,7 +701,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Block: "+warriorEpicArmorBlock);
 
         lf.item.setText("Warrior found: "+warriorEpicArmorName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.pink);
         whatLoot = 2;
         showEquipButton = true;
     }
@@ -720,7 +720,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Block: "+warriorLegendaryArmorBlock);
 
         lf.item.setText("Warrior found: "+warriorLegendaryArmorName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.orange);
         whatLoot = 3;
         showEquipButton = true;
     }
@@ -756,7 +756,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Damage: "+warriorEpicWeaponDamage);
 
         lf.item.setText("Warrior found: "+warriorEpicWeaponName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.pink);
         whatLoot = 5;
         showEquipButton = true;
     }
@@ -775,7 +775,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Damage: "+warriorLegendaryWeaponDamage);
 
         lf.item.setText("Warrior found: "+warriorLegendaryWeaponName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.orange);
         whatLoot = 6;
         showEquipButton = true;
     }
@@ -811,7 +811,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Block: "+mageEpicArmorBlock+", Str: "+mageEpicArmorDamage);
 
         lf.item.setText("Mage found: "+mageEpicArmorName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.pink);
         whatLoot = 8;
         showEquipButton = true;
     }
@@ -829,7 +829,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Block: "+mageLegendaryArmorBlock+", Str: "+mageLegendaryArmorDamage);
 
         lf.item.setText("Mage found: "+mageLegendaryArmorName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.orange);
         whatLoot = 9;
         showEquipButton = true;
     }
@@ -865,7 +865,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Damage: "+mageEpicWeaponDamage);
 
         lf.item.setText("Mage found: "+mageEpicWeaponName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.pink);
         whatLoot = 11;
         showEquipButton = true;
     }
@@ -883,7 +883,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Damage: "+mageLegendaryWeaponDamage);
 
         lf.item.setText("Mage found: "+mageLegendaryWeaponName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.orange);
         whatLoot = 12;
         showEquipButton = true;
     }
@@ -919,7 +919,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Block: "+rangerEpicArmorBlock);
 
         lf.item.setText(rangerEpicArmorName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.pink);
         whatLoot = 14;
         showEquipButton = true;
     }
@@ -937,7 +937,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Block: "+rangerLegendaryArmorBlock);
 
         lf.item.setText(rangerLegendaryArmorName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.orange);
         whatLoot = 15;
         showEquipButton = true;
     }
@@ -973,7 +973,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Damage: "+rangerEpicWeaponDamage);
 
         lf.item.setText("Ranger found: "+rangerEpicWeaponName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.pink);
         whatLoot = 17;
         showEquipButton = true;
     }
@@ -991,7 +991,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Damage: "+rangerLegendaryWeaponDamage);
 
         lf.item.setText("Ranger found: "+rangerLegendaryWeaponName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.orange);
         whatLoot = 18;
         showEquipButton = true;
     }
@@ -1030,7 +1030,7 @@ public class LootController {
 
 
         lf.item.setText("Healer found: "+healerEpicArmorName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.pink);
         whatLoot = 20;
         showEquipButton = true;
     }
@@ -1049,7 +1049,7 @@ public class LootController {
 
 
         lf.item.setText("Healer found: "+healerLegendaryArmorName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.orange);
         whatLoot = 21;
         showEquipButton = true;
     }
@@ -1086,7 +1086,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Damage: "+healerEpicArmorDamage);
 
         lf.item.setText("Healer found: "+healerEpicWeaponName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.pink);
         whatLoot = 23;
         showEquipButton = true;
     }
@@ -1104,7 +1104,7 @@ public class LootController {
         lf.newEquipmentStats.setText("Damage: "+healerLegendaryWeaponDamage);
 
         lf.item.setText("Healer found: "+healerLegendaryWeaponName);
-        lf.item.setForeground(Color.blue);
+        lf.item.setForeground(Color.orange);
         whatLoot = 24;
         showEquipButton = true;
     }
