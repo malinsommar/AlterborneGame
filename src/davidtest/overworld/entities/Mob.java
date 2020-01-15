@@ -135,7 +135,8 @@ public abstract class Mob extends Entity {
         return !lastTile.equals(CavePathTile)
                 && CavePathTile.isCavePath();
     }
-    protected boolean isEntity(int xa, int ya, int x, int y) {
+    //NPC-test (not part of final build)
+    /*protected boolean isEntity(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
         }
@@ -143,7 +144,7 @@ public abstract class Mob extends Entity {
         Tile CavePathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
         return !lastTile.equals(CavePathTile)
                 && CavePathTile.isCavePath();
-    }
+    }*/
     //get name
     public String getName() {
         return name;
