@@ -184,7 +184,7 @@ public class MasterModel {
         }
         //Castle
         else if (worldModel.HandleOverWorld() == 6) {
-            if(ran > 99){
+            if(ran > 10){
                 startCastleFight();
             }
             else {
