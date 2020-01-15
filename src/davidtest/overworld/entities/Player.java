@@ -24,12 +24,10 @@ public class Player extends Mob {
     private boolean isSwimming = false; //assign the isSwimming value as natively false
     private boolean isSwampSwimming = false;//assign the isSwampSwimming value as natively false
     private boolean isOnForestPath = false; // if player is on tile to enter forest-combat
-    private boolean isOnMountainPath = false; // if player is on tile to enter mountain-combat
     private boolean isOnFieldPath = false; // if player is on tile to enter Field-combat
     private boolean isOnSwampPath = false; // if player is on tile to enter Swamp-combat
     private boolean isOnCastlePath = false; // if player is on tile to enter Castle-combat
     private boolean EnterShop = false;  // if player is on tile to enter Shop (is not used)
-    private boolean isOnWaterPath = false; //if player is on tile to enter Water-combat
     private boolean isOnCavePath = false; //if player is on tile to enter Cave-combat
     private int tickCount = 0; //counts the ticks since the last update
      private String username; //username
@@ -83,12 +81,6 @@ public class Player extends Mob {
             //identify if player is swimming
             if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 3) {
                 isSwimming = true;
-
-                RandomEncounter randomEncounter = new RandomEncounter();
-                System.out.println(randomEncounter.randomNr);
-                if (randomEncounter.randomNr == 69) {
-                    isOnWaterPath = true;
-                }
             }
             //identify if player is not swimming
              else {
@@ -97,11 +89,6 @@ public class Player extends Mob {
 
             if (level1.getTile(this.x >> 3, this.y >> 3).getId() == 8) {
                 isSwampSwimming = true;
-
-                RandomEncounter randomEncounter = new RandomEncounter();
-                if (randomEncounter.randomNr == 5) {
-                    isOnWaterPath = true;
-                }
             }
 
             //identify if player is not swimming
@@ -184,17 +171,18 @@ public class Player extends Mob {
      */
     @Override
     public boolean hasCollided(int xa, int ya) {
-        //top left corner
+        //Top left corner of the collision-box
         int xMin = 0;
-        //top right corner
-        int xMax = 5;
-        //bottom left corner
+        //Top right corner of the collision-box
+        int xMax = 3;
+        //Bottom left corner of the collision-box
         int yMin = 3;
-        //bottom right corner
-        int yMax = 5;
+        //Bottom right corner of the collision-box
+        int yMax = 3;
         /*Now 4 loops will be made between the coordinates of the box, indicating where on the body of the player there
          should be a reaction*/
 
+        //if the tiles interact with this box, the value true will be returned
         for (int x = xMin; x < xMax; x++) {
             if (isSolidTile(xa, ya, x, yMin)) {
                 return true;
@@ -248,9 +236,6 @@ public class Player extends Mob {
     public boolean hasEnteredForest() {
                 return isOnForestPath;
     }
-    public boolean hasEnteredMountain() {
-        return isOnMountainPath;
-    }
     public boolean hasEnteredField() {
         return isOnFieldPath;
     }
@@ -259,9 +244,6 @@ public class Player extends Mob {
     }
     public boolean hasEnteredCastle() {
         return  isOnCastlePath;
-    }
-    public boolean hasEnteredWater() {
-        return  isOnWaterPath;
     }
     public boolean hasEnteredCave() {
         return  isOnCavePath;

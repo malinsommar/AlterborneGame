@@ -270,9 +270,9 @@ public class CaveController{
             if (goblinHp[i] > 0) {
                 goblinAttack();
                 partyDeath();
+                isFightOver();
             }
         }
-        isFightOver();
     }
 
     /**
@@ -919,6 +919,7 @@ public class CaveController{
                 //If player own that potion.
                 if (ownedPotions[0] > 0) {
                     warriorCurrentHp += 10; //Heal warrior equals to the potions heal.
+                    if (warriorCurrentHp > warriorMaxHp) warriorCurrentHp = warriorMaxHp;
                     cv.playersHp.setText("Hp: " + warriorCurrentHp); //Update Warrior's hp Label.
                     cv.player1Hp.setText("Warrior: " + warriorCurrentHp); // Update currentPlayer Hp label.
                     ownedPotions[0] -= 1;
@@ -927,6 +928,7 @@ public class CaveController{
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     warriorCurrentHp += 30;
+                    if (warriorCurrentHp > warriorMaxHp) warriorCurrentHp = warriorMaxHp;
                     cv.playersHp.setText("Hp: " + warriorCurrentHp);
                     cv.player1Hp.setText("Warrior: " + warriorCurrentHp);
                     ownedPotions[1] -= 1;
@@ -935,6 +937,7 @@ public class CaveController{
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     warriorCurrentHp += 60;
+                    if (warriorCurrentHp > warriorMaxHp) warriorCurrentHp = warriorMaxHp;
                     cv.playersHp.setText("Hp: " + warriorCurrentHp);
                     cv.player1Hp.setText("Warrior: " + warriorCurrentHp);
                     ownedPotions[2] -= 1;
@@ -1011,6 +1014,7 @@ public class CaveController{
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     rangerCurrentHp += 10;
+                    if (rangerCurrentHp > rangerMaxHp) rangerCurrentHp = rangerMaxHp;
                     cv.playersHp.setText("Hp: " + rangerCurrentHp);
                     cv.player2Hp.setText("Ranger: " + rangerCurrentHp);
                     ownedPotions[0] -= 1;
@@ -1019,6 +1023,7 @@ public class CaveController{
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     rangerCurrentHp += 30;
+                    if (rangerCurrentHp > rangerMaxHp) rangerCurrentHp = rangerMaxHp;
                     cv.playersHp.setText("Hp: " + rangerCurrentHp);
                     cv.player2Hp.setText("Ranger: " + rangerCurrentHp);
                     ownedPotions[1] -= 1;
@@ -1027,6 +1032,7 @@ public class CaveController{
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     rangerCurrentHp += 60;
+                    if (rangerCurrentHp > rangerMaxHp) rangerCurrentHp = rangerMaxHp;
                     cv.playersHp.setText("Hp: " + rangerCurrentHp);
                     cv.player2Hp.setText("Ranger: " + rangerCurrentHp);
                     ownedPotions[2] -= 1;
@@ -1100,6 +1106,7 @@ public class CaveController{
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     mageCurrentHp += 10;
+                    if (mageCurrentHp > mageMaxHp) mageCurrentHp = mageMaxHp;
                     cv.playersHp.setText("Hp: " + mageCurrentHp);
                     cv.player3Hp.setText("Mage: " + mageCurrentHp);
                     ownedPotions[0] -= 1;
@@ -1108,6 +1115,7 @@ public class CaveController{
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     mageCurrentHp += 30;
+                    if (mageCurrentHp > mageMaxHp) mageCurrentHp = mageMaxHp;
                     cv.playersHp.setText("Hp: " + mageCurrentHp);
                     cv.player3Hp.setText("Mage: " + mageCurrentHp);
                     ownedPotions[1] -= 1;
@@ -1116,6 +1124,7 @@ public class CaveController{
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     rangerCurrentHp += 60;
+                    if (mageCurrentHp > mageMaxHp) mageCurrentHp = mageMaxHp;
                     cv.playersHp.setText("Hp: " + mageCurrentHp);
                     cv.player3Hp.setText("Mage: " + mageCurrentHp);
                     cv.potion3Label.setText("" + ownedPotions[2]);
@@ -1189,6 +1198,7 @@ public class CaveController{
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     healerCurrentHp += 10;
+                    if (healerCurrentHp > healerMaxHp) healerCurrentHp = healerMaxHp;
                     cv.playersHp.setText("Hp: " + healerCurrentHp);
                     cv.player4Hp.setText("Healer: " + healerCurrentHp);
                     ownedPotions[0] -= 1;
@@ -1197,6 +1207,7 @@ public class CaveController{
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     healerCurrentHp += 30;
+                    if (healerCurrentHp > healerMaxHp) healerCurrentHp = healerMaxHp;
                     cv.playersHp.setText("Hp: " + healerCurrentHp);
                     cv.player4Hp.setText("healer: " + healerCurrentHp);
                     ownedPotions[1] -= 1;
@@ -1205,6 +1216,7 @@ public class CaveController{
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     healerCurrentHp += 60;
+                    if (healerCurrentHp > healerMaxHp) healerCurrentHp = healerMaxHp;
                     cv.playersHp.setText("Hp: " + healerCurrentHp);
                     cv.player4Hp.setText("Healer: " + healerCurrentHp);
                     ownedPotions[2] -= 1;

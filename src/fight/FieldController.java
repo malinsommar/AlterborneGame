@@ -38,10 +38,10 @@ public class FieldController{
     public int mageStartX = -110, mageStartY = 290, mageX = mageStartX, mageY = mageStartY;
     public int healerStartX = -30, healerStartY = 210, healerX = healerStartX, healerY = healerStartY;
 
-    public int scarecrow1X = 850, scarecrow1Y = 300, scarecrow1StartX = scarecrow1X, scarecrow1StartY = scarecrow1Y;
-    public int scarecrow2X = 1030, scarecrow2Y = 300, scarecrow2StartX = scarecrow2X, scarecrow2StartY = scarecrow2Y;
-    public int scarecrow3X = 920, scarecrow3Y = 370, scarecrow3StartX = scarecrow3X, scarecrow3StartY = scarecrow3Y;
-    public int scarecrow4X = 1100, scarecrow4Y = 370, scarecrow4StartX = scarecrow4X, scarecrow4StartY = scarecrow4Y;
+    public int scarecrow1X = 850, scarecrow1Y = 250, scarecrow1StartX = scarecrow1X, scarecrow1StartY = scarecrow1Y;
+    public int scarecrow2X = 1030, scarecrow2Y = 250, scarecrow2StartX = scarecrow2X, scarecrow2StartY = scarecrow2Y;
+    public int scarecrow3X = 920, scarecrow3Y = 320, scarecrow3StartX = scarecrow3X, scarecrow3StartY = scarecrow3Y;
+    public int scarecrow4X = 1100, scarecrow4Y = 320, scarecrow4StartX = scarecrow4X, scarecrow4StartY = scarecrow4Y;
 
     //spells/attack
     public int swordIconX = 300, swordIconY = 300;
@@ -258,9 +258,9 @@ public class FieldController{
             if (scarecrowHp[i] > 0) {
                 scarecrowAttack();
                 partyDeath();
+                isFightOver();
             }
         }
-        isFightOver();
     }
 
     public void targetSystem() {
@@ -843,6 +843,7 @@ public class FieldController{
                 //If player own that potion.
                 if (ownedPotions[0] > 0) {
                     warriorCurrentHp += 10; //Heal warrior equals to the potions heal.
+                    if (warriorCurrentHp > warriorMaxHp) warriorCurrentHp = warriorMaxHp;
                     fv.playersHp.setText("Hp: " + warriorCurrentHp); //Update Warrior's hp Label.
                     fv.player1Hp.setText("Warrior: " + warriorCurrentHp); // Update currentPlayer Hp label.
                     ownedPotions[0] -= 1;
@@ -851,6 +852,7 @@ public class FieldController{
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     warriorCurrentHp += 30;
+                    if (warriorCurrentHp > warriorMaxHp) warriorCurrentHp = warriorMaxHp;
                     fv.playersHp.setText("Hp: " + warriorCurrentHp);
                     fv.player1Hp.setText("Warrior: " + warriorCurrentHp);
                     ownedPotions[1] -= 1;
@@ -859,6 +861,7 @@ public class FieldController{
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     warriorCurrentHp += 60;
+                    if (warriorCurrentHp > warriorMaxHp) warriorCurrentHp = warriorMaxHp;
                     fv.playersHp.setText("Hp: " + warriorCurrentHp);
                     fv.player1Hp.setText("Warrior: " + warriorCurrentHp);
                     ownedPotions[2] -= 1;
@@ -935,6 +938,7 @@ public class FieldController{
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     rangerCurrentHp += 10;
+                    if (rangerCurrentHp > rangerMaxHp) rangerCurrentHp = rangerMaxHp;
                     fv.playersHp.setText("Hp: " + rangerCurrentHp);
                     fv.player2Hp.setText("Ranger: " + rangerCurrentHp);
                     ownedPotions[0] -= 1;
@@ -943,6 +947,7 @@ public class FieldController{
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     rangerCurrentHp += 30;
+                    if (rangerCurrentHp > rangerMaxHp) rangerCurrentHp = rangerMaxHp;
                     fv.playersHp.setText("Hp: " + rangerCurrentHp);
                     fv.player2Hp.setText("Ranger: " + rangerCurrentHp);
                     ownedPotions[1] -= 1;
@@ -951,6 +956,7 @@ public class FieldController{
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     rangerCurrentHp += 60;
+                    if (rangerCurrentHp > rangerMaxHp) rangerCurrentHp = rangerMaxHp;
                     fv.playersHp.setText("Hp: " + rangerCurrentHp);
                     fv.player2Hp.setText("Ranger: " + rangerCurrentHp);
                     ownedPotions[2] -= 1;
@@ -1024,6 +1030,7 @@ public class FieldController{
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     mageCurrentHp += 10;
+                    if (mageCurrentHp > mageMaxHp) mageCurrentHp = mageMaxHp;
                     fv.playersHp.setText("Hp: " + mageCurrentHp);
                     fv.player3Hp.setText("Mage: " + mageCurrentHp);
                     ownedPotions[0] -= 1;
@@ -1032,6 +1039,7 @@ public class FieldController{
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     mageCurrentHp += 30;
+                    if (mageCurrentHp > mageMaxHp) mageCurrentHp = mageMaxHp;
                     fv.playersHp.setText("Hp: " + mageCurrentHp);
                     fv.player3Hp.setText("Mage: " + mageCurrentHp);
                     ownedPotions[1] -= 1;
@@ -1039,7 +1047,8 @@ public class FieldController{
                 }
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
-                    rangerCurrentHp += 60;
+                    mageCurrentHp += 60;
+                    if (mageCurrentHp > mageMaxHp) mageCurrentHp = mageMaxHp;
                     fv.playersHp.setText("Hp: " + mageCurrentHp);
                     fv.player3Hp.setText("Mage: " + mageCurrentHp);
                     fv.potion3Label.setText("" + ownedPotions[2]);
@@ -1113,6 +1122,7 @@ public class FieldController{
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     healerCurrentHp += 10;
+                    if (healerCurrentHp > healerMaxHp) healerCurrentHp = healerMaxHp;
                     fv.playersHp.setText("Hp: " + healerCurrentHp);
                     fv.player4Hp.setText("Mage: " + healerCurrentHp);
                     ownedPotions[0] -= 1;
@@ -1121,6 +1131,7 @@ public class FieldController{
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     healerCurrentHp += 30;
+                    if (healerCurrentHp > healerMaxHp) healerCurrentHp = healerMaxHp;
                     fv.playersHp.setText("Hp: " + healerCurrentHp);
                     fv.player4Hp.setText("Mage: " + healerCurrentHp);
                     ownedPotions[1] -= 1;
@@ -1129,6 +1140,7 @@ public class FieldController{
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     healerCurrentHp += 60;
+                    if (healerCurrentHp > healerMaxHp) healerCurrentHp = healerMaxHp;
                     fv.playersHp.setText("Hp: " + healerCurrentHp);
                     fv.player4Hp.setText("Mage: " + healerCurrentHp);
                     ownedPotions[2] -= 1;
