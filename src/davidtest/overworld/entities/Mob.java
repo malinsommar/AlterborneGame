@@ -6,11 +6,11 @@ import davidtest.overworld.levels.tiles.Tile;
 
 public abstract class Mob extends Entity {
 
-    protected String name; //name
-    protected int speed; //movement-speed
-    protected int numSteps = 0; //counted numbers of steps taken by mob
-    protected boolean isMoving; //boolean if mob is moving
-    protected int movingDir = 1; //assign the direction the mob is facing
+    private String name; //name
+    private int speed; //movement-speed
+    int numSteps = 0; //counted numbers of steps taken by mob
+    boolean isMoving; //boolean if mob is moving
+    int movingDir = 1; //assign the direction the mob is facing
 
     //create parameter for mob-extensions
     public Mob(Level level1, String name, int x, int y, int speed) {
@@ -65,7 +65,7 @@ public abstract class Mob extends Entity {
         //if no difference is identified return false
     }
 
-    //Compare if tiles are a form of Path-Tile. Otherwise same as with the solid-path method
+    //Compare if tiles are a form of Path-Tile. If player interacts with these tiles the View is disposed and  Otherwise same as with the solid-path method
     protected boolean isDoorTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
@@ -126,17 +126,25 @@ public abstract class Mob extends Entity {
                 && CastlePathTile.isCastlePath();
     }
 
-    protected boolean isChestTile(int xa, int ya, int x, int y) {
+    protected boolean isCavePathTile(int xa, int ya, int x, int y) {
         if (level1 == null) {
             return false;
         }
         Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
-        Tile ChestTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
-        return !lastTile.equals(ChestTile)
-                && ChestTile.isChest();
+        Tile CavePathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(CavePathTile)
+                && CavePathTile.isCavePath();
     }
-
-
+    //NPC-test (not part of final build)
+    /*protected boolean isEntity(int xa, int ya, int x, int y) {
+        if (level1 == null) {
+            return false;
+        }
+        Tile lastTile = level1.getTile((this.x + x) >> 3, (this.y + y) >> 3);
+        Tile CavePathTile = level1.getTile((this.x + x + xa) >> 3, (this.y + y + ya) >> 3);
+        return !lastTile.equals(CavePathTile)
+                && CavePathTile.isCavePath();
+    }*/
     //get name
     public String getName() {
         return name;

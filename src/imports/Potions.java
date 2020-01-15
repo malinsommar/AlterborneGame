@@ -2,6 +2,9 @@ package imports;
 
 import javax.swing.*;
 
+/**
+ * @author Malin Sommar
+ */
 public class Potions {
 
     //Import potion gifs

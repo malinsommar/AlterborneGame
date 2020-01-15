@@ -14,11 +14,12 @@ public class FieldController{
 
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
+    private int warriorMaxHp, mageMaxHp, healerMaxHp, rangerMaxHp;
     private int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
     private boolean debuffed = false;
-    private int enemyDamage, enemyRandomDamage = 15, enemyBaseDamage = 20;
+    private int enemyDamage, enemyRandomDamage = 25, enemyBaseDamage = 30;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -84,15 +85,19 @@ public class FieldController{
 
     public void startFight() {
 
-        MusicPick.musicStart("danceknigths", "music");
+        MusicPick.musicStart("field", "music");
 
+        turns = 1;
         currentEnergy = 5;
         warriorEnergyInt = 5;
+        rangerEnergyInt = 0;
+        mageEnergyInt = 0;
+        healerEnergyInt = 0;
 
-        scarecrowHp[0] = 30;
-        scarecrowHp[1] = 30;
-        scarecrowHp[2] = 30;
-        scarecrowHp[3] = 30;
+        scarecrowHp[0] = 100;
+        scarecrowHp[1] = 100;
+        scarecrowHp[2] = 100;
+        scarecrowHp[3] = 100;
 
         setStartLabels();
         fv.fieldFightFrame();
@@ -105,7 +110,7 @@ public class FieldController{
         });
         fv.blockButton.addActionListener(e -> blockPressed());
         fv.itemButton.addActionListener(e -> {
-            fv.itemPressed();
+            fv.inventory.setVisible(true);
             itemMenuActivate();
         });
         fv.skillButton.addActionListener(e ->{
@@ -127,7 +132,7 @@ public class FieldController{
             if (!animationPlaying) skill4();
         });
         fv.returnButton.addActionListener(e -> spellMenuInactive());
-        fv.returnButton.addActionListener(e -> fv.inventory.dispose());
+        fv.returnButton.addActionListener(e -> fv.inventory.setVisible(false));
 
         //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
         fv.potion1.addActionListener(e -> usePotion(1));
@@ -264,7 +269,7 @@ public class FieldController{
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 1;
-                fv.targetarrow.setLocation(850, 225);
+                fv.targetarrow.setLocation(850, 175);
                 fv.targetarrow.setVisible(true);
             }
         });
@@ -272,7 +277,7 @@ public class FieldController{
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 2;
-                fv.targetarrow.setLocation(1025, 225);
+                fv.targetarrow.setLocation(1025, 175);
                 fv.targetarrow.setVisible(true);
             }
         });
@@ -280,7 +285,7 @@ public class FieldController{
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 3;
-                fv.targetarrow.setLocation(925, 300);
+                fv.targetarrow.setLocation(925, 250);
                 fv.targetarrow.setVisible(true);
             }
         });
@@ -288,7 +293,7 @@ public class FieldController{
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 target = 4;
-                fv.targetarrow.setLocation(1100, 300);
+                fv.targetarrow.setLocation(1100, 250);
                 fv.targetarrow.setVisible(true);
             }
         });
@@ -491,6 +496,8 @@ public class FieldController{
             fv.skill2Button.setText("Slam (4)");
             fv.skill3Button.setText("Battlecry (3)");
             fv.skill4Button.setText("Demoralize (5)");
+            fv.skill4Button.setFont(fv.pixelMplus.deriveFont(27f));
+
         }
         //ranger
         if (turns == 2){
@@ -624,8 +631,8 @@ public class FieldController{
 
         fv.playersHp = new JLabel("Hp: " + warriorCurrentHp);
         fv.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
-        fv.player2Hp = new JLabel("Mage:    " + mageCurrentHp);
-        fv.player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        fv.player2Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        fv.player3Hp = new JLabel("Mage:    " + mageCurrentHp);
         fv.player4Hp = new JLabel("Healer:  " + healerCurrentHp);
         fv.block = new JLabel("Block: " + warriorBlock);
     }
@@ -667,7 +674,7 @@ public class FieldController{
                     mageattacked = true;
                     enemyDamage = enemyDamage - mageBlock;
                     mageCurrentHp = mageCurrentHp - enemyDamage;
-                    fv.player2Hp.setText("Mage:    " + mageCurrentHp);
+                    fv.player3Hp = new JLabel("Mage:    " + mageCurrentHp);
                     break;
                 }
             }
@@ -688,7 +695,7 @@ public class FieldController{
                     rangerattacked = true;
                     enemyDamage = enemyDamage - rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - enemyDamage;
-                    fv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+                    fv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
                     unstealth();
                     break;
                 }
@@ -754,12 +761,12 @@ public class FieldController{
         }
         if (mageCurrentHp <= 0) {
             mageCurrentHp = 0;
-            fv.player2Hp.setText("Mage:    " + mageCurrentHp);
+            fv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
             fv.mage.setVisible(false);
         }
         if (rangerCurrentHp <= 0) {
             rangerCurrentHp = 0;
-            fv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+            fv.player3Hp.setText("Mage:    " + mageCurrentHp);
             fv.ranger.setVisible(false);
         }
         if (healerCurrentHp <= 0) {
@@ -819,6 +826,11 @@ public class FieldController{
         rangerCurrentHp = ranger[0];
         rangerStartBlock = ranger[1];
         rangerStartDamage = ranger[2];
+
+        warriorMaxHp =warriorCurrentHp;
+        mageMaxHp = mageCurrentHp;
+        healerMaxHp = healerCurrentHp;
+        rangerMaxHp = rangerCurrentHp;
     }
 
     //Get the effect from potions.
@@ -1288,7 +1300,6 @@ public class FieldController{
         isFightOver();
     }
 
-    //fixa denna
     public void spellHealSystem(int healing, String healingTargets) {
         if (healingTargets.equals("single")) {
             if (healTarget == 1) warriorCurrentHp += healing;
@@ -1302,6 +1313,10 @@ public class FieldController{
             rangerCurrentHp += healing;
             mageCurrentHp += healing;
         }
+        if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
+        if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
+        if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
+        if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
         fv.player1Hp.setText("Warrior: " + warriorCurrentHp);
         fv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
         fv.player3Hp.setText("Mage:    " + mageCurrentHp);

@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * @author Simon Bengtsson
+ */
 public class CaveController{
 
 
@@ -14,11 +17,12 @@ public class CaveController{
 
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
+    private int warriorMaxHp, mageMaxHp, healerMaxHp, rangerMaxHp;
     private int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
     private boolean debuffed = false;
-    private int enemyDamage, enemyRandomDamage = 15, enemyBaseDamage = 20;
+    private int enemyDamage, enemyRandomDamage = 25, enemyBaseDamage = 20;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -82,17 +86,24 @@ public class CaveController{
 
     private int[] goblinHp = new int[4];
 
+    /**
+     *
+     */
     public void startFight() {
 
         MusicPick.musicStart("danceknigths", "music");
 
+        turns = 1;
         currentEnergy = 5;
         warriorEnergyInt = 5;
+        rangerEnergyInt = 0;
+        mageEnergyInt = 0;
+        healerEnergyInt = 0;
 
-        goblinHp[0] = 30;
-        goblinHp[1] = 30;
-        goblinHp[2] = 30;
-        goblinHp[3] = 30;
+        goblinHp[0] = 70;
+        goblinHp[1] = 70;
+        goblinHp[2] = 70;
+        goblinHp[3] = 70;
 
         setStartLabels();
         cv.caveFightFrame();
@@ -105,7 +116,7 @@ public class CaveController{
         });
         cv.blockButton.addActionListener(e -> blockPressed());
         cv.itemButton.addActionListener(e -> {
-            cv.itemPressed();
+            cv.inventory.setVisible(true);
             itemMenuActivate();
         });
         cv.skillButton.addActionListener(e ->{
@@ -127,7 +138,7 @@ public class CaveController{
             if (!animationPlaying) skill4();
         });
         cv.returnButton.addActionListener(e -> spellMenuInactive());
-        cv.returnButton.addActionListener(e -> cv.inventory.dispose());
+        cv.returnButton.addActionListener(e -> cv.inventory.setVisible(false));
 
         //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
         cv.potion1.addActionListener(e -> usePotion(1));
@@ -148,6 +159,9 @@ public class CaveController{
 
     }
 
+    /**
+     *
+     */
     //When you press "end turn" button.
     private void startNewTurn() {
         turns++;
@@ -248,6 +262,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     private void enemyDamage(){
         for (int i = 0; i < goblinHp.length; i++) {
             if (goblinHp[i] > 0) {
@@ -258,6 +275,9 @@ public class CaveController{
         isFightOver();
     }
 
+    /**
+     *
+     */
     public void targetSystem() {
 
         cv.goblin1.addMouseListener(new MouseAdapter() {
@@ -294,6 +314,9 @@ public class CaveController{
         });
     }
 
+    /**
+     *
+     */
     private void skill1() {
         if (turns == 1 && warriorEnergyInt > 2 && cv.targetarrow.isVisible()) {
             warriorEnergyInt = warriorEnergyInt - 3;
@@ -319,6 +342,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     private void skill2() {
         if (turns == 1 && warriorEnergyInt > 3) {
             warriorEnergyInt = warriorEnergyInt - 4;
@@ -340,6 +366,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     private void skill3() {
         if (turns == 1 && warriorEnergyInt>2){
             warriorEnergyInt=warriorEnergyInt-3;
@@ -365,6 +394,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     private void skill4() {
         if (turns == 1 && warriorEnergyInt>4){
             warriorEnergyInt=warriorEnergyInt-5;
@@ -389,6 +421,10 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     * @param chosenSpell
+     */
     private void healingTargetMenu(int chosenSpell) {
         cv.skill1Button.setVisible(false);
         cv.skill2Button.setVisible(false);
@@ -467,11 +503,17 @@ public class CaveController{
         });
     }
 
+    /**
+     *
+     */
     private void itemMenuActivate(){
         cv.endTurnButton.setVisible(false);
         cv.returnButton.setVisible(true);
     }
 
+    /**
+     *
+     */
     private void spellMenuActive() {
         cv.attackButton.setVisible(false);
         cv.blockButton.setVisible(false);
@@ -491,6 +533,8 @@ public class CaveController{
             cv.skill2Button.setText("Slam (4)");
             cv.skill3Button.setText("Battlecry (3)");
             cv.skill4Button.setText("Demoralize (5)");
+            cv.skill4Button.setFont(cv.pixelMplus.deriveFont(27f));
+
         }
         //ranger
         if (turns == 2){
@@ -515,6 +559,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //When player press block
     private void blockPressed() {
 
@@ -552,6 +599,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //When you press the "attack button".
     private void attackPressed() {
 
@@ -585,6 +635,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //Checks if all of the enemies or OldClasses.party-members are dead.
     private void isFightOver() {
         //If all of the wolves are dead. Open lootScreen.
@@ -602,6 +655,9 @@ public class CaveController{
         //If none of these are true, nothing happens and the fight goes on.
     }
 
+    /**
+     *
+     */
     public void setStartLabels() {
 
         cv.potion1Label = new JLabel("" + ownedPotions[0]);
@@ -624,12 +680,15 @@ public class CaveController{
 
         cv.playersHp = new JLabel("Hp: " + warriorCurrentHp);
         cv.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
-        cv.player2Hp = new JLabel("Mage:    " + mageCurrentHp);
-        cv.player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        cv.player2Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        cv.player3Hp = new JLabel("Mage:    " + mageCurrentHp);
         cv.player4Hp = new JLabel("Healer:  " + healerCurrentHp);
         cv.block = new JLabel("Block: " + warriorBlock);
     }
 
+    /**
+     *
+     */
     //When the goblin attacks.
     private void goblinAttack() {
         target = (int) (Math.random() * 4); //Random target, 0-3.
@@ -667,7 +726,7 @@ public class CaveController{
                     mageattacked = true;
                     enemyDamage = enemyDamage - mageBlock;
                     mageCurrentHp = mageCurrentHp - enemyDamage;
-                    cv.player2Hp.setText("Mage:    " + mageCurrentHp);
+                    cv.player3Hp = new JLabel("Mage:  " + mageCurrentHp);
                     break;
                 }
             }
@@ -688,7 +747,7 @@ public class CaveController{
                     rangerattacked = true;
                     enemyDamage = enemyDamage - rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - enemyDamage;
-                    cv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+                    cv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
                     unstealth();
                     break;
                 }
@@ -711,6 +770,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void mobDeath() {
 
@@ -744,6 +806,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //Checks if any OldClasses.party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     private void partyDeath() {
 
@@ -754,12 +819,12 @@ public class CaveController{
         }
         if (mageCurrentHp <= 0) {
             mageCurrentHp = 0;
-            cv.player2Hp.setText("Mage:    " + mageCurrentHp);
+            cv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
             cv.mage.setVisible(false);
         }
         if (rangerCurrentHp <= 0) {
             rangerCurrentHp = 0;
-            cv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+            cv.player3Hp.setText("Mage:    " + mageCurrentHp);
             cv.ranger.setVisible(false);
         }
         if (healerCurrentHp <= 0) {
@@ -769,6 +834,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     private void spellMenuInactive() {
         cv.attackButton.setVisible(true);
         cv.blockButton.setVisible(true);
@@ -783,6 +851,10 @@ public class CaveController{
         cv.returnButton.setVisible(false);
     }
 
+    /**
+     *
+     * @param potions
+     */
     public void getInventory(int[] potions) {
 
         ownedPotions[0] = potions[0];
@@ -799,6 +871,13 @@ public class CaveController{
         ownedPotions[11] = potions[11];
     }
 
+    /**
+     *
+     * @param warrior
+     * @param mage
+     * @param healer
+     * @param ranger
+     */
     public void getPlayerStats(int[] warrior, int[] mage, int[] healer, int[] ranger) {
 
         warriorCurrentHp = warrior[0];
@@ -819,8 +898,17 @@ public class CaveController{
         rangerCurrentHp = ranger[0];
         rangerStartBlock = ranger[1];
         rangerStartDamage = ranger[2];
+
+        warriorMaxHp =warriorCurrentHp;
+        mageMaxHp = mageCurrentHp;
+        healerMaxHp = healerCurrentHp;
+        rangerMaxHp = rangerCurrentHp;
     }
 
+    /**
+     *
+     * @param potion
+     */
     //Get the effect from potions.
     private void usePotion(int potion) {
 
@@ -1187,6 +1275,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     //Add hover effect to buttons.
     private void hoverEffect() {
         //Attack Hover
@@ -1288,7 +1379,11 @@ public class CaveController{
         isFightOver();
     }
 
-    //fixa denna
+    /**
+     *
+      * @param healing
+     * @param healingTargets
+     */
     public void spellHealSystem(int healing, String healingTargets) {
         if (healingTargets.equals("single")) {
             if (healTarget == 1) warriorCurrentHp += healing;
@@ -1302,13 +1397,19 @@ public class CaveController{
             rangerCurrentHp += healing;
             mageCurrentHp += healing;
         }
+        if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
+        if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
+        if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
+        if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
         cv.player1Hp.setText("Warrior: " + warriorCurrentHp);
         cv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
         cv.player3Hp.setText("Mage:    " + mageCurrentHp);
         cv.player4Hp.setText("Healer:  " + healerCurrentHp);
     }
 
-
+    /**
+     *
+     */
     //warrior
     public Timer tackle = new Timer(10, new ActionListener() {
         @Override
@@ -1335,7 +1436,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer charge = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1360,7 +1463,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer dunk = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1394,7 +1499,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer shout = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1447,7 +1554,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer battlecry = new Timer(20, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1504,7 +1613,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer demoralized = new Timer(20, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1570,8 +1681,10 @@ public class CaveController{
         }
     });
 
+    /**
+     *
+     */
     //ranger
-
     Timer shoot = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1601,7 +1714,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer volley = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1691,6 +1806,9 @@ public class CaveController{
         }
     });
 
+    /**
+     *
+     */
     public void stealth() {
         if (!stealthed) {
             MusicPick.musicStart("stealth", "");
@@ -1700,6 +1818,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     public void unstealth() {
         if (stealthed) {
             MusicPick.musicStart("unstealth", "");
@@ -1709,6 +1830,9 @@ public class CaveController{
         }
     }
 
+    /**
+     *
+     */
     public Timer bombthrow = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1754,7 +1878,9 @@ public class CaveController{
         }
     });
 
-
+    /**
+     *
+     */
     //mage
     Timer blast = new Timer(10, new ActionListener() {
         @Override
@@ -1781,7 +1907,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer pyroBlast = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1826,7 +1954,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer flameStrike = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1889,7 +2019,9 @@ public class CaveController{
         }
     });
 
-
+    /**
+     *
+     */
     public Timer fireBall = new Timer(15, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1950,7 +2082,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     //healer
     public Timer holyLightSpell = new Timer(10, new ActionListener() {
         @Override
@@ -1976,7 +2110,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer smallHolyLightSpell = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -2001,7 +2137,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer groupHealSpell = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -2032,7 +2170,9 @@ public class CaveController{
             }
         }
     });
-
+    /**
+     *
+     */
     public Timer healerAttack = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -2060,6 +2200,9 @@ public class CaveController{
         }
     });
 
+    /**
+     *
+     */
     //enemy
     private Timer enemyTurnTimer = new Timer(7, new ActionListener() {
         @Override
@@ -2119,6 +2262,9 @@ public class CaveController{
         }
     });
 
+    /**
+     *
+     */
     private Timer takeDamage = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {

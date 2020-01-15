@@ -24,9 +24,11 @@ public class Player extends Mob {
     private boolean isOnFieldPath = false; // if player is on tile to enter Field-combat
     private boolean isOnSwampPath = false; // if player is on tile to enter Swamp-combat
     private boolean isOnCastlePath = false; // if player is on tile to enter Castle-combat
-    private boolean isOpeningChest = false; // if player is touching a chest-tile
     private boolean EnterShop = false;  // if player is on tile to enter Shop (is not used)
-    private boolean isOnWaterPath = false;
+    private boolean isOnWaterPath = false; //if player is on tile to enter Water-combat
+    private boolean isOnCavePath = false; //if player is on tile to enter Cave-combat
+    //private boolean isBumpingIntoNpc = false;
+
 
 
     private int tickCount = 0; //counts the ticks since the last update
@@ -44,7 +46,7 @@ public class Player extends Mob {
 
         /*up, down, left and right are identified with keyboard-inputs the xa or ya based on axel. When an assigned
         button is pressed, the xa or ya subs or adds by one, updating the movement*/
-        int xa = 0;
+        int xa = 0; //set the base-value of the x-axis to 0
         int ya = 0;
         if (input != null) {
             if (input.up.isPressed()) {
@@ -107,6 +109,7 @@ public class Player extends Mob {
         int yTile = 28;
         int walkingSpeed = 4;//character walk speed
         //the value of the top part of the 8x8 sprite
+
         int flipTop = (numSteps >> walkingSpeed) & 1;
         //the value of the bottom part of the 8x8 sprite
         int flipBottom = (numSteps >> walkingSpeed) & 1;
@@ -199,9 +202,12 @@ public class Player extends Mob {
             if (isCastlePathTile(xa,ya,x,yMin)) {
                 isOnCastlePath = true;
             }
-            if (isChestTile(xa,ya,x,yMin)) {
-                isOpeningChest = true;
+            if (isCavePathTile(xa,ya,x,yMin)) {
+                isOnCavePath = true;
             }
+            /*if (isNpcMob(xa,ya,x,yMin)) {
+                isBumpingIntoNpc = true;
+            }*/
         }
 
         for (int x = xMin; x < xMax; x++) {
@@ -249,11 +255,14 @@ public class Player extends Mob {
         return  isOnCastlePath;
     }
 
-    public boolean hasOpenedChest() {
-        return  isOpeningChest;
-    }
-
     public boolean hasEnteredWater() {
         return  isOnWaterPath;
     }
+
+    public boolean hasEnteredCave() {
+        return  isOnCavePath;
+    }
+    /*public boolean hasBumpedIntoNPC() {
+        return isBumpingIntoNpc;
+    }*/
 }

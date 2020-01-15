@@ -5,23 +5,19 @@ import game.MusicPick;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.EventListener;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
 public class CastleController{
 
-
     CastleView cv = new CastleView();
-
 
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
+    private int warriorMaxHp, mageMaxHp, healerMaxHp, rangerMaxHp;
     private int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
     private boolean debuffed = false;
-    private int enemyDamage, enemyRandomDamage = 20, enemyBaseDamage = 25;
+    private int enemyDamage, enemyRandomDamage = 30, enemyBaseDamage = 40;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -81,15 +77,25 @@ public class CastleController{
     public boolean fightWon = false;
     public boolean fightLost = false;
 
-    private int[] ownedPotions = new int[12];
+    public int[] ownedPotions = new int[12];
 
-    private int[] undeadHp = {30, 30, 30, 30};
+    private int[] undeadHp = new int[4];
 
     public void startFight() {
 
-        MusicPick.musicStart("inferno", "music");
+        MusicPick.musicStart("spooky", "music");
 
+        turns = 1;
         currentEnergy = 5;
+        warriorEnergyInt = 5;
+        rangerEnergyInt = 0;
+        mageEnergyInt = 0;
+        healerEnergyInt = 0;
+
+        undeadHp[0] = 200;
+        undeadHp[1] = 200;
+        undeadHp[2] = 200;
+        undeadHp[3] = 200;
 
         setStartLabels();
         cv.CastleFightFrame();
@@ -488,6 +494,8 @@ public class CastleController{
             cv.skill2Button.setText("Slam (4)");
             cv.skill3Button.setText("Battlecry (3)");
             cv.skill4Button.setText("Demoralize (5)");
+            cv.skill4Button.setFont(cv.pixelMplus.deriveFont(27f));
+
         }
         //ranger
         if (turns == 2){
@@ -621,8 +629,8 @@ public class CastleController{
 
         cv.playersHp = new JLabel("Hp: " + warriorCurrentHp);
         cv.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
-        cv.player2Hp = new JLabel("Mage:    " + mageCurrentHp);
-        cv.player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        cv.player2Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        cv.player3Hp = new JLabel("Mage:    " + mageCurrentHp);
         cv.player4Hp = new JLabel("Healer:  " + healerCurrentHp);
         cv.block = new JLabel("Block: " + warriorBlock);
     }
@@ -664,7 +672,7 @@ public class CastleController{
                     mageattacked = true;
                     enemyDamage = enemyDamage - mageBlock;
                     mageCurrentHp = mageCurrentHp - enemyDamage;
-                    cv.player2Hp.setText("Mage:    " + mageCurrentHp);
+                    cv.player3Hp.setText("Mage:    " + mageCurrentHp);
                     break;
                 }
             }
@@ -672,20 +680,17 @@ public class CastleController{
             if (target == 1) {
                 //If ranger is dead, target=3.
 
-                //will not be attacked if stealthed
-                if (stealthed && (mageCurrentHp > 0 || healerCurrentHp > 0 || warriorCurrentHp > 0)){
-                    target = 0;
-                }
-
-                else if (rangerCurrentHp < 1) {
+                //will not be attacked if stealthed or dead
+                if ((rangerCurrentHp < 1) || (stealthed && (mageCurrentHp > 0 || healerCurrentHp > 0 || warriorCurrentHp > 0))){
                     target = 2;
                 }
+
                 //If ranger is alive.
                 else {
                     rangerattacked = true;
                     enemyDamage = enemyDamage - rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - enemyDamage;
-                    cv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+                    cv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
                     unstealth();
                     break;
                 }
@@ -751,12 +756,12 @@ public class CastleController{
         }
         if (mageCurrentHp <= 0) {
             mageCurrentHp = 0;
-            cv.player2Hp.setText("Mage:    " + mageCurrentHp);
+            cv.player3Hp.setText("Mage:    " + mageCurrentHp);
             cv.mage.setVisible(false);
         }
         if (rangerCurrentHp <= 0) {
             rangerCurrentHp = 0;
-            cv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+            cv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
             cv.ranger.setVisible(false);
         }
         if (healerCurrentHp <= 0) {
@@ -816,6 +821,11 @@ public class CastleController{
         rangerCurrentHp = ranger[0];
         rangerStartBlock = ranger[1];
         rangerStartDamage = ranger[2];
+
+        warriorMaxHp =warriorCurrentHp;
+        mageMaxHp = mageCurrentHp;
+        healerMaxHp = healerCurrentHp;
+        rangerMaxHp = rangerCurrentHp;
     }
 
     //Get the effect from potions.
@@ -1299,6 +1309,10 @@ public class CastleController{
             rangerCurrentHp += healing;
             mageCurrentHp += healing;
         }
+        if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
+        if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
+        if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
+        if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
         cv.player1Hp.setText("Warrior: " + warriorCurrentHp);
         cv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
         cv.player3Hp.setText("Mage:    " + mageCurrentHp);

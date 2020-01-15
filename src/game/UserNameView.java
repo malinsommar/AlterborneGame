@@ -5,6 +5,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Malin Sommar
+ */
 public class UserNameView {
 
     JFrame usernameJFrame = new JFrame();
@@ -12,6 +15,9 @@ public class UserNameView {
     Font pixelMplus;
     JLabel enterLabel;
 
+    /**
+     *
+     */
     public void userNameScreen(){
 
         usernameJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,6 +37,9 @@ public class UserNameView {
         usernameJFrame.setVisible(true);
     }
 
+    /**
+     *
+     */
     public void addButtonsLabels(){
 
         enterLabel = new JLabel("What's your name?");
@@ -50,6 +59,9 @@ public class UserNameView {
         continueButton.setFocusPainted(false);
     }
 
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));

@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.util.Arrays;
 
+/**
+ * @author Simon Bengtsson, Malin Sommar
+ */
 public class ForestCon {
 
     //TODO fix potions (labels uppdateras inte,går en stänga framen, fixa till panel)
@@ -19,6 +22,7 @@ public class ForestCon {
 
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
+    private int warriorMaxHp, mageMaxHp, healerMaxHp, rangerMaxHp;
     public int warriorDamage, mageDamage, healerDamage, rangerDamage, damage;
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
@@ -81,23 +85,31 @@ public class ForestCon {
     private boolean stealthed = false;
 
     int[] wolfHp = new int[4];
+    int wolfMaxHp = 25;
 
     public boolean fightWon = false;
     public boolean fightLost = false;
 
     public int[] ownedPotions = new int[12];
 
+    /**
+     *
+     */
     public void startFight(){
 
         MusicPick.musicStart("forest1","music");
 
-        wolfHp[0] = 20;
-        wolfHp[1] = 20;
-        wolfHp[2] = 20;
-        wolfHp[3] = 20;
-
+        turns = 1;
         currentEnergy = 5;
         warriorEnergyInt = 5;
+        rangerEnergyInt = 0;
+        mageEnergyInt = 0;
+        healerEnergyInt = 0;
+
+        wolfHp[0] = 25;
+        wolfHp[1] = 25;
+        wolfHp[2] = 25;
+        wolfHp[3] = 25;
 
         setStartLabels();
         fff.forestFightFrame();
@@ -111,7 +123,7 @@ public class ForestCon {
             });
             fff.blockButton.addActionListener(e -> blockPressed());
             fff.itemButton.addActionListener(e -> {
-                    fff.itemPressed();
+                    fff.inventory.setVisible(true);
                     itemMenuActivate();
                 });
             fff.skillButton.addActionListener(e -> spellMenuActive()); //for now
@@ -131,8 +143,10 @@ public class ForestCon {
                 skill4();
             });
             fff.returnButton.addActionListener(e -> spellMenuInactive());
+            fff.returnButton.addActionListener(e -> fff.inventory.setVisible(false));
 
-            //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
+
+        //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
             fff.potion1.addActionListener(e -> usePotion(1));
             fff.potion2.addActionListener(e -> usePotion(2));
             fff.potion3.addActionListener(e -> usePotion(3));
@@ -147,6 +161,9 @@ public class ForestCon {
             fff.potion12.addActionListener(e -> usePotion(12));
         }
 
+    /**
+     *
+     */
     //When you press "end turn" button.
     public void startNewTurn(){
         turns++;
@@ -164,7 +181,7 @@ public class ForestCon {
             }
             //Update labels.
             fff.whosTurn.setText("Warrior's turn");
-            fff.playersHp.setText("Hp: "+warriorCurrentHp);
+            fff.playerStr.setText("Strength: "+(warriorDamage+buffDamage[0]));
             fff.energy.setText("Energy: "+warriorEnergyInt);
             fff.block.setText("Block: "+warriorBlock);
         }
@@ -183,7 +200,7 @@ public class ForestCon {
                 rangerEnergyInt=10;
             }
             fff.whosTurn.setText("Ranger's turn");
-            fff.playersHp.setText("Hp: "+rangerCurrentHp);
+            fff.playerStr.setText("Strength: "+(rangerDamage+buffDamage[1]));
             fff.energy.setText("Energy: "+rangerEnergyInt);
             fff.block.setText("Block: "+rangerBlock);
         }
@@ -202,7 +219,7 @@ public class ForestCon {
                 mageEnergyInt=10;
             }
             fff.whosTurn.setText("Mage's turn");
-            fff.playersHp.setText("Hp: "+mageCurrentHp);
+            fff.playerStr.setText("Strength: "+(mageDamage+buffDamage[2]));
             fff.energy.setText("Energy: "+mageEnergyInt);
             fff.block.setText("Block: "+mageBlock);
         }
@@ -221,7 +238,7 @@ public class ForestCon {
                 healerEnergyInt=10;
             }
             fff.whosTurn.setText("Healer's turn");
-            fff.playersHp.setText("Hp: "+healerCurrentHp);
+            fff.playerStr.setText("Strength: "+(healerDamage+buffDamage[3]));
             fff.energy.setText("Energy: "+healerEnergyInt);
             fff.block.setText("Block: "+healerBlock);
 
@@ -233,7 +250,7 @@ public class ForestCon {
         //  ***ENEMIES TURN***
         if (turns==5){
             fff.whosTurn.setText(" ");
-            fff.playersHp.setText(" ");
+            fff.playerStr.setText(" ");
             fff.energy.setText(" ");
             fff.block.setText(" ");
             enemyTurnTimer.start();
@@ -255,8 +272,9 @@ public class ForestCon {
                 isFightOver();
             }
 
-
-
+    /**
+     *
+     */
     private void skill1(){
         if (turns == 1 && warriorEnergyInt>2 && fff.targetarrow.isVisible() && !animationPlaying){
                 warriorEnergyInt=warriorEnergyInt-3;
@@ -281,6 +299,9 @@ public class ForestCon {
         }
     }
 
+    /**
+     *
+     */
     private void skill2(){
         if (turns == 1 && warriorEnergyInt>3 && !animationPlaying){
             warriorEnergyInt=warriorEnergyInt-4;
@@ -302,6 +323,9 @@ public class ForestCon {
         }
     }
 
+    /**
+     *
+     */
     private void skill3(){
         if (turns == 1 && warriorEnergyInt>2 && !animationPlaying){
             warriorEnergyInt=warriorEnergyInt-3;
@@ -327,6 +351,9 @@ public class ForestCon {
         }
     }
 
+    /**
+     *
+     */
     private void skill4(){
         if (turns == 1 && warriorEnergyInt>4 && !animationPlaying){
             warriorEnergyInt=warriorEnergyInt-5;
@@ -351,11 +378,17 @@ public class ForestCon {
         }
     }
 
+    /**
+     *
+     */
     private void itemMenuActivate(){
         fff.endTurnButton.setVisible(false);
         fff.returnButton.setVisible(true);
     }
 
+    /**
+     *
+     */
     private void spellMenuActive(){
         fff.attackButton.setVisible(false);
         fff.blockButton.setVisible(false);
@@ -375,6 +408,7 @@ public class ForestCon {
             fff.skill2Button.setText("Slam (4)");
             fff.skill3Button.setText("Battlecry (3)");
             fff.skill4Button.setText("Demoralize (5)");
+            fff.skill4Button.setFont(fff.pixelMplus.deriveFont(27f));
         }
         //ranger
         if (turns == 2){
@@ -398,6 +432,10 @@ public class ForestCon {
             fff.skill4Button.setText(" ");
         }
     }
+
+    /**
+     *
+     */
     //When player press block
     private void blockPressed(){
 
@@ -423,7 +461,7 @@ public class ForestCon {
             currentEnergy=currentEnergy-2;
             mageBlock+=5;
             fff.energy.setText("Energy: "+mageEnergyInt);
-            fff.block.setText("Block: "+mageBlock);
+            fff.block.setText("Block: "+mageBlock );
         }
         //If its healer's turn and player has 2 or more energy.
         else if(turns==4 && healerEnergyInt>1 && !animationPlaying){
@@ -434,6 +472,10 @@ public class ForestCon {
             fff.block.setText("Block: "+healerBlock);
         }
     }
+
+    /**
+     *
+     */
     //When you press the "attack button".
     private void attackPressed() {
 
@@ -467,6 +509,9 @@ public class ForestCon {
         }
     }
 
+    /**
+     *
+     */
     //Checks if all of the enemies or OldClasses.party-members are dead.
     private void isFightOver(){
         //If all of the wolves are dead. Open lootScreen.
@@ -484,12 +529,15 @@ public class ForestCon {
         //If none of these are true, nothing happens and the fight goes on.
     }
 
+    /**
+     *
+     */
     //When the wolf attacks.
     public void wolfAttack() {
         target = (int) (Math.random() * 4); //Random target, 0-3.
         enemyDamage = (int) (Math.random() * enemyRandomDamage) + enemyBaseDamage; //Generate random damage, 15-25.
         if (debuffed) enemyDamage -= 10;
-        
+
     //Loops until it reaches an alive OldClasses.party-member.
         while (true) {
 
@@ -503,7 +551,7 @@ public class ForestCon {
                 if (warriorCurrentHp >0) {
                     enemyDamage=enemyDamage-warriorBlock; //Warrior take damage equal to wolf damage.
                     warriorCurrentHp = warriorCurrentHp - enemyDamage; //Update warrior hp.
-                    fff.player1Hp.setText("Warrior: "+warriorCurrentHp); //Update hp Label.
+                    fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp); //Update hp Label.
                     warriorattacked = true;
                     break;
                 }
@@ -518,7 +566,7 @@ public class ForestCon {
                 if (mageCurrentHp >0) {
                     enemyDamage=enemyDamage-mageBlock;
                     mageCurrentHp = mageCurrentHp - enemyDamage;
-                    fff.player3Hp.setText("Mage:    "+mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     mageattacked = true;
                     break;
                 }
@@ -539,7 +587,7 @@ public class ForestCon {
                 else {
                     enemyDamage=enemyDamage-rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - enemyDamage;
-                    fff.player2Hp.setText("Ranger:  "+rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     rangerattacked = true;
                     unstealth();
                     break;
@@ -555,7 +603,7 @@ public class ForestCon {
                 if (healerCurrentHp >0) {
                     enemyDamage=enemyDamage-healerBlock;
                     healerCurrentHp = healerCurrentHp - enemyDamage;
-                    fff.player4Hp.setText("Healer:   "+healerCurrentHp);
+                    fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     healerattacked = true;
                     break;
                 }
@@ -563,6 +611,9 @@ public class ForestCon {
         }
     }
 
+    /**
+     *
+     */
     //Checks if an enemy died. If so, set gif to "setVisible(false);" and hp label to 0.
     public void mobDeath(){
 
@@ -600,30 +651,37 @@ public class ForestCon {
         }
     }
 
+    /**
+     *
+     */
     //Checks if any OldClasses.party-member died. If so, set gif to "setVisible(false);" and hp label to 0.
     public void partyDeath(){
 
         if(warriorCurrentHp<=0){
             warriorCurrentHp = 0;
-            fff.player1Hp.setText("Warrior: "+warriorCurrentHp);
+            fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);
             fff.warrior.setVisible(false);
         }
         if(mageCurrentHp<=0){
             mageCurrentHp = 0;
-            fff.player3Hp.setText("Mage:    "+mageCurrentHp);
+            fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
             fff.mage.setVisible(false);
         }
         if(rangerCurrentHp<=0){
             rangerCurrentHp = 0;
-            fff.player2Hp.setText("Ranger:  "+rangerCurrentHp);
+            fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
             fff.ranger.setVisible(false);
         }
         if(healerCurrentHp<=0){
             healerCurrentHp = 0;
-            fff.player4Hp.setText("Healer:  "+healerCurrentHp);
+            fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
             fff.healer.setVisible(false);
         }
     }
+
+    /**
+     *
+     */
     private void spellMenuInactive(){
         fff.attackButton.setVisible(true);
         fff.blockButton.setVisible(true);
@@ -638,6 +696,10 @@ public class ForestCon {
         fff.returnButton.setVisible(false);
     }
 
+    /**
+     *
+     * @param potions
+     */
     public void getInventory(int[] potions){
 
         ownedPotions[0] = potions[0];
@@ -654,6 +716,13 @@ public class ForestCon {
         ownedPotions[11] = potions[11];
     }
 
+    /**
+     *
+     * @param warrior
+     * @param mage
+     * @param healer
+     * @param ranger
+     */
     public void getPlayerStats(int[] warrior, int[] mage, int[] healer, int[] ranger){
 
         warriorCurrentHp = warrior[0];
@@ -674,10 +743,17 @@ public class ForestCon {
         rangerCurrentHp = ranger[0];
         rangerStartBlock = ranger[1];
         rangerStartDamage = ranger[2];
+
+        warriorMaxHp =warriorCurrentHp;
+        mageMaxHp = mageCurrentHp;
+        healerMaxHp = healerCurrentHp;
+        rangerMaxHp = rangerCurrentHp;
     }
 
+    /**
+     *
+     */
     public void setStartLabels(){
-
 
         fff.potion1Label = new JLabel("" + ownedPotions[0]);
         fff.potion2Label = new JLabel("" + ownedPotions[1]);
@@ -697,14 +773,17 @@ public class ForestCon {
         fff.wolf3Hp = new JLabel("Wolf 3: "+ wolfHp[2]);
         fff.wolf4Hp = new JLabel("Wolf 4: "+ wolfHp[3]);
 
-        fff.playersHp = new JLabel("Hp: "+warriorCurrentHp+"   ");
-        fff.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp+"   ");
-        fff.player2Hp = new JLabel("Ranger:  "+ rangerCurrentHp+"   ");
-        fff.player3Hp = new JLabel("Mage:    "+ mageCurrentHp+"   ");
-        fff.player4Hp = new JLabel("Healer:  "+ healerCurrentHp+"   ");
+        fff.playerStr = new JLabel("Strength: "+ (warriorDamage+buffDamage[1]));
+        fff.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);
+        fff.player2Hp = new JLabel("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
+        fff.player3Hp = new JLabel("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
+        fff.player4Hp = new JLabel("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
         fff.block = new JLabel("Block: "+warriorBlock);
     }
 
+    /**
+     *
+     */
     //Add hover effect to buttons.
     private void hoverEffect() {
         //Attack Hover
@@ -769,6 +848,10 @@ public class ForestCon {
         });
     }
 
+    /**
+     *
+     * @param potion
+     */
     //Get the effect from potions.
     private void usePotion(int potion) {
 
@@ -779,45 +862,42 @@ public class ForestCon {
                 //If player own that potion.
                 if (ownedPotions[0] > 0) {
                     warriorCurrentHp += 10; //Heal warrior equals to the potions heal.
-                    fff.playersHp.setText("Hp: " + warriorCurrentHp); //Update Warrior's hp Label.
-                    fff.player1Hp.setText("Warrior: " + warriorCurrentHp); // Update currentPlayer Hp label.
+                    fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp); // Update currentPlayer Hp label.
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]); //Update ownedPotion Label.
                 }
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     warriorCurrentHp += 30;
-                    fff.playersHp.setText("Hp: " + warriorCurrentHp);
-                    fff.player1Hp.setText("Warrior: " + warriorCurrentHp);
+                    fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);;
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
                 }
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     warriorCurrentHp += 60;
-                    fff.playersHp.setText("Hp: " + warriorCurrentHp);
-                    fff.player1Hp.setText("Warrior: " + warriorCurrentHp);
+                    fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);
                     ownedPotions[2]-=1;
                     fff.potion3Label.setText(""+ownedPotions[2]);
                 }
             } else if (potion == 4) {
                 if (ownedPotions[3] > 0) {
                     warriorBlock += 5;
-                    fff.block.setText("Block: " + warriorBlock);
+                    fff.block.setText("Block: "+warriorBlock);
                     ownedPotions[3]-=1;
                     fff.potion4Label.setText(""+ownedPotions[3]);
                 }
             } else if (potion == 5) {
                 if (ownedPotions[4] > 0) {
                     warriorBlock += 20;
-                    fff.block.setText("Block: " + warriorBlock);
+                    fff.block.setText("Block: "+warriorBlock);
                     ownedPotions[4]-=1;
                     fff.potion5Label.setText(""+ownedPotions[4]);
                 }
             } else if (potion == 6) {
                 if (ownedPotions[5] > 0) {
                     warriorBlock += 50;
-                    fff.block.setText("Block: " + warriorBlock);
+                    fff.block.setText("Block: "+warriorBlock);
                     ownedPotions[5]-=1;
                     fff.potion6Label.setText(""+ownedPotions[5]);
                 }
@@ -843,24 +923,27 @@ public class ForestCon {
                     fff.potion9Label.setText(""+ownedPotions[8]);
                 }
             }
-            if (potion == 10) {
+            else if (potion == 10) {
                 if (ownedPotions[9] > 0) {
                     buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
+                    fff.playerStr.setText("Strength: "+(warriorDamage+buffDamage[0]));
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             }
-            if (potion == 11) {
+            else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
                     buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
+                    fff.playerStr.setText("Strength: "+(warriorDamage+buffDamage[0]));
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             }
-            if (potion == 12) {
+            else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
                     buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
+                    fff.playerStr.setText("Strength: "+(warriorDamage+buffDamage[0]));
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
             }
@@ -871,31 +954,28 @@ public class ForestCon {
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     rangerCurrentHp += 10;
-                    fff.playersHp.setText("Hp: " + rangerCurrentHp);
-                    fff.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]);
                 }
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     rangerCurrentHp += 30;
-                    fff.playersHp.setText("Hp: " + rangerCurrentHp);
-                    fff.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
                 }
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     rangerCurrentHp += 60;
-                    fff.playersHp.setText("Hp: " + rangerCurrentHp);
-                    fff.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     ownedPotions[2]-=1;
                     fff.potion3Label.setText(""+ownedPotions[2]);
                 }
             } else if (potion == 4) {
                 if (ownedPotions[3] > 0) {
                     rangerBlock += 5;
-                    fff.block.setText("Block: " + rangerBlock);
+                    fff.block.setText("Block: "+warriorBlock);
                     ownedPotions[3]-=1;
                     fff.potion4Label.setText(""+ownedPotions[3]);
                 }
@@ -939,18 +1019,21 @@ public class ForestCon {
                 if (ownedPotions[9] > 0) {
                     buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
+                    fff.playerStr.setText("Strength: "+(rangerDamage+buffDamage[1]));
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
                     buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
+                    fff.playerStr.setText("Strength: "+(rangerDamage+buffDamage[1]));
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
                     buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
+                    fff.playerStr.setText("Strength: "+(rangerDamage+buffDamage[1]));
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
             }
@@ -960,24 +1043,21 @@ public class ForestCon {
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     mageCurrentHp += 10;
-                    fff.playersHp.setText("Hp: " + mageCurrentHp);
-                    fff.player3Hp.setText("Mage: " + mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]);
                 }
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     mageCurrentHp += 30;
-                    fff.playersHp.setText("Hp: " + mageCurrentHp);
-                    fff.player3Hp.setText("Mage: " + mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
                 }
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     rangerCurrentHp += 60;
-                    fff.playersHp.setText("Hp: " + mageCurrentHp);
-                    fff.player3Hp.setText("Mage: " + mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     fff.potion3Label.setText(""+ownedPotions[2]);
                     ownedPotions[2]-=1;
                 }
@@ -1028,18 +1108,21 @@ public class ForestCon {
                 if (ownedPotions[9] > 0) {
                     buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
+                    fff.playerStr.setText("Strength: "+(mageDamage+buffDamage[2]));
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
                     buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
+                    fff.playerStr.setText("Strength: "+(mageDamage+buffDamage[2]));
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
                     buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
+                    fff.playerStr.setText("Strength: "+(mageDamage+buffDamage[2]));
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
             }
@@ -1049,24 +1132,21 @@ public class ForestCon {
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     healerCurrentHp += 10;
-                    fff.playersHp.setText("Hp: " + healerCurrentHp);
-                    fff.player4Hp.setText("Mage: " + healerCurrentHp);
+                    fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]);
                 }
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     healerCurrentHp += 30;
-                    fff.playersHp.setText("Hp: " + healerCurrentHp);
-                    fff.player4Hp.setText("Mage: " + healerCurrentHp);
+                    fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
                 }
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     healerCurrentHp += 60;
-                    fff.playersHp.setText("Hp: " + healerCurrentHp);
-                    fff.player4Hp.setText("Mage: " + healerCurrentHp);
+                    fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     ownedPotions[2]-=1;
                     fff.potion3Label.setText(""+ownedPotions[2]);
                 }
@@ -1117,24 +1197,42 @@ public class ForestCon {
                 if (ownedPotions[9] > 0) {
                     buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
+                    fff.playerStr.setText("Strength: "+(healerDamage+buffDamage[3]));
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
                     buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
+                    fff.playerStr.setText("Strength: "+(healerDamage+buffDamage[3]));
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
                     buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
+                    fff.playerStr.setText("Strength: "+(healerDamage+buffDamage[3]));
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
             }
         }
+        if (warriorCurrentHp>warriorMaxHp){
+            warriorCurrentHp = warriorMaxHp;
+        }
+        if (rangerCurrentHp>rangerMaxHp){
+            rangerCurrentHp = rangerMaxHp;
+        }
+        if (mageCurrentHp>mageMaxHp){
+            mageCurrentHp = mageMaxHp;
+        }
+        if (healerCurrentHp>healerMaxHp){
+            healerCurrentHp = healerMaxHp;
+        }
     }
 
+    /**
+     *
+     */
     public void targetSystem(){
 
         fff.wolf1.addMouseListener(new MouseAdapter() {
@@ -1171,6 +1269,10 @@ public class ForestCon {
         });
     }
 
+    /**
+     *
+     * @param chosenSpell
+     */
     private void healingTargetMenu(int chosenSpell) {
         fff.skill1Button.setVisible(false);
         fff.skill2Button.setVisible(false);
@@ -1258,6 +1360,11 @@ public class ForestCon {
     }
 
 
+    /**
+     *
+     * @param unbuffedDamage
+     * @param damageTargets
+     */
     //called from spells to deal damage to enemies
     //damageTargets types: single, line, all
     public void spellDamageSystem(int unbuffedDamage, String damageTargets){
@@ -1289,6 +1396,11 @@ public class ForestCon {
         isFightOver();
     }
 
+    /**
+     *
+     * @param healing
+     * @param healingTargets
+     */
     //fixa denna
     public void spellHealSystem(int healing, String healingTargets){
         if (healingTargets.equals("single")){
@@ -1303,13 +1415,19 @@ public class ForestCon {
             rangerCurrentHp += healing;
             mageCurrentHp += healing;
         }
-        fff.player1Hp.setText("Warrior: " + warriorCurrentHp);
-        fff.player2Hp.setText("Ranger:  " + rangerCurrentHp);
-        fff.player3Hp.setText("Mage:    " + mageCurrentHp);
-        fff.player4Hp.setText("Healer:  " + healerCurrentHp);
+        if (warriorMaxHp < warriorCurrentHp) warriorCurrentHp = warriorMaxHp;
+        if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
+        if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
+        if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
+        fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);;
+        fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
+        fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
+        fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
     }
 
-
+    /**
+     *
+     */
     //warrior
     public Timer tackle = new Timer(10, new ActionListener() {
         @Override
@@ -1337,6 +1455,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer charge = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1364,6 +1485,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer dunk = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1398,6 +1522,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer shout = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1453,6 +1580,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer battlecry = new Timer(20, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1510,6 +1640,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer demoralized = new Timer(20, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1577,6 +1710,9 @@ public class ForestCon {
 
     //ranger
 
+    /**
+     *
+     */
     Timer shoot = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1608,6 +1744,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer volley = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1714,6 +1853,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public void stealth() {
         if (!stealthed) {
             MusicPick.musicStart("stealth", "");
@@ -1722,6 +1864,10 @@ public class ForestCon {
             stealthed = true;
         }
     }
+
+    /**
+     *
+     */
     public void unstealth(){
         if (stealthed){
             MusicPick.musicStart("unstealth", "");
@@ -1731,6 +1877,9 @@ public class ForestCon {
         }
     }
 
+    /**
+     *
+     */
     public Timer bombthrow = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1778,6 +1927,9 @@ public class ForestCon {
     });
 
 
+    /**
+     *
+     */
     //mage
     Timer blast = new Timer(10, new ActionListener() {
         @Override
@@ -1805,6 +1957,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer pyroBlast = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1857,6 +2012,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer flameStrike = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1920,7 +2078,9 @@ public class ForestCon {
         }
     });
 
-
+    /**
+     *
+     */
     public Timer fireBall = new Timer(15, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -1979,6 +2139,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     //healer
     public Timer holyLightSpell = new Timer(10, new ActionListener() {
         @Override
@@ -2004,6 +2167,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer smallHolyLightSpell = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -2028,6 +2194,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer groupHealSpell = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -2059,6 +2228,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     public Timer healerAttack = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {
@@ -2086,6 +2258,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     //enemy
     private Timer enemyTurnTimer = new Timer(7, new ActionListener() {
         @Override
@@ -2156,6 +2331,9 @@ public class ForestCon {
         }
     });
 
+    /**
+     *
+     */
     private Timer takeDamage = new Timer(10, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent ae) {

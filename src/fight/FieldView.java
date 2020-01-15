@@ -11,10 +11,10 @@ public class FieldView {
 
     JFrame fieldFightJFrame = new JFrame();
     Potions potions = new Potions();
-    JFrame inventory = new JFrame();
+    JPanel inventory = new JPanel();
 
     //Create fonts
-    private Font pixelMplus;
+    Font pixelMplus;
 
     //Create buttons
     public JButton attackButton, blockButton, itemButton, skillButton, endTurnButton;
@@ -67,18 +67,23 @@ public class FieldView {
         fieldFightJFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         fieldFightJFrame.setUndecorated(true);
 
-        ImageIcon background = new ImageIcon("field.png");
+        ImageIcon background = new ImageIcon("fielddone.jpg");
         fieldFightJFrame.setContentPane(new JLabel(background));
+
+        inventory.setLayout(null);
+        inventory.setSize(1920, 170);
+        inventory.setLocation(0,0);
 
         importFont();
         getInventory();
         importButtons();
         importLabels();
         importPartyGif();
-        importscarecrowGif();
+        importScarecrowGif();
         spellMenuStartup();
         animationStuff();
         healingTarget();
+        getInventory();
 
         fieldFightJFrame.add(energy);
         fieldFightJFrame.add(block);
@@ -150,6 +155,39 @@ public class FieldView {
         fieldFightJFrame.add(mage);
         fieldFightJFrame.add(healer);
 
+        //Add all labels//buttons.
+        inventory.add(potion1);
+        inventory.add(potion2);
+        inventory.add(potion3);
+        inventory.add(potion4);
+        inventory.add(potion5);
+        inventory.add(potion6);
+        inventory.add(potion7);
+        inventory.add(potion8);
+        inventory.add(potion9);
+        inventory.add(potion10);
+        inventory.add(potion11);
+        inventory.add(potion12);
+        inventory.add(inventoryHealth);
+        inventory.add(inventoryBlock);
+        inventory.add(inventoryEnergy);
+        inventory.add(inventoryStr);
+        inventory.add(potion1Label);
+        inventory.add(potion2Label);
+        inventory.add(potion3Label);
+        inventory.add(potion4Label);
+        inventory.add(potion5Label);
+        inventory.add(potion6Label);
+        inventory.add(potion7Label);
+        inventory.add(potion8Label);
+        inventory.add(potion9Label);
+        inventory.add(potion10Label);
+        inventory.add(potion11Label);
+        inventory.add(potion12Label);
+
+        fieldFightJFrame.add(inventory);
+
+        inventory.setVisible(false);
         fieldFightJFrame.setVisible(true);
     }
 
@@ -370,57 +408,6 @@ public class FieldView {
 
     }
 
-    //This method triggers when you press the "Item button". It opens up another JFrame that covers the hud.
-    public void itemPressed(){
-
-        //Frame settings
-        inventory = new JFrame();
-        inventory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inventory.setLayout(null);
-        inventory.setSize(1920, 300);
-        inventory.setTitle("Inventory");
-        inventory.setLocation(0,538);
-
-        getInventory();
-
-        //Background
-        ImageIcon backgroundInventory = new ImageIcon("white.jpg");
-        inventory.setContentPane(new JLabel(backgroundInventory));
-
-        //Add all labels//buttons.
-        inventory.add(potion1);
-        inventory.add(potion2);
-        inventory.add(potion3);
-        inventory.add(potion4);
-        inventory.add(potion5);
-        inventory.add(potion6);
-        inventory.add(potion7);
-        inventory.add(potion8);
-        inventory.add(potion9);
-        inventory.add(potion10);
-        inventory.add(potion11);
-        inventory.add(potion12);
-        inventory.add(inventoryHealth);
-        inventory.add(inventoryBlock);
-        inventory.add(inventoryEnergy);
-        inventory.add(inventoryStr);
-        inventory.add(potion1Label);
-        inventory.add(potion2Label);
-        inventory.add(potion3Label);
-        inventory.add(potion4Label);
-        inventory.add(potion5Label);
-        inventory.add(potion6Label);
-        inventory.add(potion7Label);
-        inventory.add(potion8Label);
-        inventory.add(potion9Label);
-        inventory.add(potion10Label);
-        inventory.add(potion11Label);
-        inventory.add(potion12Label);
-
-        inventory.setUndecorated(true);
-        inventory.setVisible(true);
-    }
-
     private void getInventory() {
 
         //Minor Health Potion
@@ -599,66 +586,66 @@ public class FieldView {
         playersHp.setFont(pixelMplus.deriveFont(30f));
         playersHp.setForeground(Color.black);
         Dimension playersHpSize = playersHp.getPreferredSize();
-        playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
+        playersHp.setBounds(30, 600, playersHpSize.width+50, playersHpSize.height);
 
-        scarecrow1Hp.setFont(pixelMplus.deriveFont(30f));
+        scarecrow1Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow1Hp.setForeground(Color.black);
         Dimension wolf1HpSize = scarecrow1Hp.getPreferredSize();
-        scarecrow1Hp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
+        scarecrow1Hp.setBounds(640, 560, wolf1HpSize.width+50, wolf1HpSize.height);
 
-        scarecrow2Hp.setFont(pixelMplus.deriveFont(30f));
+        scarecrow2Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow2Hp.setForeground(Color.black);
         Dimension wolf2HpSize = scarecrow2Hp.getPreferredSize();
-        scarecrow2Hp.setBounds(640, 595, wolf2HpSize.width, wolf2HpSize.height);
+        scarecrow2Hp.setBounds(640, 595, wolf2HpSize.width+50, wolf2HpSize.height);
 
-        scarecrow3Hp.setFont(pixelMplus.deriveFont(30f));
+        scarecrow3Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow3Hp.setForeground(Color.black);
         Dimension wolf3HpSize = scarecrow3Hp.getPreferredSize();
-        scarecrow3Hp.setBounds(640, 630, wolf3HpSize.width, wolf3HpSize.height);
+        scarecrow3Hp.setBounds(640, 630, wolf3HpSize.width+50, wolf3HpSize.height);
 
-        scarecrow4Hp.setFont(pixelMplus.deriveFont(30f));
+        scarecrow4Hp.setFont(pixelMplus.deriveFont(24f));
         scarecrow4Hp.setForeground(Color.black);
         Dimension wolf4HpSize = scarecrow4Hp.getPreferredSize();
-        scarecrow4Hp.setBounds(640, 665, wolf4HpSize.width, wolf4HpSize.height);
+        scarecrow4Hp.setBounds(640, 665, wolf4HpSize.width+50, wolf4HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
         Dimension player1HpSize = player1Hp.getPreferredSize();
-        player1Hp.setBounds(410, 560, player1HpSize.width, player1HpSize.height);
+        player1Hp.setBounds(410, 560, player1HpSize.width+50, player1HpSize.height);
 
         player2Hp.setFont(pixelMplus.deriveFont(30f));
         player2Hp.setForeground(Color.black);
         Dimension player2HpSize = player1Hp.getPreferredSize();
-        player2Hp.setBounds(410, 595, player2HpSize.width, player2HpSize.height);
+        player2Hp.setBounds(410, 595, player2HpSize.width+50, player2HpSize.height);
 
         player3Hp.setFont(pixelMplus.deriveFont(30f));
         player3Hp.setForeground(Color.black);
         Dimension player3HpSize = player3Hp.getPreferredSize();
-        player3Hp.setBounds(410, 630, player3HpSize.width, player3HpSize.height);
+        player3Hp.setBounds(410, 630, player3HpSize.width+50, player3HpSize.height);
 
         player4Hp.setFont(pixelMplus.deriveFont(30f));
         player4Hp.setForeground(Color.black);
         Dimension player4HpSize = player4Hp.getPreferredSize();
-        player4Hp.setBounds(410, 665, player4HpSize.width, player4HpSize.height);
+        player4Hp.setBounds(410, 665, player4HpSize.width+50, player4HpSize.height);
 
         energy = new JLabel("Energy: 5");
         energy.setFont(pixelMplus.deriveFont(30f));
         energy.setForeground(Color.black);
         Dimension energySize = energy.getPreferredSize();
-        energy.setBounds(30, 640, energySize.width, energySize.height);
+        energy.setBounds(30, 640, energySize.width+50, energySize.height);
 
         block.setFont(pixelMplus.deriveFont(30f));
         block.setForeground(Color.black);
         Dimension blockSize = energy.getPreferredSize();
-        block.setBounds(30, 670, blockSize.width, blockSize.height);
+        block.setBounds(30, 670, blockSize.width+50, blockSize.height);
 
         whosTurn = new JLabel("Warrior's turn");
         whosTurn.setFont(pixelMplus.deriveFont(30f));
         whosTurn.setForeground(Color.black);
         whosTurn.setBackground(Color.blue);
         Dimension whoSize = whosTurn.getPreferredSize();
-        //whosTurn.setMaximumSize(new Dimension(whoSize.width+100,whoSize.height+100));
-        whosTurn.setBounds(30, 560, whoSize.width, whoSize.height);
+        //whosTurn.setMaximumSize(new Dimension(whoSize.width+50+100,whoSize.height+100));
+        whosTurn.setBounds(30, 560, whoSize.width+50, whoSize.height);
     }
 
     //Set all stats for buttons.
@@ -735,23 +722,23 @@ public class FieldView {
     }
 
     //Get scarecrow gif.
-    private void importscarecrowGif(){
+    private void importScarecrowGif(){
         scarecrow1 = new JLabel();
-        scarecrow1.setIcon(new ImageIcon("scarecrow.gif"));
+        scarecrow1.setIcon(new ImageIcon("scarecrowdone.gif"));
         Dimension scarecrowSize = scarecrow1.getPreferredSize();
-        scarecrow1.setBounds(850, 300, scarecrowSize.width+50, scarecrowSize.height);
+        scarecrow1.setBounds(850, 250, scarecrowSize.width, scarecrowSize.height);
 
         scarecrow2 = new JLabel();
-        scarecrow2.setIcon(new ImageIcon("scarecrow.gif"));
-        scarecrow2.setBounds(1030, 300, scarecrowSize.width+50, scarecrowSize.height);
+        scarecrow2.setIcon(new ImageIcon("scarecrowdone.gif"));
+        scarecrow2.setBounds(1030, 250, scarecrowSize.width, scarecrowSize.height);
 
         scarecrow3 = new JLabel();
-        scarecrow3.setIcon(new ImageIcon("scarecrow.gif"));
-        scarecrow3.setBounds(920, 370, scarecrowSize.width+50, scarecrowSize.height);
+        scarecrow3.setIcon(new ImageIcon("scarecrowdone.gif"));
+        scarecrow3.setBounds(920, 320, scarecrowSize.width, scarecrowSize.height);
 
         scarecrow4 = new JLabel();
-        scarecrow4.setIcon(new ImageIcon("scarecrow.gif"));
-        scarecrow4.setBounds(1100, 370, scarecrowSize.width+50, scarecrowSize.height);
+        scarecrow4.setIcon(new ImageIcon("scarecrowdone.gif"));
+        scarecrow4.setBounds(1100, 320, scarecrowSize.width, scarecrowSize.height);
     }
 
     private void importFont() {

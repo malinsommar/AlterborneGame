@@ -7,14 +7,17 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Malin Sommar, Simon Bengtsson
+ */
 public class ForestFightFrame {
 
-    JFrame inventory = new JFrame();
+    JPanel inventory = new JPanel();
     JFrame forestFightJFrame = new JFrame();
     Potions potions = new Potions();
 
     //Create fonts
-    private Font pixelMplus;
+    Font pixelMplus;
 
     //Create buttons
     public JButton attackButton, blockButton, itemButton, skillButton, endTurnButton;
@@ -28,7 +31,7 @@ public class ForestFightFrame {
     public JLabel wolf1, wolf2, wolf3, wolf4;
     public JLabel wolf1Hp, wolf2Hp, wolf3Hp, wolf4Hp;
     public JLabel warrior, mage, healer, ranger;
-    public JLabel playersHp, player1Hp, player2Hp, player3Hp, player4Hp;
+    public JLabel playerStr, player1Hp, player2Hp, player3Hp, player4Hp;
 
     public JLabel arrow = new JLabel(new ImageIcon("arrow.png"));
     public JLabel volley1 = new JLabel(new ImageIcon("arrow.png"));
@@ -57,6 +60,9 @@ public class ForestFightFrame {
     public JLabel targetarrow = new JLabel(new ImageIcon("targetarrow.png"));
     public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
 
+    /**
+     *
+     */
     public void forestFightFrame(){
 
         forestFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,6 +74,10 @@ public class ForestFightFrame {
         ImageIcon background = new ImageIcon("forest.jpg");
         forestFightJFrame.setContentPane(new JLabel(background));
 
+        inventory.setLayout(null);
+        inventory.setSize(1920, 170);
+        inventory.setLocation(0,0);
+
         importFont();
         getInventory();
         importButtons();
@@ -77,6 +87,7 @@ public class ForestFightFrame {
         spellMenuStartup();
         animationStuff();
         healingTarget();
+        getInventory();
 
         forestFightJFrame.add(energy);
         forestFightJFrame.add(block);
@@ -90,7 +101,7 @@ public class ForestFightFrame {
         forestFightJFrame.add(skillButton);
         forestFightJFrame.add(endTurnButton);
 
-        forestFightJFrame.add(playersHp);
+        forestFightJFrame.add(playerStr);
         forestFightJFrame.add(wolf1Hp);
         forestFightJFrame.add(wolf2Hp);
         forestFightJFrame.add(wolf3Hp);
@@ -146,9 +157,45 @@ public class ForestFightFrame {
         forestFightJFrame.add(mage);
         forestFightJFrame.add(healer);
 
+        //Add all labels//buttons.
+        inventory.add(potion1);
+        inventory.add(potion2);
+        inventory.add(potion3);
+        inventory.add(potion4);
+        inventory.add(potion5);
+        inventory.add(potion6);
+        inventory.add(potion7);
+        inventory.add(potion8);
+        inventory.add(potion9);
+        inventory.add(potion10);
+        inventory.add(potion11);
+        inventory.add(potion12);
+        inventory.add(inventoryHealth);
+        inventory.add(inventoryBlock);
+        inventory.add(inventoryEnergy);
+        inventory.add(inventoryStr);
+        inventory.add(potion1Label);
+        inventory.add(potion2Label);
+        inventory.add(potion3Label);
+        inventory.add(potion4Label);
+        inventory.add(potion5Label);
+        inventory.add(potion6Label);
+        inventory.add(potion7Label);
+        inventory.add(potion8Label);
+        inventory.add(potion9Label);
+        inventory.add(potion10Label);
+        inventory.add(potion11Label);
+        inventory.add(potion12Label);
+
+        forestFightJFrame.add(inventory);
+
+        inventory.setVisible(false);
         forestFightJFrame.setVisible(true);
     }
 
+    /**
+     *
+     */
     public void animationStuff(){
 
         Dimension arrowSize = arrow.getPreferredSize();
@@ -271,6 +318,9 @@ public class ForestFightFrame {
 
     }
 
+    /**
+     *
+     */
     public void spellMenuStartup(){
 
         //button 1
@@ -320,6 +370,9 @@ public class ForestFightFrame {
 
     }
 
+    /**
+     *
+     */
     //to select target for healing
     public void healingTarget(){
 
@@ -361,59 +414,10 @@ public class ForestFightFrame {
 
     }
 
-    //This method triggers when you press the "Item button". It opens up another JFrame that covers the hud.
-    public void itemPressed(){
-
-        //Frame settings
-        inventory = new JFrame();
-        inventory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inventory.setLayout(null);
-        inventory.setSize(1920, 300);
-        inventory.setTitle("Inventory");
-        inventory.setLocation(0,538);
-
-        getInventory();
-
-        //Background
-        ImageIcon backgroundInventory = new ImageIcon("white.jpg");
-        inventory.setContentPane(new JLabel(backgroundInventory));
-
-        //Add all labels//buttons.
-        inventory.add(potion1);
-        inventory.add(potion2);
-        inventory.add(potion3);
-        inventory.add(potion4);
-        inventory.add(potion5);
-        inventory.add(potion6);
-        inventory.add(potion7);
-        inventory.add(potion8);
-        inventory.add(potion9);
-        inventory.add(potion10);
-        inventory.add(potion11);
-        inventory.add(potion12);
-        inventory.add(inventoryHealth);
-        inventory.add(inventoryBlock);
-        inventory.add(inventoryEnergy);
-        inventory.add(inventoryStr);
-        inventory.add(potion1Label);
-        inventory.add(potion2Label);
-        inventory.add(potion3Label);
-        inventory.add(potion4Label);
-        inventory.add(potion5Label);
-        inventory.add(potion6Label);
-        inventory.add(potion7Label);
-        inventory.add(potion8Label);
-        inventory.add(potion9Label);
-        inventory.add(potion10Label);
-        inventory.add(potion11Label);
-        inventory.add(potion12Label);
-
-        inventory.setUndecorated(true);
-        inventory.setVisible(true);
-    }
-
+    /**
+     *
+     */
     private void getInventory() {
-
 
         //Minor Health Potion
         potion1 = new JButton(potions.minorHealthGif);
@@ -586,73 +590,78 @@ public class ForestFightFrame {
         potion12Label.setBounds(1070, 125, potion12LabelSize.width, potion12LabelSize.height);
     }
 
+    /**
+     *
+     */
     //Set al "stats" for labels.
     private void importLabels(){
-        playersHp.setFont(pixelMplus.deriveFont(30f));
-        playersHp.setForeground(Color.black);
-        Dimension playersHpSize = playersHp.getPreferredSize();
-        playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
+        playerStr.setFont(pixelMplus.deriveFont(30f));
+        playerStr.setForeground(Color.black);
+        Dimension playersHpSize = playerStr.getPreferredSize();
+        playerStr.setBounds(30, 600, playersHpSize.width+50, playersHpSize.height);
 
         wolf1Hp.setFont(pixelMplus.deriveFont(30f));
         wolf1Hp.setForeground(Color.black);
         Dimension wolf1HpSize = wolf1Hp.getPreferredSize();
-        wolf1Hp.setBounds(660, 560, wolf1HpSize.width, wolf1HpSize.height);
+        wolf1Hp.setBounds(680, 560, wolf1HpSize.width+50, wolf1HpSize.height);
 
         wolf2Hp.setFont(pixelMplus.deriveFont(30f));
         wolf2Hp.setForeground(Color.black);
         Dimension wolf2HpSize = wolf2Hp.getPreferredSize();
-        wolf2Hp.setBounds(660, 595, wolf2HpSize.width, wolf2HpSize.height);
+        wolf2Hp.setBounds(680, 595, wolf2HpSize.width+50, wolf2HpSize.height);
 
         wolf3Hp.setFont(pixelMplus.deriveFont(30f));
         wolf3Hp.setForeground(Color.black);
         Dimension wolf3HpSize = wolf3Hp.getPreferredSize();
-        wolf3Hp.setBounds(660, 630, wolf3HpSize.width, wolf3HpSize.height);
+        wolf3Hp.setBounds(680, 630, wolf3HpSize.width+50, wolf3HpSize.height);
 
         wolf4Hp.setFont(pixelMplus.deriveFont(30f));
         wolf4Hp.setForeground(Color.black);
         Dimension wolf4HpSize = wolf4Hp.getPreferredSize();
-        wolf4Hp.setBounds(660, 665, wolf4HpSize.width, wolf4HpSize.height);
+        wolf4Hp.setBounds(680, 665, wolf4HpSize.width+50, wolf4HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
         Dimension player1HpSize = player1Hp.getPreferredSize();
-        player1Hp.setBounds(430, 560, player1HpSize.width, player1HpSize.height);
+        player1Hp.setBounds(370, 560, player1HpSize.width+50, player1HpSize.height);
 
         player2Hp.setFont(pixelMplus.deriveFont(30f));
         player2Hp.setForeground(Color.black);
         Dimension player2HpSize = player1Hp.getPreferredSize();
-        player2Hp.setBounds(430, 595, player2HpSize.width, player2HpSize.height);
+        player2Hp.setBounds(370, 595, player2HpSize.width+50, player2HpSize.height);
 
         player3Hp.setFont(pixelMplus.deriveFont(30f));
         player3Hp.setForeground(Color.black);
         Dimension player3HpSize = player3Hp.getPreferredSize();
-        player3Hp.setBounds(430, 630, player3HpSize.width, player3HpSize.height);
+        player3Hp.setBounds(370, 630, player3HpSize.width+50, player3HpSize.height);
 
         player4Hp.setFont(pixelMplus.deriveFont(30f));
         player4Hp.setForeground(Color.black);
         Dimension player4HpSize = player4Hp.getPreferredSize();
-        player4Hp.setBounds(430, 665, player4HpSize.width, player4HpSize.height);
+        player4Hp.setBounds(370, 665, player4HpSize.width+50, player4HpSize.height);
 
         energy = new JLabel("Energy: 5");
         energy.setFont(pixelMplus.deriveFont(30f));
         energy.setForeground(Color.black);
         Dimension energySize = energy.getPreferredSize();
-        energy.setBounds(30, 640, energySize.width, energySize.height);
+        energy.setBounds(30, 638, energySize.width+50, energySize.height);
 
         block.setFont(pixelMplus.deriveFont(30f));
         block.setForeground(Color.black);
         Dimension blockSize = energy.getPreferredSize();
-        block.setBounds(30, 670, blockSize.width, blockSize.height);
+        block.setBounds(30, 670, blockSize.width+200, blockSize.height);
 
         whosTurn = new JLabel("Warrior's turn");
         whosTurn.setFont(pixelMplus.deriveFont(30f));
         whosTurn.setForeground(Color.black);
         whosTurn.setBackground(Color.blue);
         Dimension whoSize = whosTurn.getPreferredSize();
-        //whosTurn.setMaximumSize(new Dimension(whoSize.width+100,whoSize.height+100));
-        whosTurn.setBounds(30, 560, whoSize.width, whoSize.height);
+        whosTurn.setBounds(30, 560, whoSize.width+50, whoSize.height);
     }
 
+    /**
+     *
+     */
     //Set all stats for buttons.
     private void importButtons(){
         //Attack button
@@ -701,6 +710,9 @@ public class ForestFightFrame {
         endTurnButton.setFocusPainted(false);//Remove border around text in button
     }
 
+    /**
+     *
+     */
     //Get all OldClasses.party-gif's.
     private void importPartyGif(){
         warrior = new JLabel();
@@ -720,34 +732,39 @@ public class ForestFightFrame {
         Dimension rangerSize = ranger.getPreferredSize();
         Dimension mageSize = mage.getPreferredSize();
 
-        warrior.setBounds(170, 210, warriorSize.width, warriorSize.height);
-        healer.setBounds(-30, 210, healerSize.width, healerSize.height);
-        ranger.setBounds(70, 290, rangerSize.width, rangerSize.height);
-        mage.setBounds(-110, 290, mageSize.width, mageSize.height);
+        warrior.setBounds(170, 210, warriorSize.width+50, warriorSize.height);
+        healer.setBounds(-30, 210, healerSize.width+50, healerSize.height);
+        ranger.setBounds(70, 290, rangerSize.width+50, rangerSize.height);
+        mage.setBounds(-110, 290, mageSize.width+50, mageSize.height);
     }
 
+    /**
+     *
+     */
     //Get wolf gif.
     private void importWolfGif(){
         wolf1 = new JLabel();
         wolf1.setIcon(new ImageIcon("forestMob.gif"));
         Dimension wolfSize = wolf1.getPreferredSize();
-        wolf1.setBounds(850, 320, wolfSize.width, wolfSize.height);
+        wolf1.setBounds(850, 320, wolfSize.width+50, wolfSize.height);
 
         wolf2 = new JLabel();
         wolf2.setIcon(new ImageIcon("forestMob.gif"));
-        wolf2.setBounds(1030, 320, wolfSize.width, wolfSize.height);
+        wolf2.setBounds(1030, 320, wolfSize.width+50, wolfSize.height);
 
         wolf3 = new JLabel();
         wolf3.setIcon(new ImageIcon("forestMob.gif"));
-        wolf3.setBounds(900, 400, wolfSize.width, wolfSize.height);
+        wolf3.setBounds(900, 400, wolfSize.width+50, wolfSize.height);
 
         wolf4 = new JLabel();
         wolf4.setIcon(new ImageIcon("forestMob.gif"));
-        wolf4.setBounds(1080, 400, wolfSize.width, wolfSize.height);
+        wolf4.setBounds(1080, 400, wolfSize.width+50, wolfSize.height);
     }
 
 
-
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));

@@ -5,6 +5,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Malin Sommar
+ */
 public class LevelUpView {
 
     JFrame levelFrame = new JFrame();
@@ -13,6 +16,9 @@ public class LevelUpView {
     JLabel lvUp, whatLevel, warriorHp, warriorDamage, warriorBlock, rangerHp, rangerDamage, rangerBlock, mageHp, mageDamage, mageBlock, healerHp, healerDamage, healerBlock, warrior, healer, mage, ranger;
     JButton continueButton;
 
+    /**
+     *
+     */
     public void levelUpFrame(){
 
         levelFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,6 +51,9 @@ public class LevelUpView {
         levelFrame.setVisible(true);
     }
 
+    /**
+     *
+     */
     public void importLabels(){
 
         continueButton = new JButton("X");
@@ -146,6 +155,9 @@ public class LevelUpView {
         healerBlock.setBounds(260, 330, healerBlockSize.width, healerBlockSize.height);
     }
 
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));

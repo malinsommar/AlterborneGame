@@ -6,8 +6,9 @@ import davidtest.overworld.gfx.Screen;
 
 //Create all the Tiles that will be used in the levels
 public abstract class Tile {
+    //Create all the tiles
     public static final Tile[] tiles = new Tile[256];
-    public static final Tile VOID = new SolidTile(0, 0, 0,/*position of the 8x8 tile on the sprite-sheet*/ Colours.get(000, -1, -1, -1) /**/, 0xFF000000 /*the colour assigned to the map-sprite*/);
+    public static final Tile VOID = new SolidTile /*What type if tile it is*/(0, 0, 0,/*position of the 8x8 tile on the sprite-sheet*/ Colours.get(000, -1, -1, -1) /*colours used in the frame*/, 0xFF000000 /*the colour that the tile is identified to on the map*/);
     public static final Tile STONE = new SolidTile(1, 1, 0, Colours.get(-1, 333, -1, -1), 0xFF555555);
     public static final Tile GRASS = new BasicTile(2, 2, 0, Colours.get(-1, 131, 141, -1), 0xFF00FF00);
     public static final Tile WATER = new AnimatedTile(3, new int[][] { {0, 5}, { 1, 5}, { 2, 5 }, { 1, 5 } },
@@ -29,8 +30,8 @@ public abstract class Tile {
     public static final Tile CRACKS = new BasicTile(16, 0, 7, Colours.get(-1, 200, 1, -1), 0xFF565554);
     public static final Tile LEFTBOTTOMFORESTCAVE = new ForestPathTile(17, 0, 9, Colours.get(1,2,333, 16), 0xFF3db114);
     public static final Tile RIGHTBOTTOMFORESTCAVE = new ForestPathTile(18, 1, 9, Colours.get(1,2,333, 16), 0xFF3db115);
-    public static final Tile LEFTOPFORESTCAVE = new ForestPathTile(19, 2, 9, Colours.get(1,2,333,16), 0xFF3db116);
-    public static final Tile RIGHTTOPFORESTCAVE = new ForestPathTile(20, 3, 9, Colours.get(1,2,333,16), 0xFF3db117);
+    public static final Tile LEFTOPFORESTCAVE = new SolidTile(19, 2, 9, Colours.get(1,2,333,16), 0xFF3db116);
+    public static final Tile RIGHTTOPFORESTCAVE = new SolidTile(20, 3, 9, Colours.get(1,2,333,16), 0xFF3db117);
     public static final Tile LEFTTOPCASTLE = new SolidTile(21, 0, 11, Colours.get(-1,1,333, 16), 0xFF785554);
     public static final Tile RIGHTTOPCASTLE = new SolidTile(22, 1, 11, Colours.get(-1,1,333,-1), 0xFF785555);
     public static final Tile LEFTCASTLE = new SolidTile(23, 3, 11, Colours.get(-1,1,333,-1), 0xFF785556);
@@ -45,43 +46,47 @@ public abstract class Tile {
     public static final Tile SHEEPHEADLEFT = new AnimatedSolidTile(30, new int[][] {{ 4, 15}, { 5, 15},},
             Colours.get(176, 334, 333, 1), 0xFF7a8b54, 1900);
     public static final Tile SHEEPBODYLEFT = new SolidTile(31, 6, 15, Colours.get(-1,334,333,-1), 0xFF7a8b55);
-
-    public static Tile FORESTCHEST = new ChestTile(32, 0, 17, Colours.get(16,210,178,332), 0xFFab6a1c);
-
+    public static Tile FORESTCHEST = new SolidTile(32, 0, 17, Colours.get(16,210,178,332), 0xFFab6a1c);
     public static final Tile FIELDCHEST = new SolidTile(33, 1, 17, Colours.get(176,210,178,332), 0xFFab6a2c);
     public static final Tile MOUNTAINCHEST = new SolidTile(34, 2, 17, Colours.get(333,210,178,332), 0xFFab6a3c);
     public static final Tile SWAMPCHEST = new SolidTile(35, 3, 17, Colours.get(18,210,178,332), 0xFFab6a4c);
-    public static final Tile LEFTBOTTOMMOUNTAINCAVE = new MountainPathTile(36, 0, 21, Colours.get(1,2,333, -1), 0xFF672321);
-    public static final Tile RIGHTBOTTOMMOUNTAINCAVE = new MountainPathTile(37, 1, 21, Colours.get(1,2,333, -1), 0xFF672322);
-    public static final Tile LEFTOPMOUNTAINCAVE = new MountainPathTile(38, 2, 21, Colours.get(1,2,333,-1), 0xFF672323);
-    public static final Tile RIGHTTOPMOUNTAINCAVE = new MountainPathTile(39, 3, 21, Colours.get(1,2,333,-1), 0xFF672324);
+    public static final Tile LEFTBOTTOMMOUNTAINENTRANCE = new MountainPathTile(36, 0, 21, Colours.get(1,5,313, -1), 0xFF672321);
+    public static final Tile RIGHTBOTTOMMOUNTAINENTRANCE= new MountainPathTile(37, 1, 21, Colours.get(1,5,313, -1), 0xFF672322);
+    public static final Tile LEFTOPMOUNTAINENTRANCE = new SolidTile(38, 2, 21, Colours.get(1,5,313,-1), 0xFF672323);
+    public static final Tile RIGHTTOPMOUNTAINENTRANCE = new SolidTile(39, 3, 21, Colours.get(1,5,313,-1), 0xFF672324);
     public static final Tile LEFTBOTTOMFIELDCAVE = new FieldPathTile(40, 0, 23, Colours.get(1,2,210, 176), 0xFF672325);
     public static final Tile RIGHTBOTTOMMFIELDCAVE = new FieldPathTile(41, 1, 23, Colours.get(1,2,211, 176), 0xFF672326);
-    public static final Tile LEFTOPFIELDCAVE = new FieldPathTile(42, 2, 23, Colours.get(1,2,212,176), 0xFF672327);
-    public static final Tile RIGHTTOPFIELDCAVE = new FieldPathTile(43, 3, 23, Colours.get(1,2,213,176), 0xFF672328);
+    public static final Tile LEFTOPFIELDCAVE = new SolidTile(42, 2, 23, Colours.get(1,2,212,176), 0xFF672327);
+    public static final Tile RIGHTTOPFIELDCAVE = new SolidTile(43, 3, 23, Colours.get(1,2,213,176), 0xFF672328);
     public static final Tile LEFTBOTTOMSWAMPCAVE = new SwampPathTile(44, 0, 25, Colours.get(1,2,333, 18), 0xFF672329);
     public static final Tile RIGHTBOTTOMSWAMPCAVE = new SwampPathTile(45, 1, 25, Colours.get(1,2,333, 18), 0xFF672330);
-    public static final Tile LEFTOPSWAMPCAVE = new SwampPathTile(46, 2, 25, Colours.get(1,2,333,18), 0xFF672331);
-    public static final Tile RIGHTTOPSWAMPCAVE = new SwampPathTile(47, 3, 25, Colours.get(1,2,333,18), 0xFF672332);
+    public static final Tile LEFTOPSWAMPCAVE = new SolidTile(46, 2, 25, Colours.get(1,2,333,18), 0xFF672331);
+    public static final Tile RIGHTTOPSWAMPCAVE = new SolidTile(47, 3, 25, Colours.get(1,2,333,18), 0xFF672332);
     public static final Tile SWAMPWOOD = new SolidTile(48, 8, 0, Colours.get(-1,222,228,-1), 0xFF785211);
     public static final Tile SWAMPLEAF = new AnimatedSolidTile(49, new int[][] {{ 0, 2}, { 1, 2}},
             Colours.get(-1, 11, 18, -1), 0xFF005200, 2000);
+    public static final Tile FENCE = new SolidTile(50, 1, 19, Colours.get(176, -1, 201, -1), 0xFFa56c68);
+    public static final Tile FENCESIDE = new SolidTile(51, 2, 19, Colours.get(176, -1, 201, -1), 0xFFa56c69);
+    public static final Tile LEFTBOTTOMMOUNTAINCAVE = new CavePathTile(52, 0, 21, Colours.get(1,2,333, -1), 0xFF672333);
+    public static final Tile RIGHTBOTTOMMOUNTAINCAVE = new CavePathTile(53, 1, 21, Colours.get(1,2,333, -1), 0xFF672334);
+    public static final Tile LEFTOPMOUNTAINCAVE = new SolidTile(54, 2, 21, Colours.get(1,2,333,-1), 0xFF672335);
+    public static final Tile RIGHTTOPMOUNTAINCAVE = new SolidTile(55, 3, 21, Colours.get(1,2,333,-1), 0xFF672336);
+
 
     //create the boolean values that will be assigned to to tiles depending on purpose
     protected byte id;
     boolean solid;
-    private boolean emitter;
     boolean forestPath;
     boolean mountainPath;
     boolean fieldPath;
     boolean swampPath;
     boolean castlePath;
+    boolean cavePath;
     boolean door;
-    boolean chest;
     private int levelColour;
 
     //create the parameters for all tiles
-    Tile(int id, boolean isSolid, boolean isEmitter, boolean isDoor, boolean isForestPath, boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCastlePath, boolean isChestTile, int levelColour) {
+    Tile(int id, boolean isSolid, boolean isDoor, boolean isForestPath, boolean isMountainPath, boolean isFieldPath, boolean isSwampPath, boolean isCaveTile, boolean isCastlePath, int levelColour) {
         this.id = (byte) id;
         //if a tile-id has been used before: throw RuntimeException
         if (tiles[id] != null)
@@ -89,20 +94,15 @@ public abstract class Tile {
 
         //Indicate that all the variables within the parameter are the same as these variables
         this.solid = isSolid;
-        this.emitter = isEmitter;
         this.forestPath = isForestPath;
         this.mountainPath = isMountainPath;
         this.fieldPath = isFieldPath;
         this.swampPath = isSwampPath;
         this.castlePath = isCastlePath;
+        this.cavePath = isCaveTile;
         this.door = isDoor;
-        this.chest = isChestTile;
         this.levelColour  = levelColour;
         tiles[id] = this;
-
-        if (isChest()) {
-            FORESTCHEST = new ChestTile(32, 0, 19, Colours.get(16,210,178,332), 0xFFab6a1c);
-        }
     }
 
     //return theses booleans as true if the tile has been identified with it
@@ -112,10 +112,6 @@ public abstract class Tile {
 
     public boolean isSolid() {
         return solid;
-    }
-
-    public boolean isEmitter() {
-        return emitter;
     }
 
     public int getLevelColour() {
@@ -134,14 +130,11 @@ public abstract class Tile {
     public boolean isSwampPath() {
         return swampPath;
     }
-    public boolean isCastlePath() { return castlePath;
-    }
+    public boolean isCastlePath() { return castlePath; }
+    public boolean isCavePath() {return cavePath;}
     public boolean isDoor() {
         return door;
     }
-
-    public boolean isChest() {
-        return chest;}
 
         //update the values with every tick
     public abstract void tick();

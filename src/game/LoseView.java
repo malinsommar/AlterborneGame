@@ -5,6 +5,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Malin Sommar
+ */
 public class LoseView {
 
     JFrame loseFrame = new JFrame();
@@ -13,6 +16,9 @@ public class LoseView {
     JButton continueButton;
     private Font pixelMplus;
 
+    /**
+     *
+     */
     public void loseScreen() {
 
         loseFrame.setLayout(null);
@@ -43,6 +49,9 @@ public class LoseView {
         loseFrame.setVisible(true);
     }
 
+    /**
+     *
+     */
     private void importLabels(){
         died = new JLabel("You Died");
         died.setForeground(Color.black);
@@ -139,7 +148,9 @@ public class LoseView {
         continueButton.setFocusPainted(false);
     }
 
-
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));

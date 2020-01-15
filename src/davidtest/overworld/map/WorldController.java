@@ -4,8 +4,6 @@ import davidtest.overworld.gfx.Colours;
 import davidtest.overworld.gfx.Fonts;
 import davidtest.overworld.map.Functionality.MouseClickSimulated;
 import game.MusicPick;
-import game.UserNameController;
-
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
@@ -15,59 +13,33 @@ public class WorldController extends Canvas implements Runnable {
     private WorldView owf = new WorldView();
     public  int[] Entrance = new int[1];
 
-    //int-variables to handle Model-execution
-    private int ForestEntrance = 1;
-    private int ShopEntrance = 1;
-    private int MountainEntrance = 1;
-    private int FieldEntrance = 1;
-    private int SwampEntrance = 1;
-    private int CastleEntrance = 1;
-    private int WaterEntrance = 1;
-    private int OpeningChest = 1;
-
-
-    public void startWorldController(String userName) throws InterruptedException {
+    public void startWorldController(String userName) {
         owf.startWorldView(userName);
         start();//start the program
         new MouseClickSimulated();
+        //whileLoop to check that the entrance-array is less or equal to 0 before calling methods
         while (Entrance[0] <= 0) {
-            if (ForestEntrance == 1) {
                 EnterForest();
-            }
-            if (ShopEntrance == 1) {
                 EnterShop();
-            }
-            if (MountainEntrance == 1) {
                 EnterMountain();
-            }
-            if (FieldEntrance == 1) {
                 EnterField();
-            }
-            if(SwampEntrance == 1) {
                 EnterSwamp();
-            }
-            if(CastleEntrance == 1) {
                 EnterCastle();
-            }
-            if(WaterEntrance ==1) {
                 EnterWater();
-            }
-            if (OpeningChest == 1) {
-                OpenChest();
-            }
+                EnterCave();
         }
     }
+
+
     public synchronized void start() {
         running = true;//set the state of running to true
         new Thread(this).start(); //start thread. Threads are used to run multiple functionality at once
     }
 
     private boolean running = false; //if program ends up outside start, set programs running state
-    private int tickCount = 0;
 
-
+    //initiate colours
     private void init() {
-        System.out.println("init start");
         int index = 0;
         //red
         for (int r = 0; r < 6; r++) {
@@ -85,7 +57,7 @@ public class WorldController extends Canvas implements Runnable {
             }
         }
     }
-
+    //run game
     public void run() {
         MusicPick.musicStart("intofreeshort", "music"); //implement music
         long lastTime = System.nanoTime(); //the current value of nanoseconds
@@ -115,9 +87,8 @@ public class WorldController extends Canvas implements Runnable {
                 delta -= 1; // subtract the value of delta by 1 and repeats the update-loop endlessly
                 shouldRender = true;
             }
-
+            //A sleep-function that pauses the current thread to keep it from overloading the system. in this case the frames are lowered based on the assigned sleep-value
             try {
-                //A 'sleep' method that pauses the current thread to keep it from overloading the system. in this case the frames are lowered based on the assigned sleep-value
                 Thread.sleep(2);
 
             } catch (InterruptedException e) {
@@ -149,7 +120,7 @@ public class WorldController extends Canvas implements Runnable {
             // - thread resume
         }
 
-        private void render () //prints out what the logic in the tick-function has stated should be printed out
+        private void render() //prints out what the logic in the tick-function has stated should be printed out
         {
             BufferStrategy bs = owf.getBufferStrategy(); //an Object to organize the data in the canvas
             //if a bufferStrategy hasn't been created: make one
@@ -167,12 +138,14 @@ public class WorldController extends Canvas implements Runnable {
             //render the available mobs into to game
             owf.level.renderEntities(owf.screen);
 
-            //render sign into the game
+            //render signs into the game
             Fonts.render("shop", owf.screen, 216, 205, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Forest", owf.screen, 320, 258, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("1-3", owf.screen, 332, 280, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("Cave", owf.screen, 16, 280, Colours.get(000, -1, -1, 555), 1);
-            Fonts.render("3-5", owf.screen, 19, 302, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Mountain", owf.screen, 4, 40, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("???", owf.screen, 20, 62, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("Cave", owf.screen, 112, 218, Colours.get(000, -1, -1, 555), 1);
+            Fonts.render("3-5", owf.screen, 115, 240, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Field", owf.screen, 43, 450, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("5-8", owf.screen, 52, 472, Colours.get(000, -1, -1, 555), 1);
             Fonts.render("Swamp", owf.screen, 452, 103, Colours.get(000, -1, -1, 555), 1);
@@ -184,7 +157,7 @@ public class WorldController extends Canvas implements Runnable {
             //render the colours on the tiles within the screens width and height
             for (int y = 0; y < owf.screen.height; y++) {
                 for (int x = 0; x < owf.screen.width; x++) {
-                    int colourCode = owf.screen.pixels[x + y * owf.screen.width];
+                    int colourCode = owf.screen.pixels[x + y * owf.screen.width]; //combined value of all the colours in an int
                     if (colourCode < 255) //check so the colour is within the 255 parameter
                         owf.pixels[x + y * WorldView.WIDTH] = owf.colours[colourCode];
                 }
@@ -195,35 +168,31 @@ public class WorldController extends Canvas implements Runnable {
             g.dispose(); //free up space when the object is no longer needed
             bs.show();//show in JFrame
         }
+
+    //list of Methods to call back to WorldModel when a a new frame should be used and the WorldView should be disposed
     public synchronized void EnterShop() {
         if (owf.player.hasEnteredShop()) {
-            ShopEntrance++;
             Entrance[0] = 1;
         }
     }
-    //list of Methods to call back to WorldModel when a a new frame should be used and the WorldView should be disposed
     public synchronized void EnterForest() {
         if (owf.player.hasEnteredForest()) {
-                ForestEntrance++;
                 Entrance[0] = 2;
             }
         }
 
-    public synchronized void EnterMountain() {
-        if (owf.player.hasEnteredMountain()) {
-            MountainEntrance++;
+    public synchronized void EnterCave() {
+        if (owf.player.hasEnteredCave()) {
             Entrance[0] = 3;
         }
     }
     public void EnterField() {
         if (owf.player.hasEnteredField()) {
-            FieldEntrance++;
             Entrance[0] = 4;
         }
     }
     private void EnterSwamp() {
         if (owf.player.hasEnteredSwamp()) {
-            SwampEntrance++;
             Entrance[0] = 5;
 
         }
@@ -231,20 +200,17 @@ public class WorldController extends Canvas implements Runnable {
 
     private void EnterCastle() {
         if (owf.player.hasEnteredCastle()) {
-            CastleEntrance++;
             Entrance[0] = 6;
-        }
-    }
-    private void OpenChest() {
-        if (owf.player.hasOpenedChest()) {
-            OpeningChest++;
         }
     }
     private void EnterWater() {
         if (owf.player.hasEnteredWater()) {
-            WaterEntrance++;
             Entrance[0] = 7;
         }
     }
-
+    private void EnterMountain() {
+        if(owf.player.hasEnteredMountain()) {
+            Entrance[0] = 8;
+        }
+    }
 }

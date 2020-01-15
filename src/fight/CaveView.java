@@ -7,14 +7,17 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * @author Simon Bengtsson
+ */
 public class CaveView {
 
     JFrame caveFightJFrame = new JFrame();
     Potions potions = new Potions();
-    JFrame inventory = new JFrame();
+    JPanel inventory = new JPanel();
 
     //Create fonts
-    private Font pixelMplus;
+    Font pixelMplus;
 
     //Create buttons
     public JButton attackButton, blockButton, itemButton, skillButton, endTurnButton;
@@ -59,6 +62,9 @@ public class CaveView {
     public JLabel blast = new JLabel(new ImageIcon("blastgif.gif"));
 
 
+    /**
+     *
+     */
     public void caveFightFrame(){
 
         caveFightJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,6 +76,10 @@ public class CaveView {
         ImageIcon background = new ImageIcon("cave.png");
         caveFightJFrame.setContentPane(new JLabel(background));
 
+        inventory.setLayout(null);
+        inventory.setSize(1920, 170);
+        inventory.setLocation(0,0);
+
         importFont();
         getInventory();
         importButtons();
@@ -79,6 +89,7 @@ public class CaveView {
         spellMenuStartup();
         animationStuff();
         healingTarget();
+        getInventory();
 
         caveFightJFrame.add(energy);
         caveFightJFrame.add(block);
@@ -150,9 +161,44 @@ public class CaveView {
         caveFightJFrame.add(mage);
         caveFightJFrame.add(healer);
 
+        inventory.add(potion1);
+        inventory.add(potion2);
+        inventory.add(potion3);
+        inventory.add(potion4);
+        inventory.add(potion5);
+        inventory.add(potion6);
+        inventory.add(potion7);
+        inventory.add(potion8);
+        inventory.add(potion9);
+        inventory.add(potion10);
+        inventory.add(potion11);
+        inventory.add(potion12);
+        inventory.add(inventoryHealth);
+        inventory.add(inventoryBlock);
+        inventory.add(inventoryEnergy);
+        inventory.add(inventoryStr);
+        inventory.add(potion1Label);
+        inventory.add(potion2Label);
+        inventory.add(potion3Label);
+        inventory.add(potion4Label);
+        inventory.add(potion5Label);
+        inventory.add(potion6Label);
+        inventory.add(potion7Label);
+        inventory.add(potion8Label);
+        inventory.add(potion9Label);
+        inventory.add(potion10Label);
+        inventory.add(potion11Label);
+        inventory.add(potion12Label);
+
+        caveFightJFrame.add(inventory);
+
+        inventory.setVisible(false);
         caveFightJFrame.setVisible(true);
     }
-    
+
+    /**
+     *
+     */
     public void animationStuff(){
 
         Dimension arrowSize = arrow.getPreferredSize();
@@ -280,6 +326,9 @@ public class CaveView {
 
     }
 
+    /**
+     *
+     */
     public void spellMenuStartup(){
 
         //button 1
@@ -329,6 +378,9 @@ public class CaveView {
 
     }
 
+    /**
+     *
+     */
     //to select target for healing
     public void healingTarget(){
 
@@ -370,57 +422,9 @@ public class CaveView {
 
     }
 
-    //This method triggers when you press the "Item button". It opens up another JFrame that covers the hud.
-    public void itemPressed(){
-
-        //Frame settings
-        inventory = new JFrame();
-        inventory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inventory.setLayout(null);
-        inventory.setSize(1920, 300);
-        inventory.setTitle("Inventory");
-        inventory.setLocation(0,538);
-
-        getInventory();
-
-        //Background
-        ImageIcon backgroundInventory = new ImageIcon("white.jpg");
-        inventory.setContentPane(new JLabel(backgroundInventory));
-
-        //Add all labels//buttons.
-        inventory.add(potion1);
-        inventory.add(potion2);
-        inventory.add(potion3);
-        inventory.add(potion4);
-        inventory.add(potion5);
-        inventory.add(potion6);
-        inventory.add(potion7);
-        inventory.add(potion8);
-        inventory.add(potion9);
-        inventory.add(potion10);
-        inventory.add(potion11);
-        inventory.add(potion12);
-        inventory.add(inventoryHealth);
-        inventory.add(inventoryBlock);
-        inventory.add(inventoryEnergy);
-        inventory.add(inventoryStr);
-        inventory.add(potion1Label);
-        inventory.add(potion2Label);
-        inventory.add(potion3Label);
-        inventory.add(potion4Label);
-        inventory.add(potion5Label);
-        inventory.add(potion6Label);
-        inventory.add(potion7Label);
-        inventory.add(potion8Label);
-        inventory.add(potion9Label);
-        inventory.add(potion10Label);
-        inventory.add(potion11Label);
-        inventory.add(potion12Label);
-
-        inventory.setUndecorated(true);
-        inventory.setVisible(true);
-    }
-
+    /**
+     *
+     */
     private void getInventory() {
 
         //Minor Health Potion
@@ -594,73 +598,78 @@ public class CaveView {
         potion12Label.setBounds(1070, 125, potion12LabelSize.width, potion12LabelSize.height);
     }
 
-    //Set al "stats" for labels.
+    /**
+     *
+     */
+    //Set all "stats" for labels.
     private void importLabels(){
         playersHp.setFont(pixelMplus.deriveFont(30f));
         playersHp.setForeground(Color.black);
         Dimension playersHpSize = playersHp.getPreferredSize();
-        playersHp.setBounds(30, 600, playersHpSize.width, playersHpSize.height);
+        playersHp.setBounds(30, 600, playersHpSize.width+50, playersHpSize.height);
 
         goblin1Hp.setFont(pixelMplus.deriveFont(30f));
         goblin1Hp.setForeground(Color.black);
         Dimension wolf1HpSize = goblin1Hp.getPreferredSize();
-        goblin1Hp.setBounds(640, 560, wolf1HpSize.width, wolf1HpSize.height);
+        goblin1Hp.setBounds(640, 560, wolf1HpSize.width+50, wolf1HpSize.height);
 
         goblin2Hp.setFont(pixelMplus.deriveFont(30f));
         goblin2Hp.setForeground(Color.black);
         Dimension wolf2HpSize = goblin2Hp.getPreferredSize();
-        goblin2Hp.setBounds(640, 595, wolf2HpSize.width, wolf2HpSize.height);
+        goblin2Hp.setBounds(640, 595, wolf2HpSize.width+50, wolf2HpSize.height);
 
         goblin3Hp.setFont(pixelMplus.deriveFont(30f));
         goblin3Hp.setForeground(Color.black);
         Dimension wolf3HpSize = goblin3Hp.getPreferredSize();
-        goblin3Hp.setBounds(640, 630, wolf3HpSize.width, wolf3HpSize.height);
+        goblin3Hp.setBounds(640, 630, wolf3HpSize.width+50, wolf3HpSize.height);
 
         goblin4Hp.setFont(pixelMplus.deriveFont(30f));
         goblin4Hp.setForeground(Color.black);
         Dimension wolf4HpSize = goblin4Hp.getPreferredSize();
-        goblin4Hp.setBounds(640, 665, wolf4HpSize.width, wolf4HpSize.height);
+        goblin4Hp.setBounds(640, 665, wolf4HpSize.width+50, wolf4HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
         Dimension player1HpSize = player1Hp.getPreferredSize();
-        player1Hp.setBounds(410, 560, player1HpSize.width, player1HpSize.height);
+        player1Hp.setBounds(410, 560, player1HpSize.width+50, player1HpSize.height);
 
         player2Hp.setFont(pixelMplus.deriveFont(30f));
         player2Hp.setForeground(Color.black);
         Dimension player2HpSize = player1Hp.getPreferredSize();
-        player2Hp.setBounds(410, 595, player2HpSize.width, player2HpSize.height);
+        player2Hp.setBounds(410, 595, player2HpSize.width+50, player2HpSize.height);
 
         player3Hp.setFont(pixelMplus.deriveFont(30f));
         player3Hp.setForeground(Color.black);
         Dimension player3HpSize = player3Hp.getPreferredSize();
-        player3Hp.setBounds(410, 630, player3HpSize.width, player3HpSize.height);
+        player3Hp.setBounds(410, 630, player3HpSize.width+50, player3HpSize.height);
 
         player4Hp.setFont(pixelMplus.deriveFont(30f));
         player4Hp.setForeground(Color.black);
         Dimension player4HpSize = player4Hp.getPreferredSize();
-        player4Hp.setBounds(410, 665, player4HpSize.width, player4HpSize.height);
+        player4Hp.setBounds(410, 665, player4HpSize.width+50, player4HpSize.height);
 
         energy = new JLabel("Energy: 5");
         energy.setFont(pixelMplus.deriveFont(30f));
         energy.setForeground(Color.black);
         Dimension energySize = energy.getPreferredSize();
-        energy.setBounds(30, 640, energySize.width, energySize.height);
+        energy.setBounds(30, 640, energySize.width+50, energySize.height);
 
         block.setFont(pixelMplus.deriveFont(30f));
         block.setForeground(Color.black);
         Dimension blockSize = energy.getPreferredSize();
-        block.setBounds(30, 670, blockSize.width, blockSize.height);
+        block.setBounds(30, 670, blockSize.width+50, blockSize.height);
 
         whosTurn = new JLabel("Warrior's turn");
         whosTurn.setFont(pixelMplus.deriveFont(30f));
         whosTurn.setForeground(Color.black);
         whosTurn.setBackground(Color.blue);
         Dimension whoSize = whosTurn.getPreferredSize();
-        //whosTurn.setMaximumSize(new Dimension(whoSize.width+100,whoSize.height+100));
-        whosTurn.setBounds(30, 560, whoSize.width, whoSize.height);
+        whosTurn.setBounds(30, 560, whoSize.width+50, whoSize.height);
     }
 
+    /**
+     *
+     */
     //Set all stats for buttons.
     private void importButtons(){
         //Attack button
@@ -709,7 +718,10 @@ public class CaveView {
         endTurnButton.setFocusPainted(false);//Remove border around text in button
     }
 
-    //Get all OldClasses.party-gif's.
+    /**
+     *
+     */
+    //Get all party-gif's.
     private void importPartyGif(){
         warrior = new JLabel();
         warrior.setIcon(new ImageIcon("warrior.gif"));
@@ -734,6 +746,9 @@ public class CaveView {
         mage.setBounds(-110, 290, mageSize.width, mageSize.height);
     }
 
+    /**
+     *
+     */
     //Get goblin gif.
     private void importGoblinGif(){
         goblin1 = new JLabel();
@@ -754,6 +769,9 @@ public class CaveView {
         goblin4.setBounds(1100, 370, goblinSize.width+50, goblinSize.height);
     }
 
+    /**
+     *
+     */
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));

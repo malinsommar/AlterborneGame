@@ -2,6 +2,9 @@ package game;
 
 import javax.swing.*;
 
+/**
+ * @author Simon Bengtsson, Malin Sommar
+ */
 public class TutorialController {
 
     TutorialView tv = new TutorialView();
@@ -18,6 +21,9 @@ public class TutorialController {
     ImageIcon bild8 = new ImageIcon("endturn.png");
     ImageIcon bild9 = new ImageIcon("fight.png");
 
+    /**
+     *
+     */
     public void startTutorial(){
         tv.tutorialFrame();
 
@@ -30,17 +36,21 @@ public class TutorialController {
         });
     }
 
+    /**
+     *
+     * @throws InterruptedException
+     */
     public void nextPicture() throws InterruptedException {
         System.out.println("test");
 
         if (pics == 1){
             tv.picture.setIcon(bild1);
 
-            tv.text1.setText("This show you who's turn it is and their stats.");
+            tv.text1.setText("This show you whos turn it is and their stats.");
             tv.text1.setLocation(430,20);
             tv.text1.setFont(tv.pixelMplus.deriveFont(18f));
 
-            tv.text2.setText("You need energy to fight and gain 3 energy each turn.");
+            tv.text2.setText("You need energy to fight and gain 5 energy each turn.");
             tv.text2.setLocation(430,55);
             tv.text2.setFont(tv.pixelMplus.deriveFont(16f));
 
@@ -52,11 +62,11 @@ public class TutorialController {
         else if (pics == 2){
             tv.picture.setIcon(bild2);
 
-            tv.text1.setText("Here you can see everyone's HP.");
+            tv.text1.setText("Here you can see everyones HP.");
             tv.text1.setLocation(485,20);
             tv.text1.setFont(tv.pixelMplus.deriveFont(18f));
 
-            tv.text2.setText("To your left you can see your party's hp.");
+            tv.text2.setText("To your left you can see your partys hp.");
             tv.text2.setLocation(460,55);
             tv.text2.setFont(tv.pixelMplus.deriveFont(17f));
 

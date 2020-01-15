@@ -5,6 +5,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+/**
+ * @author lydia marcondes, Malin Sommar
+ */
 public class LoseController {
 
     private LoseView loseView = new LoseView();
@@ -16,6 +19,11 @@ public class LoseController {
     private String name;
     private int xp;
 
+    /**
+     *
+     * @param getXp
+     * @param getName
+     */
      void startLoseScreen(int getXp, String getName) {
 
         MusicPick.musicStart("gwyn","music");
@@ -29,6 +37,9 @@ public class LoseController {
         loseView.continueButton.addActionListener(e-> System.exit(0));
     }
 
+    /**
+     *
+     */
     private void dataBase(){
         try {
             Connection conn = DriverManager.getConnection(CONNECTION, USERNAME, PASSWORD);
@@ -43,6 +54,9 @@ public class LoseController {
         }
     }
 
+    /**
+     *
+     */
     private void hover(){
         loseView.continueButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
