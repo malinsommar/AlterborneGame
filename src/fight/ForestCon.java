@@ -869,6 +869,7 @@ public class ForestCon {
                 //If player own that potion.
                 if (ownedPotions[0] > 0) {
                     warriorCurrentHp += 10; //Heal warrior equals to the potions heal.
+                    if (warriorCurrentHp > warriorMaxHp) warriorCurrentHp = warriorMaxHp;
                     fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp); // Update currentPlayer Hp label.
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]); //Update ownedPotion Label.
@@ -876,6 +877,7 @@ public class ForestCon {
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     warriorCurrentHp += 30;
+                    if (warriorCurrentHp > warriorMaxHp) warriorCurrentHp = warriorMaxHp;
                     fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);;
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
@@ -883,6 +885,7 @@ public class ForestCon {
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     warriorCurrentHp += 60;
+                    if (warriorCurrentHp > warriorMaxHp) warriorCurrentHp = warriorMaxHp;
                     fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);
                     ownedPotions[2]-=1;
                     fff.potion3Label.setText(""+ownedPotions[2]);
@@ -961,6 +964,7 @@ public class ForestCon {
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     rangerCurrentHp += 10;
+                    if (rangerCurrentHp > rangerMaxHp) rangerCurrentHp = rangerMaxHp;
                     fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]);
@@ -968,6 +972,7 @@ public class ForestCon {
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     rangerCurrentHp += 30;
+                    if (rangerCurrentHp > rangerMaxHp) rangerCurrentHp = rangerMaxHp;
                     fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
@@ -975,6 +980,7 @@ public class ForestCon {
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     rangerCurrentHp += 60;
+                    if (rangerCurrentHp > rangerMaxHp) rangerCurrentHp = rangerMaxHp;
                     fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     ownedPotions[2]-=1;
                     fff.potion3Label.setText(""+ownedPotions[2]);
@@ -1050,6 +1056,7 @@ public class ForestCon {
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     mageCurrentHp += 10;
+                    if (mageCurrentHp > mageMaxHp) mageCurrentHp = mageMaxHp;
                     fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]);
@@ -1057,6 +1064,7 @@ public class ForestCon {
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     mageCurrentHp += 30;
+                    if (mageCurrentHp > mageMaxHp) mageCurrentHp = mageMaxHp;
                     fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
@@ -1064,6 +1072,7 @@ public class ForestCon {
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     rangerCurrentHp += 60;
+                    if (mageCurrentHp > mageMaxHp) mageCurrentHp = mageMaxHp;
                     fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     fff.potion3Label.setText(""+ownedPotions[2]);
                     ownedPotions[2]-=1;
@@ -1139,6 +1148,7 @@ public class ForestCon {
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     healerCurrentHp += 10;
+                    if (healerCurrentHp > healerMaxHp) healerCurrentHp = healerMaxHp;
                     fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]);
@@ -1146,6 +1156,7 @@ public class ForestCon {
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     healerCurrentHp += 30;
+                    if (healerCurrentHp > healerMaxHp) healerCurrentHp = healerMaxHp;
                     fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
@@ -1153,6 +1164,7 @@ public class ForestCon {
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     healerCurrentHp += 60;
+                    if (healerCurrentHp > healerMaxHp) healerCurrentHp = healerMaxHp;
                     fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     ownedPotions[2]-=1;
                     fff.potion3Label.setText(""+ownedPotions[2]);
