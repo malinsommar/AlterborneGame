@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * ShopView contains all swing variables to start ShopFrame.
+ *
  * @author Malin Sommar
+ * @version 1
  */
 public class ShopView {
 
@@ -72,7 +75,7 @@ public class ShopView {
     JFrame shopFrame = new JFrame();
 
     /**
-     *
+     *Starts the shop JFrame and calls private methods needed for the frame.
      */
     public void startShopFrame(){
         shopFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -146,9 +149,9 @@ public class ShopView {
     }
 
     /**
-     *
+     * Set info for all JLabels
      */
-    public void addLabels(){
+    private void addLabels(){
 
         currentAction = new JLabel("Shopkeeper: Are you gonna buy something or what?             ");
         currentAction.setFont((pixelMplus.deriveFont(27f)));
@@ -212,7 +215,7 @@ public class ShopView {
     }
 
     /**
-     *
+     * Set info for all JButtons
      */
     private void addButtons(){
 
@@ -455,7 +458,7 @@ public class ShopView {
     }
 
     /**
-     *
+     *Imports font pixelMplus
      */
     private void importFont() {
         try {

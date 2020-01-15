@@ -1,0 +1,78 @@
+TO DO:
+- rules/backstory for game
+- backstory/info characters
+- table for database
+- php
+
+- backlog
+- flowchart
+
+- key attributes
+- dropdown list for characters
+- hoverbox w explanations
+- news, contact
+- footer w links
+__________________________________________________________________________
+
+*HEALER*
+Armor:
+- Epic: Cleric's Armor
+- Legendary: Plate Armor of Parl'ont the Crusader
+- Rare: Priest's Robe
+- Starter: Cloth scraps
+
+Weapons:
+- Epic: Cleric's blessed walking stick
+- Legendary: Root of the world tree
+- Rare: Stick of truth
+- Starter: Wooden staff
+
+Spells:
+_________
+
+*MAGE*
+Armor:
+- Epic: Enchanted Robe
+- Legendary: Robe of the Archmage
+- Rare: Mooncloth Robe
+- Starter: Cloth Robe
+
+Weapons: 
+- Epic: Enchanted Mana Wand
+- Legendary: Pyromaniac's tinderbox
+- Rare: Ivory fire wand
+- Starter: Wooden wand
+
+Spells:
+_________
+
+*RANGER*
+Armor:
+- Epic: Elven Leather Armor
+- Legendary: Demonskin Armor
+- Rare: Fine Leather Armor
+- Starter: Broken Leather Armor
+
+Weapons:
+- Epic: Dragonslayer's bow
+- Legendary: Bullseye bow
+- Rare: Elven bow
+- Starter: Simple bow
+
+Spells:
+_________
+
+*WARRIOR*
+Armor:
+- Epic: Hardened Armor
+- Legendary: Royal Enchanted Armor
+- Rare: Shiny Armor
+- Starter: Rusty Armor
+
+Weapons: 
+- Epic: Tempered steel blade
+- Legendary: Sword of a thousand truths
+- Rare: Iron sword
+- Starter: Wooden sword
+
+Spells:

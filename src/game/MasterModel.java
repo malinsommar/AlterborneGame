@@ -5,6 +5,9 @@ import davidtest.overworld.map.WorldModel;
 import fight.*;
 
 /**
+ * This is the "main class", this is where all variables that needs to be saved between fight are stored. <br>
+ * This is also where most of the methods that generate loot, gold, xp, fight etc is located.
+ *
  * @author Malin Sommar
  * @version 1
  */
@@ -109,9 +112,10 @@ public class MasterModel {
     private int[] armorDamage = new int[6];
 
     /**
-     * @throws InterruptedException
+     * Open hubController. Start masterLoop and await changes to start game, tutorial or exit game.
+     *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
-    //Get user input from ConHub to start game of exit game.
     void startGame() throws InterruptedException {
 
         setStartNumbers();
@@ -120,22 +124,26 @@ public class MasterModel {
     }
 
     /**
-     * @throws InterruptedException
+     * Open userNameController. Start masterLoop and await actionListener to get userName. UserName is used in highscore.<br>
+     * When this is done, call startWorldModel();
+     *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     private void enterUserName() throws InterruptedException {
         unc.startUserNameFrame();
+
         masterLoop1();
 
         userName = unc.nameField.getText();
-        System.out.println("Name " + userName);
         startWorldModel();
     }
 
     /**
+     * Open WorldModel and await position from player. Check position and open the fight or shop that is connected to the position.<br>
+     * To most fights there is a 10% chance to encounter a boss fight. Generate an int between 1-100, it the int is < 10 player will encounter boss.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
-    //This method open the overWorld screen. Depending on where the player goes on the map it returns a variable that opens different fights of shop screen.
     private void startWorldModel() throws InterruptedException {
         WorldModel worldModel = new WorldModel(userName);
         int ran = (int)(Math.random()*100)+1;
@@ -184,7 +192,7 @@ public class MasterModel {
         }
         //Castle
         else if (worldModel.HandleOverWorld() == 6) {
-            if(ran > 99){
+            if(ran > 10){
                 startCastleFight();
             }
             else {
@@ -197,7 +205,10 @@ public class MasterModel {
     }
 
     /**
-     * @throws InterruptedException
+     * This method is called when player encounter the normal enemies in forest. Send ownedPotions and playerStats to forestController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
+     *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the forest fight and send necessary variables to ForestController.
     private void startForestFight() throws InterruptedException {
@@ -206,11 +217,33 @@ public class MasterModel {
         forestCon.startFight();
 
         masterLoop1();
+
+        forestCon.fightWon = false;
+
+        forestCon.ownedPotions[0] = ownedPotions[0];
+        forestCon.ownedPotions[1] = ownedPotions[1];
+        forestCon.ownedPotions[2] = ownedPotions[2];
+
+        forestCon.ownedPotions[3] = ownedPotions[3];
+        forestCon.ownedPotions[4] = ownedPotions[4];
+        forestCon.ownedPotions[5] = ownedPotions[5];
+
+        forestCon.ownedPotions[6] = ownedPotions[6];
+        forestCon.ownedPotions[7] = ownedPotions[7];
+        forestCon.ownedPotions[8] = ownedPotions[8];
+
+        forestCon.ownedPotions[9] = ownedPotions[9];
+        forestCon.ownedPotions[10] = ownedPotions[10];
+        forestCon.ownedPotions[11] = ownedPotions[11];
+
+        startLootController(1);
     }
 
     /**
+     *This method is called when player encounter the boss in forest. Send ownedPotions and playerStats to forestBossController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the forest boss fight and send necessary variables to the controller.
     private void startForestBossFight() throws InterruptedException {
@@ -219,11 +252,33 @@ public class MasterModel {
         forestBossCon.startFight();
 
         masterLoop1();
+
+        forestBossCon.fightWon = false;
+
+        forestBossCon.ownedPotions[0] = ownedPotions[0];
+        forestBossCon.ownedPotions[1] = ownedPotions[1];
+        forestBossCon.ownedPotions[2] = ownedPotions[2];
+
+        forestBossCon.ownedPotions[3] = ownedPotions[3];
+        forestBossCon.ownedPotions[4] = ownedPotions[4];
+        forestBossCon.ownedPotions[5] = ownedPotions[5];
+
+        forestBossCon.ownedPotions[6] = ownedPotions[6];
+        forestBossCon.ownedPotions[7] = ownedPotions[7];
+        forestBossCon.ownedPotions[8] = ownedPotions[8];
+
+        forestBossCon.ownedPotions[9] = ownedPotions[9];
+        forestBossCon.ownedPotions[10] = ownedPotions[10];
+        forestBossCon.ownedPotions[11] = ownedPotions[11];
+
+        startLootController(10);
     }
 
     /**
+     * This method is called when player encounter the normal enemies in cave. Send ownedPotions and playerStats to caveController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the cave fight and send necessary variables to CaveController.
     private void startCaveFight() throws InterruptedException {
@@ -232,11 +287,33 @@ public class MasterModel {
         caveCon.startFight();
 
         masterLoop1();
+
+        caveCon.fightWon = false;
+
+        caveCon.ownedPotions[0] = ownedPotions[0];
+        caveCon.ownedPotions[1] = ownedPotions[1];
+        caveCon.ownedPotions[2] = ownedPotions[2];
+
+        caveCon.ownedPotions[3] = ownedPotions[3];
+        caveCon.ownedPotions[4] = ownedPotions[4];
+        caveCon.ownedPotions[5] = ownedPotions[5];
+
+        caveCon.ownedPotions[6] = ownedPotions[6];
+        caveCon.ownedPotions[7] = ownedPotions[7];
+        caveCon.ownedPotions[8] = ownedPotions[8];
+
+        caveCon.ownedPotions[9] = ownedPotions[9];
+        caveCon.ownedPotions[10] = ownedPotions[10];
+        caveCon.ownedPotions[11] = ownedPotions[11];
+
+        startLootController(2);
     }
 
     /**
+     *This method is called when player encounter the boss in cave. Send ownedPotions and playerStats to caveBossController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the cave boss fight and send necessary variables to the controller.
     private void startCaveBossFight() throws InterruptedException {
@@ -245,11 +322,33 @@ public class MasterModel {
         caveBossCon.startFight();
 
         masterLoop1();
+
+        caveBossCon.fightWon = false;
+
+        caveBossCon.ownedPotions[0] = ownedPotions[0];
+        caveBossCon.ownedPotions[1] = ownedPotions[1];
+        caveBossCon.ownedPotions[2] = ownedPotions[2];
+
+        caveBossCon.ownedPotions[3] = ownedPotions[3];
+        caveBossCon.ownedPotions[4] = ownedPotions[4];
+        caveBossCon.ownedPotions[5] = ownedPotions[5];
+
+        caveBossCon.ownedPotions[6] = ownedPotions[6];
+        caveBossCon.ownedPotions[7] = ownedPotions[7];
+        caveBossCon.ownedPotions[8] = ownedPotions[8];
+
+        caveBossCon.ownedPotions[9] = ownedPotions[9];
+        caveBossCon.ownedPotions[10] = ownedPotions[10];
+        caveBossCon.ownedPotions[11] = ownedPotions[11];
+
+        startLootController(20);
     }
 
     /**
+     * This method is called when player encounter the normal enemies in field. Send ownedPotions and playerStats to fieldController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the field fight and send necessary variables to FieldController.
     private void startFieldFight() throws InterruptedException {
@@ -258,11 +357,33 @@ public class MasterModel {
         fieldCon.startFight();
 
         masterLoop1();
+
+        fieldCon.fightWon = false;
+
+        fieldCon.ownedPotions[0] = ownedPotions[0];
+        fieldCon.ownedPotions[1] = ownedPotions[1];
+        fieldCon.ownedPotions[2] = ownedPotions[2];
+
+        fieldCon.ownedPotions[3] = ownedPotions[3];
+        fieldCon.ownedPotions[4] = ownedPotions[4];
+        fieldCon.ownedPotions[5] = ownedPotions[5];
+
+        fieldCon.ownedPotions[6] = ownedPotions[6];
+        fieldCon.ownedPotions[7] = ownedPotions[7];
+        fieldCon.ownedPotions[8] = ownedPotions[8];
+
+        fieldCon.ownedPotions[9] = ownedPotions[9];
+        fieldCon.ownedPotions[10] = ownedPotions[10];
+        fieldCon.ownedPotions[11] = ownedPotions[11];
+
+        startLootController(3);
     }
 
     /**
+     *This method is called when player encounter the boss in field. Send ownedPotions and playerStats to fieldBossController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the field boss fight and send necessary variables to the controller.
     private void startFieldBossFight() throws InterruptedException {
@@ -271,11 +392,33 @@ public class MasterModel {
         fieldBossCon.startFight();
 
         masterLoop1();
+
+        fieldBossCon.fightWon = false;
+
+        fieldBossCon.ownedPotions[0] = ownedPotions[0];
+        fieldBossCon.ownedPotions[1] = ownedPotions[1];
+        fieldBossCon.ownedPotions[2] = ownedPotions[2];
+
+        fieldBossCon.ownedPotions[3] = ownedPotions[3];
+        fieldBossCon.ownedPotions[4] = ownedPotions[4];
+        fieldBossCon.ownedPotions[5] = ownedPotions[5];
+
+        fieldBossCon.ownedPotions[6] = ownedPotions[6];
+        fieldBossCon.ownedPotions[7] = ownedPotions[7];
+        fieldBossCon.ownedPotions[8] = ownedPotions[8];
+
+        fieldBossCon.ownedPotions[9] = ownedPotions[9];
+        fieldBossCon.ownedPotions[10] = ownedPotions[10];
+        fieldBossCon.ownedPotions[11] = ownedPotions[11];
+
+        startLootController(30);
     }
 
     /**
+     * This method is called when player encounter the normal enemies in swamp. Send ownedPotions and playerStats to swampController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the swamp fight and send necessary variables to SwampController.
     private void startSwampFight() throws InterruptedException {
@@ -284,10 +427,33 @@ public class MasterModel {
         swampcon.startFight();
 
         masterLoop1();
+
+        swampcon.fightWon = false;
+
+        swampcon.ownedPotions[0] = ownedPotions[0];
+        swampcon.ownedPotions[1] = ownedPotions[1];
+        swampcon.ownedPotions[2] = ownedPotions[2];
+
+        swampcon.ownedPotions[3] = ownedPotions[3];
+        swampcon.ownedPotions[4] = ownedPotions[4];
+        swampcon.ownedPotions[5] = ownedPotions[5];
+
+        swampcon.ownedPotions[6] = ownedPotions[6];
+        swampcon.ownedPotions[7] = ownedPotions[7];
+        swampcon.ownedPotions[8] = ownedPotions[8];
+
+        swampcon.ownedPotions[9] = ownedPotions[9];
+        swampcon.ownedPotions[10] = ownedPotions[10];
+        swampcon.ownedPotions[11] = ownedPotions[11];
+
+        startLootController(4);
     }
 
     /**
+     *This method is called when player encounter the boss in swamp. Send ownedPotions and playerStats to swampBossController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
      *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the swamp boss fight and send necessary variables to the controller.
     private void startSwampBossFight() throws InterruptedException {
@@ -296,11 +462,33 @@ public class MasterModel {
         swampbosscon.startFight();
 
         masterLoop1();
+
+        swampbosscon.fightWon = false;
+
+        swampbosscon.ownedPotions[0] = ownedPotions[0];
+        swampbosscon.ownedPotions[1] = ownedPotions[1];
+        swampbosscon.ownedPotions[2] = ownedPotions[2];
+
+        swampbosscon.ownedPotions[3] = ownedPotions[3];
+        swampbosscon.ownedPotions[4] = ownedPotions[4];
+        swampbosscon.ownedPotions[5] = ownedPotions[5];
+
+        swampbosscon.ownedPotions[6] = ownedPotions[6];
+        swampbosscon.ownedPotions[7] = ownedPotions[7];
+        swampbosscon.ownedPotions[8] = ownedPotions[8];
+
+        swampbosscon.ownedPotions[9] = ownedPotions[9];
+        swampbosscon.ownedPotions[10] = ownedPotions[10];
+        swampbosscon.ownedPotions[11] = ownedPotions[11];
+
+        startLootController(40);
     }
 
     /**
+     * This method is called when player encounter the normal enemies in castle. Send ownedPotions and playerStats to castleController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the castle fight and send necessary variables to CastleController.
     private void startCastleFight() throws InterruptedException {
@@ -309,10 +497,33 @@ public class MasterModel {
         castleCon.startFight();
 
         masterLoop1();
+
+        castleCon.fightWon = false;
+
+        castleCon.ownedPotions[0] = ownedPotions[0];
+        castleCon.ownedPotions[1] = ownedPotions[1];
+        castleCon.ownedPotions[2] = ownedPotions[2];
+
+        castleCon.ownedPotions[3] = ownedPotions[3];
+        castleCon.ownedPotions[4] = ownedPotions[4];
+        castleCon.ownedPotions[5] = ownedPotions[5];
+
+        castleCon.ownedPotions[6] = ownedPotions[6];
+        castleCon.ownedPotions[7] = ownedPotions[7];
+        castleCon.ownedPotions[8] = ownedPotions[8];
+
+        castleCon.ownedPotions[9] = ownedPotions[9];
+        castleCon.ownedPotions[10] = ownedPotions[10];
+        castleCon.ownedPotions[11] = ownedPotions[11];
+
+        startLootController(5);
     }
 
     /**
+     *This method is called when player encounter the boss in castle. Send ownedPotions and playerStats to castleBossController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
      *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the castle boss fight and send necessary variables to the controller.
     private void startCastleBossFight() throws InterruptedException {
@@ -321,10 +532,33 @@ public class MasterModel {
         castleBossCon.startFight();
 
         masterLoop1();
+
+        castleBossCon.fightWon = false;
+
+        castleBossCon.ownedPotions[0] = ownedPotions[0];
+        castleBossCon.ownedPotions[1] = ownedPotions[1];
+        castleBossCon.ownedPotions[2] = ownedPotions[2];
+
+        castleBossCon.ownedPotions[3] = ownedPotions[3];
+        castleBossCon.ownedPotions[4] = ownedPotions[4];
+        castleBossCon.ownedPotions[5] = ownedPotions[5];
+
+        castleBossCon.ownedPotions[6] = ownedPotions[6];
+        castleBossCon.ownedPotions[7] = ownedPotions[7];
+        castleBossCon.ownedPotions[8] = ownedPotions[8];
+
+        castleBossCon.ownedPotions[9] = ownedPotions[9];
+        castleBossCon.ownedPotions[10] = ownedPotions[10];
+        castleBossCon.ownedPotions[11] = ownedPotions[11];
+
+        startLootController(50);
     }
 
     /**
+     * This method is called when player encounter the secret boss. Send ownedPotions and playerStats to secretController and start fight.<br>
+     * Await for the fight to be won or lost, update potions and start LootScreen.
      *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the secret fight and send necessary variables to SecretFightController. The secret fight has a low chance to randomly activates when swimming in water.
     private void startSecretFight(){
@@ -332,8 +566,9 @@ public class MasterModel {
     }
 
     /**
+     *This method starts the tutorialController and starts masterLoop to await for 'boolean done' to change.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     private void startTutorial() throws InterruptedException {
       tc.startTutorial();
@@ -343,23 +578,28 @@ public class MasterModel {
     }
 
     /**
+     * This method starts the shopController and starts masterLoop to await for 'boolean done' to change.<br>
+     * When player is done, start overWorld.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method starts the shop and send necessary variables to ShopController.
   private void startShop() throws InterruptedException {
-      sc.startShopView(currentGold, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
+      sc.startShopView(currentGold);
 
       masterLoop1();
       startWorldModel();
   }
 
     /**
+     * This method sends away all information lootController is going to need and starts it. Depending on what fight <br>
+     *  player came from, stronger or weaker loot is generated.
      *
-     * @param whatFight
-     * @throws InterruptedException
+     * @param whatFight har koll på vilken fight player kommer ifrån
+     *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
+     *
      */
-    //This method sends away all information lootController is going to need and starts it.
     private void startLootController(int whatFight) throws InterruptedException {
         getEquipment();
         lc.getInfo(currentGold, currentXp, armorNames, weaponNames, weaponDamage, currentArmorDamage, armorBlock, rareWeaponArmorNames, epicWeaponArmorNames, legendaryWeaponArmorNames, rareWeaponArmorDamageBlock, epicWeaponArmorDamageBlock, legendaryWeaponArmorDamageBlock, armorDamage);
@@ -369,8 +609,22 @@ public class MasterModel {
     }
 
     /**
+     * Start lose screen and send username and xp to database.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
+     */
+    public void startLoseScreen() throws InterruptedException {
+        loseController.startLoseScreen(currentXp, userName);
+
+        masterLoop1();
+
+        System.exit(0);
+    }
+
+    /**
+     * This method is called when player gains xp, if player has enough xp to level up stats will be upgraded and levelUpController is called.
+     *
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //When player gets xp this methods check if player will level up.
     private void startLevelUp() throws InterruptedException {
@@ -387,43 +641,43 @@ public class MasterModel {
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if (currentXp>100 && currentLevel == 3){
+        if (currentXp>100 && currentLevel == 3){
             currentLevel = 4;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>300 && currentLevel == 4){
+        if(currentXp>300 && currentLevel == 4){
             currentLevel = 5;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>800 && currentLevel == 5){
+        if(currentXp>800 && currentLevel == 5){
             currentLevel = 6;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>1500 && currentLevel == 6){
+        if(currentXp>1500 && currentLevel == 6){
             currentLevel = 7;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>3000 && currentLevel == 7){
+        if(currentXp>3000 && currentLevel == 7){
             currentLevel = 8;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>5000 && currentLevel == 8){
+        if(currentXp>5000 && currentLevel == 8){
             currentLevel = 9;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
             masterLoop1();
         }
-        else if(currentXp>7000 && currentLevel == 9){
+        if(currentXp>7000 && currentLevel == 9){
             currentLevel = 10;
             levelUpStats();
             luc.didPlayerLevelUp(currentXp, currentLevel, warriorLevelUpStats, rangerLevelUpStats, mageLevelUpStats, healerLevelUpStats, warriorStats, rangerStats, mageStats, healerStats);
@@ -431,7 +685,7 @@ public class MasterModel {
         }
     }
     /**
-     *
+     *This method is called when player level up. Boost the party and the levelUpStat so that the next levelUp is more powerful.
      */
     //This method levels up all stats when player levels up. For each level the reward gets bigger.
     private void levelUpStats(){
@@ -470,8 +724,10 @@ public class MasterModel {
     }
 
     /**
+     * When player has exited the lootScreen this method is called. Check how much gold and xp player got and save it.<br>
+     * Check if player got any potions, armors or weapons, if so, equip or add the loot.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method saves gold, xp and weapon/armor that player got from lootController.
     private void addLoot() throws InterruptedException {
@@ -562,7 +818,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     *This is the first method to be called. This sets all the start numbers like warrior Hp or damage.
      */
     //This method sets all beginning stats such as hp, damage etc.
     private void setStartNumbers() {
@@ -622,7 +878,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * This method puts the equipped armors, weapons and party stats into arrays before a fight, so that it's easier to send between classes.
      */
     //Puts variables into arrays so that it is easier to send to other classes.
     private void getEquipment() {
@@ -712,8 +968,9 @@ public class MasterModel {
     }
 
     /**
+     *This method is called when player buys something in the shop and adds it to inventory.
      *
-     * @param whatLoot
+     * @param whatLoot Indicates what the player bought in the shop.
      */
     //This method adds the item player bought in the store to inventory or equips armor or weapons.
     private void addLootFromShop(int whatLoot){
@@ -829,8 +1086,10 @@ public class MasterModel {
     }
 
     /**
+     *This method is a loop that loops 100000 times, then sends the program to masterLoop2 if none of the statements are true.<br>
+     * This is an alternative to a thread as we didn't have enough time to implement a thread to keep the program alive.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     //This method loops the program until 'something' happens. Use this on all fights and frames that waits for input. Works like a homemade thread.
     private void masterLoop1() throws InterruptedException {
@@ -841,220 +1100,17 @@ public class MasterModel {
         while (true){
             System.out.println("Running loop 1");
 
-            //ForestFight
-            if (forestCon.fightWon){
-                System.out.println("Forest fight won");
-
-                forestCon.fightWon = false;
-
-                forestCon.ownedPotions[0] = ownedPotions[0];
-                forestCon.ownedPotions[1] = ownedPotions[1];
-                forestCon.ownedPotions[2] = ownedPotions[2];
-
-                forestCon.ownedPotions[3] = ownedPotions[3];
-                forestCon.ownedPotions[4] = ownedPotions[4];
-                forestCon.ownedPotions[5] = ownedPotions[5];
-
-                forestCon.ownedPotions[6] = ownedPotions[6];
-                forestCon.ownedPotions[7] = ownedPotions[7];
-                forestCon.ownedPotions[8] = ownedPotions[8];
-
-                forestCon.ownedPotions[9] = ownedPotions[9];
-                forestCon.ownedPotions[10] = ownedPotions[10];
-                forestCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(1);
-                broken = true;
-                break;
-            }
-
-            //CaveFight
-            else if (caveCon.fightWon){
-                System.out.println("Cave fight won");
-
-                caveCon.fightWon = false;
-
-                caveCon.ownedPotions[0] = ownedPotions[0];
-                caveCon.ownedPotions[1] = ownedPotions[1];
-                caveCon.ownedPotions[2] = ownedPotions[2];
-
-                caveCon.ownedPotions[3] = ownedPotions[3];
-                caveCon.ownedPotions[4] = ownedPotions[4];
-                caveCon.ownedPotions[5] = ownedPotions[5];
-
-                caveCon.ownedPotions[6] = ownedPotions[6];
-                caveCon.ownedPotions[7] = ownedPotions[7];
-                caveCon.ownedPotions[8] = ownedPotions[8];
-
-                caveCon.ownedPotions[9] = ownedPotions[9];
-                caveCon.ownedPotions[10] = ownedPotions[10];
-                caveCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(2);
-                broken = true;
-                break;
-            }
-            //FieldFight
-            else if (fieldCon.fightWon){
-                System.out.println("field fight won");
-
-                fieldCon.fightWon = false;
-
-                fieldCon.ownedPotions[0] = ownedPotions[0];
-                fieldCon.ownedPotions[1] = ownedPotions[1];
-                fieldCon.ownedPotions[2] = ownedPotions[2];
-
-                fieldCon.ownedPotions[3] = ownedPotions[3];
-                fieldCon.ownedPotions[4] = ownedPotions[4];
-                fieldCon.ownedPotions[5] = ownedPotions[5];
-
-                fieldCon.ownedPotions[6] = ownedPotions[6];
-                fieldCon.ownedPotions[7] = ownedPotions[7];
-                fieldCon.ownedPotions[8] = ownedPotions[8];
-
-                fieldCon.ownedPotions[9] = ownedPotions[9];
-                fieldCon.ownedPotions[10] = ownedPotions[10];
-                fieldCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(3);
-                broken = true;
-                break;
-            }
-            //SwampFight
-            else if (swampcon.fightWon){
-                System.out.println("swamp fight won");
-
-                swampcon.fightWon = false;
-
-                swampcon.ownedPotions[0] = ownedPotions[0];
-                swampcon.ownedPotions[1] = ownedPotions[1];
-                swampcon.ownedPotions[2] = ownedPotions[2];
-
-                swampcon.ownedPotions[3] = ownedPotions[3];
-                swampcon.ownedPotions[4] = ownedPotions[4];
-                swampcon.ownedPotions[5] = ownedPotions[5];
-
-                swampcon.ownedPotions[6] = ownedPotions[6];
-                swampcon.ownedPotions[7] = ownedPotions[7];
-                swampcon.ownedPotions[8] = ownedPotions[8];
-
-                swampcon.ownedPotions[9] = ownedPotions[9];
-                swampcon.ownedPotions[10] = ownedPotions[10];
-                swampcon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(4);
-                broken = true;
-                break;
-            }
-            //CastleFight
-            else if (castleCon.fightWon){
-                System.out.println("swamp fight won");
-
-                castleCon.fightWon = false;
-
-                castleCon.ownedPotions[0] = ownedPotions[0];
-                castleCon.ownedPotions[1] = ownedPotions[1];
-                castleCon.ownedPotions[2] = ownedPotions[2];
-
-                castleCon.ownedPotions[3] = ownedPotions[3];
-                castleCon.ownedPotions[4] = ownedPotions[4];
-                castleCon.ownedPotions[5] = ownedPotions[5];
-
-                castleCon.ownedPotions[6] = ownedPotions[6];
-                castleCon.ownedPotions[7] = ownedPotions[7];
-                castleCon.ownedPotions[8] = ownedPotions[8];
-
-                castleCon.ownedPotions[9] = ownedPotions[9];
-                castleCon.ownedPotions[10] = ownedPotions[10];
-                castleCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(5);
-                broken = true;
-                break;
-            }
-            //ForestBoss
-            else if (forestBossCon.fightWon){
-                System.out.println("forestBoss fight won");
-
-                forestBossCon.fightWon = false;
-
-                forestBossCon.ownedPotions[0] = ownedPotions[0];
-                forestBossCon.ownedPotions[1] = ownedPotions[1];
-                forestBossCon.ownedPotions[2] = ownedPotions[2];
-
-                forestBossCon.ownedPotions[3] = ownedPotions[3];
-                forestBossCon.ownedPotions[4] = ownedPotions[4];
-                forestBossCon.ownedPotions[5] = ownedPotions[5];
-
-                forestBossCon.ownedPotions[6] = ownedPotions[6];
-                forestBossCon.ownedPotions[7] = ownedPotions[7];
-                forestBossCon.ownedPotions[8] = ownedPotions[8];
-
-                forestBossCon.ownedPotions[9] = ownedPotions[9];
-                forestBossCon.ownedPotions[10] = ownedPotions[10];
-                forestBossCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(10);
-                broken = true;
-                break;
-            }
-            //CaveBoss
-            else if (caveBossCon.fightWon){
-                System.out.println("forestBoss fight won");
-
-                caveBossCon.fightWon = false;
-
-                caveBossCon.ownedPotions[0] = ownedPotions[0];
-                caveBossCon.ownedPotions[1] = ownedPotions[1];
-                caveBossCon.ownedPotions[2] = ownedPotions[2];
-
-                caveBossCon.ownedPotions[3] = ownedPotions[3];
-                caveBossCon.ownedPotions[4] = ownedPotions[4];
-                caveBossCon.ownedPotions[5] = ownedPotions[5];
-
-                caveBossCon.ownedPotions[6] = ownedPotions[6];
-                caveBossCon.ownedPotions[7] = ownedPotions[7];
-                caveBossCon.ownedPotions[8] = ownedPotions[8];
-
-                caveBossCon.ownedPotions[9] = ownedPotions[9];
-                caveBossCon.ownedPotions[10] = ownedPotions[10];
-                caveBossCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(20);
-                broken = true;
-                break;
-            }
-            //FieldBoss
-            else if (fieldBossCon.fightWon){
-                System.out.println("forestBoss fight won");
-
-                fieldBossCon.fightWon = false;
-
-                fieldBossCon.ownedPotions[0] = ownedPotions[0];
-                fieldBossCon.ownedPotions[1] = ownedPotions[1];
-                fieldBossCon.ownedPotions[2] = ownedPotions[2];
-
-                fieldBossCon.ownedPotions[3] = ownedPotions[3];
-                fieldBossCon.ownedPotions[4] = ownedPotions[4];
-                fieldBossCon.ownedPotions[5] = ownedPotions[5];
-
-                fieldBossCon.ownedPotions[6] = ownedPotions[6];
-                fieldBossCon.ownedPotions[7] = ownedPotions[7];
-                fieldBossCon.ownedPotions[8] = ownedPotions[8];
-
-                fieldBossCon.ownedPotions[9] = ownedPotions[9];
-                fieldBossCon.ownedPotions[10] = ownedPotions[10];
-                fieldBossCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(30);
+            //Fights won
+            if (forestCon.fightWon||caveCon.fightWon||fieldCon.fightWon||swampcon.fightWon||castleCon.fightWon||forestBossCon.fightWon||caveBossCon.fightWon||fieldBossCon.fightWon||swampbosscon.fightWon||castleBossCon.fightWon){
+                System.out.println("Forest fight won 1");
                 broken = true;
                 break;
             }
             //Fights lost
-            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||caveBossCon.fightLost||fieldCon.fightLost||fieldBossCon.fightLost||swampcon.fightLost||castleCon.fightLost) {
+            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||caveBossCon.fightLost||fieldCon.fightLost||fieldBossCon.fightLost||swampcon.fightLost||swampbosscon.fightLost||castleCon.fightLost||castleBossCon.fightLost) {
                 System.out.println("fightLost loop 1");
+                startLoseScreen();
                 broken = true;
-                loseController.startLoseScreen(currentXp, userName);
                 break;
             }
             //Loot, tutorial, shop, levelUp,
@@ -1101,8 +1157,10 @@ public class MasterModel {
   }
 
     /**
+     *This method is a loop that loops 100000 times, then sends the program to masterLoop1 if none of the statements are true.<br>
+     * This is an alternative to a thread as we didn't have enough time to implement a thread to keep the program alive.
      *
-     * @throws InterruptedException
+     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     private void masterLoop2() throws InterruptedException {
         int loops = 0;
@@ -1110,222 +1168,20 @@ public class MasterModel {
         System.out.println("Loop 1");
 
         while (true){
-            System.out.println("Running loop 1");
+            System.out.println("Running loop 2");
 
-            //ForestFight
-            if (forestCon.fightWon){
-                System.out.println("Forest fight won");
-
-                forestCon.fightWon = false;
-
-                forestCon.ownedPotions[0] = ownedPotions[0];
-                forestCon.ownedPotions[1] = ownedPotions[1];
-                forestCon.ownedPotions[2] = ownedPotions[2];
-
-                forestCon.ownedPotions[3] = ownedPotions[3];
-                forestCon.ownedPotions[4] = ownedPotions[4];
-                forestCon.ownedPotions[5] = ownedPotions[5];
-
-                forestCon.ownedPotions[6] = ownedPotions[6];
-                forestCon.ownedPotions[7] = ownedPotions[7];
-                forestCon.ownedPotions[8] = ownedPotions[8];
-
-                forestCon.ownedPotions[9] = ownedPotions[9];
-                forestCon.ownedPotions[10] = ownedPotions[10];
-                forestCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(1);
+            //Fights won
+            if (forestCon.fightWon||caveCon.fightWon||fieldCon.fightWon||swampcon.fightWon||castleCon.fightWon||forestBossCon.fightWon||caveBossCon.fightWon||fieldBossCon.fightWon||swampbosscon.fightWon||castleBossCon.fightWon){
+                System.out.println("Forest fight won 2");
                 broken = true;
                 break;
             }
 
-            //CaveFight
-            else if (caveCon.fightWon){
-                System.out.println("Cave fight won");
-
-                caveCon.fightWon = false;
-
-                caveCon.ownedPotions[0] = ownedPotions[0];
-                caveCon.ownedPotions[1] = ownedPotions[1];
-                caveCon.ownedPotions[2] = ownedPotions[2];
-
-                caveCon.ownedPotions[3] = ownedPotions[3];
-                caveCon.ownedPotions[4] = ownedPotions[4];
-                caveCon.ownedPotions[5] = ownedPotions[5];
-
-                caveCon.ownedPotions[6] = ownedPotions[6];
-                caveCon.ownedPotions[7] = ownedPotions[7];
-                caveCon.ownedPotions[8] = ownedPotions[8];
-
-                caveCon.ownedPotions[9] = ownedPotions[9];
-                caveCon.ownedPotions[10] = ownedPotions[10];
-                caveCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(2);
-                broken = true;
-                break;
-            }
-            //FieldFight
-            else if (fieldCon.fightWon){
-                System.out.println("field fight won");
-
-                fieldCon.fightWon = false;
-
-                fieldCon.ownedPotions[0] = ownedPotions[0];
-                fieldCon.ownedPotions[1] = ownedPotions[1];
-                fieldCon.ownedPotions[2] = ownedPotions[2];
-
-                fieldCon.ownedPotions[3] = ownedPotions[3];
-                fieldCon.ownedPotions[4] = ownedPotions[4];
-                fieldCon.ownedPotions[5] = ownedPotions[5];
-
-                fieldCon.ownedPotions[6] = ownedPotions[6];
-                fieldCon.ownedPotions[7] = ownedPotions[7];
-                fieldCon.ownedPotions[8] = ownedPotions[8];
-
-                fieldCon.ownedPotions[9] = ownedPotions[9];
-                fieldCon.ownedPotions[10] = ownedPotions[10];
-                fieldCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(3);
-                broken = true;
-                break;
-            }
-            //SwampFight
-            else if (swampcon.fightWon){
-                System.out.println("swamp fight won");
-
-                swampcon.fightWon = false;
-
-                swampcon.ownedPotions[0] = ownedPotions[0];
-                swampcon.ownedPotions[1] = ownedPotions[1];
-                swampcon.ownedPotions[2] = ownedPotions[2];
-
-                swampcon.ownedPotions[3] = ownedPotions[3];
-                swampcon.ownedPotions[4] = ownedPotions[4];
-                swampcon.ownedPotions[5] = ownedPotions[5];
-
-                swampcon.ownedPotions[6] = ownedPotions[6];
-                swampcon.ownedPotions[7] = ownedPotions[7];
-                swampcon.ownedPotions[8] = ownedPotions[8];
-
-                swampcon.ownedPotions[9] = ownedPotions[9];
-                swampcon.ownedPotions[10] = ownedPotions[10];
-                swampcon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(4);
-                broken = true;
-                break;
-            }
-            //CastleFight
-            else if (castleCon.fightWon){
-                System.out.println("swamp fight won");
-
-                castleCon.fightWon = false;
-
-                castleCon.ownedPotions[0] = ownedPotions[0];
-                castleCon.ownedPotions[1] = ownedPotions[1];
-                castleCon.ownedPotions[2] = ownedPotions[2];
-
-                castleCon.ownedPotions[3] = ownedPotions[3];
-                castleCon.ownedPotions[4] = ownedPotions[4];
-                castleCon.ownedPotions[5] = ownedPotions[5];
-
-                castleCon.ownedPotions[6] = ownedPotions[6];
-                castleCon.ownedPotions[7] = ownedPotions[7];
-                castleCon.ownedPotions[8] = ownedPotions[8];
-
-                castleCon.ownedPotions[9] = ownedPotions[9];
-                castleCon.ownedPotions[10] = ownedPotions[10];
-                castleCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(5);
-                broken = true;
-                break;
-            }
-            //ForestBoss
-            else if (forestBossCon.fightWon){
-                System.out.println("forestBoss fight won");
-
-                forestBossCon.fightWon = false;
-
-                forestBossCon.ownedPotions[0] = ownedPotions[0];
-                forestBossCon.ownedPotions[1] = ownedPotions[1];
-                forestBossCon.ownedPotions[2] = ownedPotions[2];
-
-                forestBossCon.ownedPotions[3] = ownedPotions[3];
-                forestBossCon.ownedPotions[4] = ownedPotions[4];
-                forestBossCon.ownedPotions[5] = ownedPotions[5];
-
-                forestBossCon.ownedPotions[6] = ownedPotions[6];
-                forestBossCon.ownedPotions[7] = ownedPotions[7];
-                forestBossCon.ownedPotions[8] = ownedPotions[8];
-
-                forestBossCon.ownedPotions[9] = ownedPotions[9];
-                forestBossCon.ownedPotions[10] = ownedPotions[10];
-                forestBossCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(10);
-                broken = true;
-                break;
-            }
-            //CaveBoss
-            else if (caveBossCon.fightWon){
-                System.out.println("forestBoss fight won");
-
-                caveBossCon.fightWon = false;
-
-                caveBossCon.ownedPotions[0] = ownedPotions[0];
-                caveBossCon.ownedPotions[1] = ownedPotions[1];
-                caveBossCon.ownedPotions[2] = ownedPotions[2];
-
-                caveBossCon.ownedPotions[3] = ownedPotions[3];
-                caveBossCon.ownedPotions[4] = ownedPotions[4];
-                caveBossCon.ownedPotions[5] = ownedPotions[5];
-
-                caveBossCon.ownedPotions[6] = ownedPotions[6];
-                caveBossCon.ownedPotions[7] = ownedPotions[7];
-                caveBossCon.ownedPotions[8] = ownedPotions[8];
-
-                caveBossCon.ownedPotions[9] = ownedPotions[9];
-                caveBossCon.ownedPotions[10] = ownedPotions[10];
-                caveBossCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(20);
-                broken = true;
-                break;
-            }
-            //FieldBoss
-            else if (fieldBossCon.fightWon){
-                System.out.println("forestBoss fight won");
-
-                fieldBossCon.fightWon = false;
-
-                fieldBossCon.ownedPotions[0] = ownedPotions[0];
-                fieldBossCon.ownedPotions[1] = ownedPotions[1];
-                fieldBossCon.ownedPotions[2] = ownedPotions[2];
-
-                fieldBossCon.ownedPotions[3] = ownedPotions[3];
-                fieldBossCon.ownedPotions[4] = ownedPotions[4];
-                fieldBossCon.ownedPotions[5] = ownedPotions[5];
-
-                fieldBossCon.ownedPotions[6] = ownedPotions[6];
-                fieldBossCon.ownedPotions[7] = ownedPotions[7];
-                fieldBossCon.ownedPotions[8] = ownedPotions[8];
-
-                fieldBossCon.ownedPotions[9] = ownedPotions[9];
-                fieldBossCon.ownedPotions[10] = ownedPotions[10];
-                fieldBossCon.ownedPotions[11] = ownedPotions[11];
-
-                startLootController(30);
-                broken = true;
-                break;
-            }
             //Fights lost
-            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||caveBossCon.fightLost||fieldCon.fightLost||fieldBossCon.fightLost||swampcon.fightLost||castleCon.fightLost) {
-                System.out.println("fightLost loop 1");
+            else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||caveBossCon.fightLost||fieldCon.fightLost||fieldBossCon.fightLost||swampcon.fightLost||swampbosscon.fightLost||castleCon.fightLost||castleBossCon.fightLost) {
+                System.out.println("fightLost loop 2");
                 broken = true;
-                loseController.startLoseScreen(currentXp, userName);
+                startLoseScreen();
                 break;
             }
             //Loot, tutorial, shop, levelUp,
@@ -1372,7 +1228,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update warriors weapon to rareWarriorWeapon
      */
     //The following methods equip new weapons or armors to party members.
     private void warriorRareWeapon() {
@@ -1381,7 +1237,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update warriors weapon to epicWarriorWeapon
      */
     private void warriorEpicWeapon() {
         currentWarriorWeaponName = warriorEpicWeaponName;
@@ -1389,7 +1245,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update warriors weapon to epicWarriorWeapon
      */
     private void warriorLegendaryWeapon() {
         currentWarriorWeaponName = warriorLegendaryWeaponName;
@@ -1397,7 +1253,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update warriors armor to rareWarriorArmor
      */
     private void warriorRareArmor() {
         currentWarriorArmorName = warriorRareArmorName;
@@ -1405,7 +1261,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update warriors armor to epicWarriorArmor
      */
     private void warriorEpicArmor() {
         currentWarriorArmorName = warriorEpicArmorName;
@@ -1413,7 +1269,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update warriors armor to legendaryWarriorArmor
      */
     private void warriorLegendaryArmor() {
         currentWarriorArmorName = warriorLegendaryArmorName;
@@ -1421,7 +1277,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update rangers weapon to rareRangerWeapon
      */
     private void rangerRareWeapon() {
         currentRangerWeaponName = rangerRareWeaponName;
@@ -1429,7 +1285,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update rangers weapon to epicRangerWeapon
      */
     private void rangerEpicWeapon() {
         currentRangerWeaponName = rangerEpicWeaponName;
@@ -1437,7 +1293,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update rangers weapon to legendaryRangerWeapon
      */
     private void rangerLegendaryWeapon() {
         currentRangerWeaponName = rangerLegendaryWeaponName;
@@ -1445,7 +1301,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update rangers armor to rareRangerArmor
      */
     private void rangerRareArmor() {
         currentRangerArmorName = rangerRareArmorName;
@@ -1453,7 +1309,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update rangers armor to epicRangerArmor
      */
     private void rangerEpicArmor() {
         currentRangerArmorName = rangerEpicArmorName;
@@ -1461,7 +1317,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update rangers armor to legendaryRangerArmor
      */
     private void rangerLegendaryArmor() {
         currentRangerArmorName = rangerLegendaryArmorName;
@@ -1469,7 +1325,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update mage's weapon to rareMageWeapon
      */
     private void mageRareWeapon() {
         currentMageWeaponName = mageRareWeaponName;
@@ -1477,7 +1333,8 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update mage's weapon to epicMageWeapon
+
      */
     private void mageEpicWeapon() {
         currentMageWeaponName = mageEpicWeaponName;
@@ -1485,7 +1342,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update mage's weapon to LegendaryMageWeapon
      */
     private void mageLegendaryWeapon() {
         currentMageWeaponName = mageLegendaryWeaponName;
@@ -1493,7 +1350,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update mage's armor to rareMageArmor
      */
     private void mageRareArmor() {
         currentMageArmorName = mageRareArmorName;
@@ -1503,7 +1360,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update mage's armor to epicMageArmor
      */
     private void mageEpicArmor() {
         currentMageArmorName = mageEpicArmorName;
@@ -1512,7 +1369,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update mage's armor to legendaryMageArmor
      */
     private void mageLegendaryArmor() {
         currentMageArmorName = mageLegendaryArmorName;
@@ -1521,7 +1378,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update healers weapon to rareHealerWeapon
      */
     private void healerRareWeapon() {
         currentHealerWeaponName = healerRareWeaponName;
@@ -1529,7 +1386,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update healers weapon to epicHealerWeapon
      */
     private void healerEpicWeapon() {
         currentHealerWeaponName = healerEpicWeaponName;
@@ -1537,7 +1394,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update healers weapon to legendaryHealerWeapon
      */
     private void healerLegendaryWeapon() {
         currentHealerWeaponName = healerLegendaryWeaponName;
@@ -1545,7 +1402,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update healers armor to rareHealerArmor
      */
     //All healer armors
     private void healerRareArmor() {
@@ -1555,7 +1412,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update healers armor to epicHealerArmor
      */
     private void healerEpicArmor() {
         currentHealerArmorName = healerEpicArmorName;
@@ -1564,7 +1421,7 @@ public class MasterModel {
     }
 
     /**
-     *
+     * Update healers armor to legendaryHealerArmor
      */
     private void healerLegendaryArmor() {
         currentHealerArmorName = healerLegendaryArmorName;

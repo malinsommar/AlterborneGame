@@ -1,7 +1,10 @@
 package game;
 
 /**
+ * This method contains all methods needed to start shopFrame.
+ *
  * @author Malin Sommar
+ * @version 1
  */
 public class ShopController {
 
@@ -14,23 +17,11 @@ public class ShopController {
     boolean itemBought = false;
 
     /**
+     * Opens shopView and set actionListeners.
      *
-     * @param getGold
-     * @param armorNames
-     * @param weaponNames
-     * @param weaponDamage
-     * @param currentArmorDamage
-     * @param armorBlock
-     * @param rareWeaponArmorNames
-     * @param epicWeaponArmorNames
-     * @param legendaryWeaponArmorNames
-     * @param rareWeaponArmorDamageBlock
-     * @param epicWeaponArmorDamageBlock
-     * @param legendaryWeaponArmorDamageBlock
-     * @param armorDamage
-     * @throws InterruptedException
+     * @param getGold Current gold
      */
-    public void startShopView(int getGold, String[] armorNames, String[] weaponNames, int[] weaponDamage, int[] currentArmorDamage, int[] armorBlock, String[] rareWeaponArmorNames, String[] epicWeaponArmorNames, String[] legendaryWeaponArmorNames, int[] rareWeaponArmorDamageBlock, int[] epicWeaponArmorDamageBlock, int[] legendaryWeaponArmorDamageBlock, int[] armorDamage) throws InterruptedException {
+    public void startShopView(int getGold){
 
         currentGold = getGold;
 
@@ -87,8 +78,9 @@ public class ShopController {
     }
 
     /**
+     *This method checks if the player has enough money to buy the clicked item. If so, declare what item is bought.
      *
-     * @param whatEquipment
+     * @param whatEquipment What item player presses
      */
     public void buyEquipment(int whatEquipment){
 
@@ -269,6 +261,11 @@ public class ShopController {
 
     }
 
+    /**
+     *This method checks if the player has enough money to buy the clicked potion. If so, declare what potion is bought.
+     *
+     * @param whatPotion Clicked potion/ potion that player want to buy
+     */
     public void buyPotion(int whatPotion){
 
         if (whatPotion==1 && currentGold>9){
@@ -361,7 +358,7 @@ public class ShopController {
     }
 
     /**
-     *
+     *This method adds all the MouseListeners to the buttons.
      */
     private void hoverEffect() {
 
