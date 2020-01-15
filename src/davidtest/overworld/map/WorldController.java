@@ -38,9 +38,8 @@ public class WorldController extends Canvas implements Runnable {
 
     private boolean running = false; //if program ends up outside start, set programs running state
 
-
+    //initiate colours
     private void init() {
-        System.out.println("init start");
         int index = 0;
         //red
         for (int r = 0; r < 6; r++) {
@@ -58,7 +57,7 @@ public class WorldController extends Canvas implements Runnable {
             }
         }
     }
-
+    //run game
     public void run() {
         MusicPick.musicStart("intofreeshort", "music"); //implement music
         long lastTime = System.nanoTime(); //the current value of nanoseconds
