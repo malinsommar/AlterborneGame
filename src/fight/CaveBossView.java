@@ -31,7 +31,7 @@ public class CaveBossView {
         public JLabel inventoryHealth, inventoryBlock, inventoryEnergy, inventoryStr ,potion1Label,potion2Label,potion3Label,potion4Label,potion5Label,potion6Label,potion7Label,potion8Label,potion9Label,potion10Label,potion11Label,potion12Label;
         public JLabel whosTurn, energy, block;
         public JLabel caveBoss, caveBossflip;
-        public JLabel caveBossHp, goblin2Hp, goblin3Hp, goblin4Hp;
+        public JLabel caveBossHp;
         public JLabel warrior, mage, healer, ranger;
         public JLabel playersHp, player1Hp, player2Hp, player3Hp, player4Hp;
 
