@@ -623,15 +623,15 @@ public class SwampController {
             sv.potion11Label = new JLabel("" + ownedPotions[10]);
             sv.potion12Label = new JLabel("" + ownedPotions[11]);
 
-            sv.trunk1Hp = new JLabel("trunk 1: " + trunkHp[0]);
-            sv.trunk2Hp = new JLabel("trunk 2: " + trunkHp[1]);
-            sv.trunk3Hp = new JLabel("trunk 3: " + trunkHp[2]);
-            sv.trunk4Hp = new JLabel("trunk 4: " + trunkHp[3]);
+            sv.trunk1Hp = new JLabel("Trunk 1: " + trunkHp[0]);
+            sv.trunk2Hp = new JLabel("Trunk 2: " + trunkHp[1]);
+            sv.trunk3Hp = new JLabel("Trunk 3: " + trunkHp[2]);
+            sv.trunk4Hp = new JLabel("Trunk 4: " + trunkHp[3]);
 
             sv.playersHp = new JLabel("Hp: " + warriorCurrentHp);
             sv.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
-            sv.player2Hp = new JLabel("Mage:    " + mageCurrentHp);
-            sv.player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+            sv.player3Hp = new JLabel("Mage:    " + mageCurrentHp);
+            sv.player2Hp = new JLabel("Ranger:  " + rangerCurrentHp);
             sv.player4Hp = new JLabel("Healer:  " + healerCurrentHp);
             sv.block = new JLabel("Block: " + warriorBlock);
         }
@@ -673,7 +673,7 @@ public class SwampController {
                         mageattacked = true;
                         enemyDamage = enemyDamage - mageBlock;
                         mageCurrentHp = mageCurrentHp - enemyDamage;
-                        sv.player2Hp.setText("Mage:    " + mageCurrentHp);
+                        sv.player3Hp.setText("Mage:    " + mageCurrentHp);
                         break;
                     }
                 }
@@ -694,7 +694,7 @@ public class SwampController {
                         rangerattacked = true;
                         enemyDamage = enemyDamage - rangerBlock;
                         rangerCurrentHp = rangerCurrentHp - enemyDamage;
-                        sv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+                        sv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
                         unstealth();
                         break;
                     }
@@ -721,28 +721,28 @@ public class SwampController {
         private void mobDeath() {
 
             if (trunkHp[0] <= 0) {
-                sv.trunk1Hp.setText("trunk 1: 0");
+                sv.trunk1Hp.setText("Trunk 1: 0");
                 sv.trunk1.setVisible(false);
                 if (target == 1) {
                     sv.targetarrow.setVisible(false);
                 }
             }
             if (trunkHp[1] <= 0) {
-                sv.trunk2Hp.setText("trunk 2: 0");
+                sv.trunk2Hp.setText("Trunk 2: 0");
                 sv.trunk2.setVisible(false);
                 if (target == 2) {
                     sv.targetarrow.setVisible(false);
                 }
             }
             if (trunkHp[2] <= 0) {
-                sv.trunk3Hp.setText("trunk 3: 0");
+                sv.trunk3Hp.setText("Trunk 3: 0");
                 sv.trunk3.setVisible(false);
                 if (target == 3) {
                     sv.targetarrow.setVisible(false);
                 }
             }
             if (trunkHp[3] <= 0) {
-                sv.trunk4Hp.setText("trunk 4: 0");
+                sv.trunk4Hp.setText("Trunk 4: 0");
                 sv.trunk4.setVisible(false);
                 if (target == 4) {
                     sv.targetarrow.setVisible(false);
@@ -760,12 +760,12 @@ public class SwampController {
             }
             if (mageCurrentHp <= 0) {
                 mageCurrentHp = 0;
-                sv.player2Hp.setText("Mage:    " + mageCurrentHp);
+                sv.player3Hp.setText("Mage:    " + mageCurrentHp);
                 sv.mage.setVisible(false);
             }
             if (rangerCurrentHp <= 0) {
                 rangerCurrentHp = 0;
-                sv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+                sv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
                 sv.ranger.setVisible(false);
             }
             if (healerCurrentHp <= 0) {
@@ -1291,10 +1291,10 @@ public class SwampController {
                 trunkHp[2] -= damage;
                 trunkHp[3] -= damage;
             }
-            sv.trunk1Hp.setText("trunk 1: " + trunkHp[0]);
-            sv.trunk2Hp.setText("trunk 2: " + trunkHp[1]);
-            sv.trunk3Hp.setText("trunk 3: " + trunkHp[2]);
-            sv.trunk4Hp.setText("trunk 4: " + trunkHp[3]);
+            sv.trunk1Hp.setText("Trunk 1: " + trunkHp[0]);
+            sv.trunk2Hp.setText("Trunk 2: " + trunkHp[1]);
+            sv.trunk3Hp.setText("Trunk 3: " + trunkHp[2]);
+            sv.trunk4Hp.setText("Trunk 4: " + trunkHp[3]);
             mobDeath();
             isFightOver();
         }

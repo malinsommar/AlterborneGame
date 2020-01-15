@@ -916,7 +916,7 @@ public class CaveBossController {
                     if (ownedPotions[0] > 0) {
                         rangerCurrentHp += 10;
                         CBV.playersHp.setText("Hp: " + rangerCurrentHp);
-                        CBV.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                        CBV.player3Hp.setText("Ranger: " + rangerCurrentHp);
                         ownedPotions[0] -= 1;
                         CBV.potion1Label.setText("" + ownedPotions[0]);
                     }
@@ -924,7 +924,7 @@ public class CaveBossController {
                     if (ownedPotions[1] > 0) {
                         rangerCurrentHp += 30;
                         CBV.playersHp.setText("Hp: " + rangerCurrentHp);
-                        CBV.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                        CBV.player3Hp.setText("Ranger: " + rangerCurrentHp);
                         ownedPotions[1] -= 1;
                         CBV.potion2Label.setText("" + ownedPotions[1]);
                     }
@@ -932,7 +932,7 @@ public class CaveBossController {
                     if (ownedPotions[2] > 0) {
                         rangerCurrentHp += 60;
                         CBV.playersHp.setText("Hp: " + rangerCurrentHp);
-                        CBV.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                        CBV.player3Hp.setText("Ranger: " + rangerCurrentHp);
                         ownedPotions[2] -= 1;
                         CBV.potion3Label.setText("" + ownedPotions[2]);
                     }
@@ -1005,7 +1005,7 @@ public class CaveBossController {
                     if (ownedPotions[0] > 0) {
                         mageCurrentHp += 10;
                         CBV.playersHp.setText("Hp: " + mageCurrentHp);
-                        CBV.player3Hp.setText("Mage: " + mageCurrentHp);
+                        CBV. player2Hp.setText("Mage: " + mageCurrentHp);
                         ownedPotions[0] -= 1;
                         CBV.potion1Label.setText("" + ownedPotions[0]);
                     }
@@ -1013,7 +1013,7 @@ public class CaveBossController {
                     if (ownedPotions[1] > 0) {
                         mageCurrentHp += 30;
                         CBV.playersHp.setText("Hp: " + mageCurrentHp);
-                        CBV.player3Hp.setText("Mage: " + mageCurrentHp);
+                        CBV. player2Hp.setText("Mage: " + mageCurrentHp);
                         ownedPotions[1] -= 1;
                         CBV.potion2Label.setText("" + ownedPotions[1]);
                     }
@@ -1021,7 +1021,7 @@ public class CaveBossController {
                     if (ownedPotions[2] > 0) {
                         rangerCurrentHp += 60;
                         CBV.playersHp.setText("Hp: " + mageCurrentHp);
-                        CBV.player3Hp.setText("Mage: " + mageCurrentHp);
+                        CBV. player2Hp.setText("Mage: " + mageCurrentHp);
                         CBV.potion3Label.setText("" + ownedPotions[2]);
                         ownedPotions[2] -= 1;
                     }
@@ -1286,8 +1286,8 @@ public class CaveBossController {
             if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
             if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
             CBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
-            CBV.player2Hp.setText("Ranger:  " + rangerCurrentHp);
-            CBV.player3Hp.setText("Mage:    " + mageCurrentHp);
+            CBV.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+            CBV. player2Hp.setText("Mage:    " + mageCurrentHp);
             CBV.player4Hp.setText("Healer:  " + healerCurrentHp);
         }
 

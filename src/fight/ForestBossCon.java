@@ -632,8 +632,8 @@ public class ForestBossCon {
 
         FBV.playersHp = new JLabel("Hp: " + warriorCurrentHp);
         FBV.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
-        FBV.player2Hp = new JLabel("Mage:    " + mageCurrentHp);
-        FBV.player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        FBV.player3Hp = new JLabel("Mage:    " + mageCurrentHp);
+        FBV.player2Hp = new JLabel("Ranger:  " + rangerCurrentHp);
         FBV.player4Hp = new JLabel("Healer:  " + healerCurrentHp);
         FBV.block = new JLabel("Block: " + warriorBlock);
     }
@@ -696,8 +696,8 @@ public class ForestBossCon {
             }
         }
             FBV.player1Hp.setText("Warrior: " + warriorCurrentHp);
-            FBV.player2Hp.setText("Mage:    " + mageCurrentHp);
-            FBV.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+            FBV.player3Hp.setText("Mage:    " + mageCurrentHp);
+            FBV.player2Hp.setText("Ranger:  " + rangerCurrentHp);
             FBV.player4Hp.setText("Healer:  " + healerCurrentHp);
             partyDeath();
             isFightOver();
@@ -729,12 +729,12 @@ public class ForestBossCon {
         }
         if (mageCurrentHp <= 0) {
             mageCurrentHp = 0;
-            FBV.player2Hp.setText("Mage:    " + mageCurrentHp);
+            FBV.player3Hp.setText("Mage:    " + mageCurrentHp);
             FBV.mage.setVisible(false);
         }
         if (rangerCurrentHp <= 0) {
             rangerCurrentHp = 0;
-            FBV.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+            FBV.player2Hp.setText("Ranger:  " + rangerCurrentHp);
             FBV.ranger.setVisible(false);
         }
         if (healerCurrentHp <= 0) {
