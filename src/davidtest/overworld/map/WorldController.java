@@ -13,7 +13,7 @@ public class WorldController extends Canvas implements Runnable {
     private WorldView owf = new WorldView();
     public  int[] Entrance = new int[1];
 
-    public void startWorldController(String userName) throws InterruptedException {
+    public void startWorldController(String userName) {
         owf.startWorldView(userName);
         start();//start the program
         new MouseClickSimulated();
@@ -37,7 +37,6 @@ public class WorldController extends Canvas implements Runnable {
     }
 
     private boolean running = false; //if program ends up outside start, set programs running state
-    private int tickCount = 0;
 
 
     private void init() {
@@ -122,7 +121,7 @@ public class WorldController extends Canvas implements Runnable {
             // - thread resume
         }
 
-        private void render () //prints out what the logic in the tick-function has stated should be printed out
+        private void render() //prints out what the logic in the tick-function has stated should be printed out
         {
             BufferStrategy bs = owf.getBufferStrategy(); //an Object to organize the data in the canvas
             //if a bufferStrategy hasn't been created: make one
@@ -183,8 +182,8 @@ public class WorldController extends Canvas implements Runnable {
             }
         }
 
-    public synchronized void EnterMountain() {
-        if (owf.player.hasEnteredMountain()) {
+    public synchronized void EnterCave() {
+        if (owf.player.hasEnteredCave()) {
             Entrance[0] = 3;
         }
     }
@@ -210,8 +209,8 @@ public class WorldController extends Canvas implements Runnable {
             Entrance[0] = 7;
         }
     }
-    private void EnterCave() {
-        if(owf.player.hasEnteredCave()) {
+    private void EnterMountain() {
+        if(owf.player.hasEnteredMountain()) {
             Entrance[0] = 8;
         }
     }

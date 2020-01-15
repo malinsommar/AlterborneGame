@@ -31,7 +31,7 @@ public class ForestFightFrame {
     public JLabel wolf1, wolf2, wolf3, wolf4;
     public JLabel wolf1Hp, wolf2Hp, wolf3Hp, wolf4Hp;
     public JLabel warrior, mage, healer, ranger;
-    public JLabel playersHp, player1Hp, player2Hp, player3Hp, player4Hp;
+    public JLabel playerStr, player1Hp, player2Hp, player3Hp, player4Hp;
 
     public JLabel arrow = new JLabel(new ImageIcon("arrow.png"));
     public JLabel volley1 = new JLabel(new ImageIcon("arrow.png"));
@@ -101,7 +101,7 @@ public class ForestFightFrame {
         forestFightJFrame.add(skillButton);
         forestFightJFrame.add(endTurnButton);
 
-        forestFightJFrame.add(playersHp);
+        forestFightJFrame.add(playerStr);
         forestFightJFrame.add(wolf1Hp);
         forestFightJFrame.add(wolf2Hp);
         forestFightJFrame.add(wolf3Hp);
@@ -595,56 +595,56 @@ public class ForestFightFrame {
      */
     //Set al "stats" for labels.
     private void importLabels(){
-        playersHp.setFont(pixelMplus.deriveFont(30f));
-        playersHp.setForeground(Color.black);
-        Dimension playersHpSize = playersHp.getPreferredSize();
-        playersHp.setBounds(30, 600, playersHpSize.width+50, playersHpSize.height);
+        playerStr.setFont(pixelMplus.deriveFont(30f));
+        playerStr.setForeground(Color.black);
+        Dimension playersHpSize = playerStr.getPreferredSize();
+        playerStr.setBounds(30, 600, playersHpSize.width+50, playersHpSize.height);
 
         wolf1Hp.setFont(pixelMplus.deriveFont(30f));
         wolf1Hp.setForeground(Color.black);
         Dimension wolf1HpSize = wolf1Hp.getPreferredSize();
-        wolf1Hp.setBounds(660, 560, wolf1HpSize.width+50, wolf1HpSize.height);
+        wolf1Hp.setBounds(680, 560, wolf1HpSize.width+50, wolf1HpSize.height);
 
         wolf2Hp.setFont(pixelMplus.deriveFont(30f));
         wolf2Hp.setForeground(Color.black);
         Dimension wolf2HpSize = wolf2Hp.getPreferredSize();
-        wolf2Hp.setBounds(660, 595, wolf2HpSize.width+50, wolf2HpSize.height);
+        wolf2Hp.setBounds(680, 595, wolf2HpSize.width+50, wolf2HpSize.height);
 
         wolf3Hp.setFont(pixelMplus.deriveFont(30f));
         wolf3Hp.setForeground(Color.black);
         Dimension wolf3HpSize = wolf3Hp.getPreferredSize();
-        wolf3Hp.setBounds(660, 630, wolf3HpSize.width+50, wolf3HpSize.height);
+        wolf3Hp.setBounds(680, 630, wolf3HpSize.width+50, wolf3HpSize.height);
 
         wolf4Hp.setFont(pixelMplus.deriveFont(30f));
         wolf4Hp.setForeground(Color.black);
         Dimension wolf4HpSize = wolf4Hp.getPreferredSize();
-        wolf4Hp.setBounds(660, 665, wolf4HpSize.width+50, wolf4HpSize.height);
+        wolf4Hp.setBounds(680, 665, wolf4HpSize.width+50, wolf4HpSize.height);
 
         player1Hp.setFont(pixelMplus.deriveFont(30f));
         player1Hp.setForeground(Color.black);
         Dimension player1HpSize = player1Hp.getPreferredSize();
-        player1Hp.setBounds(430, 560, player1HpSize.width+50, player1HpSize.height);
+        player1Hp.setBounds(370, 560, player1HpSize.width+50, player1HpSize.height);
 
         player2Hp.setFont(pixelMplus.deriveFont(30f));
         player2Hp.setForeground(Color.black);
         Dimension player2HpSize = player1Hp.getPreferredSize();
-        player2Hp.setBounds(430, 595, player2HpSize.width+50, player2HpSize.height);
+        player2Hp.setBounds(370, 595, player2HpSize.width+50, player2HpSize.height);
 
         player3Hp.setFont(pixelMplus.deriveFont(30f));
         player3Hp.setForeground(Color.black);
         Dimension player3HpSize = player3Hp.getPreferredSize();
-        player3Hp.setBounds(430, 630, player3HpSize.width+50, player3HpSize.height);
+        player3Hp.setBounds(370, 630, player3HpSize.width+50, player3HpSize.height);
 
         player4Hp.setFont(pixelMplus.deriveFont(30f));
         player4Hp.setForeground(Color.black);
         Dimension player4HpSize = player4Hp.getPreferredSize();
-        player4Hp.setBounds(430, 665, player4HpSize.width+50, player4HpSize.height);
+        player4Hp.setBounds(370, 665, player4HpSize.width+50, player4HpSize.height);
 
         energy = new JLabel("Energy: 5");
         energy.setFont(pixelMplus.deriveFont(30f));
         energy.setForeground(Color.black);
         Dimension energySize = energy.getPreferredSize();
-        energy.setBounds(30, 640, energySize.width+50, energySize.height);
+        energy.setBounds(30, 638, energySize.width+50, energySize.height);
 
         block.setFont(pixelMplus.deriveFont(30f));
         block.setForeground(Color.black);

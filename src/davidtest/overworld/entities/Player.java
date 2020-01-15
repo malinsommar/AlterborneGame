@@ -27,7 +27,7 @@ public class Player extends Mob {
     private boolean EnterShop = false;  // if player is on tile to enter Shop (is not used)
     private boolean isOnWaterPath = false; //if player is on tile to enter Water-combat
     private boolean isOnCavePath = false; //if player is on tile to enter Cave-combat
-    private boolean isBumpingIntoNpc = false;
+    //private boolean isBumpingIntoNpc = false;
 
 
 
@@ -262,7 +262,7 @@ public class Player extends Mob {
     public boolean hasEnteredCave() {
         return  isOnCavePath;
     }
-    public boolean hasBumpedIntoNPC() {
+    /*public boolean hasBumpedIntoNPC() {
         return isBumpingIntoNpc;
-    }
+    }*/
 }

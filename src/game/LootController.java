@@ -592,7 +592,7 @@ public class LootController {
         }
         //Boss fights
         else if(fight==10 || fight==20 || fight==30 || fight == 40 || fight == 50||fight == 100){
-            int xpUp = (int)(Math.random()*200)+200;
+            int xpUp = (int)(Math.random()*100)+100;
             if (fight==20){
                 xpUp += 50;
             }

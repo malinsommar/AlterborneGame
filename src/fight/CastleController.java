@@ -5,15 +5,10 @@ import game.MusicPick;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.EventListener;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addKeyListener;
 
 public class CastleController{
 
-
     CastleView cv = new CastleView();
-
 
     //Get hp, block and damage from OldClasses.party
     private int warriorCurrentHp, mageCurrentHp, healerCurrentHp, rangerCurrentHp;
@@ -22,7 +17,7 @@ public class CastleController{
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
     private boolean debuffed = false;
-    private int enemyDamage, enemyRandomDamage = 20, enemyBaseDamage = 25;
+    private int enemyDamage, enemyRandomDamage = 30, enemyBaseDamage = 40;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -634,8 +629,8 @@ public class CastleController{
 
         cv.playersHp = new JLabel("Hp: " + warriorCurrentHp);
         cv.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
-        cv.player2Hp = new JLabel("Mage:    " + mageCurrentHp);
-        cv.player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        cv.player2Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        cv.player3Hp = new JLabel("Mage:    " + mageCurrentHp);
         cv.player4Hp = new JLabel("Healer:  " + healerCurrentHp);
         cv.block = new JLabel("Block: " + warriorBlock);
     }
@@ -677,7 +672,7 @@ public class CastleController{
                     mageattacked = true;
                     enemyDamage = enemyDamage - mageBlock;
                     mageCurrentHp = mageCurrentHp - enemyDamage;
-                    cv.player2Hp.setText("Mage:    " + mageCurrentHp);
+                    cv.player3Hp.setText("Mage:    " + mageCurrentHp);
                     break;
                 }
             }
@@ -695,7 +690,7 @@ public class CastleController{
                     rangerattacked = true;
                     enemyDamage = enemyDamage - rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - enemyDamage;
-                    cv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+                    cv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
                     unstealth();
                     break;
                 }
@@ -761,12 +756,12 @@ public class CastleController{
         }
         if (mageCurrentHp <= 0) {
             mageCurrentHp = 0;
-            cv.player2Hp.setText("Mage:    " + mageCurrentHp);
+            cv.player3Hp.setText("Mage:    " + mageCurrentHp);
             cv.mage.setVisible(false);
         }
         if (rangerCurrentHp <= 0) {
             rangerCurrentHp = 0;
-            cv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+            cv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
             cv.ranger.setVisible(false);
         }
         if (healerCurrentHp <= 0) {

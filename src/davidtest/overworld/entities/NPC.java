@@ -10,7 +10,6 @@ public class NPC extends Mob {
 
     private int colour = Colours.get(-1, 121, 555, 332); //Assign colour for character which will be calculated within the Colours-class
 
-    private String username; //username
 
     public NPC(Level level1, String name, int x, int y, int speed) {
         super(level1, name, x, y, speed);
@@ -84,8 +83,8 @@ public class NPC extends Mob {
         //assign scale to character
         int scale = 1;
         int modifier = 7 * scale;
-        int xOffset = x - modifier / 2;
-        int yOffset = y - modifier / 2 - 4;
+        int xOffset = x - modifier / 2; //x-axis positioning
+        int yOffset = y - modifier / 2 - 4; //y-axis positioning
 
         //set the render-effect of swimming
         //assign the isSwimming value as natively false
@@ -122,9 +121,6 @@ public class NPC extends Mob {
         if (!isSwimming && !isSwampSwimming) {
             screen.render(xOffset + (modifier * flipBottom), yOffset + modifier, xTile + (yTile + 1) * 32, colour, flipBottom, scale);
             screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + modifier, (xTile + 1) + (yTile + 1) * 32, colour, flipBottom, scale);
-        }
-        if (username != null) {
-            Fonts.render(username, screen, xOffset - ((username.length() - 1) / 2 * 8), yOffset - 10, Colours.get(-1, -1, 1, 555), 1);
         }
     }
 }

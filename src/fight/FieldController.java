@@ -19,7 +19,7 @@ public class FieldController{
     private int warriorBlock, mageBlock, healerBlock, rangerBlock;
     private int buffDamage[] = new int[4];
     private boolean debuffed = false;
-    private int enemyDamage, enemyRandomDamage = 15, enemyBaseDamage = 20;
+    private int enemyDamage, enemyRandomDamage = 25, enemyBaseDamage = 30;
 
     private int warriorStartDamage, mageStartDamage, healerStartDamage, rangerStartDamage;
     private int warriorStartBlock, mageStartBlock, healerStartBlock, rangerStartBlock;
@@ -631,8 +631,8 @@ public class FieldController{
 
         fv.playersHp = new JLabel("Hp: " + warriorCurrentHp);
         fv.player1Hp = new JLabel("Warrior: " + warriorCurrentHp);
-        fv.player2Hp = new JLabel("Mage:    " + mageCurrentHp);
-        fv.player3Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        fv.player2Hp = new JLabel("Ranger:  " + rangerCurrentHp);
+        fv.player3Hp = new JLabel("Mage:    " + mageCurrentHp);
         fv.player4Hp = new JLabel("Healer:  " + healerCurrentHp);
         fv.block = new JLabel("Block: " + warriorBlock);
     }
@@ -674,7 +674,7 @@ public class FieldController{
                     mageattacked = true;
                     enemyDamage = enemyDamage - mageBlock;
                     mageCurrentHp = mageCurrentHp - enemyDamage;
-                    fv.player2Hp.setText("Mage:    " + mageCurrentHp);
+                    fv.player3Hp = new JLabel("Mage:    " + mageCurrentHp);
                     break;
                 }
             }
@@ -695,7 +695,7 @@ public class FieldController{
                     rangerattacked = true;
                     enemyDamage = enemyDamage - rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - enemyDamage;
-                    fv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+                    fv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
                     unstealth();
                     break;
                 }
@@ -761,12 +761,12 @@ public class FieldController{
         }
         if (mageCurrentHp <= 0) {
             mageCurrentHp = 0;
-            fv.player2Hp.setText("Mage:    " + mageCurrentHp);
+            fv.player2Hp.setText("Ranger:  " + rangerCurrentHp);
             fv.mage.setVisible(false);
         }
         if (rangerCurrentHp <= 0) {
             rangerCurrentHp = 0;
-            fv.player3Hp.setText("Ranger:  " + rangerCurrentHp);
+            fv.player3Hp.setText("Mage:    " + mageCurrentHp);
             fv.ranger.setVisible(false);
         }
         if (healerCurrentHp <= 0) {
@@ -1300,7 +1300,6 @@ public class FieldController{
         isFightOver();
     }
 
-    //fixa denna
     public void spellHealSystem(int healing, String healingTargets) {
         if (healingTargets.equals("single")) {
             if (healTarget == 1) warriorCurrentHp += healing;

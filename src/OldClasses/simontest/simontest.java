@@ -1,4 +1,4 @@
-package simontest;
+package OldClasses.simontest;
 
 import game.*;
 
