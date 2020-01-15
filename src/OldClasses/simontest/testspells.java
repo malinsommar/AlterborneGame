@@ -1,5 +1,4 @@
-package simontest;
-import OldClasses.party.Warrior;
+package OldClasses.simontest;
 
 public class testspells {}
 /*

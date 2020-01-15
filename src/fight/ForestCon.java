@@ -85,6 +85,7 @@ public class ForestCon {
     private boolean stealthed = false;
 
     int[] wolfHp = new int[4];
+    int wolfMaxHp = 25;
 
     public boolean fightWon = false;
     public boolean fightLost = false;
@@ -105,10 +106,10 @@ public class ForestCon {
         mageEnergyInt = 0;
         healerEnergyInt = 0;
 
-        wolfHp[0] = 20;
-        wolfHp[1] = 20;
-        wolfHp[2] = 20;
-        wolfHp[3] = 20;
+        wolfHp[0] = 25;
+        wolfHp[1] = 25;
+        wolfHp[2] = 25;
+        wolfHp[3] = 25;
 
         setStartLabels();
         fff.forestFightFrame();
@@ -180,7 +181,7 @@ public class ForestCon {
             }
             //Update labels.
             fff.whosTurn.setText("Warrior's turn");
-            fff.playersHp.setText("Hp: "+warriorCurrentHp);
+            fff.playerStr.setText("Strength: "+(warriorDamage+buffDamage[0]));
             fff.energy.setText("Energy: "+warriorEnergyInt);
             fff.block.setText("Block: "+warriorBlock);
         }
@@ -199,7 +200,7 @@ public class ForestCon {
                 rangerEnergyInt=10;
             }
             fff.whosTurn.setText("Ranger's turn");
-            fff.playersHp.setText("Hp: "+rangerCurrentHp);
+            fff.playerStr.setText("Strength: "+(rangerDamage+buffDamage[1]));
             fff.energy.setText("Energy: "+rangerEnergyInt);
             fff.block.setText("Block: "+rangerBlock);
         }
@@ -218,7 +219,7 @@ public class ForestCon {
                 mageEnergyInt=10;
             }
             fff.whosTurn.setText("Mage's turn");
-            fff.playersHp.setText("Hp: "+mageCurrentHp);
+            fff.playerStr.setText("Strength: "+(mageDamage+buffDamage[2]));
             fff.energy.setText("Energy: "+mageEnergyInt);
             fff.block.setText("Block: "+mageBlock);
         }
@@ -237,7 +238,7 @@ public class ForestCon {
                 healerEnergyInt=10;
             }
             fff.whosTurn.setText("Healer's turn");
-            fff.playersHp.setText("Hp: "+healerCurrentHp);
+            fff.playerStr.setText("Strength: "+(healerDamage+buffDamage[3]));
             fff.energy.setText("Energy: "+healerEnergyInt);
             fff.block.setText("Block: "+healerBlock);
 
@@ -249,7 +250,7 @@ public class ForestCon {
         //  ***ENEMIES TURN***
         if (turns==5){
             fff.whosTurn.setText(" ");
-            fff.playersHp.setText(" ");
+            fff.playerStr.setText(" ");
             fff.energy.setText(" ");
             fff.block.setText(" ");
             enemyTurnTimer.start();
@@ -550,7 +551,7 @@ public class ForestCon {
                 if (warriorCurrentHp >0) {
                     enemyDamage=enemyDamage-warriorBlock; //Warrior take damage equal to wolf damage.
                     warriorCurrentHp = warriorCurrentHp - enemyDamage; //Update warrior hp.
-                    fff.player1Hp.setText("Warrior: "+warriorCurrentHp); //Update hp Label.
+                    fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp); //Update hp Label.
                     warriorattacked = true;
                     break;
                 }
@@ -565,7 +566,7 @@ public class ForestCon {
                 if (mageCurrentHp >0) {
                     enemyDamage=enemyDamage-mageBlock;
                     mageCurrentHp = mageCurrentHp - enemyDamage;
-                    fff.player3Hp.setText("Mage:    "+mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     mageattacked = true;
                     break;
                 }
@@ -586,7 +587,7 @@ public class ForestCon {
                 else {
                     enemyDamage=enemyDamage-rangerBlock;
                     rangerCurrentHp = rangerCurrentHp - enemyDamage;
-                    fff.player2Hp.setText("Ranger:  "+rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     rangerattacked = true;
                     unstealth();
                     break;
@@ -602,7 +603,7 @@ public class ForestCon {
                 if (healerCurrentHp >0) {
                     enemyDamage=enemyDamage-healerBlock;
                     healerCurrentHp = healerCurrentHp - enemyDamage;
-                    fff.player4Hp.setText("Healer:   "+healerCurrentHp);
+                    fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     healerattacked = true;
                     break;
                 }
@@ -658,22 +659,22 @@ public class ForestCon {
 
         if(warriorCurrentHp<=0){
             warriorCurrentHp = 0;
-            fff.player1Hp.setText("Warrior: "+warriorCurrentHp);
+            fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);
             fff.warrior.setVisible(false);
         }
         if(mageCurrentHp<=0){
             mageCurrentHp = 0;
-            fff.player3Hp.setText("Mage:    "+mageCurrentHp);
+            fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
             fff.mage.setVisible(false);
         }
         if(rangerCurrentHp<=0){
             rangerCurrentHp = 0;
-            fff.player2Hp.setText("Ranger:  "+rangerCurrentHp);
+            fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
             fff.ranger.setVisible(false);
         }
         if(healerCurrentHp<=0){
             healerCurrentHp = 0;
-            fff.player4Hp.setText("Healer:  "+healerCurrentHp);
+            fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
             fff.healer.setVisible(false);
         }
     }
@@ -772,11 +773,11 @@ public class ForestCon {
         fff.wolf3Hp = new JLabel("Wolf 3: "+ wolfHp[2]);
         fff.wolf4Hp = new JLabel("Wolf 4: "+ wolfHp[3]);
 
-        fff.playersHp = new JLabel("Hp: "+warriorCurrentHp+"   ");
-        fff.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp+"   ");
-        fff.player2Hp = new JLabel("Ranger:  "+ rangerCurrentHp+"   ");
-        fff.player3Hp = new JLabel("Mage:    "+ mageCurrentHp+"   ");
-        fff.player4Hp = new JLabel("Healer:  "+ healerCurrentHp+"   ");
+        fff.playerStr = new JLabel("Strength: "+ (warriorDamage+buffDamage[1]));
+        fff.player1Hp = new JLabel("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);
+        fff.player2Hp = new JLabel("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
+        fff.player3Hp = new JLabel("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
+        fff.player4Hp = new JLabel("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
         fff.block = new JLabel("Block: "+warriorBlock);
     }
 
@@ -861,24 +862,21 @@ public class ForestCon {
                 //If player own that potion.
                 if (ownedPotions[0] > 0) {
                     warriorCurrentHp += 10; //Heal warrior equals to the potions heal.
-                    fff.playersHp.setText("Hp: " + warriorCurrentHp); //Update Warrior's hp Label.
-                    fff.player1Hp.setText("Warrior: " + warriorCurrentHp); // Update currentPlayer Hp label.
+                    fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp); // Update currentPlayer Hp label.
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]); //Update ownedPotion Label.
                 }
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     warriorCurrentHp += 30;
-                    fff.playersHp.setText("Hp: " + warriorCurrentHp);
-                    fff.player1Hp.setText("Warrior: " + warriorCurrentHp);
+                    fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);;
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
                 }
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     warriorCurrentHp += 60;
-                    fff.playersHp.setText("Hp: " + warriorCurrentHp);
-                    fff.player1Hp.setText("Warrior: " + warriorCurrentHp);
+                    fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);
                     ownedPotions[2]-=1;
                     fff.potion3Label.setText(""+ownedPotions[2]);
                 }
@@ -925,27 +923,27 @@ public class ForestCon {
                     fff.potion9Label.setText(""+ownedPotions[8]);
                 }
             }
-            if (potion == 10) {
+            else if (potion == 10) {
                 if (ownedPotions[9] > 0) {
                     buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
-                    fff.block.setText("Block: "+warriorBlock);
+                    fff.playerStr.setText("Strength: "+(warriorDamage+buffDamage[0]));
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             }
-            if (potion == 11) {
+            else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
                     buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
-                    fff.block.setText("Block: "+warriorBlock);
+                    fff.playerStr.setText("Strength: "+(warriorDamage+buffDamage[0]));
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             }
-            if (potion == 12) {
+            else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
                     buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
-                    fff.block.setText("Block: "+warriorBlock);
+                    fff.playerStr.setText("Strength: "+(warriorDamage+buffDamage[0]));
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
             }
@@ -956,24 +954,21 @@ public class ForestCon {
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     rangerCurrentHp += 10;
-                    fff.playersHp.setText("Hp: " + rangerCurrentHp);
-                    fff.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]);
                 }
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     rangerCurrentHp += 30;
-                    fff.playersHp.setText("Hp: " + rangerCurrentHp);
-                    fff.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
                 }
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     rangerCurrentHp += 60;
-                    fff.playersHp.setText("Hp: " + rangerCurrentHp);
-                    fff.player2Hp.setText("Ranger: " + rangerCurrentHp);
+                    fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
                     ownedPotions[2]-=1;
                     fff.potion3Label.setText(""+ownedPotions[2]);
                 }
@@ -1024,18 +1019,21 @@ public class ForestCon {
                 if (ownedPotions[9] > 0) {
                     buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
+                    fff.playerStr.setText("Strength: "+(rangerDamage+buffDamage[1]));
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
                     buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
+                    fff.playerStr.setText("Strength: "+(rangerDamage+buffDamage[1]));
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
                     buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
+                    fff.playerStr.setText("Strength: "+(rangerDamage+buffDamage[1]));
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
             }
@@ -1045,24 +1043,21 @@ public class ForestCon {
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     mageCurrentHp += 10;
-                    fff.playersHp.setText("Hp: " + mageCurrentHp);
-                    fff.player3Hp.setText("Mage: " + mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]);
                 }
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     mageCurrentHp += 30;
-                    fff.playersHp.setText("Hp: " + mageCurrentHp);
-                    fff.player3Hp.setText("Mage: " + mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
                 }
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     rangerCurrentHp += 60;
-                    fff.playersHp.setText("Hp: " + mageCurrentHp);
-                    fff.player3Hp.setText("Mage: " + mageCurrentHp);
+                    fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
                     fff.potion3Label.setText(""+ownedPotions[2]);
                     ownedPotions[2]-=1;
                 }
@@ -1113,18 +1108,21 @@ public class ForestCon {
                 if (ownedPotions[9] > 0) {
                     buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
+                    fff.playerStr.setText("Strength: "+(mageDamage+buffDamage[2]));
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
                     buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
+                    fff.playerStr.setText("Strength: "+(mageDamage+buffDamage[2]));
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
                     buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
+                    fff.playerStr.setText("Strength: "+(mageDamage+buffDamage[2]));
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
             }
@@ -1134,24 +1132,21 @@ public class ForestCon {
             if (potion == 1) {
                 if (ownedPotions[0] > 0) {
                     healerCurrentHp += 10;
-                    fff.playersHp.setText("Hp: " + healerCurrentHp);
-                    fff.player4Hp.setText("Mage: " + healerCurrentHp);
+                    fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     ownedPotions[0]-=1;
                     fff.potion1Label.setText(""+ownedPotions[0]);
                 }
             } else if (potion == 2) {
                 if (ownedPotions[1] > 0) {
                     healerCurrentHp += 30;
-                    fff.playersHp.setText("Hp: " + healerCurrentHp);
-                    fff.player4Hp.setText("Mage: " + healerCurrentHp);
+                    fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     ownedPotions[1]-=1;
                     fff.potion2Label.setText(""+ownedPotions[1]);
                 }
             } else if (potion == 3) {
                 if (ownedPotions[2] > 0) {
                     healerCurrentHp += 60;
-                    fff.playersHp.setText("Hp: " + healerCurrentHp);
-                    fff.player4Hp.setText("Mage: " + healerCurrentHp);
+                    fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
                     ownedPotions[2]-=1;
                     fff.potion3Label.setText(""+ownedPotions[2]);
                 }
@@ -1202,21 +1197,36 @@ public class ForestCon {
                 if (ownedPotions[9] > 0) {
                     buffDamage[turns - 1] += 5;
                     ownedPotions[9]-=1;
+                    fff.playerStr.setText("Strength: "+(healerDamage+buffDamage[3]));
                     fff.potion10Label.setText(""+ownedPotions[9]);
                 }
             } else if (potion == 11) {
                 if (ownedPotions[10] > 0) {
                     buffDamage[turns - 1] += 10;
                     ownedPotions[10]-=1;
+                    fff.playerStr.setText("Strength: "+(healerDamage+buffDamage[3]));
                     fff.potion11Label.setText(""+ownedPotions[10]);
                 }
             } else if (potion == 12) {
                 if (ownedPotions[11] > 0) {
                     buffDamage[turns - 1] += 20;
                     ownedPotions[11]-=1;
+                    fff.playerStr.setText("Strength: "+(healerDamage+buffDamage[3]));
                     fff.potion12Label.setText(""+ownedPotions[11]);
                 }
             }
+        }
+        if (warriorCurrentHp>warriorMaxHp){
+            warriorCurrentHp = warriorMaxHp;
+        }
+        if (rangerCurrentHp>rangerMaxHp){
+            rangerCurrentHp = rangerMaxHp;
+        }
+        if (mageCurrentHp>mageMaxHp){
+            mageCurrentHp = mageMaxHp;
+        }
+        if (healerCurrentHp>healerMaxHp){
+            healerCurrentHp = healerMaxHp;
         }
     }
 
@@ -1409,10 +1419,10 @@ public class ForestCon {
         if (mageMaxHp < mageCurrentHp) mageCurrentHp = mageMaxHp;
         if (healerMaxHp < healerCurrentHp) healerCurrentHp = healerMaxHp;
         if (rangerMaxHp < rangerCurrentHp) rangerCurrentHp = rangerMaxHp;
-        fff.player1Hp.setText("Warrior: " + warriorCurrentHp);
-        fff.player2Hp.setText("Ranger:  " + rangerCurrentHp);
-        fff.player3Hp.setText("Mage:    " + mageCurrentHp);
-        fff.player4Hp.setText("Healer:  " + healerCurrentHp);
+        fff.player1Hp.setText("Warrior: "+ warriorCurrentHp+" /"+warriorMaxHp);;
+        fff.player2Hp.setText("Ranger:  "+ rangerCurrentHp+" /"+rangerMaxHp);
+        fff.player3Hp.setText("Mage:    "+ mageCurrentHp+" /"+mageMaxHp);
+        fff.player4Hp.setText("Healer:  "+healerCurrentHp+" /"+healerMaxHp);
     }
 
     /**

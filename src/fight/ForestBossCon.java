@@ -94,7 +94,7 @@ public class ForestBossCon {
 
         MusicPick.musicStart("forest2", "music");
 
-        forestBossHp = 200;
+        forestBossHp = 300;
         turns = 1;
         currentEnergy = 5;
         warriorEnergyInt = 5;
