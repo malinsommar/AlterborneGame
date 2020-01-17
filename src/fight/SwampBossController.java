@@ -103,7 +103,7 @@ public class SwampBossController {
 
             SBV.swampBoss.setLocation(swampBossX, swampBossY);
             SBV.swampBossflip.setLocation(swampBossFlipStart, swampBossY);
-            bossDamage = 14;
+            bossDamage = 24;
 
             //ActionListeners
             SBV.attackButton.addActionListener(e -> {

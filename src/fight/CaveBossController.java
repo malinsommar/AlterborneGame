@@ -103,7 +103,7 @@ public class CaveBossController {
 
             CBV.caveBoss.setLocation(caveBossX, caveBossY);
             CBV.caveBossflip.setLocation(caveBossFlipStart, caveBossY);
-            bossDamage = 14;
+            bossDamage = 17;
 
             //ActionListeners
             CBV.attackButton.addActionListener(e -> {

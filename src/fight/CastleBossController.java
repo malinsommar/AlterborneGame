@@ -97,7 +97,7 @@ public class CastleBossController {
             hoverEffect();
 
             CastleBV.castleBoss.setLocation(castleBossX, castleBossY);
-            bossDamage = 30;
+            bossDamage = 40;
 
             //ActionListeners
             CastleBV.attackButton.addActionListener(e -> {
