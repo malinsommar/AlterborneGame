@@ -103,7 +103,7 @@ public class SwampBossController {
 
             SBV.swampBoss.setLocation(swampBossX, swampBossY);
             SBV.swampBossflip.setLocation(swampBossFlipStart, swampBossY);
-            bossDamage = 14;
+            bossDamage = 24;
 
             //ActionListeners
             SBV.attackButton.addActionListener(e -> {
@@ -111,7 +111,7 @@ public class SwampBossController {
             });
             SBV.blockButton.addActionListener(e -> blockPressed());
             SBV.itemButton.addActionListener(e -> {
-                SBV.itemPressed();
+                SBV.inventory.setVisible(true);
                 itemMenuActivate();
             });
             SBV.skillButton.addActionListener(e -> {
@@ -133,7 +133,7 @@ public class SwampBossController {
                 if (!animationPlaying) skill4();
             });
             SBV.returnButton.addActionListener(e -> spellMenuInactive());
-            SBV.returnButton.addActionListener(e -> SBV.inventory.dispose());
+            SBV.returnButton.addActionListener(e -> SBV.inventory.setVisible(false));
 
             //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
             SBV.potion1.addActionListener(e -> usePotion(1));

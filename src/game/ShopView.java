@@ -77,7 +77,7 @@ public class ShopView {
     /**
      *Starts the shop JFrame and calls private methods needed for the frame.
      */
-    public void startShopFrame(){
+    void startShopFrame(){
         shopFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         shopFrame.setLayout(null);
         shopFrame.setSize(1920, 1080);
@@ -463,7 +463,7 @@ public class ShopView {
     private void importFont() {
         try {
             pixelMplus = Font.createFont(Font.TRUETYPE_FONT, new File("PixelMplus10-Regular.ttf"));
-        } catch (IOException | FontFormatException e) {
+        } catch (IOException | FontFormatException ignored) {
         }
     }
 }

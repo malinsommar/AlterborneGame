@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author Malin Sommar
  * @version 1
  */
-public class TutorialView {
+class TutorialView {
 
     JFrame tutorialJFrame = new JFrame();
     JButton nextPic = new JButton();
@@ -22,7 +22,7 @@ public class TutorialView {
     /**
      * Starts the tutorial JFrame and calls private methods needed for the frame.
      */
-    public void tutorialFrame(){
+    void tutorialFrame(){
 
         tutorialJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         tutorialJFrame.setSize(1920, 1080);

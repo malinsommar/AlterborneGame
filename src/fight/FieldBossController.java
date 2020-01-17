@@ -108,7 +108,7 @@ public class FieldBossController {
             });
             FBV.blockButton.addActionListener(e -> blockPressed());
             FBV.itemButton.addActionListener(e -> {
-                FBV.itemPressed();
+                FBV.inventory.setVisible(true);
                 itemMenuActivate();
             });
             FBV.skillButton.addActionListener(e -> {
@@ -130,7 +130,7 @@ public class FieldBossController {
                 if (!animationPlaying) skill4();
             });
             FBV.returnButton.addActionListener(e -> spellMenuInactive());
-            FBV.returnButton.addActionListener(e -> FBV.inventory.dispose());
+            FBV.returnButton.addActionListener(e -> FBV.inventory.setVisible(false));
 
             //Action listeners for the potions. Sends them to usePotion() with an unique number/int.
             FBV.potion1.addActionListener(e -> usePotion(1));

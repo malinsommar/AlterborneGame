@@ -11,17 +11,17 @@ import java.io.IOException;
  * @author Malin Sommar
  * @version 1
  */
-public class UserNameView {
+class UserNameView {
 
     JFrame usernameJFrame = new JFrame();
     JButton continueButton;
     Font pixelMplus;
-    JLabel enterLabel;
+    private JLabel enterLabel;
 
     /**
      * Starts the username JFrame and calls private methods needed for the frame.
      */
-    public void userNameScreen(){
+    void userNameScreen(){
 
         usernameJFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         usernameJFrame.setLayout(null);
@@ -43,7 +43,7 @@ public class UserNameView {
     /**
      * Set info for all JLabels and buttons
      */
-    public void addButtonsLabels(){
+    private void addButtonsLabels(){
 
         enterLabel = new JLabel("What's your name?");
         enterLabel.setForeground(Color.black);
