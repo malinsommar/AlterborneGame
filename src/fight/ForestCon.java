@@ -272,9 +272,9 @@ public class ForestCon {
                     if (wolfHp[i] > 0) {
                         wolfAttack();
                         partyDeath();
+                        isFightOver();
                     }
                 }
-                isFightOver();
             }
 
     /**
@@ -519,15 +519,13 @@ public class ForestCon {
      */
     //Checks if all of the enemies or OldClasses.party-members are dead.
     private void isFightOver(){
-        //If all of the wolves are dead. Open lootScreen.
         if (wolfHp[0] < 1 && wolfHp[1] < 1 && wolfHp[2] < 1 && wolfHp[3] < 1) {
             MusicPick.musicStop();
             fff.forestFightJFrame.dispose();
             fightWon = true;
 
         }
-        //In the whole OldClasses.party is dead, game is over. Send to loseScreen.
-        if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
+        else if (warriorCurrentHp < 1 && mageCurrentHp < 1 && healerCurrentHp < 1 && rangerCurrentHp < 1) {
             fff.forestFightJFrame.dispose();
             fightLost = true;
         }
@@ -857,6 +855,7 @@ public class ForestCon {
 
     /**
      * use potion and applies it's effect to current player
+     *
      * @param potion compares to ownedPotions array to see what type the potion is, and thus it's effect
      */
     //Get the effect from potions.

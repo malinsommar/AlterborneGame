@@ -28,8 +28,11 @@ public class MasterModel {
     private CastleController castleCon = new CastleController();
     private CastleBossController castleBossCon = new CastleBossController();
     private ShopController sc = new ShopController();
-    private LoseController loseController = new LoseController();
+    private DataBase dataBase = new DataBase();
     private UserNameController unc = new UserNameController();
+    private LoseView loseView = new LoseView();
+
+    boolean done = false;
 
     private int[] warriorStats = new int[3];
     private int[] mageStats = new int[3];
@@ -44,7 +47,7 @@ public class MasterModel {
 
     //Warrior weapon/armor things
     private String warriorRareWeaponName = "Iron sword", warriorEpicWeaponName = "Tempered steel blade", warriorLegendaryWeaponName = "Sword of a thousand truths", warriorRareArmorName = "Shiny Armor", warriorEpicArmorName = "Hardened Armor", warriorLegendaryArmorName = "Royal Enchanted Armor";
-    private int warriorRareWeaponDamage = 8, warriorEpicWeaponDamage = 15, warriorLegendaryWeaponDamage = 27, warriorRareArmorBlock = 6, warriorEpicArmorBlock = 10, warriorLegendaryArmorBlock;
+    private int warriorRareWeaponDamage = 8, warriorEpicWeaponDamage = 15, warriorLegendaryWeaponDamage = 27, warriorRareArmorBlock = 6, warriorEpicArmorBlock = 10, warriorLegendaryArmorBlock = 20;
 
     private String currentWarriorWeaponName = "Wooden Sword";
     private int currentWarriorWeaponDamage = 3;
@@ -117,7 +120,6 @@ public class MasterModel {
      * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
     void startGame() throws InterruptedException {
-
         setStartNumbers();
         hubController.startHubScreen();
         masterLoop1();
@@ -198,9 +200,6 @@ public class MasterModel {
             else {
                 startCastleBossFight();
             }
-        }
-        else if (worldModel.HandleOverWorld() == 7) {
-            startSecretFight();
         }
     }
 
@@ -555,17 +554,6 @@ public class MasterModel {
     }
 
     /**
-     * This method is called when player encounter the secret boss. Send ownedPotions and playerStats to secretController and start fight.<br>
-     * Await for the fight to be won or lost, update potions and start LootScreen.
-     *
-     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
-     */
-    //This method starts the secret fight and send necessary variables to SecretFightController. The secret fight has a low chance to randomly activates when swimming in water.
-    private void startSecretFight(){
-
-    }
-
-    /**
      *This method starts the tutorialController and starts masterLoop to await for 'boolean done' to change.
      *
      * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
@@ -611,14 +599,16 @@ public class MasterModel {
     /**
      * Start lose screen and send username and xp to database.
      *
-     * @throws InterruptedException Most methods that are in touch with the thread with overWorld.
      */
-    public void startLoseScreen() throws InterruptedException {
-        loseController.startLoseScreen(currentXp, userName);
+    private void gameLost() throws InterruptedException {
+        loseView.loseScreen(currentXp);
 
+        loseView.continueButton.addActionListener(e->done = true);
         masterLoop1();
 
+        dataBase.sendToDataBase(currentXp, userName);
         System.exit(0);
+
     }
 
     /**
@@ -1109,13 +1099,26 @@ public class MasterModel {
             //Fights lost
             else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||caveBossCon.fightLost||fieldCon.fightLost||fieldBossCon.fightLost||swampcon.fightLost||swampbosscon.fightLost||castleCon.fightLost||castleBossCon.fightLost) {
                 System.out.println("fightLost loop 1");
-                startLoseScreen();
+                forestCon.fightLost = false;
+                caveCon.fightLost = false;
+                forestBossCon.fightLost = false;
+                caveBossCon.fightLost = false;
+                fieldCon.fightLost = false;
+                fieldBossCon.fightLost = false;
+                swampcon.fightLost = false;
+                swampbosscon.fightLost = false;
+                castleCon.fightLost = false;
+                castleBossCon.fightLost = false;
+
+                gameLost();
                 broken = true;
                 break;
             }
             //Loot, tutorial, shop, levelUp,
-            else if (lc.done||tc.done||sc.done||luc.done||unc.done) {
+            else if (lc.done||tc.done||sc.done||luc.done||unc.done||done) {
                 System.out.println("Done");
+
+                done = false;
                 unc.done = false;
                 luc.done = false;
                 sc.done = false;
@@ -1180,13 +1183,25 @@ public class MasterModel {
             //Fights lost
             else if (forestCon.fightLost||forestBossCon.fightLost||caveCon.fightLost||caveBossCon.fightLost||fieldCon.fightLost||fieldBossCon.fightLost||swampcon.fightLost||swampbosscon.fightLost||castleCon.fightLost||castleBossCon.fightLost) {
                 System.out.println("fightLost loop 2");
+                forestCon.fightLost = false;
+                caveCon.fightLost = false;
+                forestBossCon.fightLost = false;
+                caveBossCon.fightLost = false;
+                fieldCon.fightLost = false;
+                fieldBossCon.fightLost = false;
+                swampcon.fightLost = false;
+                swampbosscon.fightLost = false;
+                castleCon.fightLost = false;
+                castleBossCon.fightLost = false;
                 broken = true;
-                startLoseScreen();
+                gameLost();
                 break;
             }
             //Loot, tutorial, shop, levelUp,
-            else if (lc.done||tc.done||sc.done||luc.done||unc.done) {
+            else if (lc.done||tc.done||sc.done||luc.done||unc.done||done) {
                 System.out.println("Done");
+
+                done = false;
                 unc.done = false;
                 luc.done = false;
                 sc.done = false;
@@ -1265,7 +1280,7 @@ public class MasterModel {
      */
     private void warriorEpicArmor() {
         currentWarriorArmorName = warriorEpicArmorName;
-        currentWarriorArmorBlock = warriorRareArmorBlock;
+        currentWarriorArmorBlock = warriorEpicArmorBlock;
     }
 
     /**

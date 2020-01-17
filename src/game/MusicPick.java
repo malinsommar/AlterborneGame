@@ -2,7 +2,6 @@ package game;
 
 import javax.sound.sampled.*;
 import java.io.File;
-import java.io.IOException;
 
 /**
  * musicPick plays music or soundeffects when called
